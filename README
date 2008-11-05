@@ -39,15 +39,15 @@ It only requires a few lines of configuration:
 		
 		#Settings for sanitize_email plugin:
 		#Overrides the recipients of all outgoing mail in local environments
-		ActionMailer::Base.sanitized_recipients = "peter.boling@swankywebdesign.com"
+		ActionMailer::Base.sanitized_recipients = "developer@example.com"
 		
 		#Overrides the BCC of all outgoing mail in local environments, 
 		# but only if a BCC is specified on the message
-		ActionMailer::Base.sanitized_bcc = "peter.boling@swankywebdesign.com"
+		ActionMailer::Base.sanitized_bcc = "developer@example.com"
 		
 		#Overrides the CC of all outgoing mail in local environments, 
 		# but only if a CC is specified on the message
-		ActionMailer::Base.sanitized_cc = "peter.boling@swankywebdesign.com"
+		ActionMailer::Base.sanitized_cc = "developer@example.com"
 		
 		#These are the environments whose outgoing email BCC, CC and 
 		# recipients fields will be overridden!  All environments not listed will be treated as normal.
