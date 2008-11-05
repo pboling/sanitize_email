@@ -17,9 +17,11 @@ So I wrote this plugin! :P
 
 It is an "install it and forget it" type plugin that requires very little setup.  It includes some very innocuous monkey patching of ActiveRecord::Base to work its magic.
 
+
 Install
 =======
 
+./script/plugin install git://github.com/pboling/sanitize_email.git
 
 
 Setup
@@ -61,6 +63,7 @@ But wait there's more:
 
 	When force_sanitize is nil it will not be used by sanitize_email to detrmine if it should override the recipients, bcc, and cc
 
+
 Example
 =======
 
@@ -83,6 +86,12 @@ Example
 	    UserMailer.deliver_signup_notification(self)
 	    UserMailer.force_sanitize = nil
 		end
+		
+		#this third method would conditionally use the overridden recipients based on current Rails environment
+	  def test_signup_email_environment
+    	OicuMailer.deliver_signup_notification(self)
+  	end
+		
 	end
 
 	Load the console with ruby script/console and regardless of what environment you are in:
