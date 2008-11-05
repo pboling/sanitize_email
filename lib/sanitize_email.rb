@@ -36,16 +36,16 @@ module NinthBit
         end
 
         def recipients
-          puts "santize_email error: sanitized_recipients is nil" if self.class.sanitized_recipients.nil?
+          puts "santize_email error: sanitized_recipients is not set" if self.class.sanitized_recipients.nil?
           localish? ? self.class.sanitized_recipients : real_recipients
         end
           
         def bcc
-          localish? && !self.class.sanitized_bcc.nil? ? self.class.sanitized_bcc : real_bcc
+          localish? ? self.class.sanitized_bcc : real_bcc
         end
       
         def cc
-          localish? && !self.class.sanitized_cc.nil? ? self.class.sanitized_cc : real_cc
+          localish? ? self.class.sanitized_cc : real_cc
         end
       
       end
