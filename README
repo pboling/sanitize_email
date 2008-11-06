@@ -45,7 +45,7 @@ It only requires a few lines of configuration:
 		# but only if a BCC is specified on the message
 		ActionMailer::Base.sanitized_bcc = "developer@example.com"
 		#Or you can override bcc's with a nil value thereby ignoring the bcc in mail sent from the local_enviroments
-		#ActionMailer::Base.sanitized_bcc = "developer@example.com"
+		#ActionMailer::Base.sanitized_bcc = nil
 		
 		#Overrides the CC of all outgoing mail in local environments, 
 		# but only if a CC is specified on the message
