@@ -8,7 +8,7 @@ SanitizeEmail allows you to play with your application's email abilities without
 This is the problem I have with site after site:
 
 1) I have a production site with live data.
-2) I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source
+2) I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source to.
 3) On this separate machine (staging, or development) I run tests, and test various features.
 4) I usually want the emails to get sent from these non-production evnironments so I can verify what they look like when sent,
 	but I don't ever want to risk them getting sent to addresses that are not mine.
