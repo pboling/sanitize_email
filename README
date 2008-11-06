@@ -63,7 +63,7 @@ But wait there's more:
 	You want to be able to test sending it to any user at any time... but you don't want
 	the user to ACTUALLY get the email. A dilemna, yes?  Not anymore!
 
-	All your mailers get a force_sanitize clas method which takes precedence over the environment override.
+	All your mailers get a force_sanitize class method which takes precedence over the environment override.
 
 	When force_sanitize is nil it will not be used by sanitize_email to detrmine if it should override the recipients, bcc, and cc
 
