@@ -61,11 +61,11 @@ But wait there's more:
 
 	Let's say you have a method in your model that you can call to test the signup email.
 	You want to be able to test sending it to any user at any time... but you don't want
-	the user to ACTUALLY get the email. A dilemna, yes?  Not anymore!
+	the user to ACTUALLY get the email, even in production. A dilemna, yes?  Not anymore!
 
 	All your mailers get a force_sanitize class method which takes precedence over the environment override.
 
-	When force_sanitize is nil it will not be used by sanitize_email to detrmine if it should override the recipients, bcc, and cc
+	When force_sanitize is nil it will not be used by sanitize_email to detrmine if it should override the recipients, bcc, and cc.
 
 
 Example
@@ -74,27 +74,27 @@ Example
 	So here's how you can use force_sanitize to override the override.
 
 	Even if you set:
-		ActionMailer::Base.local_environments = %w( development )
+        ActionMailer::Base.local_environments = %w( development )
 
 	And are in the development environment, you can override the override anywhere in your code.
 	
-	class User < ActiveRecord::Base
-		def test_signup_email_me_only
-	    UserMailer.force_sanitize = true
-	    UserMailer.deliver_signup_notification(self)
-	    UserMailer.force_sanitize = nil
-		end
+    class User < ActiveRecord::Base
+      def test_signup_email_me_only
+        UserMailer.force_sanitize = true
+        UserMailer.deliver_signup_notification(self)
+        UserMailer.force_sanitize = nil
+      end
 
-		def test_signup_email_user_only
-	    UserMailer.force_sanitize = false
-	    UserMailer.deliver_signup_notification(self)
-	    UserMailer.force_sanitize = nil
-		end
+      def test_signup_email_user_only
+        UserMailer.force_sanitize = false
+        UserMailer.deliver_signup_notification(self)
+        UserMailer.force_sanitize = nil
+      end
 		
-		#this third method would conditionally use the overridden recipients based on current Rails environment
+	  #this third method would conditionally use the overridden recipients based on current Rails environment
 	  def test_signup_email_environment
-    	OicuMailer.deliver_signup_notification(self)
-  	end
+        UserMailer.deliver_signup_notification(self)
+  	  end
 		
 	end
 
