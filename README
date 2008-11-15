@@ -91,12 +91,12 @@ Example
         UserMailer.force_sanitize = nil
       end
 		
-	  #this third method would conditionally use the overridden recipients based on current Rails environment
-	  def test_signup_email_environment
+      #this third method would conditionally use the overridden recipients based on current Rails environment
+      def test_signup_email_environment
         UserMailer.deliver_signup_notification(self)
-  	  end
+      end
 		
-	end
+    end
 
 	Load the console with ruby script/console and regardless of what environment you are in:
 
