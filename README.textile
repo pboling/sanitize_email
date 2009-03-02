@@ -34,7 +34,7 @@ It only requires a few lines of configuration:
 	Add this bit and customize for your app:
 
 <ruby>
-  # Settings for sanitize_email gem.  These can be overridden in individual config/<env>/environment.rb files.
+  # Settings for sanitize_email gem.  These can be overridden in individual config/%env%/environment.rb files.
 
   require 'sanitize_email'
   ActionMailer::Base.sanitized_recipients = "jtrupiano@gmail.com"
