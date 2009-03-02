@@ -65,6 +65,7 @@ Even if you set:
 
 and are in the development environment, you can override the override anywhere in your code.
 
+<pre>
   class User < ActiveRecord::Base
     def test_signup_email_me_only
       UserMailer.force_sanitize = true
@@ -78,12 +79,13 @@ and are in the development environment, you can override the override anywhere i
       UserMailer.force_sanitize = nil
     end
 
-    #this third method would conditionally use the overridden recipients based on current Rails environment
+    # this third method would conditionally use the overridden recipients based on current Rails environment
     def test_signup_email_environment
       UserMailer.deliver_signup_notification(self)
     end
 
   end
+</pre>
 
 Load the console with ruby script/console and regardless of what environment you are in:
 
