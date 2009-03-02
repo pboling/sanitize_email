@@ -4,13 +4,12 @@ This gem allows you to quickly globally override your mail delivery settings in 
 
 This is the problem I have with site after site:
 
-1) I have a production site with live data.
-2) I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source to.
-3) On this separate machine (staging, or development) I run tests, and test various features.
-4) I usually want the emails to get sent from these non-production evnironments so I can verify what they look like when sent,
-	but I don't ever want to risk them getting sent to addresses that are not mine.
+# I have a production site with live data.
+# I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source to.
+# On this separate machine (staging, or development) I run tests, and test various features.
+# I usually want the emails to get sent from these non-production evnironments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 	
-So Peter Boling wrote a plugin!  And I've taken it and turned into a gem!
+So Peter Boling wrote a plugin!  And I've taken it and turned it into a gem!
 
 It is an "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActiveRecord::Base to work its magic.
 
@@ -19,7 +18,6 @@ h2. Install
 
 gem sources -a http://gems.github.com/
 gem install jtrupiano-sanitize_email
-
 
 h2. Setup
 
@@ -33,7 +31,7 @@ It only requires a few lines of configuration:
 		
 	Add this bit and customize for your app:
 
-<ruby>
+<code>
   # Settings for sanitize_email gem.  These can be overridden in individual config/%env%/environment.rb files.
 
   require 'sanitize_email'
@@ -44,19 +42,19 @@ It only requires a few lines of configuration:
   # These are the environments whose outgoing email BCC, CC and recipients fields will be overridden!  
   # All environments not listed will be treated as normal.
   ActionMailer::Base.local_environments = %w( development test staging )
-</ruby>
+</code>
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
 
 But wait there's more:
 
-	Let's say you have a method in your model that you can call to test the signup email.
-	You want to be able to test sending it to any user at any time... but you don't want
-	the user to ACTUALLY get the email, even in production. A dilemma, yes?  Not anymore!
+Let's say you have a method in your model that you can call to test the signup email.
+You want to be able to test sending it to any user at any time... but you don't want
+the user to ACTUALLY get the email, even in production. A dilemma, yes?  Not anymore!
 
-	All your mailers get a force_sanitize class method which takes precedence over the environment override.
+All your mailers get a force_sanitize class method which takes precedence over the environment override.
 
-	When force_sanitize is nil it will not be used by sanitize_email to determine if it should override the recipients, bcc, and cc.
+When force_sanitize is nil it will not be used by sanitize_email to determine if it should override the recipients, bcc, and cc.
 
 
 h2. Example
@@ -64,33 +62,33 @@ h2. Example
 So here's how you can use force_sanitize to override the override.
 
 Even if you set:
-<ruby>
-        ActionMailer::Base.local_environments = %w( development )
-</ruby>
+<code>
+  ActionMailer::Base.local_environments = %w( development )
+</code>
 
 and are in the development environment, you can override the override anywhere in your code.
 
-<ruby>	
-    class User < ActiveRecord::Base
-      def test_signup_email_me_only
-        UserMailer.force_sanitize = true
-        UserMailer.deliver_signup_notification(self)
-        UserMailer.force_sanitize = nil
-      end
-
-      def test_signup_email_user_only
-        UserMailer.force_sanitize = false
-        UserMailer.deliver_signup_notification(self)
-        UserMailer.force_sanitize = nil
-      end
-		
-      #this third method would conditionally use the overridden recipients based on current Rails environment
-      def test_signup_email_environment
-        UserMailer.deliver_signup_notification(self)
-      end
-		
+<code>
+  class User < ActiveRecord::Base
+    def test_signup_email_me_only
+      UserMailer.force_sanitize = true
+      UserMailer.deliver_signup_notification(self)
+      UserMailer.force_sanitize = nil
     end
-</ruby>
+
+    def test_signup_email_user_only
+      UserMailer.force_sanitize = false
+      UserMailer.deliver_signup_notification(self)
+      UserMailer.force_sanitize = nil
+    end
+
+    #this third method would conditionally use the overridden recipients based on current Rails environment
+    def test_signup_email_environment
+      UserMailer.deliver_signup_notification(self)
+    end
+
+  end
+</code>
 
 Load the console with ruby script/console and regardless of what environment you are in:
 
