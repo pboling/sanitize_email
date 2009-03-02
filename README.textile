@@ -1,9 +1,6 @@
-SanitizeEmail
-=============
+h1. sanitize_email
 
-This plugin fills a gaping hole I have found in every one of the Rails projects I've worked on.
-
-SanitizeEmail allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses.
+This gem allows you to quickly globally override your mail delivery settings in depending on the environment.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
 This is the problem I have with site after site:
 
@@ -13,19 +10,18 @@ This is the problem I have with site after site:
 4) I usually want the emails to get sent from these non-production evnironments so I can verify what they look like when sent,
 	but I don't ever want to risk them getting sent to addresses that are not mine.
 	
-So I wrote this plugin! :P
+So Peter Boling wrote a plugin!  And I've taken it and turned into a gem!
 
-It is an "install it and forget it" type plugin that requires very little setup.  It includes some very innocuous monkey patching of ActiveRecord::Base to work its magic.
-
-
-Install
-=======
-
-./script/plugin install git://github.com/pboling/sanitize_email.git
+It is an "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActiveRecord::Base to work its magic.
 
 
-Setup
-=====
+h2. Install
+
+gem sources -a http://gems.github.com/
+gem install jtrupiano-sanitize_email
+
+
+h2. Setup
 
 It only requires a few lines of configuration:
 
@@ -36,7 +32,8 @@ It only requires a few lines of configuration:
 		Use an initializer, stick it in any initializer file, or create a new one for sanitize_email
 		
 	Add this bit and customize for your app:
-		
+
+<ruby>		
 		#Settings for sanitize_email plugin:
 		#Overrides the recipients of all outgoing mail in local environments
 		ActionMailer::Base.sanitized_recipients = "developer@example.com"
@@ -56,28 +53,31 @@ It only requires a few lines of configuration:
 		#These are the environments whose outgoing email BCC, CC and 
 		# recipients fields will be overridden!  All environments not listed will be treated as normal.
 		ActionMailer::Base.local_environments = %w( development test )
+</ruby>
 
 But wait there's more:
 
 	Let's say you have a method in your model that you can call to test the signup email.
 	You want to be able to test sending it to any user at any time... but you don't want
-	the user to ACTUALLY get the email, even in production. A dilemna, yes?  Not anymore!
+	the user to ACTUALLY get the email, even in production. A dilemma, yes?  Not anymore!
 
 	All your mailers get a force_sanitize class method which takes precedence over the environment override.
 
-	When force_sanitize is nil it will not be used by sanitize_email to detrmine if it should override the recipients, bcc, and cc.
+	When force_sanitize is nil it will not be used by sanitize_email to determine if it should override the recipients, bcc, and cc.
 
 
-Example
-=======
+h2. Example
 
-	So here's how you can use force_sanitize to override the override.
+So here's how you can use force_sanitize to override the override.
 
-	Even if you set:
+Even if you set:
+<ruby>
         ActionMailer::Base.local_environments = %w( development )
+</ruby>
 
-	And are in the development environment, you can override the override anywhere in your code.
-	
+and are in the development environment, you can override the override anywhere in your code.
+
+<ruby>	
     class User < ActiveRecord::Base
       def test_signup_email_me_only
         UserMailer.force_sanitize = true
@@ -97,13 +97,14 @@ Example
       end
 		
     end
+</ruby>
 
-	Load the console with ruby script/console and regardless of what environment you are in:
+Load the console with ruby script/console and regardless of what environment you are in:
 
 	> User.find(4).test_signup_email_me_only
 	
-	and the email will have it's recipients, bcc, and cc overridden to be whatever you set the sanitized values to be.
-	Then if you want to send it to the actual user, instead of yourself
+and the email will have it's recipients, bcc, and cc overridden to be whatever you set the sanitized values to be.
+Then if you want to send it to the actual user, instead of yourself
 
 	> User.find(4).test_signup_email_user_only
 
