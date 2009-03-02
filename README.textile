@@ -16,22 +16,19 @@ It is an "configure it and forget it" type gem that requires very little setup. 
 
 h2. Install
 
-gem sources -a http://gems.github.com/
-gem install jtrupiano-sanitize_email
+  gem sources -a http://gems.github.com/
+  gem install jtrupiano-sanitize_email
 
 h2. Setup
 
 It only requires a few lines of configuration:
 
-	Rails 1.x:
-		Add to bottom of environment.rb
+* Rails 1.x: Add to bottom of environment.rb
 		
-	Rails 2.x:
-		Use an initializer, stick it in any initializer file, or create a new one for sanitize_email
+* Rails 2.x: Use an initializer, stick it in any initializer file, or create a new one for sanitize_email
 		
-	Add this bit and customize for your app:
+Add this bit and customize for your app:
 
-<code>
   # Settings for sanitize_email gem.  These can be overridden in individual config/%env%/environment.rb files.
 
   require 'sanitize_email'
@@ -42,7 +39,6 @@ It only requires a few lines of configuration:
   # These are the environments whose outgoing email BCC, CC and recipients fields will be overridden!  
   # All environments not listed will be treated as normal.
   ActionMailer::Base.local_environments = %w( development test staging )
-</code>
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
 
@@ -62,13 +58,11 @@ h2. Example
 So here's how you can use force_sanitize to override the override.
 
 Even if you set:
-<code>
+
   ActionMailer::Base.local_environments = %w( development )
-</code>
 
 and are in the development environment, you can override the override anywhere in your code.
 
-<code>
   class User < ActiveRecord::Base
     def test_signup_email_me_only
       UserMailer.force_sanitize = true
@@ -88,7 +82,6 @@ and are in the development environment, you can override the override anywhere i
     end
 
   end
-</code>
 
 Load the console with ruby script/console and regardless of what environment you are in:
 
