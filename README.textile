@@ -29,6 +29,7 @@ It only requires a few lines of configuration:
 		
 Add this bit and customize for your app:
 
+<pre>
   # Settings for sanitize_email gem.  These can be overridden in individual config/%env%/environment.rb files.
 
   require 'sanitize_email'
@@ -39,6 +40,7 @@ Add this bit and customize for your app:
   # These are the environments whose outgoing email BCC, CC and recipients fields will be overridden!  
   # All environments not listed will be treated as normal.
   ActionMailer::Base.local_environments = %w( development test staging )
+</pre>
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
 
