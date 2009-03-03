@@ -1,18 +1,15 @@
 h1. sanitize_email
 
-This gem allows you to quickly globally override your mail delivery settings in depending on the environment.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
+This gem allows you to globally override your mail delivery settings.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
-This is the problem I have with site after site:
+Peter Boling wrote the plugin that this gem is derived from.  He described the common problem he was trying to solve as such:
 
 # I have a production site with live data.
 # I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source to.
 # On this separate machine (staging, or development) I run tests, and test various features.
 # I usually want the emails to get sent from these non-production evnironments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 	
-So Peter Boling wrote a plugin!  And I've taken it and turned it into a gem!
-
-It is an "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActiveRecord::Base to work its magic.
-
+It is a "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActionMailer::Base to work its magic.
 
 h2. Install
 
@@ -98,5 +95,6 @@ Then if you want to send it to the actual user, instead of yourself
 
 That's it!  Enjoy!
 
+Copyright (c) 2009 John Trupiano of SmartLogic Solutions, LLC
 Copyright (c) 2008 Peter H. Boling of 9thBit LLC
 Released under the MIT license
