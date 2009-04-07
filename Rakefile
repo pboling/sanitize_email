@@ -2,6 +2,23 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = "sanitize_email"
+    #s.executables = "jeweler"
+    s.summary = "Gemified fork of pboling's sanitize_email plugin: allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses."
+    s.email = "jtrupiano@gmail.com"
+    s.homepage = "http://github.com/jtrupiano/sanitize_email"
+    s.description = "allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses"
+    s.authors = ["John Trupiano", "Peter Boling"]
+    #s.files =  FileList["[A-Z]*", "{bin,generators,lib,test}/**/*", 'lib/jeweler/templates/.gitignore']
+    #s.add_dependency 'schacon-git'
+  end
+rescue LoadError
+  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
+
 desc 'Default: run unit tests.'
 task :default => :test
 
@@ -20,3 +37,4 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
