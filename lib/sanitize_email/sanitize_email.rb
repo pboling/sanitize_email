@@ -36,21 +36,22 @@ module NinthBit
         end
 
         def recipients(*addresses)
-          real_recipients *addresses
-          puts "santize_email error: sanitized_recipients is not set" if self.class.sanitized_recipients.nil?
-          localish? ? self.class.sanitized_recipients : real_recipients
+          if localish? 
+            puts "sanitize_email error: sanitized_recipients is not set" if self.class.sanitized_recipients.nil?
+            self.class.sanitized_recipients 
+          else
+            real_recipients(*addresses)
+          end
         end
 
         def bcc(*addresses)
-          real_bcc *addresses
-          localish? ? self.class.sanitized_bcc : real_bcc
+          localish? ? self.class.sanitized_bcc : real_bcc(*addresses)
         end
 
         def cc(*addresses)
-          real_cc *addresses
-          localish? ? self.class.sanitized_cc : real_cc
+          localish? ? self.class.sanitized_cc : real_cc(*addresses)
         end
-      
+
       end
 
     end
