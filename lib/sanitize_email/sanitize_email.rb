@@ -37,7 +37,7 @@ module NinthBit
 
         def recipients(*addresses)
           real_recipients *addresses
-          puts "santize_email error: sanitized_recipients is not set" if self.class.sanitized_recipients.nil?
+          puts "sanitize_email error: sanitized_recipients is not set" if self.class.sanitized_recipients.nil?
           localish? ? self.class.sanitized_recipients : real_recipients
         end
 
