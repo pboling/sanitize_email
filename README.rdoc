@@ -10,14 +10,14 @@ Peter Boling wrote the plugin that this gem is derived from.  It currently solve
 
 Peter described this common problem in his original plugin implementation as such:
 
-# I have a production site with live data.
-# I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source to.
-# On this separate machine (staging, or development) I run tests, and test various features.
-# I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
+* I have a production site with live data.
+* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source to.
+* On this separate machine (staging, or development) I run tests, and test various features.
+* I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 
 === Re-routing Email on a Staging or QA Server
 
-Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  Similarly, we set up QA instances for our own QA team and we use rails-caddy to allow each QA person to configure it specifically for them.
+Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  Similarly, we set up QA instances for our own QA team and we use {rails-caddy}[http://github.com/jtrupiano/rails-caddy] to allow each QA person to configure it specifically for them.
 
 === Testing Email from a Hot Production Server
 
@@ -25,8 +25,8 @@ If you install this gem on a production server (which I don't always do), you ca
 
 == Install
 
-  gem sources -a http://gems.github.com/
-  gem install jtrupiano-sanitize_email
+    gem sources -a http://gems.github.com/
+    gem install jtrupiano-sanitize_email
 
 == Setup
 
@@ -38,18 +38,16 @@ It only requires a few lines of configuration:
 		
 Add this bit and customize for your app:
 
-<pre>
-  # Settings for sanitize_email gem.  These can be overridden in individual config/%env%/environment.rb files.
+    # Settings for sanitize_email gem.  These can be overridden in individual config/%env%/environment.rb files.
 
-  require 'sanitize_email'
-  ActionMailer::Base.sanitized_recipients = "jtrupiano@gmail.com"
-  ActionMailer::Base.sanitized_bcc = nil
-  ActionMailer::Base.sanitized_cc = nil
+    require 'sanitize_email'
+    ActionMailer::Base.sanitized_recipients = "jtrupiano@gmail.com"
+    ActionMailer::Base.sanitized_bcc = nil
+    ActionMailer::Base.sanitized_cc = nil
 
-  # These are the environments whose outgoing email BCC, CC and recipients fields will be overridden!  
-  # All environments not listed will be treated as normal.
-  ActionMailer::Base.local_environments = %w( development test staging )
-</pre>
+    # These are the environments whose outgoing email BCC, CC and recipients fields will be overridden!  
+    # All environments not listed will be treated as normal.
+    ActionMailer::Base.local_environments = %w( development test staging )
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
 
@@ -74,39 +72,36 @@ Even if you set:
 
 and are in the development environment, you can override the override anywhere in your code.
 
-<pre>
-  class User < ActiveRecord::Base
-    def test_signup_email_me_only
-      UserMailer.force_sanitize = true
-      UserMailer.deliver_signup_notification(self)
-      UserMailer.force_sanitize = nil
-    end
+    class User < ActiveRecord::Base
+      def test_signup_email_me_only
+        UserMailer.force_sanitize = true
+        UserMailer.deliver_signup_notification(self)
+        UserMailer.force_sanitize = nil
+      end
 
-    def test_signup_email_user_only
-      UserMailer.force_sanitize = false
-      UserMailer.deliver_signup_notification(self)
-      UserMailer.force_sanitize = nil
-    end
+      def test_signup_email_user_only
+        UserMailer.force_sanitize = false
+        UserMailer.deliver_signup_notification(self)
+        UserMailer.force_sanitize = nil
+      end
 
-    # this third method would conditionally use the overridden recipients based on current Rails environment
-    def test_signup_email_environment
-      UserMailer.deliver_signup_notification(self)
+      # this third method would conditionally use the overridden recipients based on current Rails environment
+      def test_signup_email_environment
+        UserMailer.deliver_signup_notification(self)
+      end
     end
-
-  end
-</pre>
 
 Load the console with ruby script/console and regardless of what environment you are in:
 
-	> User.find(4).test_signup_email_me_only
+	  > User.find(4).test_signup_email_me_only
 	
 and the email will have it's recipients, bcc, and cc overridden to be whatever you set the sanitized values to be.
 Then if you want to send it to the actual user, instead of yourself
 
-	> User.find(4).test_signup_email_user_only
+	  > User.find(4).test_signup_email_user_only
 
 That's it!  Enjoy!
 
-Copyright (c) 2009 John Trupiano of SmartLogic Solutions, LLC
-Copyright (c) 2008 Peter H. Boling of 9thBit LLC
+Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
+Copyright (c) 2008 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
 Released under the MIT license
