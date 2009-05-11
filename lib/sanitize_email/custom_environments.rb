@@ -16,10 +16,10 @@ module NinthBit
 
     module ClassMethods
       def consider_local?
-        local_environments.include?(ENV['RAILS_ENV'])
+        local_environments.include?(Rails.env)
       end
       def consider_deployed?
-        deployed_environments.include?(ENV['RAILS_ENV'])
+        deployed_environments.include?(Rails.env)
       end
     end
     
