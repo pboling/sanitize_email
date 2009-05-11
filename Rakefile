@@ -4,19 +4,17 @@ require 'rake/rdoctask'
 
 begin
   require 'jeweler'
-  Jeweler::Tasks.new do |s|
-    s.name = "sanitize_email"
-    #s.executables = "jeweler"
-    s.summary = "Gemified fork of pboling's sanitize_email plugin: allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses."
-    s.email = "jtrupiano@gmail.com"
-    s.homepage = "http://github.com/jtrupiano/sanitize_email"
-    s.description = "allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses"
-    s.authors = ["John Trupiano", "Peter Boling"]
-    #s.files =  FileList["[A-Z]*", "{bin,generators,lib,test}/**/*", 'lib/jeweler/templates/.gitignore']
-    #s.add_dependency 'schacon-git'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "sanitize_email"
+    gem.rubyforge_project = "johntrupiano"
+    gem.summary = "Tool to aid in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
+    gem.email = "jtrupiano@gmail.com"
+    gem.homepage = "http://github.com/jtrupiano/sanitize_email"
+    gem.description = "allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses"
+    gem.authors = ["John Trupiano", "Peter Boling"]
   end
 rescue LoadError
-  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install jeweler"
 end
 
 desc 'Default: run unit tests.'
@@ -30,11 +28,38 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'Generate documentation for the sanitize_email plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+Rake::RDocTask.new do |rdoc|
+  config = YAML.load(File.read('VERSION.yml'))
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'SanitizeEmail'
+  rdoc.title = "sanitize_email #{config[:major]}.#{config[:minor]}.#{config[:patch]}"
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+# Rubyforge documentation task
+begin
+  require 'rake/contrib/sshpublisher'
+  namespace :rubyforge do
+    
+    desc "Release gem and RDoc documentation to RubyForge"
+    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
+    
+    namespace :release do
+      desc "Publish RDoc to RubyForge."
+      task :docs => [:rdoc] do
+        config = YAML.load(
+          File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+        )
+
+        host = "#{config['username']}@rubyforge.org"
+        remote_dir = "/var/www/gforge-projects/johntrupiano/sanitize_email/"
+        local_dir = 'rdoc'
+
+        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+      end
+    end
+  end
+rescue LoadError
+  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
+end
