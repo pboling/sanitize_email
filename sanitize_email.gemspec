@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 
+require 'rake'
+
 Gem::Specification.new do |s|
   s.name = %q{sanitize_email}
   s.version = "0.2.0"
