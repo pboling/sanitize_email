@@ -9,18 +9,14 @@ module NinthBit
   
       base.cattr_accessor :local_environments
       base.local_environments = %w( development test )
-      
-      base.cattr_accessor :deployed_environments
-      base.deployed_environments = %w( production staging )
+
     end
 
     module ClassMethods
       def consider_local?
-        local_environments.include?(ENV['RAILS_ENV'])
+        local_environments.include?(RAILS_ENV)
       end
-      def consider_deployed?
-        deployed_environments.include?(ENV['RAILS_ENV'])
-      end
+
     end
     
   end

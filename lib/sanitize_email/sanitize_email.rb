@@ -28,11 +28,17 @@ module NinthBit
         alias :real_bcc :bcc
         alias :real_cc :cc
         alias :real_recipients :recipients
+        alias :real_subject :subject
 
         def localish?
           #consider_local is a method in sanitize_email/lib/custom_environments.rb
           # it is included in ActionMailer in sanitize_email/init.rb
           !self.class.force_sanitize.nil? ? self.class.force_sanitize : self.class.consider_local?
+        end
+
+        def subject(*lines)
+          real_subject *lines
+          localish? ? "(#{real_recipients}) #{real_subject}" : real_subject unless real_recipients.nil?
         end
 
         def recipients(*addresses)
