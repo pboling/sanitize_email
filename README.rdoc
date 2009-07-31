@@ -11,7 +11,7 @@ Peter Boling wrote the plugin that this gem is derived from.  It currently solve
 Peter described this common problem in his original plugin implementation as such:
 
 * I have a production site with live data.
-* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source to.
+* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source.
 * On this separate machine (staging, or development) I run tests, and test various features.
 * I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 
