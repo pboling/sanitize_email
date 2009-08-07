@@ -5,7 +5,6 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.extra_rdoc_files = ["README.rdoc"]
   s.version = "0.3.0"
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
   s.date = %q{2009-06-09}
   s.description = %q{allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses}
