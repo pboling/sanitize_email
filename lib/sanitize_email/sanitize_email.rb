@@ -24,15 +24,21 @@ module NinthBit
       base.sanitized_recipients = nil
       
       # Use the 'real' email address as the username for the sanitized email address
-      # e.g. "real@email.com <sanitized@email.com>"
+      # e.g. "real@example.com <sanitized@example.com>"
       base.cattr_accessor :use_actual_email_as_sanitized_user_name
       base.use_actual_email_as_sanitized_user_name = false
-      
+
+      # Prepend the 'real' email address onto the Subject line of the message
+      # e.g. "real@example.com rest of subject"
+      base.cattr_accessor :use_actual_email_prepended_to_subject
+      base.use_actual_email_prepended_to_subject = false
+
       base.class_eval do
         # We need to alias these methods so that our new methods get used instead
         alias :real_bcc :bcc
         alias :real_cc :cc
         alias :real_recipients :recipients
+        alias :real_subject :subject
 
         def localish?
           # consider_local is a method in sanitize_email/lib/custom_environments.rb
@@ -40,11 +46,16 @@ module NinthBit
           !self.class.force_sanitize.nil? ? self.class.force_sanitize : self.class.consider_local?
         end
 
+        def subject(*lines)
+          real_subject(*lines)
+          localish? ? override_subject : real_subject
+        end
+
         def recipients(*addresses)
           real_recipients(*addresses)
           if localish? 
             puts "sanitize_email error: sanitized_recipients is not set" if self.class.sanitized_recipients.nil?
-            override(:recipients)
+            override_email(:recipients)
           else
             real_recipients
           end
@@ -52,19 +63,23 @@ module NinthBit
 
         def cc(*addresses)
           real_cc(*addresses)
-          localish? ? override(:cc) : real_cc
+          localish? ? override_email(:cc) : real_cc
         end
 
         def bcc(*addresses)
           real_bcc(*addresses)
-          localish? ? override(:bcc) : real_bcc
+          localish? ? override_email(:bcc) : real_bcc
         end
         
         #######
         private
         #######
 
-        def override(type)
+        def override_subject
+          real_recipients.nil? ? real_subject : "(#{real_recipients}) #{real_subject}"
+        end
+
+        def override_email(type)
           real_addresses, sanitized_addresses = 
             case type
             when :recipients
