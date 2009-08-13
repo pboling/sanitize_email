@@ -1,5 +1,4 @@
-require 'test/unit'
-require 'test/sample_mailer'
+require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 
 class SanitizeEmailTest < Test::Unit::TestCase
   def setup

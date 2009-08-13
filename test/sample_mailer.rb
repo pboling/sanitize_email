@@ -1,13 +1,3 @@
-
-require 'rubygems'
-require 'action_mailer'
-
-# configure ActionMailer
-ActionMailer::Base.template_root = "."
-
-require File.join(File.dirname(__FILE__), "..", "lib", 'sanitize_email')
-
-
 class SampleMailer < ActionMailer::Base
   
   def gmail_override
