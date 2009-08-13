@@ -90,7 +90,9 @@ module NinthBit
               [real_bcc, self.class.sanitized_bcc]
             else raise "sanitize_email error: unknown email override"
             end
-          
+
+          # If there were no original recipients, then we DO NOT override the nil with the sanitized recipients
+          return nil if real_addresses.nil?
           return sanitized_addresses if sanitized_addresses.nil? || !self.class.use_actual_email_as_sanitized_user_name
 
           out = real_addresses.inject([]) do |result, real_recipient|
