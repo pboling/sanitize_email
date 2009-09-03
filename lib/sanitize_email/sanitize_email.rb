@@ -1,4 +1,4 @@
-#Copyright (c) 2008 Peter H. Boling of 9thBit LLC
+#Copyright (c) 2008-9 Peter H. Boling of 9thBit LLC
 #Released under the MIT license
 
 module NinthBit
