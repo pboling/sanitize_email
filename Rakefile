@@ -4,17 +4,30 @@ require 'rake/rdoctask'
 
 begin
   require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "sanitize_email"
-    gem.rubyforge_project = "johntrupiano"
-    gem.summary = "Tool to aid in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
-    gem.email = "jtrupiano@gmail.com"
-    gem.homepage = "http://github.com/jtrupiano/sanitize_email"
-    gem.description = "allows you to play with your application's email abilities without worrying that emails will get sent to actual live addresses"
-    gem.authors = ["John Trupiano", "Peter Boling"]
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "sanitize_email"
+    gemspec.rubyforge_project = "johntrupiano"
+    gemspec.summary = "Tool to aid in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
+    gemspec.description = %q{Test an application's email abilities without ever sending a message to actual live addresses}
+    gemspec.email = ['peter.boling@gmail.com', 'jtrupiano@gmail.com', 'george@benevolentcode.com']
+    gemspec.homepage = "http://github.com/pboling/capistrano_mailer"
+    gemspec.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
+    gemspec.add_dependency 'action_mailer'
+    gemspec.files = ["lib/sanitize_email/custom_environments.rb",
+             "lib/sanitize_email/sanitize_email.rb",
+             "lib/sanitize_email.rb",
+             "init.rb",
+             "MIT-LICENSE",
+             "Rakefile",
+             "README.rdoc",
+             "sanitize_email.gemspec",
+             "VERSION.yml",
+             "test/sample_mailer.rb",
+             "test/sanitize_email_test.rb"]
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
-  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install jeweler"
+  puts "Jeweler not available. Install it with: sudo gem install jeweler"
 end
 
 desc 'Default: run unit tests.'
