@@ -12,7 +12,7 @@ begin
     gemspec.email = ['peter.boling@gmail.com', 'jtrupiano@gmail.com', 'george@benevolentcode.com']
     gemspec.homepage = "http://github.com/pboling/capistrano_mailer"
     gemspec.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
-    gemspec.add_dependency 'action_mailer'
+    gemspec.add_dependency 'actionmailer'
     gemspec.files = ["lib/sanitize_email/custom_environments.rb",
              "lib/sanitize_email/sanitize_email.rb",
              "lib/sanitize_email.rb",
