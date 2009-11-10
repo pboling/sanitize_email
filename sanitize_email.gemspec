@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sanitize_email}
-  s.version = "0.3.5"
+  s.version = "0.3.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
      "test/sample_mailer.rb",
      "test/sanitize_email_test.rb"
   ]
-  s.homepage = %q{http://github.com/pboling/capistrano_mailer}
+  s.homepage = %q{http://github.com/pboling/sanitize_email}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
