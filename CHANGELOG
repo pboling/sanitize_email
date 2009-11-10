@@ -1,3 +1,7 @@
-Version 1.0.0
+Version 0.3.6
+- Fixed Installation instructions
+- Improved README
+
+Old version?
 - Fixed require paths
 - added about.yml and this CHANGELOG

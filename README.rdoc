@@ -4,15 +4,15 @@ This gem allows you to globally override your mail delivery settings.  It's part
 
 It is a "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActionMailer::Base to work its magic.
 
-Peter Boling wrote the plugin that this gem is derived from.  It currently solves three common problems in ruby web applications that use ActionMailer:
+It currently solves three common problems in ruby web applications that use ActionMailer:
 
 === Working Locally with Production Data
 
 Peter described this common problem in his original plugin implementation as such:
 
 * I have a production site with live data.
-* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using scripts that I will soon open source.
-* On this separate machine (staging, or development) I run tests, and test various features.
+* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a few rake tasks here: http://github.com/pboling/sir-du-bob
+* On this separate machine (staging, or development) I run tests, and test various features which often send out email (registration/signup, order placement, etc.)
 * I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 
 === Re-routing Email on a Staging or QA Server
@@ -23,10 +23,41 @@ Another very important use case for me is to transparently re-route email genera
 
 If you install this gem on a production server (which I don't always do), you can load up script/console and override the to/cc/bcc on all emails for the duration of your console session.  This allows you to poke and prod a live production instance, and route all email to your own inbox for inspection.  The best part is that this can all be accomplished without changing a single line of your application code.
 
-== Install
+== Install as a RubyGem
 
-    gem sources -a http://gems.github.com/
-    gem install pboling-sanitize_email
+Gem Using Git building from source:
+
+  mkdir -p ~/src
+  cd ~/src
+  git clone git://github.com/pboling/sanitize_email.git
+  cd sanitize_email
+  gem build sanitize_email.gemspec
+  sudo gem install sanitize_email-0.3.6.gem # (Or whatever version gets built)
+
+Gemcutter is the hot new gem host, and you can use it like this:
+
+  [sudo] gem install gemcutter
+  [sudo] gem tumble # makes gemcutter gem source first in line
+  [sudo] gem install sanitize_email
+
+Then in your environment.rb (if you are just going to use it from the console, you can require it as needed there, and skip the config.gem):
+
+  config.gem 'sanitize_email'
+
+Then cd to your rails app to optionally freeze the gem into your app (if you roll this way):
+
+  rake gems:freeze GEM=sanitize_email
+
+== Install as a Plugin
+
+Plugin using Git:
+
+  # Installation as plugin works too! (let me know if you find any bugs, as I don't ever run it this way.)
+  ./script/plugin install git://github.com/pboling/sanitize_email.git
+
+== Install as a Git Submodule (plugin)
+
+  git submodule add git://github.com/pboling/sanitize_email.git vendor/plugins/sanitize_email
 
 == Setup
 
@@ -104,13 +135,20 @@ Then if you want to send it to the actual user, instead of yourself
 
     > User.find(4).test_signup_email_user_only
 
+== Authors
+
+Peter Boling is the author of the gem/plugin.  John Trupiano did the initial conversion from plugin to gem as well as improving the code.
+
+== Contributors
+
+George Anderson's work / improvements has been merged in.
+
 == References
-* {RDoc}[http://johntrupiano.rubyforge.org/sanitize_email]
 * {Source Code}[http://github.com/pboling/sanitize_email]
 * {Gem Release Announcement}[http://blog.smartlogicsolutions.com/2009/04/25/reintroducing-sanitize_email-work-with-production-email-without-fear/]
 * {Peter's Original Writeup}[http://galtzo.blogspot.com/2008/11/sanitize-email-never-worry-about.html]
 * {Using sanitize_email to Preview HTML Emails Locally}[http://blog.smartlogicsolutions.com/2009/04/30/using-sanitize-email-to-preview-html-emails-locally/]
 
+Copyright (c) 2008-9 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
 Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
-Copyright (c) 2008 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
 Released under the MIT license

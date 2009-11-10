@@ -3,5 +3,5 @@ summary: Tool to aid in development, testing, qa, and production troubleshooting
 homepage: http://github.com/pboling/sanitize_email/tree/master
 plugin: http://github.com/pboling/sanitize_email.git
 license: MIT
-version: 1.0.0
+version: 0.3.6
 rails_version: 1.2.6+
