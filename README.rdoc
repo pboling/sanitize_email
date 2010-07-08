@@ -25,20 +25,20 @@ If you install this gem on a production server (which I don't always do), you ca
 
 == Install as a RubyGem
 
-Gem Using Git building from source:
+Pick standard or source install below.
+
+* Standard Install:
+
+  [sudo] gem install sanitize_email
+
+* Source Install:
 
   mkdir -p ~/src
   cd ~/src
   git clone git://github.com/pboling/sanitize_email.git
   cd sanitize_email
   gem build sanitize_email.gemspec
-  sudo gem install sanitize_email-0.3.6.gem # (Or whatever version gets built)
-
-Gemcutter is the hot new gem host, and you can use it like this:
-
-  [sudo] gem install gemcutter
-  [sudo] gem tumble # makes gemcutter gem source first in line
-  [sudo] gem install sanitize_email
+  sudo gem install sanitize_email-0.3.7.gem # (Or whatever version gets built)
 
 Then in your environment.rb (if you are just going to use it from the console, you can require it as needed there, and skip the config.gem):
 
@@ -141,7 +141,7 @@ Peter Boling is the author of the gem/plugin.  John Trupiano did the initial con
 
 == Contributors
 
-George Anderson's work / improvements has been merged in.
+George Anderson's work / improvements have been pulled in.
 
 == References
 * {Source Code}[http://github.com/pboling/sanitize_email]
@@ -149,6 +149,6 @@ George Anderson's work / improvements has been merged in.
 * {Peter's Original Writeup}[http://galtzo.blogspot.com/2008/11/sanitize-email-never-worry-about.html]
 * {Using sanitize_email to Preview HTML Emails Locally}[http://blog.smartlogicsolutions.com/2009/04/30/using-sanitize-email-to-preview-html-emails-locally/]
 
-Copyright (c) 2008-9 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
+Copyright (c) 2008-2010 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
 Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
 Released under the MIT license

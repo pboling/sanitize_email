@@ -1,4 +1,3 @@
-require 'action_mailer'
 require 'sanitize_email/sanitize_email'
 require 'sanitize_email/custom_environments'
 

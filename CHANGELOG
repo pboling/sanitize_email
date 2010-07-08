@@ -1,3 +1,7 @@
+Version 0.3.7
+- Improved Installation instructions
+- Fixed so tests run from inside a rails app (previously only ran standalone)
+
 Version 0.3.6
 - Fixed Installation instructions
 - Improved README
