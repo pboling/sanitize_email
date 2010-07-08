@@ -1,7 +1,0 @@
-author: Peter Boling
-summary: Tool to aid in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses.
-homepage: http://github.com/pboling/sanitize_email/tree/master
-plugin: http://github.com/pboling/sanitize_email.git
-license: MIT
-version: 0.3.6
-rails_version: 1.2.6+
