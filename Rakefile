@@ -21,6 +21,7 @@ begin
              "README.rdoc",
              "sanitize_email.gemspec",
              "VERSION.yml",
+             "test/test_helper.rb",
              "test/sample_mailer.rb",
              "test/sanitize_email_test.rb"]
   end
