@@ -26,7 +26,8 @@ Gem::Specification.new do |s|
      "lib/sanitize_email/sanitize_email.rb",
      "sanitize_email.gemspec",
      "test/sample_mailer.rb",
-     "test/sanitize_email_test.rb"
+     "test/sanitize_email_test.rb",
+     "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/pboling/sanitize_email}
   s.rdoc_options = ["--charset=UTF-8"]
