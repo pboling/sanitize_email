@@ -27,11 +27,11 @@ If you install this gem on a production server (which I don't always do), you ca
 
 Pick standard or source install below.
 
-* Standard Install:
+Standard Install:
 
   [sudo] gem install sanitize_email
 
-* Source Install:
+Source Install:
 
   mkdir -p ~/src
   cd ~/src
