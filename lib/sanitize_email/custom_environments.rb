@@ -13,7 +13,7 @@ module NinthBit
 
     module ClassMethods
       def consider_local?
-        local_environments.include?(defined?(Rails) ? Rails.env : RAILS_ENV)
+        local_environments.include?(defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : RAILS_ENV)
       end
     end
     
