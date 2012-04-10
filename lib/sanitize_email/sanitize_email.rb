@@ -76,7 +76,11 @@ module NinthBit
         #######
 
         def override_subject
-          real_recipients.nil? ? real_subject : "(#{real_recipients}) #{real_subject}"
+          if real_recipients.nil? || !self.class.use_actual_email_prepended_to_subject
+            real_subject
+          else
+            "(#{real_recipients}) #{real_subject}"
+          end
         end
 
         def override_email(type)
