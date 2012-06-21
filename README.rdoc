@@ -31,34 +31,6 @@ Standard Install:
 
   [sudo] gem install sanitize_email
 
-Source Install:
-
-  mkdir -p ~/src
-  cd ~/src
-  git clone git://github.com/pboling/sanitize_email.git
-  cd sanitize_email
-  gem build sanitize_email.gemspec
-  sudo gem install sanitize_email-0.3.7.gem # (Or whatever version gets built)
-
-Then in your environment.rb (if you are just going to use it from the console, you can require it as needed there, and skip the config.gem):
-
-  config.gem 'sanitize_email'
-
-Then cd to your rails app to optionally freeze the gem into your app (if you roll this way):
-
-  rake gems:freeze GEM=sanitize_email
-
-== Install as a Plugin
-
-Plugin using Git:
-
-  # Installation as plugin works too! (let me know if you find any bugs, as I don't ever run it this way.)
-  ./script/plugin install git://github.com/pboling/sanitize_email.git
-
-== Install as a Git Submodule (plugin)
-
-  git submodule add git://github.com/pboling/sanitize_email.git vendor/plugins/sanitize_email
-
 == Setup
 
 It only requires a few lines of configuration:
@@ -134,6 +106,39 @@ and the email will have it's recipients, bcc, and cc overridden to be whatever y
 Then if you want to send it to the actual user, instead of yourself
 
     > User.find(4).test_signup_email_user_only
+
+== Alternate Installation Methods
+
+Some of these are Rails version dependent.
+
+Source Install:
+
+  mkdir -p ~/src
+  cd ~/src
+  git clone git://github.com/pboling/sanitize_email.git
+  cd sanitize_email
+  gem build sanitize_email.gemspec
+  sudo gem install sanitize_email-X.X.X.gem # (whatever version gets built)
+
+Then in your environment.rb (if you are just going to use it from the console, you can require it as needed there, and skip the config.gem):
+
+  config.gem 'sanitize_email'
+
+Then cd to your rails app to optionally freeze the gem into your app (if you roll this way):
+
+  rake gems:freeze GEM=sanitize_email
+
+== Install as a Plugin
+
+Plugin using Git:
+
+  # Installation as plugin works too! (let me know if you find any bugs, as I don't ever run it this way.)
+  ./script/plugin install git://github.com/pboling/sanitize_email.git
+
+== Install as a Git Submodule (plugin)
+
+  git submodule add git://github.com/pboling/sanitize_email.git vendor/plugins/sanitize_email
+
 
 == Authors
 
