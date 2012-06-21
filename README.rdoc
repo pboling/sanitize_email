@@ -1,5 +1,7 @@
 = sanitize_email
 
+NOTE ABOUT THIS VERSION: Sanitize email versions < 1 (i.e. major version 0) are to be kept compatible with Rails versions 3.1 and under.  They will be built and released from the rails_3_1_and_below branch.
+
 This gem allows you to globally override your mail delivery settings.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
 It is a "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActionMailer::Base to work its magic.
@@ -27,9 +29,9 @@ If you install this gem on a production server (which I don't always do), you ca
 
 Pick standard or source install below.
 
-Standard Install:
+Standard Install (releases on the rails_3_1_and_below branch will remain within major version 0... FOREVER):
 
-  [sudo] gem install sanitize_email
+  [sudo] gem install sanitize_email -v 0.3.8
 
 == Setup
 
