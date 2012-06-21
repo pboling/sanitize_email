@@ -141,6 +141,12 @@ Plugin using Git:
 
   git submodule add git://github.com/pboling/sanitize_email.git vendor/plugins/sanitize_email
 
+== Run the Test Suite
+
+The test suite must be run against Rails 2.3.X or below as it is coded to expect the Tmail objects under the hood.
+
+  rake test
+
 == Authors
 
 Peter Boling is the original author of the code.
