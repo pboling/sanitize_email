@@ -1,3 +1,4 @@
+# Note tests require tmail to be the underlying message handler, so need to be run with Rails 2.3 or below
 require 'rubygems'
 
 vendored_rails = File.dirname(__FILE__) + '/../../../../vendor/rails'

@@ -11,7 +11,6 @@ begin
     gemspec.email = ['peter.boling@gmail.com', 'jtrupiano@gmail.com', 'george@benevolentcode.com']
     gemspec.homepage = "http://github.com/pboling/sanitize_email"
     gemspec.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
-    gemspec.add_dependency 'actionmailer'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
