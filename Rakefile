@@ -12,18 +12,6 @@ begin
     gemspec.homepage = "http://github.com/pboling/sanitize_email"
     gemspec.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
     gemspec.add_dependency 'actionmailer'
-    gemspec.files = ["lib/sanitize_email/custom_environments.rb",
-             "lib/sanitize_email/sanitize_email.rb",
-             "lib/sanitize_email.rb",
-             "init.rb",
-             "MIT-LICENSE",
-             "Rakefile",
-             "README.rdoc",
-             "sanitize_email.gemspec",
-             "VERSION.yml",
-             "test/test_helper.rb",
-             "test/sample_mailer.rb",
-             "test/sanitize_email_test.rb"]
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
