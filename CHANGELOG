@@ -1,3 +1,7 @@
+Version 1.0.0.alpha1
+- Implementing initial support for Rails >= 3.2 (new ActionMailer API)
+- Support for Rails <= 3.1 remains in version 0.X.X releases.
+
 Version 0.3.8
 - Update specs, note requirement of Rails 2.3 or below to run spec quite.
 - Support use_actual_email_prepended_to_subject
