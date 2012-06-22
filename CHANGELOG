@@ -1,3 +1,9 @@
+Version 0.3.8
+- Update specs, note requirement of Rails 2.3 or below to run spec quite.
+- Support use_actual_email_prepended_to_subject
+- Fix environment check for old versions of Rails
+- Improved Readme
+
 Version 0.3.7
 - Improved Installation instructions
 - Fixed so tests run from inside a rails app (previously only ran standalone)
