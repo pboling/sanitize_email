@@ -9,21 +9,24 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
-  s.date = "2012-07-27"
-  s.description = "Test an application's email abilities without ever sending a message to actual live addresses"
+  s.date = "2012-07-28"
+  s.description = "Tool to aid in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
   s.email = ["peter.boling@gmail.com", "jtrupiano@gmail.com", "george@benevolentcode.com"]
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
   s.files = [
+    ".rspec",
     "CHANGELOG",
+    "Gemfile",
+    "Gemfile.lock",
     "MIT-LICENSE",
     "README.rdoc",
     "Rakefile",
     "VERSION.yml",
     "init.rb",
     "lib/sanitize_email.rb",
-    "lib/sanitize_email/custom_environments.rb",
+    "lib/sanitize_email/config.rb",
     "lib/sanitize_email/engine.rb",
     "lib/sanitize_email/hook.rb",
     "lib/sanitize_email/railtie.rb",
@@ -31,37 +34,52 @@ Gem::Specification.new do |s|
     "lib/sanitize_email/version.rb",
     "sanitize_email.gemspec",
     "spec/sanitize_email_spec.rb",
-    "test/sample_mailer.rb",
-    "test/sanitize_email_test.rb",
-    "test/test_helper.rb"
+    "spec/spec_helper.rb",
+    "spec/tmp/mail_dump/1343461037_3f3edd7/plain.html"
   ]
   s.homepage = "http://github.com/pboling/sanitize_email"
+  s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
-  s.summary = "Tool to aid in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
+  s.summary = "Test an application's email abilities without ever sending a message to actual live addresses"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<actionmailer>, [">= 0"])
+      s.add_runtime_dependency(%q<rails>, ["> 3"])
+      s.add_runtime_dependency(%q<actionmailer>, ["> 3"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<letter_opener>, [">= 0"])
       s.add_development_dependency(%q<launchy>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.10.0"])
-      s.add_development_dependency(%q<mail>, ["~> 2.4.0"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<mail>, [">= 0"])
+      s.add_development_dependency(%q<rdoc>, [">= 3.12"])
+      s.add_development_dependency(%q<reek>, [">= 1.2.8"])
+      s.add_development_dependency(%q<roodi>, [">= 2.1.0"])
     else
-      s.add_dependency(%q<actionmailer>, [">= 0"])
+      s.add_dependency(%q<rails>, ["> 3"])
+      s.add_dependency(%q<actionmailer>, ["> 3"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<letter_opener>, [">= 0"])
       s.add_dependency(%q<launchy>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["~> 2.10.0"])
-      s.add_dependency(%q<mail>, ["~> 2.4.0"])
+      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<mail>, [">= 0"])
+      s.add_dependency(%q<rdoc>, [">= 3.12"])
+      s.add_dependency(%q<reek>, [">= 1.2.8"])
+      s.add_dependency(%q<roodi>, [">= 2.1.0"])
     end
   else
-    s.add_dependency(%q<actionmailer>, [">= 0"])
+    s.add_dependency(%q<rails>, ["> 3"])
+    s.add_dependency(%q<actionmailer>, ["> 3"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<letter_opener>, [">= 0"])
     s.add_dependency(%q<launchy>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["~> 2.10.0"])
-    s.add_dependency(%q<mail>, ["~> 2.4.0"])
+    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<mail>, [">= 0"])
+    s.add_dependency(%q<rdoc>, [">= 3.12"])
+    s.add_dependency(%q<reek>, [">= 1.2.8"])
+    s.add_dependency(%q<roodi>, [">= 2.1.0"])
   end
 end
 
