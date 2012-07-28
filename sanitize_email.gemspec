@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
-  s.date = "2012-06-22"
+  s.date = "2012-07-27"
   s.description = "Test an application's email abilities without ever sending a message to actual live addresses"
   s.email = ["peter.boling@gmail.com", "jtrupiano@gmail.com", "george@benevolentcode.com"]
   s.extra_rdoc_files = [
@@ -24,8 +24,13 @@ Gem::Specification.new do |s|
     "init.rb",
     "lib/sanitize_email.rb",
     "lib/sanitize_email/custom_environments.rb",
-    "lib/sanitize_email/sanitize_email.rb",
+    "lib/sanitize_email/engine.rb",
+    "lib/sanitize_email/hook.rb",
+    "lib/sanitize_email/railtie.rb",
+    "lib/sanitize_email/sanitizer.rb",
+    "lib/sanitize_email/version.rb",
     "sanitize_email.gemspec",
+    "spec/sanitize_email_spec.rb",
     "test/sample_mailer.rb",
     "test/sanitize_email_test.rb",
     "test/test_helper.rb"
@@ -40,11 +45,23 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<actionmailer>, [">= 0"])
+      s.add_development_dependency(%q<letter_opener>, [">= 0"])
+      s.add_development_dependency(%q<launchy>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.10.0"])
+      s.add_development_dependency(%q<mail>, ["~> 2.4.0"])
     else
       s.add_dependency(%q<actionmailer>, [">= 0"])
+      s.add_dependency(%q<letter_opener>, [">= 0"])
+      s.add_dependency(%q<launchy>, [">= 0"])
+      s.add_dependency(%q<rspec>, ["~> 2.10.0"])
+      s.add_dependency(%q<mail>, ["~> 2.4.0"])
     end
   else
     s.add_dependency(%q<actionmailer>, [">= 0"])
+    s.add_dependency(%q<letter_opener>, [">= 0"])
+    s.add_dependency(%q<launchy>, [">= 0"])
+    s.add_dependency(%q<rspec>, ["~> 2.10.0"])
+    s.add_dependency(%q<mail>, ["~> 2.4.0"])
   end
 end
 

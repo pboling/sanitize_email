@@ -71,6 +71,5 @@ class SanitizeEmailTest < Test::Unit::TestCase
     assert tmail.to_addrs.map(&:address).include?("to_0_sanitized@email.com")
     assert tmail.to_addrs.map(&:address).include?("to_1_sanitized@email.com")
   end
-  
 
 end
