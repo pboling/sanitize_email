@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "sanitize_email"
-  s.version = "1.0.0.alpha2"
+  s.version = "1.0.0.rc1"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]

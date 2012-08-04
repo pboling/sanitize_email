@@ -6,6 +6,7 @@ Version 1.0.0.rc1
 - Improve support for non-rails implementations
 - Deprecated local_environments in favor of local_environment_proc
 - Deprecated sanitized_recipients in favor of sanitized_to
+- More specs
 
 Version 1.0.0.alpha2
 - Complete refactor!  Implementing initial support for Rails >= 3.0 (new ActionMailer API)
