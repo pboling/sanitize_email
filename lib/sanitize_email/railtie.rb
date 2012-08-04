@@ -5,7 +5,7 @@ module SanitizeEmail
   class Railtie < ::Rails::Railtie
 
     config.before_configuration do
-      ActionMailer::Base.register_interceptor(SanitizeEmail::Hook)
+      ActionMailer::Base.register_interceptor(SanitizeEmail::Bleach)
     end
 
   end

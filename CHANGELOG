@@ -1,6 +1,17 @@
-Version 1.0.0.alpha1
-- Implementing initial support for Rails >= 3.0 (new ActionMailer API)
+Version 1.0.0.rc1
+- Added a good_list and a bad_list (whitelist and blacklist)
+- Added Deprecation library
+- Refactored Sanitization module into Hook class
+- Renamed Hook Class to Bleach Class
+- Improve support for non-rails implementations
+- Deprecated local_environments in favor of local_environment_proc
+- Deprecated sanitized_recipients in favor of sanitized_to
+
+Version 1.0.0.alpha2
+- Complete refactor!  Implementing initial support for Rails >= 3.0 (new ActionMailer API)
   - Support for Rails <= 2.X remains in version 0.X.X releases.
+- NinthBit namespace is now SanitizeEmail namespace
+- Now has a first class Config class
 
 XXXXXXXXXXXXXXXXXXXXXXX Rail 3.0+ Only Form here on up! XXXXXXXXXXXXXXXXXXXXXXX
 
