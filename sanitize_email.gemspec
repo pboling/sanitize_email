@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
-  s.date = "2012-07-28"
+  s.date = "2012-08-04"
   s.description = "Tool to aid in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
   s.email = ["peter.boling@gmail.com", "jtrupiano@gmail.com", "george@benevolentcode.com"]
   s.extra_rdoc_files = [
@@ -26,16 +26,15 @@ Gem::Specification.new do |s|
     "VERSION.yml",
     "init.rb",
     "lib/sanitize_email.rb",
+    "lib/sanitize_email/bleach.rb",
     "lib/sanitize_email/config.rb",
+    "lib/sanitize_email/deprecation.rb",
     "lib/sanitize_email/engine.rb",
-    "lib/sanitize_email/hook.rb",
     "lib/sanitize_email/railtie.rb",
-    "lib/sanitize_email/sanitizer.rb",
     "lib/sanitize_email/version.rb",
     "sanitize_email.gemspec",
     "spec/sanitize_email_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/tmp/mail_dump/1343461037_3f3edd7/plain.html"
+    "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/pboling/sanitize_email"
   s.licenses = ["MIT"]
