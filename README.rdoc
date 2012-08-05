@@ -35,7 +35,7 @@ Customize and add to an initializer:
     config[:sanitized_recipients] = 'to@sanitize_email.org'
     config[:sanitized_bcc] =        'bcc@sanitize_email.org'
     config[:sanitized_cc] =         'cc@sanitize_email.org'
-    config[:local_environments] =   %w(development test
+    config[:local_environment_proc] =   Proc.new { %w(development test).include?(Rails.env) }
     config[:use_actual_email_prepended_to_subject] = true   # or false
     config[:use_actual_email_as_sanitized_user_name] = true # or false
   end
