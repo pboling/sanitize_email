@@ -6,7 +6,7 @@ gem 'actionmailer', '> 3'
 group :development, :test do
   gem 'jeweler'
   gem 'letter_opener'
-  gem 'launchy'
+  gem 'launchy', '>= 2.0.5'
   gem 'rspec'
   gem 'mail'
   gem 'rdoc', '>= 3.12'

@@ -119,7 +119,7 @@ PLATFORMS
 DEPENDENCIES
   actionmailer (> 3)
   jeweler
-  launchy
+  launchy (>= 2.0.5)
   letter_opener
   mail
   rails (> 3)
