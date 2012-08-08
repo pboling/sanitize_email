@@ -5,7 +5,7 @@ module SanitizeEmail
   class Engine < ::Rails::Engine
 
     config.to_prepare do
-      ActionMailer::Base.register_interceptor(SanitizeEmail::Bleach)
+      ActionMailer::Base.register_interceptor(SanitizeEmail::Bleach.new)
     end
 
   end
