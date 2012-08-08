@@ -50,9 +50,12 @@ describe SanitizeEmail do
     Mail.register_interceptor(SanitizeEmail::Bleach.new)
   end
 
-  def sanitized_mail_delivery(sanitization_switch = false)
+  def sanitized_mail_delivery(options = {})
+    unless options.has_key?(:force_sanitize)
+      options[:force_sanitize] = false
+    end
     # Ensure that localish? will return sanitization_switch if true or false, and use proc when nil
-    SanitizeEmail::Config.config[:force_sanitize] = sanitization_switch
+    SanitizeEmail::Config.config[:force_sanitize] = options[:force_sanitize]
     Launchy.should_receive(:open)
     @mail_message = Mail.deliver do
       from      'from@example.org'
@@ -75,7 +78,7 @@ describe SanitizeEmail do
 
     context "false" do
       it "alters nothing" do
-        sanitized_mail_delivery(false)
+        sanitized_mail_delivery(:force_sanitize => false)
         @email_file.should have_from("from@example.org")
         @email_file.should have_to("to@example.org")
         @mail_message.header.fields[3].value.should_not have_to("to at example.org")
@@ -87,7 +90,7 @@ describe SanitizeEmail do
 
     context "true" do
       it "should override" do
-        sanitized_mail_delivery(true)
+        sanitized_mail_delivery(:force_sanitize => true)
         @email_file.should have_from("from@example.org")
         #puts "@mail_message.header.fields[3]: #{@mail_message.header.fields[3]}"
         #@mail_message.header.fields[3].value.should have_to("to at example.org")
@@ -104,7 +107,7 @@ describe SanitizeEmail do
         sanitize_spec_dryer('test')
         configure_sanitize_email({:local_environments => ['test']})
         SanitizeEmail[:local_environment_proc].call.should == true
-        sanitized_mail_delivery(nil)
+        sanitized_mail_delivery(:force_sanitize => nil)
         @email_file.should have_to("to@sanitize_email.org")
         @email_file.should have_subject("(to at example.org) original subject")
       end
@@ -112,7 +115,7 @@ describe SanitizeEmail do
         sanitize_spec_dryer('production')
         configure_sanitize_email({:local_environments => ['development']}) # Won't match!
         SanitizeEmail[:local_environment_proc].call.should == false
-        sanitized_mail_delivery(nil)
+        sanitized_mail_delivery(:force_sanitize => nil)
         @mail_message.should_not have_subject("to at example.org")
       end
     end
@@ -123,7 +126,7 @@ describe SanitizeEmail do
         configure_sanitize_email({:sanitized_recipients => 'barney@sanitize_email.org'})
       end
       it "used as sanitized_to" do
-        sanitized_mail_delivery(true)
+        sanitized_mail_delivery(:force_sanitize => true)
         @email_file.should have_from("from@example.org")
         @mail_message.should have_to("to@sanitize_email.org")
         @email_file.should have_subject("(to at example.org) original subject")
