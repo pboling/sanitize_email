@@ -1,3 +1,9 @@
+Version 1.0.0.rc2 - AUG.08.2012
+- Bug: loading the gem in a rails app broke mailer specs in the app - Fixed
+  - https://github.com/pboling/sanitize_email/issues/4
+- Moved MIT-LICENSE to LICENSE, updated years
+- Added Travis-CI for... CI.
+
 Version 1.0.0.rc1
 - Added a good_list and a bad_list (whitelist and blacklist)
 - Added Deprecation library
