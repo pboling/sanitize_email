@@ -4,11 +4,11 @@ require 'spec_helper'
 # TODO: Letter Opener should *not* be required, but setting the delivery method to :file was causing connection errors... WTF?
 #
 # Letter Opener won't let us test the to when the to has a 'user name'
-#   @email_file.should have_to("~to at example.org~ <to@sanitize_email.org>")
+#   @mail_file.should have_file_to("~to at example.org~ <to@sanitize_email.org>")
 # TODO: Also not sure how to test the user name part of the To: header via the mail object
 #
 # Letter Opener won't let us test the bcc
-#   @email_file.should have_cc("cc@sanitize_email.org")
+#   @mail_file.should have_file_cc("cc@sanitize_email.org")
 # Fortunately we can still test the mail object returned by the deliver call
 #
 
@@ -59,7 +59,7 @@ describe SanitizeEmail do
     # Ensure that localish? will return sanitization_switch if true or false, and use proc when nil
     SanitizeEmail::Config.config[:force_sanitize] = options[:force_sanitize]
     Launchy.should_receive(:open)
-    @mail_message = Mail.deliver do
+    @email_message = Mail.deliver do
       from      'from@example.org'
       to        'to@example.org'
       cc        'cc@example.org'
@@ -69,7 +69,7 @@ describe SanitizeEmail do
     end
     # All the email gets dumped to file once for each type of recipient (:to, :cc, :bcc)
     # Each file is identical, so we only need to check one of them:
-    @email_file = File.read(Dir["#{@location}/*/plain.html"].first)
+    @mail_file = File.read(Dir["#{@location}/*/plain.html"].first)
   end
 
   context "localish?" do
@@ -81,24 +81,26 @@ describe SanitizeEmail do
     context "false" do
       it "alters nothing" do
         sanitized_mail_delivery(:force_sanitize => false)
-        @email_file.should have_from("from@example.org")
-        @email_file.should have_to("to@example.org")
-        @mail_message.header.fields[3].value.should_not have_to("to at example.org")
-        @mail_message.should have_cc("cc@example.org")
-        @mail_message.should have_bcc("bcc@example.org")
-        @email_file.should have_subject("original subject")
+        @mail_file.should have_file_from("from@example.org")
+        @mail_file.should have_file_to("to@example.org")
+        to_username = @email_message.header.fields[3].value
+        to_username.should_not have_file_to("to at example.org") # using file_to because testing a string
+        @email_message.should have_email_cc("cc@example.org")
+        @email_message.should have_email_bcc("bcc@example.org")
+        @mail_file.should have_file_subject("original subject")
       end
     end
 
     context "true" do
       it "should override" do
         sanitized_mail_delivery(:force_sanitize => true)
-        @email_file.should have_from("from@example.org")
-        #puts "@mail_message.header.fields[3]: #{@mail_message.header.fields[3]}"
-        #@mail_message.header.fields[3].value.should have_to("to at example.org")
-        @mail_message.should have_cc("cc@sanitize_email.org")
-        @mail_message.should have_bcc("bcc@sanitize_email.org")
-        @email_file.should have_subject("(to at example.org) original subject")
+        @mail_file.should have_file_from("from@example.org")
+        #TODO: This is a bug in one spec bleeding into another.  This should pass.
+        #to_username = @email_message.header.fields[3].value
+        #to_username.should have_file_to("to at example.org") # using file_to because testing a string
+        @email_message.should have_email_cc("cc@sanitize_email.org")
+        @email_message.should have_email_bcc("bcc@sanitize_email.org")
+        @mail_file.should have_file_subject("(to at example.org) original subject")
       end
     end
   end
@@ -110,15 +112,15 @@ describe SanitizeEmail do
         configure_sanitize_email({:local_environments => ['test']})
         SanitizeEmail[:local_environment_proc].call.should == true
         sanitized_mail_delivery(:force_sanitize => nil)
-        @email_file.should have_to("to@sanitize_email.org")
-        @email_file.should have_subject("(to at example.org) original subject")
+        @mail_file.should have_file_to("to@sanitize_email.org")
+        @mail_file.should have_file_subject("(to at example.org) original subject")
       end
       it "should use local_environment_proc for non-matching environment" do
         sanitize_spec_dryer('production')
         configure_sanitize_email({:local_environments => ['development']}) # Won't match!
         SanitizeEmail[:local_environment_proc].call.should == false
         sanitized_mail_delivery(:force_sanitize => nil)
-        @mail_message.should_not have_subject("to at example.org")
+        @email_message.should_not have_email_subject("to at example.org")
       end
     end
 
@@ -129,9 +131,9 @@ describe SanitizeEmail do
       end
       it "used as sanitized_to" do
         sanitized_mail_delivery(:force_sanitize => true)
-        @email_file.should have_from("from@example.org")
-        @mail_message.should have_to("to@sanitize_email.org")
-        @email_file.should have_subject("(to at example.org) original subject")
+        @mail_file.should have_file_from("from@example.org")
+        @email_message.should have_email_to("to@sanitize_email.org")
+        @mail_file.should have_file_subject("(to at example.org) original subject")
       end
     end
   end

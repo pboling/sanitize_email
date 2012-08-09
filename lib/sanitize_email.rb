@@ -37,9 +37,34 @@ module SanitizeEmail
     SanitizeEmail[:local_environments]
   end
 
+  #
+  #
+  #
+  def force_sanitize &block
+    janitor({:forcing => true}) do
+      yield
+    end
+  end
+
+  def unsanitary &block
+    janitor({:forcing => false}) do
+      yield
+    end
+  end
+
   class << self
     extend SanitizeEmail::Deprecation
     deprecated_alias :sanitized_recipients, :sanitized_to
     deprecated :local_environments, :local_environment_proc
   end
+
+  private
+  def janitor(options, &block)
+    return false unless block_given?
+    original = SanitizeEmail[:force_sanitize]
+    SanitizeEmail[:force_sanitize] = options[:forcing]
+    yield
+    SanitizeEmail[:force_sanitize] = original
+  end
+
 end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sanitize_email (1.0.0.rc2)
+    sanitize_email (1.0.0.rc3)
       facets (> 0)
 
 GEM
