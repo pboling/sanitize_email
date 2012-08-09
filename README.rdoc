@@ -2,13 +2,11 @@
 
 This gem allows you to globally override your mail delivery settings.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
-It is a "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActionMailer::Base to work its magic.
+It is a "configure it and forget it" type gem that requires very little setup.  It uses the 'register_interceptor' API of ActionMailer or the Mail gem.  It should work with Rails >3 or any Ruby app that is using Mail or ActionMailer gems.
 
-It currently solves five (3!) common problems in ruby web applications that use ActionMailer, or the Mail gem, or anything that follows Mailer's register_interceptor pattern:
+It currently solves five (3!) common problems in ruby web applications that use email:
 
 === Working Locally with Production Data
-
-Peter described this common problem in his original plugin implementation as such:
 
 * I have a production site with live data.
 * I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a few rake tasks here: http://github.com/pboling/sir-du-bob
@@ -20,6 +18,8 @@ Peter described this common problem in his original plugin implementation as suc
 Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  Similarly, we set up QA instances for our own QA team and we use {rails-caddy}[http://github.com/jtrupiano/rails-caddy] to allow each QA person to configure it specifically for them.
 
 === Testing Email from a Hot Production Server
+
+NOTE: This is probably not working yet in version >= 1.0.0.*
 
 If you install this gem on a production server (which I don't always do), you can load up script/console and override the to/cc/bcc on all emails for the duration of your console session.  This allows you to poke and prod a live production instance, and route all email to your own inbox for inspection.  The best part is that this can all be accomplished without changing a single line of your application code.
 
@@ -54,9 +54,11 @@ To override the environment based switch use force_sanitize, which is nil, and i
 
 == Example
 
+NOTE: This example is outdated.  This funcitonality is not yet in the 1.0.0.* line of code.
+
 So here's how you can use force_sanitize to override the override.
 
-Even if you set:
+Even if you set (this usage is now deprecated - please use :local_invironment_proc instead):
 
   ActionMailer::Base.local_environments = %w( development )
 
@@ -93,17 +95,6 @@ and the email will have it's recipients, bcc, and cc overridden to be whatever y
 Then if you want to send it to the actual user, instead of yourself
 
     > User.find(4).test_signup_email_user_only
-
-== Install as a Plugin
-
-Plugin using Git:
-
-  # Installation as plugin works too! (let me know if you find any bugs, as I don't ever run it this way.)
-  ./script/plugin install git://github.com/pboling/sanitize_email.git
-
-== Install as a Git Submodule (plugin)
-
-  git submodule add git://github.com/pboling/sanitize_email.git vendor/plugins/sanitize_email
 
 == Authors
 
