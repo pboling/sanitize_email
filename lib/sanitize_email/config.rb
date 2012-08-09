@@ -1,6 +1,11 @@
+require 'facets/module/mattr' # gives cattr
+
 module SanitizeEmail
   class Config
-    cattr_accessor :config
+
+    cattr_reader :config
+    cattr_writer :config
+
     self.config ||= {
       # Adds the following class attributes to the classes that include NinthBit::SanitizeEmail
       :force_sanitize => nil,
@@ -31,7 +36,6 @@ module SanitizeEmail
 
       :local_environment_proc => Proc.new { true }
     }
-
     def self.configure &block
       yield self.config
 

@@ -4,7 +4,7 @@ This gem allows you to globally override your mail delivery settings.  It's part
 
 It is a "configure it and forget it" type gem that requires very little setup.  It includes some very innocuous monkey patching of ActionMailer::Base to work its magic.
 
-It currently solves five (3!) common problems in ruby web applications that use ActionMailer:
+It currently solves five (3!) common problems in ruby web applications that use ActionMailer, or the Mail gem, or anything that follows Mailer's register_interceptor pattern:
 
 === Working Locally with Production Data
 

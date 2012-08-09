@@ -1,4 +1,12 @@
-Version 1.0.0.rc2 - AUG.08.2012
+Version 1.0.0.rc3 - AUG.08.2012
+- Forgot to switch from jeweler to gem-release, so making appropriate changes and bumping again
+- Aligning closer to bundler gem defaults
+- Removing Rails dependency - Should work with Sinatra, or any Mail-like interface
+- Added facets dependency to get cattr functionality (and hopefully other cool stuff)
+- Gem dependencies in gemspec
+
+
+Version 1.0.0.rc2 - AUG.08.2012 - botched
 - Bug: loading the gem in a rails app broke mailer specs in the app - Fixed
   - https://github.com/pboling/sanitize_email/issues/4
 - Moved MIT-LICENSE to LICENSE, updated years

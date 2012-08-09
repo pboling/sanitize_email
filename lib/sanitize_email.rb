@@ -1,7 +1,5 @@
 #Copyright (c) 2008-12 Peter H. Boling of 9thBit LLC
 #Released under the MIT license
-require 'rails'
-require 'action_mailer'
 
 module SanitizeEmail
   require 'sanitize_email/version'
@@ -10,14 +8,16 @@ module SanitizeEmail
   require 'sanitize_email/deprecation'
 
   # Allow non-rails implementations to use this gem
-  if @rails = defined?(Rails) && ::Rails::VERSION::MAJOR >= 3
+  if defined?(Rails) && ::Rails::VERSION::MAJOR >= 3
     if ::Rails::VERSION::MINOR >= 1
       require 'sanitize_email/engine'
     elsif ::Rails::VERSION::MINOR == 0
       require 'sanitize_email/railtie'
     end
-  elsif @rails = defined?(Rails)
+  elsif defined?(Rails)
     raise "Please use the 0.X.X versions of sanitize_email for Rails 2.X and below."
+  elsif defined?(Mailer) && Mailer.respond_to?(:register_interceptor)
+    Mailer.register_interceptor(SanitizeEmail::Bleach.new)
   end
 
   def self.[](key)

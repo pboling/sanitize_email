@@ -17,7 +17,18 @@ module EmailMatcherHelpers
   # Sweet, nourishing recursion
   def email_matching(matcher, part, mail_or_part)
     if mail_or_part.respond_to?(part)
-      email_matching(matcher, part, mail_or_part.send(part))
+      # within rspec objects sometimes respond_to all sorts of odd methods they don't really have,
+      # raising an argument error when called
+      # Need to write a failing spec for rspec I think to figure out where this is stemming from
+      begin
+        email_matching(matcher, part, mail_or_part.send(part))
+      rescue ArgumentError
+        if mail_or_part.respond_to?(:=~)
+          mail_or_part =~ Regexp.new(Regexp.escape(matcher))
+        else
+          raise UnexpectedMailType, "Cannot match #{matcher} for #{part}"
+        end
+      end
     elsif mail_or_part.respond_to?(:join)
       email_matching(matcher, part, mail_or_part.join(', '))
     elsif mail_or_part.respond_to?(:=~) # Can we match a regex against it?
@@ -32,6 +43,7 @@ end
 RSpec::Matchers.define :have_from do |from|
   include EmailMatcherHelpers
   match do |container|
+    #puts "container: #{container}"
     email_matching(from, :from, container)
   end
 end

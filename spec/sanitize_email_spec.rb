@@ -25,18 +25,20 @@ describe SanitizeEmail do
     Mail.defaults do
       delivery_method LetterOpener::DeliveryMethod, :location => location
     end
+
     Rails.stub(:env).and_return(rails_env)
     @location = location
   end
 
   def configure_sanitize_email(sanitize_hash = {})
-    sanitize_hash.reverse_merge!({
+    defaults = {
       :sanitized_to =>  'to@sanitize_email.org',
       :sanitized_cc =>  'cc@sanitize_email.org',
       :sanitized_bcc => 'bcc@sanitize_email.org',
       :use_actual_email_prepended_to_subject => true,
       :use_actual_email_as_sanitized_user_name => true
-    })
+    }
+    sanitize_hash = defaults.merge(sanitize_hash)
     SanitizeEmail::Config.configure do |config|
       config[:sanitized_to] =         sanitize_hash[:sanitized_to]
       config[:sanitized_cc] =         sanitize_hash[:sanitized_cc]
