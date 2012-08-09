@@ -32,10 +32,10 @@ If you install this gem on a production server (which I don't always do), you ca
 Customize and add to an initializer:
 
   SanitizeEmail::Config.configure do |config|
-    config[:sanitized_recipients] = 'to@sanitize_email.org'
-    config[:sanitized_bcc] =        'bcc@sanitize_email.org'
-    config[:sanitized_cc] =         'cc@sanitize_email.org'
-    config[:local_environment_proc] =   Proc.new { %w(development test).include?(Rails.env) }
+    config[:sanitized_to] = 'to@sanitize_email.org'
+    config[:sanitized_bcc] = 'bcc@sanitize_email.org'
+    config[:sanitized_cc] = 'cc@sanitize_email.org'
+    config[:local_environment_proc] = Proc.new { %w(development test).include?(Rails.env) }
     config[:use_actual_email_prepended_to_subject] = true   # or false
     config[:use_actual_email_as_sanitized_user_name] = true # or false
   end
