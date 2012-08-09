@@ -6,18 +6,18 @@ It is a "configure it and forget it" type gem that requires very little setup.  
 
 It currently solves five (3!) common problems in ruby web applications that use email:
 
-=== Working Locally with Production Data
+=== #1 Working Locally with Production Data
 
 * I have a production site with live data.
 * I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a few rake tasks here: http://github.com/pboling/sir-du-bob
 * On this separate machine (staging, or development) I run tests, and test various features which often send out email (registration/signup, order placement, etc.)
 * I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 
-=== Re-routing Email on a Staging or QA Server
+=== #2 Re-routing Email on a Staging or QA Server
 
 Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  Similarly, we set up QA instances for our own QA team and we use {rails-caddy}[http://github.com/jtrupiano/rails-caddy] to allow each QA person to configure it specifically for them.
 
-=== Testing Email from a Hot Production Server
+=== #3 Testing Email from a Hot Production Server
 
 NOTE: This is probably not working yet in version >= 1.0.0.*
 
@@ -54,11 +54,11 @@ To override the environment based switch use force_sanitize, which is nil, and i
 
 == Example
 
-NOTE: This example is outdated.  This funcitonality is not yet in the 1.0.0.* line of code.
+NOTE: This example is outdated.  This functionality is not yet in the 1.0.0.* line of code.
 
 So here's how you can use force_sanitize to override the override.
 
-Even if you set (this usage is now deprecated - please use :local_invironment_proc instead):
+Even if you set (this usage is now deprecated - please use :local_environment_proc instead):
 
   ActionMailer::Base.local_environments = %w( development )
 
