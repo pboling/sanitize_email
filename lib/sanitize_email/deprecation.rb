@@ -1,7 +1,12 @@
 # See http://www.seejohncode.com/2012/01/09/deprecating-methods-in-ruby/
+require 'facets/module/mattr' # gives cattr
 
 module SanitizeEmail
   module Deprecation
+
+    mattr_reader :deprecate_in_silence
+    mattr_writer :deprecate_in_silence
+    self.deprecate_in_silence = false
 
     # Define a deprecated alias for a method
     # @param [Symbol] name - name of method to define
@@ -9,7 +14,7 @@ module SanitizeEmail
     def deprecated_alias(name, replacement)
       # Create a wrapped version
       define_method(name) do |*args, &block|
-        warn "SanitizeEmail: ##{name} deprecated (please use ##{replacement})"
+        warn "SanitizeEmail: ##{name} deprecated (please use ##{replacement})" unless @@deprecate_in_silence
         send replacement, *args, &block
       end
     end
@@ -23,10 +28,12 @@ module SanitizeEmail
       alias_method old_name, name
       # And replace it with a wrapped version
       define_method(name) do |*args, &block|
-        if replacement
-          warn "SanitizeEmail: ##{name} deprecated (please use ##{replacement})"
-        else
-          warn "SanitizeEmail: ##{name} deprecated"
+        unless @@deprecate_in_silence
+          if replacement
+            warn "SanitizeEmail: ##{name} deprecated (please use ##{replacement})"
+          else
+            warn "SanitizeEmail: ##{name} deprecated"
+          end
         end
         send old_name, *args, &block
       end

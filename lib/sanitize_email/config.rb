@@ -7,9 +7,6 @@ module SanitizeEmail
     cattr_writer :config
 
     self.config ||= {
-      # Adds the following class attributes to the classes that include NinthBit::SanitizeEmail
-      :force_sanitize => nil,
-
       # Specify the BCC addresses for the messages that go out in 'local' environments
       :sanitized_bcc => nil,
 
@@ -34,18 +31,21 @@ module SanitizeEmail
       # e.g. "real@example.com rest of subject"
       :use_actual_email_prepended_to_subject => false,
 
-      :local_environment_proc => Proc.new { true }
+      :activation_proc => Proc.new { false }
     }
     def self.configure &block
-      yield self.config
+      yield @@config
 
       # Gracefully handle deprecated config values.
       # Actual deprecation warnings are thrown in the top SanitizeEmail module thanks to our use of dynamic methods.
-      if config[:local_environments] && defined?(Rails)
-        config[:local_environment_proc] = Proc.new { SanitizeEmail.local_environments.include?(Rails.env) }
+      if @@config[:local_environments] && defined?(Rails)
+        @@config[:activation_proc] = Proc.new { SanitizeEmail.local_environments.include?(Rails.env) }
       end
-      if config[:sanitize_recipients]
-        config[:sanitize_to] = SanitizeEmail.sanitized_recipients
+      if @@config[:sanitized_recipients]
+        SanitizeEmail.sanitized_recipients # calling it to trigger the deprecation warning.
+                                           #Won't actually be set with any value,
+                                           # because we are still inside the configure block.
+        @@config[:sanitized_to] = @@config[:sanitized_recipients]
       end
     end
 

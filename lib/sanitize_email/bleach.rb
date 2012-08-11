@@ -4,6 +4,10 @@
 module SanitizeEmail
   class Bleach
 
+    mattr_reader :deprecate_in_silence
+    mattr_writer :deprecate_in_silence
+    self.deprecate_in_silence = false
+
     class MissingTo < StandardError; end
     class UnknownOverride < StandardError; end
 
@@ -15,7 +19,7 @@ module SanitizeEmail
       :injected  # Track whether or not the subject has been injected with usernames
 
     def initialize(args = {})
-      # Not using extract_options! because no-rails compatibility is a goal
+      # Not using extract_options! because non-rails compatibility is a goal
       @sanitized_to = args[:sanitized_to]    || SanitizeEmail[:sanitized_to]
       @sanitized_cc = args[:sanitized_cc]    || SanitizeEmail[:sanitized_cc]
       @sanitized_bcc = args[:sanitized_bcc]  || SanitizeEmail[:sanitized_bcc]
@@ -35,14 +39,36 @@ module SanitizeEmail
       end
     end
 
-    # Only relevant
-    def consider_local?
-      SanitizeEmail.local_environment_proc.call if SanitizeEmail.local_environment_proc.respond_to?(:call)
+    def activate?
+      SanitizeEmail.activation_proc.call if SanitizeEmail.activation_proc.respond_to?(:call)
     end
 
     # This method will be called by the Hook to determine if an override should occur
+    # There are three ways SanitizeEmail can be turned on; in order of precedence they are:
+    #
+    # 1. SanitizeEmail.force_sanitize = true # by default it is nil
+    # 2. Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default it is nil
+    # 3. SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } be default it is false
+    #
+    # Note: Number 1 is the method used by the SanitizeEmail.sanitary block
+    # Note: Number 2 would not be used unless you setup your own register_interceptor)
+    # If installed but not configured, sanitize email DOES NOTHING.  Until configured the defaults leave it turned off.
     def sanitize_engaged?
-      !SanitizeEmail.force_sanitize.nil? ? SanitizeEmail.force_sanitize : self.consider_local?
+
+      # Has it been forced via the force_sanitize mattr?
+      forced = !SanitizeEmail.force_sanitize.nil?
+      #puts "forced: #{SanitizeEmail.force_sanitize.inspect}" if forced
+      return SanitizeEmail.force_sanitize if forced
+
+     # Is this particular instance of Bleach engaged
+      engaged = !self.engage.nil?
+      #puts "engaged: #{self.engage.inspect}" if engaged
+      return self.engage if engaged
+
+      # Should we sanitize due to the activation_proc?
+      #puts "activated: #{self.activate?}"
+      return self.activate?
+
     end
 
     def subject_override(real_subject, actual_addresses)

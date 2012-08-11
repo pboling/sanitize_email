@@ -5,6 +5,7 @@ module SanitizeEmail
   require 'sanitize_email/version'
   require 'sanitize_email/config'
   require 'sanitize_email/bleach'
+  require 'sanitize_email/email_matchers'
   require 'sanitize_email/deprecation'
 
   # Allow non-rails implementations to use this gem
@@ -29,42 +30,74 @@ module SanitizeEmail
     SanitizeEmail[name]
   end
 
+  # NOTE: Deprecated method
+  # We have to actually define because we can't deprecate methods that are hooked up via method_missing
   def self.sanitized_recipients
     SanitizeEmail[:sanitized_recipients]
   end
 
+  # NOTE: Deprecated method
+  # We have to actually define because we can't deprecate methods that are hooked up via method_missing
   def self.local_environments
     SanitizeEmail[:local_environments]
   end
 
+  mattr_reader :force_sanitize
+  mattr_writer :force_sanitize
+  self.force_sanitize = nil
+
+  # Regardless of the Config settings of SanitizeEmail you can do a local override to send sanitary email in any environment.
+  # You have access to all the same configuration options in the parameter hash as you can set in the actual
+  # SanitizeEmail.configure block.
   #
+  # SanitizeEmail.sanitary(config_options = {}) do
+  #   Mail.deliver do
+  #     from      'from@example.org'
+  #     to        'to@example.org' # Will actually be sent to the override addresses setup in Config
+  #     reply_to  'reply_to@example.org'
+  #     subject   'subject'
+  #   end
+  # end
   #
-  #
-  def force_sanitize &block
+  def self.sanitary(config_options = {}, &block)
     janitor({:forcing => true}) do
+      original = SanitizeEmail::Config.config.dup
+      SanitizeEmail::Config.config.merge!(config_options)
       yield
+      SanitizeEmail::Config.config = original
     end
   end
 
-  def unsanitary &block
+  # Regardless of the Config settings of SanitizeEmail you can do a local override to force unsanitary email in any environment.
+  #
+  # SanitizeEmail.unsanitary do
+  #   Mail.deliver do
+  #     from      'from@example.org'
+  #     to        'to@example.org'
+  #     reply_to  'reply_to@example.org'
+  #     subject   'subject'
+  #   end
+  # end
+  #
+  def self.unsanitary &block
     janitor({:forcing => false}) do
       yield
     end
   end
 
+  def self.janitor(options, &block)
+    return false unless block_given?
+    original = SanitizeEmail.force_sanitize
+    SanitizeEmail.force_sanitize = options[:forcing]
+    yield
+    SanitizeEmail.force_sanitize = original
+  end
+
+  # Setup Deprecations!
   class << self
     extend SanitizeEmail::Deprecation
     deprecated_alias :sanitized_recipients, :sanitized_to
-    deprecated :local_environments, :local_environment_proc
-  end
-
-  private
-  def janitor(options, &block)
-    return false unless block_given?
-    original = SanitizeEmail[:force_sanitize]
-    SanitizeEmail[:force_sanitize] = options[:forcing]
-    yield
-    SanitizeEmail[:force_sanitize] = original
+    deprecated :local_environments, :activation_proc
   end
 
 end

@@ -36,7 +36,7 @@ Customize and add to an initializer:
     config[:sanitized_cc] =         'cc@sanitize_email.org'
     config[:sanitized_bcc] =        'bcc@sanitize_email.org'
     # sanitize emails from development and test, or set whatever logic should turn sanitize_email on and off here:
-    config[:local_environment_proc] =   Proc.new { %w(development test).include?(Rails.env) }
+    config[:activation_proc] =   Proc.new { %w(development test).include?(Rails.env) }
     config[:use_actual_email_prepended_to_subject] = true   # or false
     config[:use_actual_email_as_sanitized_user_name] = true # or false
   end
@@ -53,13 +53,19 @@ To override the environment based switch use force_sanitize, which is nil, and i
     config[:force_sanitize] = true
   end
 
+== Deprecations
+
+Sometimes things get deprecated (meaning they still work, but are noisy about it).  If this happens to you, and you like your head in the sand, call this number:
+
+  SanitizeEmail::Deprecation.deprecate_in_silence = true
+
 == Example
 
 NOTE: This example is outdated.  This functionality is not yet in the 1.0.0.* line of code.
 
 So here's how you can use force_sanitize to override the override.
 
-Even if you set (this usage is now deprecated - please use :local_environment_proc instead):
+Even if you set (this usage is now deprecated - please use :activation_proc instead):
 
   ActionMailer::Base.local_environments = %w( development )
 
