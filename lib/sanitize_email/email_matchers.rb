@@ -20,28 +20,30 @@ module SanitizeEmail
       array_matching(matcher, part, mail_or_part.send(part))
     end
 
-    [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
-      RSpec::Matchers.define "have_#{attribute}" do |matcher|
-        match do |actual|
-          email_matching(matcher, attribute, actual)
+    if defined?(Rspec)
+      [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
+        RSpec::Matchers.define "have_#{attribute}" do |matcher|
+          match do |actual|
+            email_matching(matcher, attribute, actual)
+          end
         end
       end
-    end
 
-    [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
-      RSpec::Matchers.define "be_#{attribute}" do |matcher|
-        match do |actual|
-          string_matching(matcher, attribute, actual)
+      [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
+        RSpec::Matchers.define "be_#{attribute}" do |matcher|
+          match do |actual|
+            string_matching(matcher, attribute, actual)
+          end
         end
       end
-    end
 
-    RSpec::Matchers.define "have_to_username" do |matcher|
-      def get_username(email_message)
-        email_message.header.fields[3].value
-      end
-      match do |actual|
-        string_matching(matcher, :to_username, get_username(actual))
+      RSpec::Matchers.define "have_to_username" do |matcher|
+        def get_username(email_message)
+          email_message.header.fields[3].value
+        end
+        match do |actual|
+          string_matching(matcher, :to_username, get_username(actual))
+        end
       end
     end
 

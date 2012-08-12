@@ -45,7 +45,7 @@ But wait there's more:
 
 Let's say you have a method in your model that you can call to test the signup email. You want to be able to test sending it to any user at any time... but you don't want the user to ACTUALLY get the email, even in production. A dilemma, yes?  Not anymore!
 
-To override the environment based switch use force_sanitize, which is nil, and ignored by default. When set to true or false it will turn sanitization on or off:
+To override the environment based switch use force_sanitize, which is normally nil, and ignored by default. When set to true or false it will turn sanitization on or off:
 
   SanitizeEmail.force_sanitize = true
 
@@ -55,45 +55,6 @@ Sometimes things get deprecated (meaning they still work, but are noisy about it
 
   SanitizeEmail::Deprecation.deprecate_in_silence = true
 
-== Example
-
-NOTE: This example is outdated.  This functionality is not yet in the 1.0.0.* line of code.
-
-So here's how you can use force_sanitize to override the override.
-
-Even if you set (this usage is now deprecated - please use :activation_proc instead):
-
-  ActionMailer::Base.local_environments = %w( development )
-
-and are in the development environment, you can override the override anywhere in your code.
-
-    class User < ActiveRecord::Base
-      def test_signup_email_me_only
-        SanitizeEmail.force_sanitize = true
-        UserMailer.deliver_signup_notification(self)
-        SanitizeEmail.force_sanitize = nil
-      end
-
-      def test_signup_email_user_only
-        SanitizeEmail.force_sanitize = false
-        UserMailer.deliver_signup_notification(self)
-        SanitizeEmail.force_sanitize = nil
-      end
-
-      # this third method would conditionally use the overridden recipients based on inclusion of current Rails environment in the local_environments configuration option.
-      def test_signup_email_environment
-        UserMailer.deliver_signup_notification(self)
-      end
-    end
-
-Load the console with ruby script/console and regardless of what environment you are in:
-
-    > User.find(4).test_signup_email_me_only
-
-and the email will have it's recipients, bcc, and cc overridden to be whatever you set the sanitized values to be.
-Then if you want to send it to the actual user, instead of yourself
-
-    > User.find(4).test_signup_email_user_only
 
 == Authors
 
