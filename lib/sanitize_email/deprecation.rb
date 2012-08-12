@@ -28,14 +28,18 @@ module SanitizeEmail
       alias_method old_name, name
       # And replace it with a wrapped version
       define_method(name) do |*args, &block|
-        unless @@deprecate_in_silence
-          if replacement
-            warn "SanitizeEmail: ##{name} deprecated (please use ##{replacement})"
-          else
-            warn "SanitizeEmail: ##{name} deprecated"
-          end
-        end
+        self.deprecation(name, " (please use ##{replacement})")
         send old_name, *args, &block
+      end
+    end
+
+    def deprecation(name, replacement = nil)
+      unless @@deprecate_in_silence
+        if replacement
+          warn "SanitizeEmail: ##{name} deprecated#{replacement}"
+        else
+          warn "SanitizeEmail: ##{name} deprecated"
+        end
       end
     end
 

@@ -1,4 +1,5 @@
 require 'sanitize_email'
+require 'sanitize_email/rspec_matchers'
 require 'launchy'
 require 'mail'
 require 'rails'
@@ -14,6 +15,6 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   #config.filter_run :focus
 
-  config.include SanitizeEmail::EmailMatchers
+  config.include SanitizeEmail::RspecMatchers
 end
 

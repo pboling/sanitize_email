@@ -3,10 +3,9 @@
 
 module SanitizeEmail
   require 'sanitize_email/version'
+  require 'sanitize_email/deprecation'
   require 'sanitize_email/config'
   require 'sanitize_email/bleach'
-  require 'sanitize_email/email_matchers'
-  require 'sanitize_email/deprecation'
 
   # Allow non-rails implementations to use this gem
   if defined?(Rails) && ::Rails::VERSION::MAJOR >= 3

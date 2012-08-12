@@ -171,6 +171,7 @@ module SanitizeEmail
       return sanitized_addresses unless SanitizeEmail.use_actual_email_as_sanitized_user_name
 
       with_user_names = self.inject_user_names(real_addresses, sanitized_addresses)
+#puts "real_addresses 2: #{real_addresses}"
 #puts "override_email 5: #{type} - #{with_user_names}"
       # Otherwise inject the email as the 'user name'
       return with_user_names

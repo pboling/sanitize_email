@@ -1,4 +1,12 @@
-Version 1.0.0.rc4 - AUG.11.2012
+Version 1.0.3 - AUG.12.2012
+- Accidentally broke spec suite with 1.0.2 - fixed
+- Expanded spec suite
+- Split test_helpers from rspec_matchers (test_helpers may be useful in TestUnit
+- Moving Examples from README to wiki
+- Document and implement working deprecation of version 0's SanitizeEmail::Config.config[:force_sanitize] behavior
+  - Now use SanitizeEmail.force_sanitize = true # or false or nil
+
+Version 1.0.2 - AUG.11.2012
 - Massive improvement to spec suite, and found bleeding
   - needed to unregister the interceptors:
     - Mail.class_variable_get(:@@delivery_interceptors).pop
@@ -8,8 +16,10 @@ Version 1.0.0.rc4 - AUG.11.2012
   - Force Sanitization On for a block
 - Added SanitizeEmail.unsanitary &block
   - Force Sanitization Off for a block
-- Added SanitizeEmail.force_sanitize = true # or false
+- Added SanitizeEmail.force_sanitize = true # or false or nil
   - Force Sanitization On or Off
+
+Version 1.0.1 - Unintentional, unexpected bump behavior from gem-release gem (Issues #24 & #25)
 
 Version 1.0.0.rc3 - AUG.08.2012
 - Forgot to switch from jeweler to gem-release, so making appropriate changes and bumping again

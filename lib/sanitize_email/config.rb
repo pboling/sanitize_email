@@ -3,10 +3,9 @@ require 'facets/module/mattr' # gives cattr
 module SanitizeEmail
   class Config
 
-    cattr_reader :config
-    cattr_writer :config
+    extend SanitizeEmail::Deprecation
 
-    self.config ||= {
+    DEFAULTS = {
       # Specify the BCC addresses for the messages that go out in 'local' environments
       :sanitized_bcc => nil,
 
@@ -33,6 +32,11 @@ module SanitizeEmail
 
       :activation_proc => Proc.new { false }
     }
+
+    cattr_reader :config
+    cattr_writer :config
+
+    self.config ||= DEFAULTS
     def self.configure &block
       yield @@config
 
@@ -46,6 +50,13 @@ module SanitizeEmail
                                            #Won't actually be set with any value,
                                            # because we are still inside the configure block.
         @@config[:sanitized_to] = @@config[:sanitized_recipients]
+      end
+      if !@@config[:force_sanitize].nil?
+        replacement = "
+  Please use SanitizeEmail.force_sanitize or SanitizeEmail.sanitary instead.
+  Refer to https://github.com/pboling/sanitize_email/wiki for examples."
+        deprecation("SanitizeEmail::Config.config[:force_sanitize]", replacement)
+        SanitizeEmail.force_sanitize = @@config[:force_sanitize]
       end
     end
 
