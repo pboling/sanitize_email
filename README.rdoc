@@ -9,7 +9,7 @@ It currently solves five (3!) common problems in ruby web applications that use 
 === #1 Working Locally with Production Data
 
 * I have a production site with live data.
-* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a few rake tasks here: http://github.com/pboling/sir-du-bob
+* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a {few rake tasks}[http://github.com/pboling/sir-du-bob]
 * On this separate machine (staging, or development) I run tests, and test various features which often send out email (registration/signup, order placement, etc.)
 * I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 
