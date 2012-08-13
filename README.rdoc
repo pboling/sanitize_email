@@ -71,6 +71,6 @@ George Anderson's work / improvements have been pulled in, along with several ot
 * {Peter's Original Writeup}[http://galtzo.blogspot.com/2008/11/sanitize-email-never-worry-about.html]
 * {Using sanitize_email to Preview HTML Emails Locally}[http://blog.smartlogicsolutions.com/2009/04/30/using-sanitize-email-to-preview-html-emails-locally/]
 
-Copyright (c) 2008-2012 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
-Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
+* Copyright (c) 2008-2012 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
+* Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
 Released under the MIT license
