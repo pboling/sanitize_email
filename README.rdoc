@@ -30,7 +30,7 @@ If you install this gem on a production server (which I don't always do), you ca
 Customize and add to an initializer:
 
   SanitizeEmail::Config.configure do |config|
-    config[:sanitized_recipients] = 'to@sanitize_email.org'
+    config[:sanitized_to] = 'to@sanitize_email.org'
     config[:sanitized_cc] =         'cc@sanitize_email.org'
     config[:sanitized_bcc] =        'bcc@sanitize_email.org'
     # sanitize emails from development and test, or set whatever logic should turn sanitize_email on and off here:
@@ -54,7 +54,6 @@ To override the environment based switch use force_sanitize, which is normally n
 Sometimes things get deprecated (meaning they still work, but are noisy about it).  If this happens to you, and you like your head in the sand, call this number:
 
   SanitizeEmail::Deprecation.deprecate_in_silence = true
-
 
 == Authors
 
