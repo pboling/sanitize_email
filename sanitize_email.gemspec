@@ -31,7 +31,6 @@ Gem::Specification.new do |s|
   # Development Dependencies
   s.add_development_dependency(%q<rails>, ["> 3"])
   s.add_development_dependency(%q<actionmailer>, ["> 3"])
-  s.add_development_dependency(%q<jeweler>, [">= 0"])
   s.add_development_dependency(%q<letter_opener>, [">= 0"])
   s.add_development_dependency(%q<launchy>, [">= 0"])
   s.add_development_dependency(%q<rspec>, [">= 0"])
@@ -39,5 +38,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<rdoc>, [">= 3.12"])
   s.add_development_dependency(%q<reek>, [">= 1.2.8"])
   s.add_development_dependency(%q<roodi>, [">= 2.1.0"])
+  s.add_development_dependency(%q<rake>, [">= 0"])
 end
 
