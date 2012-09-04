@@ -8,6 +8,7 @@ module SanitizeEmail
   require 'sanitize_email/bleach'
 
   # Allow non-rails implementations to use this gem
+  # TODO: Prepare this for Rails 4
   if defined?(Rails) && ::Rails::VERSION::MAJOR >= 3
     if ::Rails::VERSION::MINOR >= 1
       require 'sanitize_email/engine'
@@ -49,10 +50,10 @@ module SanitizeEmail
   # You have access to all the same configuration options in the parameter hash as you can set in the actual
   # SanitizeEmail.configure block.
   #
-  # SanitizeEmail.sanitary(config_options = {}) do
+  # SanitizeEmail.sanitary({:sanitized_to => 'boo@example.com'}) do # these config options are merged with the globals
   #   Mail.deliver do
   #     from      'from@example.org'
-  #     to        'to@example.org' # Will actually be sent to the override addresses setup in Config
+  #     to        'to@example.org' # Will actually be sent to the override addresses, in this case: boo@example.com
   #     reply_to  'reply_to@example.org'
   #     subject   'subject'
   #   end
