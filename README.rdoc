@@ -9,7 +9,7 @@ It currently solves five (3!) common problems in ruby web applications that use 
 === #1 Working Locally with Production Data
 
 * I have a production site with live data.
-* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a few rake tasks here: http://github.com/pboling/sir-du-bob
+* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a {few rake tasks}[http://github.com/pboling/sir-du-bob]
 * On this separate machine (staging, or development) I run tests, and test various features which often send out email (registration/signup, order placement, etc.)
 * I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 
@@ -30,7 +30,7 @@ If you install this gem on a production server (which I don't always do), you ca
 Customize and add to an initializer:
 
   SanitizeEmail::Config.configure do |config|
-    config[:sanitized_recipients] = 'to@sanitize_email.org'
+    config[:sanitized_to] = 'to@sanitize_email.org'
     config[:sanitized_cc] =         'cc@sanitize_email.org'
     config[:sanitized_bcc] =        'bcc@sanitize_email.org'
     # sanitize emails from development and test, or set whatever logic should turn sanitize_email on and off here:
@@ -91,11 +91,14 @@ John Trupiano did the initial gemification and some refactoring.
 George Anderson's work / improvements have been pulled in, along with several other contributors, which can be seen in the Network view on github. Thanks!
 
 == References
+
 * {Source Code}[http://github.com/pboling/sanitize_email]
 * {Gem Release Announcement}[http://blog.smartlogicsolutions.com/2009/04/25/reintroducing-sanitize_email-work-with-production-email-without-fear/]
 * {Peter's Original Writeup}[http://galtzo.blogspot.com/2008/11/sanitize-email-never-worry-about.html]
 * {Using sanitize_email to Preview HTML Emails Locally}[http://blog.smartlogicsolutions.com/2009/04/30/using-sanitize-email-to-preview-html-emails-locally/]
 
-Copyright (c) 2008-2012 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
-Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
-Released under the MIT license
+== Legal Stuff
+
+* Copyright (c) 2008-2012 {Peter H. Boling}[http://www.peterboling.com/about.html] of {9thBit LLC}[http://www.peterboling.com/]
+* Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
+* Released under the MIT license
