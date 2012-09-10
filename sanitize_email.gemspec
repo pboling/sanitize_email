@@ -26,14 +26,14 @@ Gem::Specification.new do |s|
 
   # Runtime Dependencies
   # to replace the cattr_accessor method we lost when removing rails from run time dependencies
-  s.add_runtime_dependency(%q<facets>, ["> 0"])
+  #s.add_runtime_dependency(%q<facets>, ["> 0"])
 
   # Development Dependencies
   s.add_development_dependency(%q<rails>, ["> 3"])
   s.add_development_dependency(%q<actionmailer>, ["> 3"])
   s.add_development_dependency(%q<letter_opener>, [">= 0"])
   s.add_development_dependency(%q<launchy>, [">= 0"])
-  s.add_development_dependency(%q<rspec>, [">= 0"])
+  s.add_development_dependency(%q<rspec>, [">= 2.11"])
   s.add_development_dependency(%q<mail>, [">= 0"])
   s.add_development_dependency(%q<rdoc>, [">= 3.12"])
   s.add_development_dependency(%q<reek>, [">= 1.2.8"])
