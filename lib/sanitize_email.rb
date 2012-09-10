@@ -44,9 +44,10 @@ module SanitizeEmail
     SanitizeEmail[:local_environments]
   end
 
-  mattr_reader :force_sanitize
-  mattr_writer :force_sanitize
-  self.force_sanitize = nil
+  class << self
+    attr_accessor :force_sanitize
+  end
+  @force_sanitize = nil
 
   # Regardless of the Config settings of SanitizeEmail you can do a local override to send sanitary email in any environment.
   # You have access to all the same configuration options in the parameter hash as you can set in the actual
