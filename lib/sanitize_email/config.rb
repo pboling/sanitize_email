@@ -1,5 +1,3 @@
-require 'facets/module/mattr' # gives cattr
-
 module SanitizeEmail
   class Config
 
