@@ -7,6 +7,8 @@ module SanitizeEmail
   require 'sanitize_email/config'
   require 'sanitize_email/bleach'
 
+  class MissingBlockParameter < StandardError; end
+
   # Allow non-rails implementations to use this gem
   # TODO: Prepare this for Rails 4
   if defined?(Rails) && ::Rails::VERSION::MAJOR >= 3
@@ -60,7 +62,7 @@ module SanitizeEmail
   # end
   #
   def self.sanitary(config_options = {}, &block)
-    raise "SanitizeEmail.sanitary must be called with a block" unless block_given?
+    raise MissingBlockParameter, "SanitizeEmail.sanitary must be called with a block" unless block_given?
     janitor({:forcing => true}) do
       original = SanitizeEmail::Config.config.dup
       SanitizeEmail::Config.config.merge!(config_options)
@@ -81,13 +83,14 @@ module SanitizeEmail
   # end
   #
   def self.unsanitary &block
-    raise "SanitizeEmail.unsanitary must be called with a block" unless block_given?
+    raise MissingBlockParameter, "SanitizeEmail.unsanitary must be called with a block" unless block_given?
     janitor({:forcing => false}) do
       yield
     end
   end
 
   def self.janitor(options, &block)
+    raise MissingBlockParameter, "SanitizeEmail.janitor must be called with a block" unless block_given?
     original = SanitizeEmail.force_sanitize
     SanitizeEmail.force_sanitize = options[:forcing]
     yield
