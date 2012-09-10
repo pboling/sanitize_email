@@ -1,5 +1,5 @@
-HEAD
-
+Version 1.0.4 - SEP.10.2012
+* Factor out facets dependency
 * Put some examples back in the README, until I improve and link to the wiki. :/
 
 Version 1.0.3 - AUG.12.2012
