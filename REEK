@@ -9,8 +9,6 @@ lib/sanitize_email/bleach.rb -- 14 warnings:
   SanitizeEmail::Bleach#inject_user_names doesn't depend on instance state (UtilityFunction)
   SanitizeEmail::Bleach#inject_user_names refers to real_recipient more than self (FeatureEnvy)
   SanitizeEmail::Bleach#override_email has approx 10 statements (TooManyStatements)
-  SanitizeEmail::Bleach#sanitize_engaged? calls SanitizeEmail.force_sanitize twice (DuplicateMethodCall)
-  SanitizeEmail::Bleach#sanitize_engaged? calls self.engage twice (DuplicateMethodCall)
   SanitizeEmail::Bleach#subject_override doesn't depend on instance state (UtilityFunction)
   SanitizeEmail::Bleach#subject_override refers to actual_addresses more than self (FeatureEnvy)
   SanitizeEmail::Bleach::MissingTo has no descriptive comment (IrresponsibleModule)

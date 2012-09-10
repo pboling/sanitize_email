@@ -52,17 +52,14 @@ module SanitizeEmail
     def sanitize_engaged?
 
       # Has it been forced via the force_sanitize mattr?
-      forced = !SanitizeEmail.force_sanitize.nil?
-      #puts "forced: #{SanitizeEmail.force_sanitize.inspect}" if forced
-      return SanitizeEmail.force_sanitize if forced
+      forced = SanitizeEmail.force_sanitize
+      return forced unless forced.nil?
 
-     # Is this particular instance of Bleach engaged
-      engaged = !self.engage.nil?
-      #puts "engaged: #{self.engage.inspect}" if engaged
-      return self.engage if engaged
+      # Is this particular instance of Bleach engaged
+      engaged = self.engage
+      return engaged unless engaged.nil?
 
       # Should we sanitize due to the activation_proc?
-      #puts "activated: #{self.activate?}"
       return self.activate?
 
     end
