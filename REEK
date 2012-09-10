@@ -1,0 +1,39 @@
+lib/sanitize_email.rb -- 1 warning:
+  SanitizeEmail#self.sanitary calls SanitizeEmail::Config.config twice (DuplicateMethodCall)
+lib/sanitize_email/bleach.rb -- 14 warnings:
+  SanitizeEmail::Bleach has no descriptive comment (IrresponsibleModule)
+  SanitizeEmail::Bleach#activate? calls SanitizeEmail.activation_proc twice (DuplicateMethodCall)
+  SanitizeEmail::Bleach#activate? doesn't depend on instance state (UtilityFunction)
+  SanitizeEmail::Bleach#delivering_email calls message.to twice (DuplicateMethodCall)
+  SanitizeEmail::Bleach#inject_user_names contains iterators nested 2 deep (NestedIterators)
+  SanitizeEmail::Bleach#inject_user_names doesn't depend on instance state (UtilityFunction)
+  SanitizeEmail::Bleach#inject_user_names refers to real_recipient more than self (FeatureEnvy)
+  SanitizeEmail::Bleach#override_email has approx 10 statements (TooManyStatements)
+  SanitizeEmail::Bleach#sanitize_engaged? calls SanitizeEmail.force_sanitize twice (DuplicateMethodCall)
+  SanitizeEmail::Bleach#sanitize_engaged? calls self.engage twice (DuplicateMethodCall)
+  SanitizeEmail::Bleach#subject_override doesn't depend on instance state (UtilityFunction)
+  SanitizeEmail::Bleach#subject_override refers to actual_addresses more than self (FeatureEnvy)
+  SanitizeEmail::Bleach::MissingTo has no descriptive comment (IrresponsibleModule)
+  SanitizeEmail::Bleach::UnknownOverride has no descriptive comment (IrresponsibleModule)
+lib/sanitize_email/config.rb -- 4 warnings:
+  SanitizeEmail::Config has no descriptive comment (IrresponsibleModule)
+  SanitizeEmail::Config#self.configure calls @config[:force_sanitize] twice (DuplicateMethodCall)
+  SanitizeEmail::Config#self.configure calls @config[:sanitized_recipients] twice (DuplicateMethodCall)
+  SanitizeEmail::Config#self.configure has approx 7 statements (TooManyStatements)
+lib/sanitize_email/deprecation.rb -- 3 warnings:
+  SanitizeEmail::Deprecation declares the class variable @@deprecate_in_silence (ClassVariable)
+  SanitizeEmail::Deprecation takes parameters [name, replacement] to 3 methods (DataClump)
+  SanitizeEmail::Deprecation#deprecation is controlled by argument replacement (ControlParameter)
+lib/sanitize_email/engine.rb -- 1 warning:
+  SanitizeEmail::Engine has no descriptive comment (IrresponsibleModule)
+lib/sanitize_email/railtie.rb -- 1 warning:
+  SanitizeEmail::Railtie has no descriptive comment (IrresponsibleModule)
+lib/sanitize_email/rspec_matchers.rb -- 2 warnings:
+  SanitizeEmail::RspecMatchers#get_username doesn't depend on instance state (UtilityFunction)
+  SanitizeEmail::RspecMatchers#get_username refers to email_message more than self (FeatureEnvy)
+lib/sanitize_email/test_helpers.rb -- 4 warnings:
+  SanitizeEmail::TestHelpers takes parameters [mail_or_part, matcher, part] to 3 methods (DataClump)
+  SanitizeEmail::TestHelpers#array_matching refers to mail_or_part more than self (FeatureEnvy)
+  SanitizeEmail::TestHelpers#string_matching refers to mail_or_part more than self (FeatureEnvy)
+  SanitizeEmail::TestHelpers::UnexpectedMailType has no descriptive comment (IrresponsibleModule)
+lib/sanitize_email/version.rb -- 0 warnings
