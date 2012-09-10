@@ -5,6 +5,10 @@ module SanitizeEmail
 
     extend SanitizeEmail::Deprecation
 
+    class << self
+      attr_accessor :config
+    end
+
     DEFAULTS = {
       # Specify the BCC addresses for the messages that go out in 'local' environments
       :sanitized_bcc => nil,
@@ -33,30 +37,27 @@ module SanitizeEmail
       :activation_proc => Proc.new { false }
     }
 
-    cattr_reader :config
-    cattr_writer :config
-
-    self.config ||= DEFAULTS
+    @config ||= DEFAULTS
     def self.configure &block
-      yield @@config
+      yield @config
 
       # Gracefully handle deprecated config values.
       # Actual deprecation warnings are thrown in the top SanitizeEmail module thanks to our use of dynamic methods.
-      if @@config[:local_environments] && defined?(Rails)
-        @@config[:activation_proc] = Proc.new { SanitizeEmail.local_environments.include?(Rails.env) }
+      if @config[:local_environments] && defined?(Rails)
+        @config[:activation_proc] = Proc.new { SanitizeEmail.local_environments.include?(Rails.env) }
       end
-      if @@config[:sanitized_recipients]
+      if @config[:sanitized_recipients]
         SanitizeEmail.sanitized_recipients # calling it to trigger the deprecation warning.
                                            #Won't actually be set with any value,
                                            # because we are still inside the configure block.
-        @@config[:sanitized_to] = @@config[:sanitized_recipients]
+        @config[:sanitized_to] = @config[:sanitized_recipients]
       end
-      if !@@config[:force_sanitize].nil?
+      if !@config[:force_sanitize].nil?
         replacement = "
   Please use SanitizeEmail.force_sanitize or SanitizeEmail.sanitary instead.
   Refer to https://github.com/pboling/sanitize_email/wiki for examples."
         deprecation("SanitizeEmail::Config.config[:force_sanitize]", replacement)
-        SanitizeEmail.force_sanitize = @@config[:force_sanitize]
+        SanitizeEmail.force_sanitize = @config[:force_sanitize]
       end
     end
 
