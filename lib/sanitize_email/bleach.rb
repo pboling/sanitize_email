@@ -4,10 +4,6 @@
 module SanitizeEmail
   class Bleach
 
-    mattr_reader :deprecate_in_silence
-    mattr_writer :deprecate_in_silence
-    self.deprecate_in_silence = false
-
     class MissingTo < StandardError; end
     class UnknownOverride < StandardError; end
 
@@ -177,7 +173,7 @@ module SanitizeEmail
       return with_user_names
     end
 
-  end # end Class Hook
+  end # end Class Bleach
 end # end Module SanitizeEmail
 
 
