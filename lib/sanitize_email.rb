@@ -60,6 +60,7 @@ module SanitizeEmail
   # end
   #
   def self.sanitary(config_options = {}, &block)
+    raise "SanitizeEmail.sanitary must be called with a block" unless block_given?
     janitor({:forcing => true}) do
       original = SanitizeEmail::Config.config.dup
       SanitizeEmail::Config.config.merge!(config_options)
@@ -80,13 +81,13 @@ module SanitizeEmail
   # end
   #
   def self.unsanitary &block
+    raise "SanitizeEmail.unsanitary must be called with a block" unless block_given?
     janitor({:forcing => false}) do
       yield
     end
   end
 
   def self.janitor(options, &block)
-    return false unless block_given?
     original = SanitizeEmail.force_sanitize
     SanitizeEmail.force_sanitize = options[:forcing]
     yield
