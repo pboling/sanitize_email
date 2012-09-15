@@ -25,10 +25,10 @@ end
 task :default => :spec
 
 require 'rdoc/task'
+require File.expand_path('../lib/sanitize_email/version', __FILE__)
 Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = "SanitizeEmail #{version}"
+  rdoc.title    = "SanitizeEmail #{SanitizeEmail::VERSION}"
   rdoc.options << '--line-numbers'
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')

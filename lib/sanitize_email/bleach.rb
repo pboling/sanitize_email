@@ -149,6 +149,7 @@ module SanitizeEmail
       # If there are good_list addresses to send to then use them as is, no mods needed
       return good_listed unless good_listed.empty?
 
+      # TODO: Allow overriding if an addressed email is on the good list?
       # If there are no sanitized addresses we can't override!
       sanitized_addresses = sanitize_addresses(type)
 #puts "override_email 3: #{type} - #{sanitized_addresses}"
