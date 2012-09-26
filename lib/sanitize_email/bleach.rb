@@ -28,10 +28,6 @@ module SanitizeEmail
     # If all recipient addresses are white-listed the field is left alone.
     def delivering_email(message)
       if self.sanitize_engaged?
-        message.subject = self.subject_override(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
-        message.to = self.to_override(message.to)
-        message.cc = self.cc_override(message.cc)
-        message.bcc = self.bcc_override(message.bcc)
         # Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
         headers = {
             'X-Sanitize-Email-To' => message.to,
@@ -44,6 +40,10 @@ module SanitizeEmail
             message.header = message.header.to_s + "\n#{k}: #{a}"
           }
         }
+        message.subject = self.subject_override(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
+        message.to = self.to_override(message.to)
+        message.cc = self.cc_override(message.cc)
+        message.bcc = self.bcc_override(message.bcc)
       end
     end
 
