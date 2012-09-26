@@ -32,6 +32,18 @@ module SanitizeEmail
         message.to = self.to_override(message.to)
         message.cc = self.cc_override(message.cc)
         message.bcc = self.bcc_override(message.bcc)
+        # Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
+        headers = {
+            'X-Sanitize-Email-To' => message.to,
+            'X-Sanitize-Email-Cc' => message.cc,
+            'X-Sanitize-Email-Bcc' => message.bcc,
+        }.each { |k,v|
+          # For each type of address line
+          v.each { |a|
+            # For each address
+            message.header = message.header.to_s + "\n#{k}: #{a}"
+          }
+        }
       end
     end
 
