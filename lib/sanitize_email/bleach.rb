@@ -32,13 +32,13 @@ module SanitizeEmail
         headers = {
             'X-Sanitize-Email-To' => message.to,
             'X-Sanitize-Email-Cc' => message.cc,
-            'X-Sanitize-Email-Bcc' => message.bcc,
+            'X-Sanitize-Email-Bcc' => message.bcc
         }.each { |k,v|
           # For each type of address line
           v.each { |a|
             # For each address
             message.header = message.header.to_s + "\n#{k}: #{a}"
-          }
+          } if v
         }
         message.subject = self.subject_override(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
         message.to = self.to_override(message.to)
