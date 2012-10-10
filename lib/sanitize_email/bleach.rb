@@ -27,7 +27,7 @@ module SanitizeEmail
 
     # If all recipient addresses are white-listed the field is left alone.
     def delivering_email(message)
-      if self.sanitize_engaged?
+      if self.sanitize_engaged?(message)
         message.subject = self.subject_override(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
         message.to = self.to_override(message.to)
         message.cc = self.cc_override(message.cc)
@@ -35,8 +35,8 @@ module SanitizeEmail
       end
     end
 
-    def activate?
-      SanitizeEmail.activation_proc.call if SanitizeEmail.activation_proc.respond_to?(:call)
+    def activate?(message)
+      SanitizeEmail.activation_proc.call(message) if SanitizeEmail.activation_proc.respond_to?(:call)
     end
 
     # This method will be called by the Hook to determine if an override should occur
@@ -49,7 +49,7 @@ module SanitizeEmail
     # Note: Number 1 is the method used by the SanitizeEmail.sanitary block
     # Note: Number 2 would not be used unless you setup your own register_interceptor)
     # If installed but not configured, sanitize email DOES NOTHING.  Until configured the defaults leave it turned off.
-    def sanitize_engaged?
+    def sanitize_engaged?(message)
 
       # Has it been forced via the force_sanitize mattr?
       forced = SanitizeEmail.force_sanitize
@@ -60,8 +60,7 @@ module SanitizeEmail
       return engaged unless engaged.nil?
 
       # Should we sanitize due to the activation_proc?
-      return self.activate?
-
+      return self.activate?(message)
     end
 
     def subject_override(real_subject, actual_addresses)
@@ -149,7 +148,6 @@ module SanitizeEmail
       # If there are good_list addresses to send to then use them as is, no mods needed
       return good_listed unless good_listed.empty?
 
-      # TODO: Allow overriding if an addressed email is on the good list?
       # If there are no sanitized addresses we can't override!
       sanitized_addresses = sanitize_addresses(type)
 #puts "override_email 3: #{type} - #{sanitized_addresses}"
