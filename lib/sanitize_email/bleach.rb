@@ -27,7 +27,7 @@ module SanitizeEmail
 
     # If all recipient addresses are white-listed the field is left alone.
     def delivering_email(message)
-      if self.sanitize_engaged?
+      if self.sanitize_engaged?(message)
         # Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
         headers = {
             'X-Sanitize-Email-To' => message.to,
@@ -47,8 +47,8 @@ module SanitizeEmail
       end
     end
 
-    def activate?
-      SanitizeEmail.activation_proc.call if SanitizeEmail.activation_proc.respond_to?(:call)
+    def activate?(message)
+      SanitizeEmail.activation_proc.call(message) if SanitizeEmail.activation_proc.respond_to?(:call)
     end
 
     # This method will be called by the Hook to determine if an override should occur
@@ -61,7 +61,7 @@ module SanitizeEmail
     # Note: Number 1 is the method used by the SanitizeEmail.sanitary block
     # Note: Number 2 would not be used unless you setup your own register_interceptor)
     # If installed but not configured, sanitize email DOES NOTHING.  Until configured the defaults leave it turned off.
-    def sanitize_engaged?
+    def sanitize_engaged?(message)
 
       # Has it been forced via the force_sanitize mattr?
       forced = SanitizeEmail.force_sanitize
@@ -72,7 +72,7 @@ module SanitizeEmail
       return engaged unless engaged.nil?
 
       # Should we sanitize due to the activation_proc?
-      return self.activate?
+      return self.activate?(message)
 
     end
 
