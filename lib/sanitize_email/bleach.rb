@@ -4,47 +4,59 @@
 module SanitizeEmail
   class Bleach
 
-    class MissingTo < StandardError; end
-    class UnknownOverride < StandardError; end
+    class MissingTo < StandardError;
+    end
+    class UnknownOverride < StandardError;
+    end
 
     # Can override global configs at the instance level.
     attr_accessor :engage, # Turn sanitization on or off just for this instance
-      :sanitized_to, :sanitized_cc, :sanitized_bcc, # Replace non-white-listed addresses with these sanitized addresses.
-      :good_list, # White-listed addresses will not be molested as to, cc, or bcc
-      :bad_list, # Black-listed addresses will be removed from to, cc and bcc when sanitization is engaged
-      :injected  # Track whether or not the subject has been injected with usernames
+                  :sanitized_to, :sanitized_cc, :sanitized_bcc, # Replace non-white-listed addresses with these sanitized addresses.
+                  :good_list, # White-listed addresses will not be molested as to, cc, or bcc
+                  :bad_list, # Black-listed addresses will be removed from to, cc and bcc when sanitization is engaged
+                  :injected # Track whether or not the subject has been injected with usernames
 
     def initialize(args = {})
       # Not using extract_options! because non-rails compatibility is a goal
-      @sanitized_to = args[:sanitized_to]    || SanitizeEmail[:sanitized_to]
-      @sanitized_cc = args[:sanitized_cc]    || SanitizeEmail[:sanitized_cc]
-      @sanitized_bcc = args[:sanitized_bcc]  || SanitizeEmail[:sanitized_bcc]
-      @good_list = args[:good_list]          || SanitizeEmail[:good_list]     || []
-      @bad_list = args[:bad_list]            || SanitizeEmail[:bad_list]      || []
-      @engage = args[:engage]                || SanitizeEmail[:engage]
+      @sanitized_to = args[:sanitized_to] || SanitizeEmail[:sanitized_to]
+      @sanitized_cc = args[:sanitized_cc] || SanitizeEmail[:sanitized_cc]
+      @sanitized_bcc = args[:sanitized_bcc] || SanitizeEmail[:sanitized_bcc]
+      @good_list = args[:good_list] || SanitizeEmail[:good_list] || []
+      @bad_list = args[:bad_list] || SanitizeEmail[:bad_list] || []
+      @engage = args[:engage] || SanitizeEmail[:engage]
       @injected = false
     end
 
     # If all recipient addresses are white-listed the field is left alone.
     def delivering_email(message)
       if self.sanitize_engaged?(message)
-        # Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
-        headers = {
+        # Cache the correct addresses. These will get overwritten when the
+        cache_to = self.to_override(message.to)
+        cache_cc = self.cc_override(message.cc)
+        cache_bcc = self.bcc_override(message.bcc)
+
+        add_original_addresses_as_headers(message)
+
+        message.subject = self.subject_override(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
+        message.to = cache_to
+        message.cc = cache_cc
+        message.bcc = cache_bcc
+      end
+    end
+
+    def add_original_addresses_as_headers(message)
+        ## Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
+        {
             'X-Sanitize-Email-To' => message.to,
-            'X-Sanitize-Email-Cc' => message.cc,
-            'X-Sanitize-Email-Bcc' => message.bcc
-        }.each { |k,v|
+            'X-Sanitize-Email-Cc' => message.cc
+            # Don't write out the BCC, as those addresses should not be visible in message headers for obvious reasons
+        }.each { |k, v|
           # For each type of address line
           v.each { |a|
             # For each address
             message.header = message.header.to_s + "\n#{k}: #{a}"
           } if v
         }
-        message.subject = self.subject_override(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
-        message.to = self.to_override(message.to)
-        message.cc = self.cc_override(message.cc)
-        message.bcc = self.bcc_override(message.bcc)
-      end
     end
 
     def activate?(message)
@@ -80,7 +92,7 @@ module SanitizeEmail
       if !actual_addresses.respond_to?(:join)
         real_subject
       else
-        "(#{actual_addresses.join(',').gsub(/@/,' at ').gsub(/[<>]/,'~')}) #{real_subject}"
+        "(#{actual_addresses.join(',').gsub(/@/, ' at ').gsub(/[<>]/, '~')}) #{real_subject}"
       end
     end
 
@@ -106,8 +118,10 @@ module SanitizeEmail
       # TODO: How does this handle email addresses with user names like "Foo Example <foo@example.org>"
       has_address = self.send(list_type).include?(address)
       case list_type
-        when :good_list then has_address ? address : nil
-        when :bad_list then has_address ? nil : address
+        when :good_list then
+          has_address ? address : nil
+        when :bad_list then
+          has_address ? nil : address
       end
     end
 
@@ -116,7 +130,7 @@ module SanitizeEmail
         if real_recipient.nil?
           new_recipient = sanitized_addresses
         else
-          new_recipient = sanitized_addresses.map{|sanitized| "#{real_recipient.gsub(/@/,' at ').gsub(/[<>]/,'~')} <#{sanitized}>"}
+          new_recipient = sanitized_addresses.map { |sanitized| "#{real_recipient.gsub(/@/, ' at ').gsub(/[<>]/, '~')} <#{sanitized}>" }
         end
         result << new_recipient
         result
@@ -133,10 +147,14 @@ module SanitizeEmail
 
     def sanitize_addresses(type)
       case type
-        when :to then Array(self.sanitized_to)
-        when :cc then Array(self.sanitized_cc)
-        when :bcc then Array(self.sanitized_bcc)
-        else raise UnknownOverride, "unknown email override"
+        when :to then
+          Array(self.sanitized_to)
+        when :cc then
+          Array(self.sanitized_cc)
+        when :bcc then
+          Array(self.sanitized_bcc)
+        else
+          raise UnknownOverride, "unknown email override"
       end
     end
 
@@ -149,36 +167,36 @@ module SanitizeEmail
 
     def override_email(type, actual_addresses)
       # Normalized to an arrays
-#puts "override_email 1: #{type} - #{actual_addresses}"
+      #puts "override_email 1: #{type} - #{actual_addresses}"
       real_addresses = Array(actual_addresses)
 
 #puts "override_email 2: #{type} - #{real_addresses}"
-      # If there were no original recipients, then we DO NOT override the nil with the sanitized recipients
+# If there were no original recipients, then we DO NOT override the nil with the sanitized recipients
       return [] if real_addresses.empty?
 
       good_listed = good_listize(real_addresses)
 #puts "override_email 3: #{type} - #{good_listed}"
-      # If there are good_list addresses to send to then use them as is, no mods needed
+# If there are good_list addresses to send to then use them as is, no mods needed
       return good_listed unless good_listed.empty?
 
       # TODO: Allow overriding if an addressed email is on the good list?
       # If there are no sanitized addresses we can't override!
       sanitized_addresses = sanitize_addresses(type)
-#puts "override_email 3: #{type} - #{sanitized_addresses}"
+      #puts "override_email 3: #{type} - #{sanitized_addresses}"
       return [] if sanitized_addresses.empty?
 
       # At this point it is assured that the address list will need to be sanitized
       # One more check to ensure none of the configured sanitized email addresses are on the bad_list
       sanitized_addresses = self.clean_addresses(sanitized_addresses, :bad_list)
-#puts "override_email 4: #{type} - #{sanitized_addresses}"
+      #puts "override_email 4: #{type} - #{sanitized_addresses}"
 
       # If we don't want to inject the 'email' in the 'user name' section of the sanitized recipients,
       # then just return the default sanitized recipients
       return sanitized_addresses unless SanitizeEmail.use_actual_email_as_sanitized_user_name
 
       with_user_names = self.inject_user_names(real_addresses, sanitized_addresses)
-#puts "real_addresses 2: #{real_addresses}"
-#puts "override_email 5: #{type} - #{with_user_names}"
+      #puts "real_addresses 2: #{real_addresses}"
+      #puts "override_email 5: #{type} - #{with_user_names}"
       # Otherwise inject the email as the 'user name'
       return with_user_names
     end
