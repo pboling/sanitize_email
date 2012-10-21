@@ -122,6 +122,8 @@ describe SanitizeEmail do
         @email_message.should have_to("to@sanitize_email.org")
         @email_message.should have_cc("cc@sanitize_email.org")
         @email_message.should have_bcc("bcc@sanitize_email.org")
+        @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
+        @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
       end
       it "should not prepend originals by default" do
         @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")

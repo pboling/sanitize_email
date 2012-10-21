@@ -4,6 +4,8 @@ require 'launchy'
 require 'mail'
 require 'rails'
 require 'letter_opener'
+require 'action_mailer'
+require 'email_spec'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
