@@ -1,5 +1,4 @@
-= sanitize_email {<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/pboling/sanitize_email] {<img src="https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master" alt="Build Status" />}[http://travis-ci.org/pboling/sanitize_email] RDOC
-{<img src="http://api.coderwall.com/pboling/endorsecount.png" />}[http://coderwall.com/pboling]
+= sanitize_email {<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/pboling/sanitize_email] {<img src="https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master" alt="Build Status" />}[http://travis-ci.org/pboling/sanitize_email] {<img src="http://api.coderwall.com/pboling/endorsecount.png" />}[http://coderwall.com/pboling]
 
 This gem allows you to globally override your mail delivery settings.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
