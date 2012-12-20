@@ -1,43 +1,63 @@
-= sanitize_email {<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/pboling/sanitize_email] {<img src="https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master" alt="Build Status" />}[http://travis-ci.org/pboling/sanitize_email] {<img src="http://api.coderwall.com/pboling/endorsecount.png" />}[http://coderwall.com/pboling]
+# sanitize_email
 
-This gem allows you to globally override your mail delivery settings.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
+This gem allows you to override your mail delivery settings, globally or in a local context.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
-It is a "configure it and forget it" type gem that requires very little setup.  It uses the 'register_interceptor' API of ActionMailer or the Mail gem.  It should work with Rails >3 or any Ruby app that is using Mail or ActionMailer gems.
+* compatible with Rails >= 3.X (Note: 3.0 requires version >= 1.0.5)
+* compatible with any Ruby app with a Mail handler that uses the `register_interceptor` API (a la ActionMailer and Mail gems)
+* configure it and forget it
+* little configuration required
+* solves common problems in ruby web applications that use email
+* provides test helpers and spec matchers to assist with testing email content delivery
 
-It currently solves five (3!) common problems in ruby web applications that use email:
+## Summary
 
-=== #1 Working Locally with Production Data
+| Project         |  Sanitize Email  |
+|---------------- | ----------------- |
+| gem name        |  sanitize_email  |
+| license         |  MIT              |
+| homepage        |  https://github.com/pboling/sanitize_email |
+| documentation   |  http://rdoc.info/github/pboling/sanitize_email/frames |
+| author   |  [Peter Boling](railsbling.com) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
+| CI              |  https://travis-ci.org/pboling/sanitize_email [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
+| QA              |  https://codeclimate.com/github/pboling/sanitize_email [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/pboling/sanitize_email) |
 
-* I have a production site with live data.
-* I dump the live data and securely transfer it to another machine (rync -e ssh), and import it using a {few rake tasks}[http://github.com/pboling/sir-du-bob]
-* On this separate machine (staging, or development) I run tests, and test various features which often send out email (registration/signup, order placement, etc.)
-* I usually want the emails to get sent from these non-production environments so I can verify what they look like when sent, but I don't ever want to risk them getting sent to addresses that are not mine.
 
-=== #2 Re-routing Email on a Staging or QA Server
+## Working Locally with Production Data
+
+1. Have a production site with live data
+2. Dump the live data and securely transfer it to another machine (e.g. rync -e ssh)
+3. Import it into a development database
+4. Test features which send out email (registration/signup, order placement, etc.)
+5. Emails get sent (in real-life!) but to sanitized email recipients
+6. Verify what they look like when sent
+7. Iterate on email content design
+8. No risk of emailing production addresses
+
+## Re-routing Email on a Staging or QA Server
 
 Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  Similarly, we set up QA instances for our own QA team and we use {rails-caddy}[http://github.com/jtrupiano/rails-caddy] to allow each QA person to configure it specifically for them.
 
-=== #3 Testing Email from a Hot Production Server
+## Testing Email from a Hot Production Server
 
 If you install this gem on a production server (which I don't always do), you can load up script/console and override the to/cc/bcc on all emails for the duration of your console session.  This allows you to poke and prod a live production instance, and route all email to your own inbox for inspection.  The best part is that this can all be accomplished without changing a single line of your application code.
 
-== Install Like a Boss
+## Install Like a Boss
 
   [sudo] gem install sanitize_email
 
-== Setup With An Axe
+## Setup With An Axe
 
 Customize and add to an initializer:
 
-  SanitizeEmail::Config.configure do |config|
-    config[:sanitized_to] = 'to@sanitize_email.org'
-    config[:sanitized_cc] =         'cc@sanitize_email.org'
-    config[:sanitized_bcc] =        'bcc@sanitize_email.org'
-    # sanitize emails from development and test, or set whatever logic should turn sanitize_email on and off here:
-    config[:activation_proc] =   Proc.new { %w(development test).include?(Rails.env) }
-    config[:use_actual_email_prepended_to_subject] = true   # or false
-    config[:use_actual_email_as_sanitized_user_name] = true # or false
-  end
+        SanitizeEmail::Config.configure do |config|
+          config[:sanitized_to] = 'to@sanitize_email.org'
+          config[:sanitized_cc] =         'cc@sanitize_email.org'
+          config[:sanitized_bcc] =        'bcc@sanitize_email.org'
+          # sanitize emails from development and test, or set whatever logic should turn sanitize_email on and off here:
+          config[:activation_proc] =   Proc.new { %w(development test).include?(Rails.env) }
+          config[:use_actual_email_prepended_to_subject] = true   # or false
+          config[:use_actual_email_as_sanitized_user_name] = true # or false
+        end
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
 
@@ -88,7 +108,7 @@ John Trupiano did the initial gemification and some refactoring.
 
 == Contributors
 
-George Anderson's work / improvements have been pulled in, along with several other contributors, which can be seen in the Network view on github. Thanks!
+See the [Network View](https://github.com/pboling/sanitize_email/network) and the [CHANGELOG](https://github.com/pboling/sanitize_email/blob/master/CHANGELOG.md)
 
 == References
 
