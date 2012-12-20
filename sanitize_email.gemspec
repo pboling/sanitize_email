@@ -11,9 +11,9 @@ Gem::Specification.new do |s|
   s.description = "In Rails, Sinatra, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
   s.email = ["peter.boling@gmail.com", "jtrupiano@gmail.com", "george@benevolentcode.com"]
   s.extra_rdoc_files = [
-    "CHANGELOG",
+    "CHANGELOG.md",
     "LICENSE",
-    "README.rdoc"
+    "README.md"
   ]
   s.files         = `git ls-files`.split($\)
   s.executables   = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
