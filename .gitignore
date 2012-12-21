@@ -5,3 +5,4 @@ pkg
 .idea
 spec/tmp
 *.gem
+.rvmrc
