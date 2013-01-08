@@ -140,13 +140,14 @@ For example:
 
 ## References
 
-* {Source Code}[http://github.com/pboling/sanitize_email]
-* {Gem Release Announcement}[http://blog.smartlogicsolutions.com/2009/04/25/reintroducing-sanitize_email-work-with-production-email-without-fear/]
-* {Peter's Original Writeup}[http://galtzo.blogspot.com/2008/11/sanitize-email-never-worry-about.html]
-* {Using sanitize_email to Preview HTML Emails Locally}[http://blog.smartlogicsolutions.com/2009/04/30/using-sanitize-email-to-preview-html-emails-locally/]
+* [Source Code](http://github.com/pboling/sanitize_email)
+* [Gem Release Announcement](http://blog.smartlogicsolutions.com/2009/04/25/reintroducing-sanitize_email-work-with-production-email-without-fear/)
+* [Peter's Original Writeup](http://galtzo.blogspot.com/2008/11/sanitize-email-never-worry-about.html)
+* [Using sanitize_email to Preview HTML Emails Locally](http://blog.smartlogicsolutions.com/2009/04/30/using-sanitize-email-to-preview-html-emails-locally/)
 
-## Legal Stuff
+## Legal
 
-* Copyright (c) 2008-2012 {Peter H. Boling}[http://www.railsbling.com] of {9thBit LLC}[http://www.peterboling.com/]
-* Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
-* Released under the MIT license
+MIT License
+
+* Copyright (c) 2008-2013 [Peter H. Boling](http://www.railsbling.com) of Acquaintable [http://acquaintable.com/]
+* Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
