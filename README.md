@@ -95,29 +95,57 @@ SanitizeEmail.configure block.
     end
   end
 
-== Deprecations
+## Deprecations
 
 Sometimes things get deprecated (meaning they still work, but are noisy about it).  If this happens to you, and you like your head in the sand, call this number:
 
   SanitizeEmail::Deprecation.deprecate_in_silence = true
 
-== Authors
+## Authors
 
 Peter Boling is the original author of the code, and current maintainer of both the rails 2 and rails 3 development tracks.
 John Trupiano did the initial gemification and some refactoring.
 
-== Contributors
+## Contributors
 
 See the [Network View](https://github.com/pboling/sanitize_email/network) and the [CHANGELOG](https://github.com/pboling/sanitize_email/blob/master/CHANGELOG.md)
 
-== References
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+6. Create new Pull Request
+
+## Versioning
+
+This library aims to adhere to [Semantic Versioning 2.0.0][semver].
+Violations of this scheme should be reported as bugs. Specifically, 
+if a minor or patch version is released that breaks backward 
+compatibility, a new version should be immediately released that
+restores compatibility. Breaking changes to the public API will 
+only be introduced with new major versions.
+
+As a result of this policy, you can (and should) specify a 
+dependency on this gem using the [Pessimistic Version Constraint][pvc] with two digits of precision. 
+
+For example:
+
+    spec.add_dependency 'twitter', '~> 4.0'
+
+[semver]: http://semver.org/
+[pvc]: http://docs.rubygems.org/read/chapter/16#page74
+
+## References
 
 * {Source Code}[http://github.com/pboling/sanitize_email]
 * {Gem Release Announcement}[http://blog.smartlogicsolutions.com/2009/04/25/reintroducing-sanitize_email-work-with-production-email-without-fear/]
 * {Peter's Original Writeup}[http://galtzo.blogspot.com/2008/11/sanitize-email-never-worry-about.html]
 * {Using sanitize_email to Preview HTML Emails Locally}[http://blog.smartlogicsolutions.com/2009/04/30/using-sanitize-email-to-preview-html-emails-locally/]
 
-== Legal Stuff
+## Legal Stuff
 
 * Copyright (c) 2008-2012 {Peter H. Boling}[http://www.railsbling.com] of {9thBit LLC}[http://www.peterboling.com/]
 * Copyright (c) 2009 {John Trupiano}[http://smartlogicsolutions.com/wiki/John_Trupiano] of {SmartLogic Solutions, LLC}[http://www.smartlogicsolutions.com]
