@@ -147,7 +147,6 @@ For example:
 
 ## Legal
 
-MIT License
-
+* MIT License
 * Copyright (c) 2008-2013 [Peter H. Boling](http://www.railsbling.com) of Acquaintable [http://acquaintable.com/]
 * Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
