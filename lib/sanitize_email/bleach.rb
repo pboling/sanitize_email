@@ -37,7 +37,9 @@ module SanitizeEmail
 
         add_original_addresses_as_headers(message)
 
-        message.subject = self.subject_override(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
+        message.subject = self.prepend_email_to_subject(message.subject, message.to) if SanitizeEmail.use_actual_email_prepended_to_subject
+        message.subject = self.prepend_environment_to_subject(message.subject) if SanitizeEmail.use_actual_environment_prepended_to_subject
+
         message.to = cache_to
         message.cc = cache_cc
         message.bcc = cache_bcc
@@ -88,11 +90,17 @@ module SanitizeEmail
 
     end
 
-    def subject_override(real_subject, actual_addresses)
+    def prepend_email_to_subject(real_subject, actual_addresses)
       if !actual_addresses.respond_to?(:join)
         real_subject
       else
         "(#{actual_addresses.join(',').gsub(/@/, ' at ').gsub(/[<>]/, '~')}) #{real_subject}"
+      end
+    end
+
+    def prepend_environment_to_subject(real_subject)
+      if Rails.env.present?
+        "[#{Rails.env?}] #{real_subject}"
       end
     end
 
