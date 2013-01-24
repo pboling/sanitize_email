@@ -32,6 +32,10 @@ module SanitizeEmail
       # e.g. "real@example.com rest of subject"
       :use_actual_email_prepended_to_subject => false,
 
+      # Prepend the Rails environment onto the Subject line of the message
+      # e.g. "[development] rest of subject"
+      :use_actual_environment_prepended_to_subject => false,
+
       :activation_proc => Proc.new { false }
     }
 

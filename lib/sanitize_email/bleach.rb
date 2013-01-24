@@ -99,8 +99,8 @@ module SanitizeEmail
     end
 
     def prepend_environment_to_subject(real_subject)
-      if Rails.env.present?
-        "[#{Rails.env?}] #{real_subject}"
+      if defined?(Rails) && Rails.env.present?
+        "[#{Rails.env}] #{real_subject}"
       end
     end
 
