@@ -1,3 +1,7 @@
+Version 1.0.6 - JAN.25.2013
+
+* \[New Feature\] use_actual_environment_prepended_to_subject by [altonymous](https://github.com/Altonymous)
+
 Version 1.0.5 - DEC.20.2012
 
 * Fixes Compatibility with Rails 3.0 by David Morton
