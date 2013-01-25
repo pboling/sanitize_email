@@ -9,6 +9,7 @@ describe SanitizeEmail do
     :sanitized_cc =>  'cc@sanitize_email.org',
     :sanitized_bcc => 'bcc@sanitize_email.org',
     :use_actual_email_prepended_to_subject => false,
+    :use_actual_environment_prepended_to_subject => false,
     :use_actual_email_as_sanitized_user_name => false
   }
 
@@ -42,6 +43,7 @@ describe SanitizeEmail do
       config[:sanitized_cc] =         options[:sanitized_cc]
       config[:sanitized_bcc] =        options[:sanitized_bcc]
       config[:use_actual_email_prepended_to_subject] = options[:use_actual_email_prepended_to_subject]
+      config[:use_actual_environment_prepended_to_subject] = options[:use_actual_environment_prepended_to_subject]
       config[:use_actual_email_as_sanitized_user_name] = options[:use_actual_email_as_sanitized_user_name]
 
       # For testing *deprecated* configuration options:
@@ -221,6 +223,45 @@ describe SanitizeEmail do
   end
 
   context "config options" do
+    context ":use_actual_environment_prepended_to_subject" do
+      context "true" do
+        before(:each) do
+          sanitize_spec_dryer('test')
+          configure_sanitize_email({:use_actual_environment_prepended_to_subject => true})
+          sanitary_mail_delivery
+        end
+        it "original to is prepended" do
+          @email_message.should have_subject("[test] original subject")
+        end
+        it "should not alter non-sanitized attributes" do
+          @email_message.should have_from('from@example.org')
+          @email_message.should have_reply_to('reply_to@example.org')
+        end
+        it "should not prepend overrides" do
+          @email_message.should_not have_to_username("to at sanitize_email.org")
+          @email_message.should_not have_subject("(to at sanitize_email.org)")
+        end
+      end
+      context "false" do
+        before(:each) do
+          sanitize_spec_dryer('test')
+          configure_sanitize_email({:use_actual_environment_prepended_to_subject => false})
+          sanitary_mail_delivery
+        end
+        it "original to is not prepended" do
+          @email_message.should_not have_subject("[test] original subject")
+        end
+        it "should not alter non-sanitized attributes" do
+          @email_message.should have_from('from@example.org')
+          @email_message.should have_reply_to('reply_to@example.org')
+        end
+        it "should not prepend overrides" do
+          @email_message.should_not have_to_username("to at sanitize_email.org")
+          @email_message.should_not have_subject("(to at sanitize_email.org)")
+        end
+      end
+    end
+
     context ":use_actual_email_prepended_to_subject" do
       context "true" do
         before(:each) do
