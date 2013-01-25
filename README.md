@@ -2,7 +2,7 @@
 
 This gem allows you to override your mail delivery settings, globally or in a local context.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
-* compatible with Rails >= 3.X (Note: 3.0 requires version >= 1.0.5)
+* compatible with Rails >= 3.X (since v1.0.5)
 * compatible with any Ruby app with a Mail handler that uses the `register_interceptor` API (a la ActionMailer and Mail gems)
 * configure it and forget it
 * little configuration required
@@ -17,7 +17,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | license         |  MIT              |
 | homepage        |  https://github.com/pboling/sanitize_email |
 | documentation   |  http://rdoc.info/github/pboling/sanitize_email/frames |
-| author   |  [Peter Boling](railsbling.com) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
+| author   |  [Peter Boling](http://railsbling.com) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
 | CI              |  https://travis-ci.org/pboling/sanitize_email [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
 | QA              |  https://codeclimate.com/github/pboling/sanitize_email [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/pboling/sanitize_email) |
 
@@ -50,14 +50,14 @@ If you install this gem on a production server (which I don't always do), you ca
 Customize and add to an initializer:
 
         SanitizeEmail::Config.configure do |config|
-          config[:sanitized_to] = 'to@sanitize_email.org'
+          config[:sanitized_to] =         'to@sanitize_email.org'
           config[:sanitized_cc] =         'cc@sanitize_email.org'
           config[:sanitized_bcc] =        'bcc@sanitize_email.org'
-          # sanitize emails from development and test, or set whatever logic should turn sanitize_email on and off here:
-          config[:activation_proc] =   Proc.new { %w(development test).include?(Rails.env) }
-          config[:use_actual_email_prepended_to_subject] = true   # or false
+          # run/call whatever logic should turn sanitize_email on and off in this Proc:
+          config[:activation_proc] =      Proc.new { %w(development test).include?(Rails.env) }
+          config[:use_actual_email_prepended_to_subject] = true         # or false
           config[:use_actual_environment_prepended_to_subject] = true   # or false
-          config[:use_actual_email_as_sanitized_user_name] = true # or false
+          config[:use_actual_email_as_sanitized_user_name] = true       # or false
         end
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
@@ -123,14 +123,14 @@ See the [Network View](https://github.com/pboling/sanitize_email/network) and th
 ## Versioning
 
 This library aims to adhere to [Semantic Versioning 2.0.0][semver].
-Violations of this scheme should be reported as bugs. Specifically, 
-if a minor or patch version is released that breaks backward 
+Violations of this scheme should be reported as bugs. Specifically,
+if a minor or patch version is released that breaks backward
 compatibility, a new version should be immediately released that
-restores compatibility. Breaking changes to the public API will 
+restores compatibility. Breaking changes to the public API will
 only be introduced with new major versions.
 
-As a result of this policy, you can (and should) specify a 
-dependency on this gem using the [Pessimistic Version Constraint][pvc] with two digits of precision. 
+As a result of this policy, you can (and should) specify a
+dependency on this gem using the [Pessimistic Version Constraint][pvc] with two digits of precision.
 
 For example:
 
