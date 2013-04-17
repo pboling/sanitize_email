@@ -43,22 +43,26 @@ If you install this gem on a production server (which I don't always do), you ca
 
 ## Install Like a Boss
 
-  [sudo] gem install sanitize_email
+```
+[sudo] gem install sanitize_email
+```
 
 ## Setup With An Axe
 
 Customize and add to an initializer:
 
-        SanitizeEmail::Config.configure do |config|
-          config[:sanitized_to] =         'to@sanitize_email.org'
-          config[:sanitized_cc] =         'cc@sanitize_email.org'
-          config[:sanitized_bcc] =        'bcc@sanitize_email.org'
-          # run/call whatever logic should turn sanitize_email on and off in this Proc:
-          config[:activation_proc] =      Proc.new { %w(development test).include?(Rails.env) }
-          config[:use_actual_email_prepended_to_subject] = true         # or false
-          config[:use_actual_environment_prepended_to_subject] = true   # or false
-          config[:use_actual_email_as_sanitized_user_name] = true       # or false
-        end
+```
+SanitizeEmail::Config.configure do |config|
+  config[:sanitized_to] =         'to@sanitize_email.org'
+  config[:sanitized_cc] =         'cc@sanitize_email.org'
+  config[:sanitized_bcc] =        'bcc@sanitize_email.org'
+  # run/call whatever logic should turn sanitize_email on and off in this Proc:
+  config[:activation_proc] =      Proc.new { %w(development test).include?(Rails.env) }
+  config[:use_actual_email_prepended_to_subject] = true         # or false
+  config[:use_actual_environment_prepended_to_subject] = true   # or false
+  config[:use_actual_email_as_sanitized_user_name] = true       # or false
+end
+```
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
 
@@ -66,14 +70,17 @@ But wait there's more:
 
 Let's say you have a method in your model that you can call to test the signup email. You want to be able to test sending it to any user at any time... but you don't want the user to ACTUALLY get the email, even in production. A dilemma, yes?  Not anymore!
 
-To override the environment based switch use force_sanitize, which is normally nil, and ignored by default. When set to true or false it will turn sanitization on or off:
+To override the environment based switch use `force_sanitize`, which is normally `nil`, and ignored by default. When set to `true` or `false` it will turn sanitization on or off:
 
+```
   SanitizeEmail.force_sanitize = true
+```
 
 There are also two methods that take a block and turn SanitizeEmail on or off:
 
 Regardless of the Config settings of SanitizeEmail you can do a local override to force unsanitary email in any environment.
 
+```
   SanitizeEmail.unsanitary do
     Mail.deliver do
       from      'from@example.org'
@@ -82,11 +89,13 @@ Regardless of the Config settings of SanitizeEmail you can do a local override t
       subject   'subject'
     end
   end
+```
 
 Regardless of the Config settings of SanitizeEmail you can do a local override to send sanitary email in any environment.
 You have access to all the same configuration options in the parameter hash as you can set in the actual
 SanitizeEmail.configure block.
 
+```
   SanitizeEmail.sanitary({:sanitized_to => 'boo@example.com'}) do # these config options are merged with the globals
     Mail.deliver do
       from      'from@example.org'
@@ -95,12 +104,15 @@ SanitizeEmail.configure block.
       subject   'subject'
     end
   end
+```
 
 ## Deprecations
 
 Sometimes things get deprecated (meaning they still work, but are noisy about it).  If this happens to you, and you like your head in the sand, call this number:
 
+```
   SanitizeEmail::Deprecation.deprecate_in_silence = true
+```
 
 ## Authors
 
