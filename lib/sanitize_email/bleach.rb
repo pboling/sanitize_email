@@ -56,7 +56,7 @@ module SanitizeEmail
           # For each type of address line
           v.each { |a|
             # For each address
-            message.header = message.header.to_s + "\n#{k}: #{a}"
+            message.header = message.header.to_s.strip + "\n#{k}: #{a}"
           } if v
         }
     end
