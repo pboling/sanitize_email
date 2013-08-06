@@ -5,7 +5,6 @@ Gem::Specification.new do |s|
   s.name = "sanitize_email"
   s.version = SanitizeEmail::VERSION
 
-  s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
   s.summary = "Rails/Sinatra/Mail gem: Test email abilities without ever sending a message to actual live addresses"
   s.description = "In Rails, Sinatra, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
@@ -20,8 +19,9 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.homepage = "http://github.com/pboling/sanitize_email"
   s.licenses = ["MIT"]
+  s.email = 'peter.boling@gmail.com'
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.platform = Gem::Platform::RUBY
 
   # Runtime Dependencies
   # to replace the cattr_accessor method we lost when removing rails from run time dependencies

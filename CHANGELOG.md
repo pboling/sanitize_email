@@ -1,3 +1,9 @@
+Version 1.0.7 - AUG.06.2012
+
+* \[Bug Fix\] Stripping the message headers before appending new headers.
+  - In a scenario where there is a trailing space, adding the newline before we append results in a blank header which throws an error as illegal by Eric Musgrove
+* Minor updates to Gemspec by Peter Boling
+
 Version 1.0.6 - JAN.25.2013
 
 * \[New Feature\] use_actual_environment_prepended_to_subject by [altonymous](https://github.com/Altonymous)
