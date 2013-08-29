@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
   s.summary = "Rails/Sinatra/Mail gem: Test email abilities without ever sending a message to actual live addresses"
   s.description = "In Rails, Sinatra, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
-  s.email = ["peter.boling@gmail.com", "jtrupiano@gmail.com", "george@benevolentcode.com"]
+  s.email = ["peter.boling@gmail.com"]
   s.extra_rdoc_files = [
     "CHANGELOG.md",
     "LICENSE",
