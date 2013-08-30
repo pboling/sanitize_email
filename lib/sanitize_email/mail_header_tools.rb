@@ -32,7 +32,7 @@ module SanitizeEmail
       message.subject.insert(0, SanitizeEmail::MailHeaderTools.prepend_subject_array(message).join(' ') + ' ')
     end
 
-    # Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
+    # According to https://github.com/mikel/mail this is the correct way to update headers.
     def self.update_header(k, v, message)
       # For each address, as v can be an array of addresses
       Array(v).each_with_index { |a, index|
@@ -43,6 +43,7 @@ module SanitizeEmail
         #puts "for #{num}: #{header_key}"
         message.header[header_key] = a.to_s
         # Old way
+        # Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
         #message.header = message.header.to_s.strip + "\n#{k}: #{a}"
       } if v
       #puts "\nafter message.header:\n #{message.header}\n"
