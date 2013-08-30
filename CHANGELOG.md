@@ -1,3 +1,9 @@
+Version 1.0.8 - AUG.30.2013
+* \[Bug Fix\] Fixes #12 - Streange repeating headers by Peter Boling
+* Lots of refactoring by Peter Boling
+  * Properly supports when a to/cc field has multiple recipients sanitized and adds all to mail headers
+* Improved specs by Peter Boling
+
 Version 1.0.7 - AUG.06.2012
 
 * \[Bug Fix\] Stripping the message headers before appending new headers.
