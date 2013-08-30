@@ -4,7 +4,7 @@ Version 1.0.8 - AUG.30.2013
   * Properly supports when a to/cc field has multiple recipients sanitized and adds all to mail headers
 * Improved specs by Peter Boling
 
-Version 1.0.7 - AUG.06.2012
+Version 1.0.7 - AUG.06.2013
 
 * \[Bug Fix\] Stripping the message headers before appending new headers.
   - In a scenario where there is a trailing space, adding the newline before we append results in a blank header which throws an error as illegal by Eric Musgrove
