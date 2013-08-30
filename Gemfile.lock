@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sanitize_email (1.0.7)
+    sanitize_email (1.0.8)
 
 GEM
   remote: http://rubygems.org/
