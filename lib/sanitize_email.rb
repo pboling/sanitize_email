@@ -5,6 +5,8 @@ module SanitizeEmail
   require 'sanitize_email/version'
   require 'sanitize_email/deprecation'
   require 'sanitize_email/config'
+  require 'sanitize_email/mail_header_tools'
+  require 'sanitize_email/overridden_addresses'
   require 'sanitize_email/bleach'
 
   class MissingBlockParameter < StandardError; end
@@ -42,6 +44,11 @@ module SanitizeEmail
   # We have to actually define because we can't deprecate methods that are hooked up via method_missing
   def self.local_environments
     SanitizeEmail[:local_environments]
+  end
+
+  def self.activate?(message)
+    proc = SanitizeEmail.activation_proc
+    proc.call(message) if proc.respond_to?(:call)
   end
 
   class << self

@@ -60,6 +60,12 @@ describe SanitizeEmail do
     end
   end
 
+  def sanitary_mail_delivery_multiple_recipients(config_options = {})
+    SanitizeEmail.sanitary(config_options) do
+      mail_delivery_multiple_recipients
+    end
+  end
+
   def unsanitary_mail_delivery
     SanitizeEmail.unsanitary do
       mail_delivery
@@ -72,6 +78,17 @@ describe SanitizeEmail do
       to        'to@example.org'
       cc        'cc@example.org'
       bcc       'bcc@example.org'
+      reply_to  'reply_to@example.org'
+      subject   'original subject'
+    end
+  end
+
+  def mail_delivery_multiple_recipients
+    @email_message = Mail.deliver do
+      from      'from@example.org'
+      to        %w( to1@example.org to2@example.org to3@example.org )
+      cc        %w( cc1@example.org cc2@example.org cc3@example.org )
+      bcc       %w( bcc1@example.org bcc2@example.org bcc3@example.org )
       reply_to  'reply_to@example.org'
       subject   'original subject'
     end
@@ -124,9 +141,56 @@ describe SanitizeEmail do
         @email_message.should have_to("to@sanitize_email.org")
         @email_message.should have_cc("cc@sanitize_email.org")
         @email_message.should have_bcc("bcc@sanitize_email.org")
+      end
+      it "should set headers" do
         @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
         @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
         @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+      end
+      it "should not prepend originals by default" do
+        @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
+        @email_message.should_not have_subject("(to at example.org) original subject")
+      end
+    end
+
+    context "sanitary with multiple recipients" do
+      before(:each) do
+        configure_sanitize_email
+        sanitary_mail_delivery_multiple_recipients
+      end
+      it "should not alter non-sanitized attributes" do
+        @email_message.should have_from('from@example.org')
+        @email_message.should have_reply_to('reply_to@example.org')
+      end
+      it "should not prepend overrides" do
+        @email_message.should_not have_to_username("to at sanitize_email.org")
+        @email_message.should_not have_subject("(to at sanitize_email.org)")
+      end
+      it "should override" do
+        @email_message.should have_to("to@sanitize_email.org")
+        @email_message.should have_cc("cc@sanitize_email.org")
+        @email_message.should have_bcc("bcc@sanitize_email.org")
+      end
+      it "should set headers for sanitized :to recipients" do
+        @email_message.should have_header("X-Sanitize-Email-To", "to1@example.org")
+        @email_message.should_not have_header("X-Sanitize-Email-To-0", "to1@example.org")
+        @email_message.should_not have_header("X-Sanitize-Email-To-1", "to1@example.org")
+        @email_message.should have_header("X-Sanitize-Email-To-2", "to2@example.org")
+        @email_message.should have_header("X-Sanitize-Email-To-3", "to3@example.org")
+      end
+      it "should set headers for sanitized :cc recipients" do
+        @email_message.should have_header("X-Sanitize-Email-Cc", "cc1@example.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Cc-0", "cc1@example.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Cc-1", "cc1@example.org")
+        @email_message.should have_header("X-Sanitize-Email-Cc-2", "cc2@example.org")
+        @email_message.should have_header("X-Sanitize-Email-Cc-3", "cc3@example.org")
+      end
+      it "should not set headers for sanitized :bcc recipients" do
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc1@sanitize_email.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc-0", "bcc1@sanitize_email.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc-1", "bcc1@sanitize_email.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc-2", "bcc2@sanitize_email.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc-3", "bcc3@sanitize_email.org")
       end
       it "should not prepend originals by default" do
         @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
@@ -150,6 +214,8 @@ describe SanitizeEmail do
           @email_message.should have_to("to@sanitize_email.org")
           @email_message.should have_cc("cc@sanitize_email.org")
           @email_message.should have_bcc("bcc@sanitize_email.org")
+        end
+        it "should set headers" do
           @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
           @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
           @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")

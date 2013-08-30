@@ -1,16 +1,4 @@
-lib/sanitize_email.rb -- 1 warning:
-  SanitizeEmail#self.sanitary calls SanitizeEmail::Config.config twice (DuplicateMethodCall)
-lib/sanitize_email/bleach.rb -- 14 warnings:
-  SanitizeEmail::Bleach has no descriptive comment (IrresponsibleModule)
-  SanitizeEmail::Bleach#activate? calls SanitizeEmail.activation_proc twice (DuplicateMethodCall)
-  SanitizeEmail::Bleach#activate? doesn't depend on instance state (UtilityFunction)
-  SanitizeEmail::Bleach#delivering_email calls message.to twice (DuplicateMethodCall)
-  SanitizeEmail::Bleach#inject_user_names contains iterators nested 2 deep (NestedIterators)
-  SanitizeEmail::Bleach#inject_user_names doesn't depend on instance state (UtilityFunction)
-  SanitizeEmail::Bleach#inject_user_names refers to real_recipient more than self (FeatureEnvy)
-  SanitizeEmail::Bleach#override_email has approx 10 statements (TooManyStatements)
-  SanitizeEmail::Bleach#subject_override doesn't depend on instance state (UtilityFunction)
-  SanitizeEmail::Bleach#subject_override refers to actual_addresses more than self (FeatureEnvy)
+lib/sanitize_email/bleach.rb -- 2 warnings:
   SanitizeEmail::Bleach::MissingTo has no descriptive comment (IrresponsibleModule)
   SanitizeEmail::Bleach::UnknownOverride has no descriptive comment (IrresponsibleModule)
 lib/sanitize_email/config.rb -- 4 warnings:
@@ -18,12 +6,25 @@ lib/sanitize_email/config.rb -- 4 warnings:
   SanitizeEmail::Config#self.configure calls @config[:force_sanitize] twice (DuplicateMethodCall)
   SanitizeEmail::Config#self.configure calls @config[:sanitized_recipients] twice (DuplicateMethodCall)
   SanitizeEmail::Config#self.configure has approx 7 statements (TooManyStatements)
-lib/sanitize_email/deprecation.rb -- 3 warnings:
-  SanitizeEmail::Deprecation declares the class variable @@deprecate_in_silence (ClassVariable)
+lib/sanitize_email/deprecation.rb -- 2 warnings:
   SanitizeEmail::Deprecation takes parameters [name, replacement] to 3 methods (DataClump)
   SanitizeEmail::Deprecation#deprecation is controlled by argument replacement (ControlParameter)
 lib/sanitize_email/engine.rb -- 1 warning:
   SanitizeEmail::Engine has no descriptive comment (IrresponsibleModule)
+lib/sanitize_email/mail_header_tools.rb -- 7 warnings:
+  SanitizeEmail::MailHeaderTools#self.add_original_addresses_as_headers has the variable name 'k' (UncommunicativeVariableName)
+  SanitizeEmail::MailHeaderTools#self.add_original_addresses_as_headers has the variable name 'v' (UncommunicativeVariableName)
+  SanitizeEmail::MailHeaderTools#self.prepend_environment_to_subject calls Rails.env twice (DuplicateMethodCall)
+  SanitizeEmail::MailHeaderTools#self.update_header has the parameter name 'k' (UncommunicativeParameterName)
+  SanitizeEmail::MailHeaderTools#self.update_header has the parameter name 'v' (UncommunicativeParameterName)
+  SanitizeEmail::MailHeaderTools#self.update_header has the variable name 'a' (UncommunicativeVariableName)
+  SanitizeEmail::MailHeaderTools#self.update_header is controlled by argument v (ControlParameter)
+lib/sanitize_email/overridden_addresses.rb -- 5 warnings:
+  SanitizeEmail::OverriddenAddresses has no descriptive comment (IrresponsibleModule)
+  SanitizeEmail::OverriddenAddresses#inject_user_names contains iterators nested 2 deep (NestedIterators)
+  SanitizeEmail::OverriddenAddresses#inject_user_names doesn't depend on instance state (UtilityFunction)
+  SanitizeEmail::OverriddenAddresses#inject_user_names refers to real_recipient more than self (FeatureEnvy)
+  SanitizeEmail::OverriddenAddresses#override_email has approx 10 statements (TooManyStatements)
 lib/sanitize_email/railtie.rb -- 1 warning:
   SanitizeEmail::Railtie has no descriptive comment (IrresponsibleModule)
 lib/sanitize_email/rspec_matchers.rb -- 2 warnings:
