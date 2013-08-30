@@ -146,7 +146,7 @@ dependency on this gem using the [Pessimistic Version Constraint][pvc] with two 
 
 For example:
 
-    spec.add_dependency 'sanitize_email', '~> 4.0'
+    spec.add_dependency 'sanitize_email', '~> 1.0.8'
 
 [semver]: http://semver.org/
 [pvc]: http://docs.rubygems.org/read/chapter/16#page74
