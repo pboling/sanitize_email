@@ -1,5 +1,8 @@
+Version 1.0.9 - AUG.31.2013
+* \[Bug Fix\] More Fixes for #12 - Strange repeating headers, and repeated subject injection by Peter Boling
+
 Version 1.0.8 - AUG.30.2013
-* \[Bug Fix\] Fixes #12 - Streange repeating headers by Peter Boling
+* \[Bug Fix\] Partial Fix for #12 - Strange repeating headers by Peter Boling
 * Lots of refactoring by Peter Boling
   * Properly supports when a to/cc field has multiple recipients sanitized and adds all to mail headers
 * Improved specs by Peter Boling

@@ -54,6 +54,20 @@ describe SanitizeEmail do
     Mail.register_interceptor(SanitizeEmail::Bleach.new)
   end
 
+  def funky_config
+    SanitizeEmail::Config.configure do |config|
+      config[:sanitized_to] =         %w( funky@sanitize_email.org yummy@sanitize_email.org same@example.org )
+      config[:sanitized_cc] =         nil
+      config[:sanitized_bcc] =        nil
+      # run/call whatever logic should turn sanitize_email on and off in this Proc:
+      config[:activation_proc] =      Proc.new { Rails.env != 'production' }
+      config[:use_actual_email_prepended_to_subject] = true
+      config[:use_actual_environment_prepended_to_subject] = true
+      config[:use_actual_email_as_sanitized_user_name] = false
+    end
+    Mail.register_interceptor(SanitizeEmail::Bleach.new)
+  end
+
   def sanitary_mail_delivery(config_options = {})
     SanitizeEmail.sanitary(config_options) do
       mail_delivery
@@ -69,6 +83,17 @@ describe SanitizeEmail do
   def unsanitary_mail_delivery
     SanitizeEmail.unsanitary do
       mail_delivery
+    end
+  end
+
+  def mail_delivery_hot_mess
+    @email_message = Mail.deliver do
+      from      'same@example.org'
+      to        %w( same@example.org same@example.org same@example.org same@example.org same@example.org )
+      cc        'same@example.org'
+      bcc       'same@example.org'
+      reply_to  'same@example.org'
+      subject   'original subject'
     end
   end
 
@@ -195,6 +220,95 @@ describe SanitizeEmail do
       it "should not prepend originals by default" do
         @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
         @email_message.should_not have_subject("(to at example.org) original subject")
+      end
+    end
+
+    context "sanitary with funky config" do
+      before(:each) do
+        funky_config
+        SanitizeEmail.force_sanitize = true
+        mail_delivery
+      end
+      it "original to is prepended to subject" do
+        @email_message.should have_subject(/\(to at example.org\).*original subject/)
+      end
+      it "original to is only prepended once to subject" do
+        @email_message.should_not have_subject(/\(to at example.org\).*\(to at example.org\).*original subject/)
+      end
+      it "should not alter non-sanitized attributes" do
+        @email_message.should have_from('from@example.org')
+        @email_message.should have_reply_to('reply_to@example.org')
+      end
+      it "should not prepend overrides" do
+        @email_message.should_not have_to_username("to at sanitize_email.org")
+        @email_message.should_not have_subject(/.*\(to at sanitize_email.org\).*/)
+      end
+      it "should override where original recipients were not nil" do
+        @email_message.should have_to("funky@sanitize_email.org")
+      end
+      it "should not override where original recipients were nil" do
+        @email_message.should_not have_cc("cc@sanitize_email.org")
+        @email_message.should_not have_bcc("bcc@sanitize_email.org")
+      end
+      it "should set headers of originals" do
+        @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
+        @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
+      end
+      it "should not set headers of bcc" do
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+      end
+      it "should not set headers of overrides" do
+        @email_message.should_not have_header("X-Sanitize-Email-To", "funky@sanitize_email.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Cc", "cc@sanitize_email.org")
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+        #puts "email headers:\n#{@email_message.header}"
+      end
+      it "should not prepend originals by default" do
+        @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
+        @email_message.should_not have_subject("(to at example.org) original subject")
+      end
+    end
+
+    context "sanitary with funky config and hot mess delivery" do
+      before(:each) do
+        funky_config
+        SanitizeEmail.force_sanitize = true
+        mail_delivery_hot_mess
+      end
+      it "original to is prepended to subject" do
+        @email_message.should have_subject(/\(same at example.org\).*original subject/)
+      end
+      it "original to is only prepended once to subject" do
+        @email_message.should_not have_subject(/\(same at example.org\).*\(same at example.org\).*original subject/)
+      end
+      it "should not alter non-sanitized attributes" do
+        @email_message.should have_from('same@example.org')
+        @email_message.should have_reply_to('same@example.org')
+      end
+      it "should not prepend overrides" do
+        @email_message.should_not have_to_username("same at example.org")
+      end
+      it "should override where original recipients were not nil" do
+        @email_message.should have_to("same@example.org")
+      end
+      it "should not override where original recipients were nil" do
+        @email_message.should_not have_cc("same@example.org")
+        @email_message.should_not have_bcc("same@example.org")
+      end
+      it "should set headers of originals" do
+        @email_message.should have_header("X-Sanitize-Email-To", "same@example.org")
+        @email_message.should have_header("X-Sanitize-Email-Cc", "same@example.org")
+      end
+      it "should not set headers of bcc" do
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "same@example.org")
+      end
+      it "should not set headers of overrides" do
+        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "same@example.org")
+        puts "email headers:\n#{@email_message.header}"
+      end
+      it "should not prepend originals by default" do
+        @email_message.should_not have_to_username("same at example.org <same@example.org>")
+        @email_message.should_not have_subject("(same at example.org) original subject")
       end
     end
 

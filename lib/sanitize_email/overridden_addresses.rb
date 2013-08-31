@@ -109,7 +109,7 @@ module SanitizeEmail
       addresses.map { |address|
         # If this address is on the good list then let it pass
         self.address_list_filter(list_type, address)
-      }.compact
+      }.compact.uniq
     end
 
     def sanitize_addresses(type)
