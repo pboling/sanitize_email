@@ -40,6 +40,9 @@ module SanitizeEmail
     # If installed but not configured, sanitize email DOES NOTHING.  Until configured the defaults leave it turned off.
     def sanitize_engaged?(message)
 
+      # Don't sanitize the message if it will not be delivered
+      return false unless message.perform_deliveries
+
       # Has it been forced via the force_sanitize mattr?
       forced = SanitizeEmail.force_sanitize
       return forced unless forced.nil?
