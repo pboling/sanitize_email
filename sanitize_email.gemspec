@@ -39,5 +39,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<roodi>, [">= 2.1.0"])
   s.add_development_dependency(%q<rake>, [">= 0"])
   s.add_development_dependency(%q<email_spec>, [">= 0"])
+  s.add_development_dependency "coveralls"
 end
 
