@@ -12,13 +12,10 @@ module SanitizeEmail
   class MissingBlockParameter < StandardError; end
 
   # Allow non-rails implementations to use this gem
-  # TODO: Prepare this for Rails 4
-  if defined?(Rails) && ::Rails::VERSION::MAJOR >= 3
-    if ::Rails::VERSION::MINOR >= 1
-      require 'sanitize_email/engine'
-    elsif ::Rails::VERSION::MINOR == 0
-      require 'sanitize_email/railtie'
-    end
+  if defined?(::Rails) && defined?(::Rails::Engine)
+    require 'sanitize_email/engine'
+  elsif ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR == 0
+    require 'sanitize_email/railtie'
   elsif defined?(Rails)
     raise "Please use the 0.X.X versions of sanitize_email for Rails 2.X and below."
   elsif defined?(Mailer) && Mailer.respond_to?(:register_interceptor)
@@ -30,6 +27,7 @@ module SanitizeEmail
     SanitizeEmail::Config.config[key.to_sym]
   end
 
+  # TODO: This was a mistake I think.  Deprecate.
   def self.method_missing(name, *args)
     SanitizeEmail[name]
   end
@@ -47,7 +45,7 @@ module SanitizeEmail
   end
 
   def self.activate?(message)
-    proc = SanitizeEmail.activation_proc
+    proc = SanitizeEmail[:activation_proc]
     proc.call(message) if proc.respond_to?(:call)
   end
 

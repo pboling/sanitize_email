@@ -24,6 +24,8 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
 
   # Runtime Dependencies
+  # A project wanting to use this gem's engine/railtie will be expected to have already loaded the rails/railtie gem.
+  #s.add_dependency "railties", ">= 3.2"
   # to replace the cattr_accessor method we lost when removing rails from run time dependencies
   #s.add_runtime_dependency(%q<facets>, ["> 0"])
 
