@@ -11,18 +11,17 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 
 ## Summary
 
-| Project         |  Sanitize Email   |
-|---------------- | ----------------- |
-| gem name        |  sanitize_email   |
-| license         |  MIT              |
-| version         |  [![Gem Version](https://badge.fury.io/rb/sanitize_email.png)](http://badge.fury.io/rb/sanitize_email) |
-| dependencies    |  [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) |
-| code quality    |  [![Code Climate](https://codeclimate.com/github/pboling/sanitize_email.png)](https://codeclimate.com/github/pboling/sanitize_email) |
-| homepage        |  [https://github.com/pboling/sanitize_email][homepage] |
-| documentation   |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
-| author   |  [Peter Boling](http://railsbling.com) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
-| CI              |  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
-| QA              |  [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/pboling/sanitize_email) |
+| Project                 |  Sanitize Email   |
+|------------------------ | ----------------- |
+| gem name                |  sanitize_email   |
+| license                 |  MIT              |
+| version                 |  [![Gem Version](https://badge.fury.io/rb/sanitize_email.png)](http://badge.fury.io/rb/sanitize_email) |
+| dependencies            |  [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) |
+| code quality            |  [![Code Climate](https://codeclimate.com/github/pboling/sanitize_email.png)](https://codeclimate.com/github/pboling/sanitize_email) |
+| continuous integration  |  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
+| homepage                |  [https://github.com/pboling/sanitize_email][homepage] |
+| documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
+| author                  |  [Peter Boling](http://railsbling.com) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
 
 
 ## Working Locally with Production Data
