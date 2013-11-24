@@ -1,4 +1,4 @@
-# sanitize_email
+# sanitize_email [![Gem Version](https://badge.fury.io/rb/sanitize_email.png)](http://badge.fury.io/rb/sanitize_email)  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) [![Code Climate](https://codeclimate.com/github/pboling/sanitize_email.png)](https://codeclimate.com/github/pboling/sanitize_email) [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.png)](https://coveralls.io/r/pboling/sanitize_email) [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png)
 
 This gem allows you to override your mail delivery settings, globally or in a local context.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
@@ -11,15 +11,18 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 
 ## Summary
 
-| Project         |  Sanitize Email  |
+| Project         |  Sanitize Email   |
 |---------------- | ----------------- |
-| gem name        |  sanitize_email  |
+| gem name        |  sanitize_email   |
 | license         |  MIT              |
-| homepage        |  https://github.com/pboling/sanitize_email |
-| documentation   |  http://rdoc.info/github/pboling/sanitize_email/frames |
+| version         |  [![Gem Version](https://badge.fury.io/rb/sanitize_email.png)](http://badge.fury.io/rb/sanitize_email) |
+| dependencies    |  [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) |
+| code quality    |  [![Code Climate](https://codeclimate.com/github/pboling/sanitize_email.png)](https://codeclimate.com/github/pboling/sanitize_email) |
+| homepage        |  [https://github.com/pboling/sanitize_email][homepage] |
+| documentation   |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | author   |  [Peter Boling](http://railsbling.com) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
-| CI              |  https://travis-ci.org/pboling/sanitize_email [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
-| QA              |  https://codeclimate.com/github/pboling/sanitize_email [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/pboling/sanitize_email) |
+| CI              |  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
+| QA              |  [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/pboling/sanitize_email) |
 
 
 ## Working Locally with Production Data
@@ -148,9 +151,6 @@ For example:
 
     spec.add_dependency 'sanitize_email', '~> 1.0.8'
 
-[semver]: http://semver.org/
-[pvc]: http://docs.rubygems.org/read/chapter/16#page74
-
 ## References
 
 * [Source Code](http://github.com/pboling/sanitize_email)
@@ -161,5 +161,12 @@ For example:
 ## Legal
 
 * MIT License - See LICENSE file in this project
-* Copyright (c) 2008-2013 [Peter H. Boling](http://www.peterboling.com) of [Rails Bling](http://www.railsbling.com)
+* Copyright (c) 2008-2013 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
 * Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
+
+[semver]: http://semver.org/
+[pvc]: http://docs.rubygems.org/read/chapter/16#page74
+[railsbling]: http://www.railsbling.com
+[peterboling]: http://www.peterboling.com
+[documentation]: http://rdoc.info/github/pboling/sanitize_email/frames
+[homepage]: https://github.com/pboling/sanitize_email
