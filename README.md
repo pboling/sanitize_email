@@ -1,6 +1,6 @@
 # sanitize_email [![Gem Version](https://badge.fury.io/rb/sanitize_email.png)](http://badge.fury.io/rb/sanitize_email)  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) [![Code Climate](https://codeclimate.com/github/pboling/sanitize_email.png)](https://codeclimate.com/github/pboling/sanitize_email) [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.png)](https://coveralls.io/r/pboling/sanitize_email) [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png)
 
-This gem allows you to override your mail delivery settings, globally or in a local context.  It's particularly helpful when you want to omit the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
+This gem allows you to override your mail delivery settings, globally or in a local context.  It's particularly helpful when you want to prevent the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
 * compatible with Rails >= 3.X (since v1.0.5)
 * compatible with any Ruby app with a Mail handler that uses the `register_interceptor` API (a la ActionMailer and Mail gems)
