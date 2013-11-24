@@ -45,13 +45,18 @@ If you install this gem on a production server (which I don't always do), you ca
 
 ## Install Like a Boss
 
-```
-[sudo] gem install sanitize_email
-```
+In Gemfile:
+
+  gem 'flag_shih_tzu'
+
+Then:
+
+  $ bundle install
+
 
 ## Setup With An Axe
 
-Customize and add to an initializer:
+Create an initializer, if you are using rails, or otherwise configure:
 
 ```
 SanitizeEmail::Config.configure do |config|
