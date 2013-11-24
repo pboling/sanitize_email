@@ -6,3 +6,4 @@ pkg
 spec/tmp
 *.gem
 .rvmrc
+Gemfile.lock
