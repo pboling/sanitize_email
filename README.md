@@ -160,6 +160,6 @@ For example:
 
 ## Legal
 
-* MIT License
-* Copyright (c) 2008-2013 [Peter H. Boling](http://www.peterboling.com) of [9thBit LLC](http://www.railsbling.com)
+* MIT License - See LICENSE file in this project
+* Copyright (c) 2008-2013 [Peter H. Boling](http://www.peterboling.com) of [Rails Bling](http://www.railsbling.com)
 * Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
