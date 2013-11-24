@@ -1,3 +1,6 @@
+Version 1.0.10 - AUG.31.2013
+* \[Bug Fix\] More Fixes for #12 - Strange repeating headers, and repeated subject injection by Peter Boling
+
 Version 1.0.9 - AUG.31.2013
 * \[Bug Fix\] More Fixes for #12 - Strange repeating headers, and repeated subject injection by Peter Boling
 

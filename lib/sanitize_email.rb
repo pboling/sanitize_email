@@ -29,6 +29,7 @@ module SanitizeEmail
 
   # TODO: This was a mistake I think.  Deprecate.
   def self.method_missing(name, *args)
+    self.deprecation('SanitizeEmail dot methods implemented via method_missing', " (please use SanitizeEmail[:#{name}])")
     SanitizeEmail[name]
   end
 
