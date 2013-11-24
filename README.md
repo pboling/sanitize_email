@@ -21,7 +21,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | continuous integration  |  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
 | homepage                |  [https://github.com/pboling/sanitize_email][homepage] |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
-| author                  |  [Peter Boling](http://railsbling.com) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
+| author                  |  [Peter Boling](https://coderbits.com/pboling) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://api.coderwall.com/pboling/endorsecount.png) |
 
 
 ## Working Locally with Production Data
