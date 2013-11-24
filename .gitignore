@@ -7,3 +7,5 @@ spec/tmp
 *.gem
 .rvmrc
 Gemfile.lock
+gemfiles/*.lock
+rdoc/*
