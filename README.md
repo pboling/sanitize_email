@@ -130,6 +130,14 @@ John Trupiano did the initial gemification and some refactoring.
 
 See the [Network View](https://github.com/pboling/sanitize_email/network) and the [CHANGELOG](https://github.com/pboling/sanitize_email/blob/master/CHANGELOG.md)
 
+## How you can help!
+
+Take a look at the `reek` list which is the file called `REEK` and stat fixing things.  Once you complete a change, run the tests and refresh the `reek` list.  It is refreshed by running:
+
+```
+bundle exec rake reek > REEK
+```
+
 ## Contributing
 
 1. Fork it
