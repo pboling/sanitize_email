@@ -1,7 +1,5 @@
 # sanitize_email
 
-## Summary
-
 This gem allows you to override your mail delivery settings, globally or in a local context.
 
 | Project                 |  Sanitize Email   |
@@ -17,6 +15,8 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | author                  |  [Peter Boling](https://coderbits.com/pboling) |
 | Spread ~♡ⓛⓞⓥⓔ♡~      |  [![Endorse Me](https://api.coderwall.com/pboling/endorsecount.png)](http://coderwall.com/pboling) |
+
+## Summary
 
 It's particularly helpful when you want to prevent the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
