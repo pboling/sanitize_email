@@ -1,5 +1,5 @@
-#Copyright (c) 2008-12 Peter H. Boling of 9thBit LLC
-#Released under the MIT license
+# Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
+# Released under the MIT license
 
 module SanitizeEmail
   # SanitizeEmail::Bleach determines whether to sanitize the headers of an email, and does so when appropriate.

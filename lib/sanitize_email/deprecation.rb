@@ -1,3 +1,5 @@
+# Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
+# Released under the MIT license
 # See http://www.seejohncode.com/2012/01/09/deprecating-methods-in-ruby/
 #require 'facets/module/mattr' # gives cattr
 
