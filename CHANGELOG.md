@@ -1,5 +1,8 @@
-Version 1.0.10 - AUG.31.2013
-* \[Bug Fix\] More Fixes for #12 - Strange repeating headers, and repeated subject injection by Peter Boling
+Version 1.0.10 - NOV.24.2013
+* Expand test suite to test against all supported versions of ActionMailer and Railties gems by Peter Boling
+* Add Coveralls by Peter Boling
+* Fix Travis Build by Peter Boling
+* Stop using method missing when alternatives exist inside gem by Peter Boling
 
 Version 1.0.9 - AUG.31.2013
 * \[Bug Fix\] More Fixes for #12 - Strange repeating headers, and repeated subject injection by Peter Boling
