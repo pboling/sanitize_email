@@ -24,6 +24,16 @@ end
 
 task :default => :spec
 
+namespace :test do
+  desc 'Test against all supported Rails versions'
+  task :all do
+    %w(3.0.x 3.1.x 3.2.x 4.0.x).each do |version|
+      sh "BUNDLE_GEMFILE='gemfiles/Gemfile.rails-#{version}' bundle --quiet"
+      sh "BUNDLE_GEMFILE='gemfiles/Gemfile.rails-#{version}' bundle exec rspec spec"
+    end
+  end
+end
+
 require 'rdoc/task'
 require File.expand_path('../lib/sanitize_email/version', __FILE__)
 Rake::RDocTask.new do |rdoc|
