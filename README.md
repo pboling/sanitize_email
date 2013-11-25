@@ -15,7 +15,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | test coverage           |  [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.png)](https://coveralls.io/r/pboling/sanitize_email) |
 | homepage                |  [https://github.com/pboling/sanitize_email][homepage] |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
-| author                  |  [Peter Boling](https://coderbits.com/pboling) [![Endorse Me](http://api.coderwall.com/pboling/endorsecount.png)](http://coderwall.com/pboling) |
+| author                  |  [Peter Boling](https://coderbits.com/pboling) [![Endorse Me](https://api.coderwall.com/pboling/endorsecount.png)](http://coderwall.com/pboling) |
 
 It's particularly helpful when you want to prevent the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
