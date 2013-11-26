@@ -6,6 +6,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 |------------------------ | ----------------- |
 | gem name                |  sanitize_email   |
 | license                 |  MIT              |
+| moldiness               |  [![Maintainer Status](http://stillmaintained.com/pboling/sanitize_email.png)](http://stillmaintained.com/pboling/sanitize_email) |
 | version                 |  [![Gem Version](https://badge.fury.io/rb/sanitize_email.png)](http://badge.fury.io/rb/sanitize_email) |
 | dependencies            |  [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) |
 | code quality            |  [![Code Climate](https://codeclimate.com/github/pboling/sanitize_email.png)](https://codeclimate.com/github/pboling/sanitize_email) |
