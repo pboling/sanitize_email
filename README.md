@@ -194,3 +194,7 @@ For example:
 [peterboling]: http://www.peterboling.com
 [documentation]: http://rdoc.info/github/pboling/sanitize_email/frames
 [homepage]: https://github.com/pboling/sanitize_email
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pboling/sanitize_email/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
