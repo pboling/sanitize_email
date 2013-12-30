@@ -1,3 +1,10 @@
+Version 1.1.0 - DEC.30.2013
+* Add documentation for non-Rails setup by Peter Boling
+* Add documentation for using sanitize_email's bundled Rspec Matchers by Peter Boling
+* Add documentation for using sanitize_email's bundled Test Helpers by Peter Boling
+* Stopped using method_missing internally for config access by Peter Boling
+* Improved ease of setup with mail gem outside rails by auto-configuring the interceptor (default inactive) by Peter Boling
+
 Version 1.0.11 - DEC.30.2013
 * Fix travis build by Peter Boling
 * Fix test suite to run on Ruby 1.8.7 again, add back to Travis by Peter Boling
