@@ -23,7 +23,9 @@ describe SanitizeEmail do
   after(:each) do
     SanitizeEmail::Config.config = SanitizeEmail::Config::DEFAULTS
     SanitizeEmail.force_sanitize = nil
-    Mail.class_variable_get(:@@delivery_interceptors).pop
+    # The following works with Ruby > 1.9, but to make the test suite run on 18.7 we need a little help
+    # Mail.class_variable_get(:@@delivery_interceptors).pop
+    Mail.send(:class_variable_get, :@@delivery_interceptors).pop
   end
 
   def sanitize_spec_dryer(rails_env = 'test')
