@@ -33,7 +33,7 @@ module SanitizeEmail
     #
     # 1. SanitizeEmail.force_sanitize = true # by default it is nil
     # 2. Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default it is nil
-    # 3. SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } be default it is false
+    # 3. SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } by default it is false
     #
     # Note: Number 1 is the method used by the SanitizeEmail.sanitary block
     # Note: Number 2 would not be used unless you setup your own register_interceptor)
