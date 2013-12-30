@@ -1,14 +1,23 @@
 # Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 require 'sanitize_email/test_helpers'
+require 'sanitize_email/mail_ext'
 
 module SanitizeEmail
   module RspecMatchers
     include SanitizeEmail::TestHelpers
-    [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
+    [:from, :to, :cc, :bcc, :reply_to].each do |attribute|
       RSpec::Matchers.define "have_#{attribute}" do |matcher|
         match do |actual|
           email_matching(matcher, attribute, actual)
+        end
+      end
+    end
+
+    [:subject].each do |attribute|
+      RSpec::Matchers.define "have_#{attribute}" do |matcher|
+        match do |actual|
+          string_matching_attribute(matcher, attribute, actual)
         end
       end
     end
@@ -37,30 +46,27 @@ module SanitizeEmail
         if matcher.is_a?(String)
           actual_text =  actual.default_part_body.to_s.gsub(/\s+/, " ")
           matcher_text = matcher.gsub(/\s+/, " ")
-          unless actual_text.include?(matcher_text)
-            raise SanitizeEmail::TestHelpers::UnexpectedMailType, "Cannot find #{matcher} in body"
-          end
+          raise SanitizeEmail::TestHelpers::UnexpectedMailType, "Cannot find #{matcher} in body" unless actual_text.respond_to?(:include?)
+          actual_text.include?(matcher_text)
         else
           actual_text =  actual.default_part_body.to_s
-          unless !!(actual_text =~ matcher)
-            raise SanitizeEmail::TestHelpers::UnexpectedMailType, "Cannot find #{matcher} in body"
-          end
+          raise SanitizeEmail::TestHelpers::UnexpectedMailType, "Cannot find #{matcher} in body" unless actual_text.respond_to?(:=~)
+          !!(actual_text =~ matcher)
+        end
+      end
+    end
+
+    # Cribbed from email_spec gem
+    RSpec::Matchers.define "have_header" do |name, matcher|
+      match do |actual|
+        header = actual.header
+        if matcher.is_a?(String)
+          header[name].to_s == matcher
+        else
+          header[name].to_s =~ matcher
         end
       end
     end
 
   end
 end
-
-# Cribbed from email_spec gem
-module EmailSpec::MailExt
-  def default_part
-    @default_part ||= html_part || text_part || self
-  end
-
-  def default_part_body
-    default_part.body
-  end
-end
-
-Mail::Message.send(:include, EmailSpec::MailExt)

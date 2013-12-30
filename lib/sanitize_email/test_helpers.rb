@@ -4,9 +4,17 @@ module SanitizeEmail
   module TestHelpers
     class UnexpectedMailType < StandardError; end
 
+    def string_matching_attribute(matcher, part, mail_or_part)
+      string_matching(matcher, part, mail_or_part.send(part))
+    end
+
     def string_matching(matcher, part, mail_or_part)
       if mail_or_part.respond_to?(:=~) # Can we match a regex against it?
-        mail_or_part =~ Regexp.new(Regexp.escape(matcher))
+        if matcher.is_a?(Regexp)
+          mail_or_part =~ matcher
+        else
+          mail_or_part =~ Regexp.new(Regexp.escape(matcher))
+        end
       else
         raise UnexpectedMailType, "Cannot match #{matcher} for #{part}"
       end
