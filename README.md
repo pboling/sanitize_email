@@ -160,7 +160,9 @@ SanitizeEmail.configure block.
 
 ## Use sanitize_email in your test suite!
 
-In your `spec_helper.rb`, or the equivalent in whatever testing tool you are using:
+### rspec
+
+In your `spec_helper.rb`:
 
         require 'sanitize_email'
         # rspec matchers are *not* loaded by default in sanitize_email, as it is not primarily a gem for test suites.
@@ -182,6 +184,87 @@ In your `spec_helper.rb`, or the equivalent in whatever testing tool you are usi
 
         # If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
         # Mail.register_interceptor(SanitizeEmail::Bleach.new)
+
+        RSpec.configure do |config|
+          # ...
+          # From sanitize_email gem
+          config.include SanitizeEmail::RspecMatchers
+        end
+
+        context "an email test" do
+          subject { Mail.new(@message_hash) }
+          it { should have_to "sanitize_email@example.org" }
+        end
+
+#### have_* matchers
+
+These will look for an email address in any of the following
+
+        :from, :to, :cc, :bcc, :subject, :reply_to
+
+Example:
+
+        context "the subject line must have the email address sanitize_email@example.org" do
+          subject { Mail.new(@message_hash) }
+          it { should have_subject "sanitize_email@example.org" }
+        end
+
+#### be_* matchers
+
+These will look for a matching string in any of the following
+
+        :from, :to, :cc, :bcc, :subject, :reply_to
+
+Example:
+
+        context "the subject line must have the string 'foobarbaz'" do
+          subject { Mail.new(@message_hash) }
+          it { should be_subject "foobarbaz" }
+        end
+
+#### have_to_username matcher
+
+The `username` in the `:to` field is when the `:to` field is formatted like this:
+
+        Peter Boling <sanitize_email@example.org>
+
+Example:
+
+        context "the to field must have the username 'Peter Boling'" do
+          subject { Mail.new(@message_hash) }
+          it { should have_to_username "Peter Boling" }
+        end
+
+### non-rspec (Test::Unit, mini-test, etc)
+
+In your setup file:
+
+        require 'sanitize_email'
+        # test helpers are *not* loaded by default in sanitize_email, as it is not primarily a gem for test suites.
+        require 'sanitize_email/test_helpers'
+
+        SanitizeEmail::Config.configure do |config|
+          config[:sanitized_to] =         'sanitize_email@example.org'
+          config[:sanitized_cc] =         'sanitize_email@example.org'
+          config[:sanitized_bcc] =        'sanitize_email@example.org'
+          # run/call whatever logic should turn sanitize_email on and off in this Proc.
+          # config[:activation_proc] =      Proc.new { true }
+          # Since this configuration is *inside* the spec_helper, it might be assumed that we always want to sanitize.  If we don't want to it can be easily manipulated with SanitizeEmail.unsanitary and SanitizeEmail.sanitary block helpers.
+          # Thus instead of using the Proc (slower) we just engage it always:
+          config[:engage] = true
+          config[:use_actual_email_prepended_to_subject] = true         # or false
+          config[:use_actual_environment_prepended_to_subject] = true   # or false
+          config[:use_actual_email_as_sanitized_user_name] = true       # or false
+        end
+
+        # If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
+        # Mail.register_interceptor(SanitizeEmail::Bleach.new)
+
+        # You need to know what to do here... somehow get the methods into rhw scope of your tests.
+        # Something like this maybe?
+        include SanitizeEmail::TestHelpers
+        # Look here to see what it gives you:
+        # https://github.com/pboling/sanitize_email/blob/master/lib/sanitize_email/test_helpers.rb
 
 ## Deprecations
 
