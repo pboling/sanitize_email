@@ -47,6 +47,12 @@ Another very important use case for me is to transparently re-route email genera
 
 If you install this gem on a production server (which I don't always do), you can load up script/console and override the to/cc/bcc on all emails for the duration of your console session.  This allows you to poke and prod a live production instance, and route all email to your own inbox for inspection.  The best part is that this can all be accomplished without changing a single line of your application code.
 
+## Using with a test suite as an alternative to the heavy email_spec
+
+[email_spec](https://github.com/bmabey/email-spec) is a great gem, with awesome rspec matchers and helpers, but it has an undeclared dependency on ActionMailer. Sad face.
+
+SanitizeEmail comes with some lightweight RspecMatchers covering most of what email_spec can do.  It will help you test email functionality.  It is useful when you are creating a gem to handle email features, or are writing a simple Ruby script, and don't want to pull in le Rails.  SanitizeEmail has no dependencies.  Your Mail system just needs to conform to the `register_interceptor` API.
+
 ## Install Like a Boss
 
 In Gemfile:
@@ -57,8 +63,43 @@ Then:
 
     $ bundle install
 
+## Setup with Ruby
 
-## Setup With An Axe
+*keep scrolling for Rails, but read this for a better understanding of Magic*
+
+There are four ways SanitizeEmail can be turned on; in order of precedence they are:
+
+1. SanitizeEmail.force_sanitize = true # by default it is nil
+    Only useful for local context.  Inside a method where you will be sending an email,
+    set SanitizeEmail.force_sanitize = true just prior to delivering it.  Also useful in the console.
+2. Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default it is nil
+    If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you.
+    Note: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of :engage => true):
+
+        Mail.register_interceptor(SanitizeEmail::Bleach.new
+    Without :engage => true the interceptor is inactive, and will require engaging via one of the other methods.
+    As an example you could do the following to engage SanitizeEmail:
+
+        SanitizeEmail::Config.configure {|config| config[:engage] = true }
+3. SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default it is false
+    If you don't need to compute anything, then don't use the Proc, go with the next option.
+4. SanitizeEmail::Config.configure {|config| config[:engage] = true } # by default it is nil
+
+### Notes
+
+Number 1, above, is the method used by the SanitizeEmail.sanitary block.
+If installed but not configured, sanitize_email DOES NOTHING.  Until configured the defaults leave it turned off.
+
+### Troubleshooting
+
+IMPORTANT: You may need to setup your own register_interceptor.  If sanitize_email doesn't seem to be working for you find your Mailer/Mail class and try this:
+
+        Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true))
+
+If that causes an error you will know why sanitize_email doesn't work.
+Otherwise it will start working according to the rest of the configuration.
+
+## Setup With Rails
 
 Create an initializer, if you are using rails, or otherwise configure:
 
@@ -116,6 +157,31 @@ SanitizeEmail.configure block.
     end
   end
 ```
+
+## Use sanitize_email in your test suite!
+
+In your `spec_helper.rb`, or the equivalent in whatever testing tool you are using:
+
+        require 'sanitize_email'
+        # rspec matchers are *not* loaded by default in sanitize_email, as it is not primarily a gem for test suites.
+        require 'sanitize_email/rspec_matchers'
+
+        SanitizeEmail::Config.configure do |config|
+          config[:sanitized_to] =         'sanitize_email@example.org'
+          config[:sanitized_cc] =         'sanitize_email@example.org'
+          config[:sanitized_bcc] =        'sanitize_email@example.org'
+          # run/call whatever logic should turn sanitize_email on and off in this Proc.
+          # config[:activation_proc] =      Proc.new { true }
+          # Since this configuration is *inside* the spec_helper, it might be assumed that we always want to sanitize.  If we don't want to it can be easily manipulated with SanitizeEmail.unsanitary and SanitizeEmail.sanitary block helpers.
+          # Thus instead of using the Proc (slower) we just engage it always:
+          config[:engage] = true
+          config[:use_actual_email_prepended_to_subject] = true         # or false
+          config[:use_actual_environment_prepended_to_subject] = true   # or false
+          config[:use_actual_email_as_sanitized_user_name] = true       # or false
+        end
+
+        # If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
+        # Mail.register_interceptor(SanitizeEmail::Bleach.new)
 
 ## Deprecations
 
