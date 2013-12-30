@@ -1,3 +1,13 @@
+Version 1.1.1 - DEC.30.2013
+* Cribbed have_body_text from email_spec gem by Peter Boling
+* Cribbed have_header from email_spec gem by Peter Boling
+* Cribbed MailExt from email_spec gem by Peter Boling
+* All Rspec Matchers now working by Peter Boling
+* All Test Helpers now working by Peter Boling
+* All internal tests now use the matchers and helpers of sanitize_email by Peter Boling
+* Development dependency on email_spec gem removed by Peter Boling
+* Travis is getting barfy on my 1.8.7 build (passes locally) by Peter Boling
+
 Version 1.1.0 - DEC.30.2013
 * Add documentation for non-Rails setup by Peter Boling
 * Add documentation for using sanitize_email's bundled Rspec Matchers by Peter Boling
