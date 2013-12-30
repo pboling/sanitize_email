@@ -15,11 +15,11 @@ module SanitizeEmail
 
     def initialize(message, args = {})
       # Not using extract_options! because non-rails compatibility is a goal
-      @sanitized_to = args[:sanitized_to] || SanitizeEmail[:sanitized_to]
-      @sanitized_cc = args[:sanitized_cc] || SanitizeEmail[:sanitized_cc]
-      @sanitized_bcc = args[:sanitized_bcc] || SanitizeEmail[:sanitized_bcc]
-      @good_list = args[:good_list] || SanitizeEmail[:good_list] || []
-      @bad_list = args[:bad_list] || SanitizeEmail[:bad_list] || []
+      @sanitized_to = args[:sanitized_to] || SanitizeEmail::Config.config[:sanitized_to]
+      @sanitized_cc = args[:sanitized_cc] || SanitizeEmail::Config.config[:sanitized_cc]
+      @sanitized_bcc = args[:sanitized_bcc] || SanitizeEmail::Config.config[:sanitized_bcc]
+      @good_list = args[:good_list] || SanitizeEmail::Config.config[:good_list] || []
+      @bad_list = args[:bad_list] || SanitizeEmail::Config.config[:bad_list] || []
       @overridden_to = self.to_override(message.to)
       @overridden_cc = self.cc_override(message.cc)
       @overridden_bcc = self.bcc_override(message.bcc)

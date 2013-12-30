@@ -11,7 +11,7 @@ module SanitizeEmail
 
     def initialize(args = {})
       # Not using extract_options! because non-rails compatibility is a goal
-      @engage = args[:engage] || SanitizeEmail[:engage]
+      @engage = args[:engage] || SanitizeEmail::Config.config[:engage]
     end
 
     # If all recipient addresses are white-listed the field is left alone.

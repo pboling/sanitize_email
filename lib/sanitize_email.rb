@@ -20,8 +20,15 @@ module SanitizeEmail
     else
       raise "Please use the 0.X.X versions of sanitize_email for Rails 2.X and below."
     end
-  elsif defined?(Mailer) && Mailer.respond_to?(:register_interceptor)
-    Mailer.register_interceptor(SanitizeEmail::Bleach.new)
+  else
+    if defined?(Mailer)
+      mailer = Mailer
+    elsif defined?(Mail)
+      mailer = Mail
+    end
+    if mailer.respond_to?(:register_interceptor)
+      mailer.register_interceptor(SanitizeEmail::Bleach.new)
+    end
   end
 
   def self.[](key)
@@ -36,17 +43,17 @@ module SanitizeEmail
   # NOTE: Deprecated method
   # We have to actually define because we can't deprecate methods that are hooked up via method_missing
   def self.sanitized_recipients
-    SanitizeEmail[:sanitized_recipients]
+    SanitizeEmail::Config.config[:sanitized_recipients]
   end
 
   # NOTE: Deprecated method
   # We have to actually define because we can't deprecate methods that are hooked up via method_missing
   def self.local_environments
-    SanitizeEmail[:local_environments]
+    SanitizeEmail::Config.config[:local_environments]
   end
 
   def self.activate?(message)
-    proc = SanitizeEmail[:activation_proc]
+    proc = SanitizeEmail::Config.config[:activation_proc]
     proc.call(message) if proc.respond_to?(:call)
   end
 
