@@ -30,8 +30,8 @@ Gem::Specification.new do |s|
   #s.add_runtime_dependency(%q<facets>, ["> 0"])
 
   # Development Dependencies
-  s.add_development_dependency(%q<rails>, ["> 3"])
-  s.add_development_dependency(%q<actionmailer>, ["> 3"])
+  s.add_development_dependency(%q<rails>, [">= 3.0"])
+  s.add_development_dependency(%q<actionmailer>, [">= 3.0"])
   s.add_development_dependency(%q<letter_opener>, [">= 0"])
   s.add_development_dependency(%q<launchy>, [">= 0"])
   s.add_development_dependency(%q<rspec>, [">= 2.11"])
