@@ -1,3 +1,9 @@
+Version 1.0.11 - DEC.30.2013
+* Fix travis build by Peter Boling
+* Fix test suite to run on Ruby 1.8.7 again, add back to Travis by Peter Boling
+* Add mode badges to Readme by Peter Boling
+* Improve Readme by Peter Boling
+
 Version 1.0.10 - NOV.24.2013
 * Expand test suite to test against all supported versions of ActionMailer and Railties gems by Peter Boling
 * Add Coveralls by Peter Boling
