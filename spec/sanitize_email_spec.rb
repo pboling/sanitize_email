@@ -98,6 +98,7 @@ describe SanitizeEmail do
       bcc       'same@example.org'
       reply_to  'same@example.org'
       subject   'original subject'
+      body      'funky fresh'
     end
   end
 
@@ -109,6 +110,7 @@ describe SanitizeEmail do
       bcc       'bcc@example.org'
       reply_to  'reply_to@example.org'
       subject   'original subject'
+      body      'funky fresh'
     end
   end
 
@@ -120,6 +122,7 @@ describe SanitizeEmail do
       bcc       %w( bcc1@example.org bcc2@example.org bcc3@example.org )
       reply_to  'reply_to@example.org'
       subject   'original subject'
+      body      'funky fresh'
     end
   end
 
@@ -136,6 +139,7 @@ describe SanitizeEmail do
       it "should not alter non-sanitized attributes" do
         @email_message.should have_from('from@example.org')
         @email_message.should have_reply_to('reply_to@example.org')
+        @email_message.should have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
         @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -150,6 +154,7 @@ describe SanitizeEmail do
         @email_message.should have_cc("cc@example.org")
         @email_message.should have_bcc("bcc@example.org")
         @email_message.should have_subject("original subject")
+        @email_message.should have_body_text('funky fresh')
       end
     end
 
@@ -161,6 +166,7 @@ describe SanitizeEmail do
       it "should not alter non-sanitized attributes" do
         @email_message.should have_from('from@example.org')
         @email_message.should have_reply_to('reply_to@example.org')
+        @email_message.should have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
         @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -190,6 +196,7 @@ describe SanitizeEmail do
       it "should not alter non-sanitized attributes" do
         @email_message.should have_from('from@example.org')
         @email_message.should have_reply_to('reply_to@example.org')
+        @email_message.should have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
         @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -242,6 +249,7 @@ describe SanitizeEmail do
       it "should not alter non-sanitized attributes" do
         @email_message.should have_from('from@example.org')
         @email_message.should have_reply_to('reply_to@example.org')
+        @email_message.should have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
         @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -288,6 +296,7 @@ describe SanitizeEmail do
       it "should not alter non-sanitized attributes" do
         @email_message.should have_from('same@example.org')
         @email_message.should have_reply_to('same@example.org')
+        @email_message.should have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
         @email_message.should_not have_to_username("same at example.org")
@@ -327,6 +336,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should override" do
           @email_message.should have_to("to@sanitize_email.org")
@@ -349,6 +359,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not alter normally sanitized attributes" do
           @email_message.should have_to("to@example.org")
@@ -371,6 +382,7 @@ describe SanitizeEmail do
           it "should not alter non-sanitized attributes" do
             @email_message.should have_from('from@example.org')
             @email_message.should have_reply_to('reply_to@example.org')
+            @email_message.should have_body_text('funky fresh')
           end
           it "should override" do
             @email_message.should have_to("to@sanitize_email.org")
@@ -392,6 +404,7 @@ describe SanitizeEmail do
           it "should not alter non-sanitized attributes" do
             @email_message.should have_from('from@example.org')
             @email_message.should have_reply_to('reply_to@example.org')
+            @email_message.should have_body_text('funky fresh')
           end
           it "should not alter normally sanitized attributes" do
             @email_message.should have_to("to@example.org")
@@ -420,6 +433,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
           @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -438,6 +452,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
           @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -459,6 +474,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
           @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -477,6 +493,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
           @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -498,6 +515,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
           @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -516,6 +534,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
           @email_message.should_not have_to_username("to at sanitize_email.org")
@@ -539,6 +558,7 @@ describe SanitizeEmail do
           it "should not alter non-sanitized attributes" do
             @email_message.should have_from('from@example.org')
             @email_message.should have_reply_to('reply_to@example.org')
+            @email_message.should have_body_text('funky fresh')
           end
           it "should use activation_proc for matching environment" do
             @email_message.should have_to("to@sanitize_email.org")
@@ -556,6 +576,7 @@ describe SanitizeEmail do
           it "should not alter non-sanitized attributes" do
             @email_message.should have_from('from@example.org')
             @email_message.should have_reply_to('reply_to@example.org')
+            @email_message.should have_body_text('funky fresh')
           end
           it "should use activation_proc for non-matching environment" do
             @email_message.should have_to("to@example.org")
@@ -574,6 +595,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "used as sanitized_to" do
           @email_message.should have_to("barney@sanitize_email.org")
@@ -590,6 +612,7 @@ describe SanitizeEmail do
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
           @email_message.should have_reply_to('reply_to@example.org')
+          @email_message.should have_body_text('funky fresh')
         end
         it "should not alter normally sanitized attributes" do
           @email_message.should have_to("to@example.org")
