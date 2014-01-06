@@ -31,6 +31,7 @@ module SanitizeEmail
     end
 
     def self.prepend_custom_subject(message)
+      message.subject ||= ''
       message.subject.insert(0, SanitizeEmail::MailHeaderTools.prepend_subject_array(message).join(' ') + ' ')
     end
 
