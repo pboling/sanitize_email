@@ -27,6 +27,8 @@ module SanitizeEmail
       # a black list
       :bad_list => nil,
 
+      :environment => defined?(Rails) && Rails.env.present? ? ('[' << Rails.env << ']') : '[UNKNOWN ENVIRONMENT]',
+
       # Use the 'real' email address as the username for the sanitized email address
       # e.g. "real@example.com <sanitized@example.com>"
       :use_actual_email_as_sanitized_user_name => false,

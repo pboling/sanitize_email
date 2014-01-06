@@ -11,7 +11,7 @@ module SanitizeEmail
     end
 
     def self.prepend_environment_to_subject
-      "[#{Rails.env}]" if defined?(Rails) && Rails.env.present?
+      SanitizeEmail::Config.config[:environment]
     end
 
     def self.prepend_email_to_subject(actual_addresses)
