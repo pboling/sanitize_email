@@ -1,3 +1,6 @@
+Version 1.1.4 - JAN.06.2014
+* Another attempt at not breaking when subject is nil by Peter Boling
+
 Version 1.1.3 - JAN.06.2014
 * Allow specification of environment when outside Rails by Peter Boling
 
