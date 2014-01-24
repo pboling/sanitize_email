@@ -57,7 +57,7 @@ SanitizeEmail comes with some lightweight RspecMatchers covering most of what em
 
 In Gemfile:
 
-    gem 'flag_shih_tzu'
+    gem 'sanitize_email'
 
 Then:
 

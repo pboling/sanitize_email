@@ -1,3 +1,12 @@
+Version 1.1.4 - JAN.06.2014
+* Another attempt at not breaking when subject is nil by Peter Boling
+
+Version 1.1.3 - JAN.06.2014
+* Allow specification of environment when outside Rails by Peter Boling
+
+Version 1.1.2 - JAN.06.2014
+* Don't break when subject is nil by Peter Boling
+
 Version 1.1.1 - DEC.30.2013
 * Cribbed have_body_text from email_spec gem by Peter Boling
 * Cribbed have_header from email_spec gem by Peter Boling

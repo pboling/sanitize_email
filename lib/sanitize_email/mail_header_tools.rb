@@ -11,7 +11,7 @@ module SanitizeEmail
     end
 
     def self.prepend_environment_to_subject
-      "[#{Rails.env}]" if defined?(Rails) && Rails.env.present?
+      SanitizeEmail::Config.config[:environment]
     end
 
     def self.prepend_email_to_subject(actual_addresses)
@@ -31,7 +31,11 @@ module SanitizeEmail
     end
 
     def self.prepend_custom_subject(message)
-      message.subject.insert(0, SanitizeEmail::MailHeaderTools.prepend_subject_array(message).join(' ') + ' ')
+      if message.subject
+        message.subject.insert(0, SanitizeEmail::MailHeaderTools.prepend_subject_array(message).join(' ') + ' ')
+      else
+        message.subject = SanitizeEmail::MailHeaderTools.prepend_subject_array(message).join(' ')
+      end
     end
 
     # According to https://github.com/mikel/mail this is the correct way to update headers.
