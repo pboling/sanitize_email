@@ -192,7 +192,7 @@ In your `spec_helper.rb`:
         end
 
         context "an email test" do
-          subject { Mail.new(@message_hash) }
+          subject { Mail.deliver(@message_hash) }
           it { should have_to "sanitize_email@example.org" }
         end
 
@@ -205,7 +205,7 @@ These will look for an email address in any of the following
 Example:
 
         context "the subject line must have the email address sanitize_email@example.org" do
-          subject { Mail.new(@message_hash) }
+          subject { Mail.deliver(@message_hash) }
           it { should have_subject "sanitize_email@example.org" }
         end
 
@@ -218,7 +218,7 @@ These will look for a matching string in any of the following
 Example:
 
         context "the subject line must have the string 'foobarbaz'" do
-          subject { Mail.new(@message_hash) }
+          subject { Mail.deliver(@message_hash) }
           it { should be_subject "foobarbaz" }
         end
 
@@ -231,7 +231,7 @@ The `username` in the `:to` field is when the `:to` field is formatted like this
 Example:
 
         context "the to field must have the username 'Peter Boling'" do
-          subject { Mail.new(@message_hash) }
+          subject { Mail.deliver(@message_hash) }
           it { should have_to_username "Peter Boling" }
         end
 
