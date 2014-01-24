@@ -334,7 +334,7 @@ For example:
 ## Legal
 
 * MIT License - See LICENSE file in this project
-* Copyright (c) 2008-2013 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
+* Copyright (c) 2008-2014 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
 * Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
 
 [semver]: http://semver.org/
