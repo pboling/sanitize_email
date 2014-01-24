@@ -34,9 +34,10 @@ namespace :test do
   end
 end
 
-require 'rdoc/task'
 require File.expand_path('../lib/sanitize_email/version', __FILE__)
-Rake::RDocTask.new do |rdoc|
+require 'rdoc'
+require 'rdoc/task'
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = "SanitizeEmail #{SanitizeEmail::VERSION}"
   rdoc.options << '--line-numbers'
