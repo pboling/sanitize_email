@@ -1,6 +1,7 @@
-source "http://rubygems.org"
+source 'https://rubygems.org'
 
-gem "actionmailer", '<= 3.1.100'
+# Specify your gem's dependencies in sanitize_email.gemspec
+gemspec
 
 # Development dependencies (everything needed to run rake, tests, features, etc.)
 group :development, :test do
@@ -9,7 +10,6 @@ group :development, :test do
 
   gem "rdoc", ">= 3.12"
   gem "bundler", ">= 1.0.24"
-  gem "jeweler", ">= 1.6.4"
   gem "reek", ">= 1.2.8"
   gem "roodi", ">= 2.1.0"
 end
