@@ -10,7 +10,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | version                 |  [![Gem Version](https://badge.fury.io/rb/sanitize_email.png)](http://badge.fury.io/rb/sanitize_email) |
 | dependencies            |  [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) |
 | code quality            |  [![Code Climate](https://codeclimate.com/github/pboling/sanitize_email.png)](https://codeclimate.com/github/pboling/sanitize_email) |
-| inline documenation     |  [![Inline docs](http://inch-pages.github.io/github/pboling/sanitize_email.png)](http://inch-pages.github.io/github/pboling/sanitize_email) |
+| inline documenation     |  [![Inline docs](http://inch-ci.org/github/pboling/sanitize_email.png)](http://inch-ci.org/github/pboling/sanitize_email) |
 | continuous integration  |  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
 | test coverage           |  [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.png)](https://coveralls.io/r/pboling/sanitize_email) |
 | homepage                |  [https://github.com/pboling/sanitize_email][homepage] |
