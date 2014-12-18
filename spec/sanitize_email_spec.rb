@@ -447,7 +447,8 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
-          @email_message.should_not have_subject("[test] original subject")
+          @email_message.should_not      have_subject("[test] original subject")
+          @email_message.subject.should  eq("original subject")
         end
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
