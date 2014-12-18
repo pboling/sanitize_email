@@ -7,7 +7,12 @@ module SanitizeEmail
       prepend = []
       prepend << SanitizeEmail::MailHeaderTools.prepend_email_to_subject(Array(message.to)) if SanitizeEmail.use_actual_email_prepended_to_subject
       prepend << SanitizeEmail::MailHeaderTools.prepend_environment_to_subject if SanitizeEmail.use_actual_environment_prepended_to_subject
+      prepend << "" unless prepend.empty? # this will force later joins to add an extra space
       prepend
+    end
+
+    def self.custom_subject(message)
+      prepend_subject_array(message).join(" ")
     end
 
     def self.prepend_environment_to_subject
@@ -31,11 +36,8 @@ module SanitizeEmail
     end
 
     def self.prepend_custom_subject(message)
-      if message.subject
-        message.subject.insert(0, SanitizeEmail::MailHeaderTools.prepend_subject_array(message).join(' ') + ' ')
-      else
-        message.subject = SanitizeEmail::MailHeaderTools.prepend_subject_array(message).join(' ')
-      end
+      message.subject = "" unless message.subject
+      message.subject.prepend(SanitizeEmail::MailHeaderTools.custom_subject(message))
     end
 
     # According to https://github.com/mikel/mail this is the correct way to update headers.
