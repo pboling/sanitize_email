@@ -70,21 +70,18 @@ Then:
 
 There are four ways SanitizeEmail can be turned on; in order of precedence they are:
 
-1. SanitizeEmail.force_sanitize = true # by default it is nil
-    Only useful for local context.  Inside a method where you will be sending an email,
-    set SanitizeEmail.force_sanitize = true just prior to delivering it.  Also useful in the console.
-2. Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default it is nil
-    If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you.
-    Note: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of :engage => true):
-
-        Mail.register_interceptor(SanitizeEmail::Bleach.new
+1. Only useful for local context.  Inside a method where you will be sending an email, set SanitizeEmail.force_sanitize = true just prior to delivering it.  Also useful in the console.
+        SanitizeEmail.force_sanitize = true # by default it is nil
+2. If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you. *Note*: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of `:engage => true):
+        Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default :engage is nil
     Without :engage => true the interceptor is inactive, and will require engaging via one of the other methods.
+        Mail.register_interceptor(SanitizeEmail::Bleach.new)
     As an example you could do the following to engage SanitizeEmail:
-
         SanitizeEmail::Config.configure {|config| config[:engage] = true }
-3. SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default it is false
-    If you don't need to compute anything, then don't use the Proc, go with the next option.
-4. SanitizeEmail::Config.configure {|config| config[:engage] = true } # by default it is nil
+3. If you don't need to compute anything, then don't use this option, go with the next option.
+        SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default :activation_proc is false
+4. This will turn it on.  Period.
+        SanitizeEmail::Config.configure {|config| config[:engage] = true } # by default :engage is nil
 
 ### Notes
 
