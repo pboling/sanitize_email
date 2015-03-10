@@ -1,3 +1,9 @@
+Version 1.1.5 - MAR.10.2015
+* Refactored `prepend_subject_array` by Scott Rocher
+* Specs for prepending to subject by Scott Rocher
+* Fix spec examples by Peter Boling
+* Update Readme by Theo Bittencourt
+
 Version 1.1.4 - JAN.06.2014
 * Another attempt at not breaking when subject is nil by Peter Boling
 
