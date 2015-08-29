@@ -1,6 +1,6 @@
 # sanitize_email
 
-This gem allows you to override your mail delivery settings, globally or in a local context.
+This gem allows you to override your mail delivery settings, globally or in a local context.  It is like a Ruby encrusted condom for your email server, just in case it decides to have intercourse with other servers via sundry mail protocols.
 
 | Project                 |  Sanitize Email   |
 |------------------------ | ----------------- |
