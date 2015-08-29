@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version = SanitizeEmail::VERSION
 
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
-  s.summary = "Rails/Sinatra/Mail gem: Test email abilities without ever sending a message to actual live addresses"
+  s.summary = "Email Condom for your Ruby Server"
   s.description = "In Rails, Sinatra, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
   s.email = ["peter.boling@gmail.com"]
   s.extra_rdoc_files = [
@@ -27,19 +27,19 @@ Gem::Specification.new do |s|
   # A project wanting to use this gem's engine/railtie will be expected to have already loaded the rails/railtie gem.
   #s.add_dependency "railties", ">= 3.2"
   # to replace the cattr_accessor method we lost when removing rails from run time dependencies
-  #s.add_runtime_dependency(%q<facets>, ["> 0"])
+  #s.add_runtime_dependency("facets", ["> 0"])
 
   # Development Dependencies
-  s.add_development_dependency(%q<rails>, [">= 3.0"])
-  s.add_development_dependency(%q<actionmailer>, [">= 3.0"])
-  s.add_development_dependency(%q<letter_opener>, [">= 0"])
-  s.add_development_dependency(%q<launchy>, [">= 0"])
-  s.add_development_dependency(%q<rspec>, [">= 2.11"])
-  s.add_development_dependency(%q<mail>, [">= 0"])
-  s.add_development_dependency(%q<rdoc>, [">= 3.12"])
-  s.add_development_dependency(%q<reek>, [">= 1.2.8"])
-  s.add_development_dependency(%q<roodi>, [">= 2.1.0"])
-  s.add_development_dependency(%q<rake>, [">= 0"])
-  s.add_development_dependency "coveralls"
+  s.add_development_dependency("rails", [">= 3.0"])
+  s.add_development_dependency("actionmailer", [">= 3.0"])
+  s.add_development_dependency("letter_opener", [">= 0"])
+  s.add_development_dependency("launchy", [">= 0"])
+  s.add_development_dependency("rspec", [">= 3"])
+  s.add_development_dependency("mail", [">= 0"])
+  s.add_development_dependency("rdoc", [">= 3.12"])
+  s.add_development_dependency("reek", [">= 1.2.8"])
+  s.add_development_dependency("roodi", [">= 2.1.0"])
+  s.add_development_dependency("rake", [">= 0"])
+  s.add_development_dependency("pry", [">= 0"])
+  s.add_development_dependency("coveralls")
 end
-
