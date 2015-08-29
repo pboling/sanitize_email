@@ -44,7 +44,7 @@ module SanitizeEmail
       :activation_proc => Proc.new { false }
     }
 
-    @config ||= DEFAULTS
+    @config ||= DEFAULTS.dup
     def self.configure &block
       yield @config
 
