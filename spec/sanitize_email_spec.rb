@@ -31,7 +31,7 @@ describe SanitizeEmail do
   def sanitize_spec_dryer(rails_env = 'test')
     Launchy.stub(:open)
     location = File.expand_path('../tmp/mail_dump', __FILE__)
-    FileUtils.rm_rf(location)
+    FileUtils.remove_file(location, true)
     Mail.defaults do
       delivery_method LetterOpener::DeliveryMethod, :location => location
     end
@@ -42,16 +42,17 @@ describe SanitizeEmail do
     options = DEFAULT_TEST_CONFIG.merge(sanitize_hash).dup
     options.reverse_merge!({ :sanitized_to => 'to@sanitize_email.org' }) unless sanitize_hash.has_key?(:sanitized_recipients)
     SanitizeEmail::Config.configure do |config|
-      config[:activation_proc] =      options[:activation_proc]
-      config[:sanitized_to] =         options[:sanitized_to]
-      config[:sanitized_cc] =         options[:sanitized_cc]
-      config[:sanitized_bcc] =        options[:sanitized_bcc]
+      config[:environment] = options[:environment]
+      config[:activation_proc] = options[:activation_proc]
+      config[:sanitized_to] = options[:sanitized_to]
+      config[:sanitized_cc] = options[:sanitized_cc]
+      config[:sanitized_bcc] = options[:sanitized_bcc]
       config[:use_actual_email_prepended_to_subject] = options[:use_actual_email_prepended_to_subject]
       config[:use_actual_environment_prepended_to_subject] = options[:use_actual_environment_prepended_to_subject]
       config[:use_actual_email_as_sanitized_user_name] = options[:use_actual_email_as_sanitized_user_name]
 
       # For testing *deprecated* configuration options:
-      config[:local_environments] =   options[:local_environments] if options[:local_environments]
+      config[:local_environments] = options[:local_environments] if options[:local_environments]
       config[:sanitized_recipients] = options[:sanitized_recipients] if options[:sanitized_recipients]
       config[:force_sanitize] = options[:force_sanitize] unless options[:force_sanitize].nil?
     end
@@ -423,12 +424,11 @@ describe SanitizeEmail do
     context ":use_actual_environment_prepended_to_subject" do
       context "true" do
         before(:each) do
-          sanitize_spec_dryer('test')
-          configure_sanitize_email({:use_actual_environment_prepended_to_subject => true})
+          configure_sanitize_email({:environment => "{{serverABC}}", :use_actual_environment_prepended_to_subject => true})
           sanitary_mail_delivery
         end
         it "original to is prepended" do
-          @email_message.should have_subject("[test] original subject")
+          @email_message.should have_subject("{{serverABC}} original subject")
         end
         it "should not alter non-sanitized attributes" do
           @email_message.should have_from('from@example.org')
@@ -443,11 +443,11 @@ describe SanitizeEmail do
       context "false" do
         before(:each) do
           sanitize_spec_dryer('test')
-          configure_sanitize_email({:use_actual_environment_prepended_to_subject => false})
+          configure_sanitize_email({:environment => "{{serverABC}}", :use_actual_environment_prepended_to_subject => false})
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
-          @email_message.should_not have_subject("[test] original subject")
+          @email_message.should_not have_subject("{{serverABC}} original subject")
           @email_message.subject.should eq("original subject")
         end
         it "should not alter non-sanitized attributes" do
