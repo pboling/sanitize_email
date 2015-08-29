@@ -29,13 +29,13 @@ describe SanitizeEmail do
   end
 
   def sanitize_spec_dryer(rails_env = 'test')
-    Launchy.stub(:open)
+    allow(Launchy).to receive(:open)
     location = File.expand_path('../tmp/mail_dump', __FILE__)
     FileUtils.remove_file(location, true)
     Mail.defaults do
       delivery_method LetterOpener::DeliveryMethod, :location => location
     end
-    Rails.stub(:env).and_return(rails_env)
+    allow(Rails).to receive(:env).and_return(rails_env)
   end
 
   def configure_sanitize_email(sanitize_hash = {})
@@ -138,24 +138,24 @@ describe SanitizeEmail do
         unsanitary_mail_delivery
       end
       it "should not alter non-sanitized attributes" do
-        @email_message.should have_from('from@example.org')
-        @email_message.should have_reply_to('reply_to@example.org')
-        @email_message.should have_body_text('funky fresh')
+        expect(@email_message).to have_from('from@example.org')
+        expect(@email_message).to have_reply_to('reply_to@example.org')
+        expect(@email_message).to have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
-        @email_message.should_not have_to_username("to at sanitize_email.org")
-        @email_message.should_not have_subject("(to at sanitize_email.org)")
+        expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+        expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
       end
       it "alters nothing" do
-        @email_message.should have_from('from@example.org')
-        @email_message.should have_reply_to('reply_to@example.org')
-        @email_message.should have_from("from@example.org")
-        @email_message.should have_to("to@example.org")
-        @email_message.should_not have_to_username("to at")
-        @email_message.should have_cc("cc@example.org")
-        @email_message.should have_bcc("bcc@example.org")
-        @email_message.should have_subject("original subject")
-        @email_message.should have_body_text('funky fresh')
+        expect(@email_message).to have_from('from@example.org')
+        expect(@email_message).to have_reply_to('reply_to@example.org')
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_to("to@example.org")
+        expect(@email_message).not_to have_to_username("to at")
+        expect(@email_message).to have_cc("cc@example.org")
+        expect(@email_message).to have_bcc("bcc@example.org")
+        expect(@email_message).to have_subject("original subject")
+        expect(@email_message).to have_body_text('funky fresh')
       end
     end
 
@@ -165,27 +165,27 @@ describe SanitizeEmail do
         sanitary_mail_delivery
       end
       it "should not alter non-sanitized attributes" do
-        @email_message.should have_from('from@example.org')
-        @email_message.should have_reply_to('reply_to@example.org')
-        @email_message.should have_body_text('funky fresh')
+        expect(@email_message).to have_from('from@example.org')
+        expect(@email_message).to have_reply_to('reply_to@example.org')
+        expect(@email_message).to have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
-        @email_message.should_not have_to_username("to at sanitize_email.org")
-        @email_message.should_not have_subject("(to at sanitize_email.org)")
+        expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+        expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
       end
       it "should override" do
-        @email_message.should have_to("to@sanitize_email.org")
-        @email_message.should have_cc("cc@sanitize_email.org")
-        @email_message.should have_bcc("bcc@sanitize_email.org")
+        expect(@email_message).to have_to("to@sanitize_email.org")
+        expect(@email_message).to have_cc("cc@sanitize_email.org")
+        expect(@email_message).to have_bcc("bcc@sanitize_email.org")
       end
       it "should set headers" do
-        @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
-        @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
       end
       it "should not prepend originals by default" do
-        @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
-        @email_message.should_not have_subject("(to at example.org) original subject")
+        expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
+        expect(@email_message).not_to have_subject("(to at example.org) original subject")
       end
     end
 
@@ -195,43 +195,43 @@ describe SanitizeEmail do
         sanitary_mail_delivery_multiple_recipients
       end
       it "should not alter non-sanitized attributes" do
-        @email_message.should have_from('from@example.org')
-        @email_message.should have_reply_to('reply_to@example.org')
-        @email_message.should have_body_text('funky fresh')
+        expect(@email_message).to have_from('from@example.org')
+        expect(@email_message).to have_reply_to('reply_to@example.org')
+        expect(@email_message).to have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
-        @email_message.should_not have_to_username("to at sanitize_email.org")
-        @email_message.should_not have_subject("(to at sanitize_email.org)")
+        expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+        expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
       end
       it "should override" do
-        @email_message.should have_to("to@sanitize_email.org")
-        @email_message.should have_cc("cc@sanitize_email.org")
-        @email_message.should have_bcc("bcc@sanitize_email.org")
+        expect(@email_message).to have_to("to@sanitize_email.org")
+        expect(@email_message).to have_cc("cc@sanitize_email.org")
+        expect(@email_message).to have_bcc("bcc@sanitize_email.org")
       end
       it "should set headers for sanitized :to recipients" do
-        @email_message.should have_header("X-Sanitize-Email-To", "to1@example.org")
-        @email_message.should_not have_header("X-Sanitize-Email-To-0", "to1@example.org")
-        @email_message.should_not have_header("X-Sanitize-Email-To-1", "to1@example.org")
-        @email_message.should have_header("X-Sanitize-Email-To-2", "to2@example.org")
-        @email_message.should have_header("X-Sanitize-Email-To-3", "to3@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-To", "to1@example.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-To-0", "to1@example.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-To-1", "to1@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-To-2", "to2@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-To-3", "to3@example.org")
       end
       it "should set headers for sanitized :cc recipients" do
-        @email_message.should have_header("X-Sanitize-Email-Cc", "cc1@example.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Cc-0", "cc1@example.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Cc-1", "cc1@example.org")
-        @email_message.should have_header("X-Sanitize-Email-Cc-2", "cc2@example.org")
-        @email_message.should have_header("X-Sanitize-Email-Cc-3", "cc3@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc1@example.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Cc-0", "cc1@example.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Cc-1", "cc1@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-Cc-2", "cc2@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-Cc-3", "cc3@example.org")
       end
       it "should not set headers for sanitized :bcc recipients" do
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc1@sanitize_email.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc-0", "bcc1@sanitize_email.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc-1", "bcc1@sanitize_email.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc-2", "bcc2@sanitize_email.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc-3", "bcc3@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc1@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-0", "bcc1@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-1", "bcc1@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-2", "bcc2@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-3", "bcc3@sanitize_email.org")
       end
       it "should not prepend originals by default" do
-        @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
-        @email_message.should_not have_subject("(to at example.org) original subject")
+        expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
+        expect(@email_message).not_to have_subject("(to at example.org) original subject")
       end
     end
 
@@ -242,43 +242,43 @@ describe SanitizeEmail do
         mail_delivery
       end
       it "original to is prepended to subject" do
-        @email_message.should have_subject(/\(to at example.org\).*original subject/)
+        expect(@email_message).to have_subject(/\(to at example.org\).*original subject/)
       end
       it "original to is only prepended once to subject" do
-        @email_message.should_not have_subject(/\(to at example.org\).*\(to at example.org\).*original subject/)
+        expect(@email_message).not_to have_subject(/\(to at example.org\).*\(to at example.org\).*original subject/)
       end
       it "should not alter non-sanitized attributes" do
-        @email_message.should have_from('from@example.org')
-        @email_message.should have_reply_to('reply_to@example.org')
-        @email_message.should have_body_text('funky fresh')
+        expect(@email_message).to have_from('from@example.org')
+        expect(@email_message).to have_reply_to('reply_to@example.org')
+        expect(@email_message).to have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
-        @email_message.should_not have_to_username("to at sanitize_email.org")
-        @email_message.should_not have_subject(/.*\(to at sanitize_email.org\).*/)
+        expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+        expect(@email_message).not_to have_subject(/.*\(to at sanitize_email.org\).*/)
       end
       it "should override where original recipients were not nil" do
-        @email_message.should have_to("funky@sanitize_email.org")
+        expect(@email_message).to have_to("funky@sanitize_email.org")
       end
       it "should not override where original recipients were nil" do
-        @email_message.should_not have_cc("cc@sanitize_email.org")
-        @email_message.should_not have_bcc("bcc@sanitize_email.org")
+        expect(@email_message).not_to have_cc("cc@sanitize_email.org")
+        expect(@email_message).not_to have_bcc("bcc@sanitize_email.org")
       end
       it "should set headers of originals" do
-        @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
-        @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
       end
       it "should not set headers of bcc" do
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
       end
       it "should not set headers of overrides" do
-        @email_message.should_not have_header("X-Sanitize-Email-To", "funky@sanitize_email.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Cc", "cc@sanitize_email.org")
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-To", "funky@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Cc", "cc@sanitize_email.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
         #puts "email headers:\n#{@email_message.header}"
       end
       it "should not prepend originals by default" do
-        @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
-        @email_message.should_not have_subject("(to at example.org) original subject")
+        expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
+        expect(@email_message).not_to have_subject("(to at example.org) original subject")
       end
     end
 
@@ -289,40 +289,40 @@ describe SanitizeEmail do
         mail_delivery_hot_mess
       end
       it "original to is prepended to subject" do
-        @email_message.should have_subject(/\(same at example.org\).*original subject/)
+        expect(@email_message).to have_subject(/\(same at example.org\).*original subject/)
       end
       it "original to is only prepended once to subject" do
-        @email_message.should_not have_subject(/\(same at example.org\).*\(same at example.org\).*original subject/)
+        expect(@email_message).not_to have_subject(/\(same at example.org\).*\(same at example.org\).*original subject/)
       end
       it "should not alter non-sanitized attributes" do
-        @email_message.should have_from('same@example.org')
-        @email_message.should have_reply_to('same@example.org')
-        @email_message.should have_body_text('funky fresh')
+        expect(@email_message).to have_from('same@example.org')
+        expect(@email_message).to have_reply_to('same@example.org')
+        expect(@email_message).to have_body_text('funky fresh')
       end
       it "should not prepend overrides" do
-        @email_message.should_not have_to_username("same at example.org")
+        expect(@email_message).not_to have_to_username("same at example.org")
       end
       it "should override where original recipients were not nil" do
-        @email_message.should have_to("same@example.org")
+        expect(@email_message).to have_to("same@example.org")
       end
       it "should not override where original recipients were nil" do
-        @email_message.should_not have_cc("same@example.org")
-        @email_message.should_not have_bcc("same@example.org")
+        expect(@email_message).not_to have_cc("same@example.org")
+        expect(@email_message).not_to have_bcc("same@example.org")
       end
       it "should set headers of originals" do
-        @email_message.should have_header("X-Sanitize-Email-To", "same@example.org")
-        @email_message.should have_header("X-Sanitize-Email-Cc", "same@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-To", "same@example.org")
+        expect(@email_message).to have_header("X-Sanitize-Email-Cc", "same@example.org")
       end
       it "should not set headers of bcc" do
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "same@example.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "same@example.org")
       end
       it "should not set headers of overrides" do
-        @email_message.should_not have_header("X-Sanitize-Email-Bcc", "same@example.org")
+        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "same@example.org")
         puts "email headers:\n#{@email_message.header}"
       end
       it "should not prepend originals by default" do
-        @email_message.should_not have_to_username("same at example.org <same@example.org>")
-        @email_message.should_not have_subject("(same at example.org) original subject")
+        expect(@email_message).not_to have_to_username("same at example.org <same@example.org>")
+        expect(@email_message).not_to have_subject("(same at example.org) original subject")
       end
     end
 
@@ -335,19 +335,19 @@ describe SanitizeEmail do
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should override" do
-          @email_message.should have_to("to@sanitize_email.org")
-          @email_message.should have_cc("cc@sanitize_email.org")
-          @email_message.should have_bcc("bcc@sanitize_email.org")
+          expect(@email_message).to have_to("to@sanitize_email.org")
+          expect(@email_message).to have_cc("cc@sanitize_email.org")
+          expect(@email_message).to have_bcc("bcc@sanitize_email.org")
         end
         it "should set headers" do
-          @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
-          @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
-          @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+          expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
+          expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
+          expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
         end
       end
       context "false" do
@@ -358,17 +358,17 @@ describe SanitizeEmail do
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not alter normally sanitized attributes" do
-          @email_message.should have_to("to@example.org")
-          @email_message.should have_cc("cc@example.org")
-          @email_message.should have_bcc("bcc@example.org")
-          @email_message.should_not have_header("X-Sanitize-Email-To", "to@example.org")
-          @email_message.should_not have_header("X-Sanitize-Email-Cc", "cc@example.org")
-          @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@example.org")
+          expect(@email_message).to have_to("to@example.org")
+          expect(@email_message).to have_cc("cc@example.org")
+          expect(@email_message).to have_bcc("bcc@example.org")
+          expect(@email_message).not_to have_header("X-Sanitize-Email-To", "to@example.org")
+          expect(@email_message).not_to have_header("X-Sanitize-Email-Cc", "cc@example.org")
+          expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@example.org")
         end
       end
       context "nil" do
@@ -381,17 +381,17 @@ describe SanitizeEmail do
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            @email_message.should have_from('from@example.org')
-            @email_message.should have_reply_to('reply_to@example.org')
-            @email_message.should have_body_text('funky fresh')
+            expect(@email_message).to have_from('from@example.org')
+            expect(@email_message).to have_reply_to('reply_to@example.org')
+            expect(@email_message).to have_body_text('funky fresh')
           end
           it "should override" do
-            @email_message.should have_to("to@sanitize_email.org")
-            @email_message.should have_cc("cc@sanitize_email.org")
-            @email_message.should have_bcc("bcc@sanitize_email.org")
-            @email_message.should have_header("X-Sanitize-Email-To", "to@example.org")
-            @email_message.should have_header("X-Sanitize-Email-Cc", "cc@example.org")
-            @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+            expect(@email_message).to have_to("to@sanitize_email.org")
+            expect(@email_message).to have_cc("cc@sanitize_email.org")
+            expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+            expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
+            expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
+            expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
           end
         end
         context "activation proc disables" do
@@ -403,17 +403,17 @@ describe SanitizeEmail do
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            @email_message.should have_from('from@example.org')
-            @email_message.should have_reply_to('reply_to@example.org')
-            @email_message.should have_body_text('funky fresh')
+            expect(@email_message).to have_from('from@example.org')
+            expect(@email_message).to have_reply_to('reply_to@example.org')
+            expect(@email_message).to have_body_text('funky fresh')
           end
           it "should not alter normally sanitized attributes" do
-            @email_message.should have_to("to@example.org")
-            @email_message.should have_cc("cc@example.org")
-            @email_message.should have_bcc("bcc@example.org")
-            @email_message.should_not have_header("X-Sanitize-Email-To", "to@example.org")
-            @email_message.should_not have_header("X-Sanitize-Email-Cc", "cc@example.org")
-            @email_message.should_not have_header("X-Sanitize-Email-Bcc", "bcc@example.org")
+            expect(@email_message).to have_to("to@example.org")
+            expect(@email_message).to have_cc("cc@example.org")
+            expect(@email_message).to have_bcc("bcc@example.org")
+            expect(@email_message).not_to have_header("X-Sanitize-Email-To", "to@example.org")
+            expect(@email_message).not_to have_header("X-Sanitize-Email-Cc", "cc@example.org")
+            expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@example.org")
           end
         end
       end
@@ -428,16 +428,16 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is prepended" do
-          @email_message.should have_subject("{{serverABC}} original subject")
+          expect(@email_message).to have_subject("{{serverABC}} original subject")
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
-          @email_message.should_not have_to_username("to at sanitize_email.org")
-          @email_message.should_not have_subject("(to at sanitize_email.org)")
+          expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+          expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
         end
       end
       context "false" do
@@ -447,17 +447,17 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
-          @email_message.should_not have_subject("{{serverABC}} original subject")
-          @email_message.subject.should eq("original subject")
+          expect(@email_message).not_to have_subject("{{serverABC}} original subject")
+          expect(@email_message.subject).to eq("original subject")
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
-          @email_message.should_not have_to_username("to at sanitize_email.org")
-          @email_message.should_not have_subject("(to at sanitize_email.org)")
+          expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+          expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
         end
       end
     end
@@ -470,16 +470,16 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is prepended" do
-          @email_message.should have_subject("(to at example.org) original subject")
+          expect(@email_message).to have_subject("(to at example.org) original subject")
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
-          @email_message.should_not have_to_username("to at sanitize_email.org")
-          @email_message.should_not have_subject("(to at sanitize_email.org)")
+          expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+          expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
         end
       end
       context "false" do
@@ -489,16 +489,16 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
-          @email_message.should_not have_subject("(to at example.org) original subject")
+          expect(@email_message).not_to have_subject("(to at example.org) original subject")
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
-          @email_message.should_not have_to_username("to at sanitize_email.org")
-          @email_message.should_not have_subject("(to at sanitize_email.org)")
+          expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+          expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
         end
       end
     end
@@ -511,16 +511,16 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is munged and prepended" do
-          @email_message.should have_to_username("to at example.org <to@sanitize_email.org>")
+          expect(@email_message).to have_to_username("to at example.org <to@sanitize_email.org>")
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
-          @email_message.should_not have_to_username("to at sanitize_email.org")
-          @email_message.should_not have_subject("(to at sanitize_email.org)")
+          expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+          expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
         end
       end
       context "false" do
@@ -530,16 +530,16 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
-          @email_message.should_not have_to_username("to at example.org <to@sanitize_email.org>")
+          expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not prepend overrides" do
-          @email_message.should_not have_to_username("to at sanitize_email.org")
-          @email_message.should_not have_subject("(to at sanitize_email.org)")
+          expect(@email_message).not_to have_to_username("to at sanitize_email.org")
+          expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
         end
       end
     end
@@ -553,36 +553,36 @@ describe SanitizeEmail do
           before(:each) do
             sanitize_spec_dryer('test')
             configure_sanitize_email({:local_environments => ['test']})
-            SanitizeEmail[:activation_proc].call.should == true
+            expect(SanitizeEmail[:activation_proc].call).to eq(true)
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            @email_message.should have_from('from@example.org')
-            @email_message.should have_reply_to('reply_to@example.org')
-            @email_message.should have_body_text('funky fresh')
+            expect(@email_message).to have_from('from@example.org')
+            expect(@email_message).to have_reply_to('reply_to@example.org')
+            expect(@email_message).to have_body_text('funky fresh')
           end
           it "should use activation_proc for matching environment" do
-            @email_message.should have_to("to@sanitize_email.org")
-            @email_message.should have_cc("cc@sanitize_email.org")
-            @email_message.should have_bcc("bcc@sanitize_email.org")
+            expect(@email_message).to have_to("to@sanitize_email.org")
+            expect(@email_message).to have_cc("cc@sanitize_email.org")
+            expect(@email_message).to have_bcc("bcc@sanitize_email.org")
           end
         end
         context "non-matching" do
           before(:each) do
             sanitize_spec_dryer('production')
             configure_sanitize_email({:local_environments => ['development']}) # Won't match!
-            SanitizeEmail[:activation_proc].call.should == false
+            expect(SanitizeEmail[:activation_proc].call).to eq(false)
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            @email_message.should have_from('from@example.org')
-            @email_message.should have_reply_to('reply_to@example.org')
-            @email_message.should have_body_text('funky fresh')
+            expect(@email_message).to have_from('from@example.org')
+            expect(@email_message).to have_reply_to('reply_to@example.org')
+            expect(@email_message).to have_body_text('funky fresh')
           end
           it "should use activation_proc for non-matching environment" do
-            @email_message.should have_to("to@example.org")
-            @email_message.should have_cc("cc@example.org")
-            @email_message.should have_bcc("bcc@example.org")
+            expect(@email_message).to have_to("to@example.org")
+            expect(@email_message).to have_cc("cc@example.org")
+            expect(@email_message).to have_bcc("bcc@example.org")
           end
         end
       end
@@ -594,12 +594,12 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "used as sanitized_to" do
-          @email_message.should have_to("barney@sanitize_email.org")
+          expect(@email_message).to have_to("barney@sanitize_email.org")
         end
       end
 
@@ -611,12 +611,12 @@ describe SanitizeEmail do
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          @email_message.should have_from('from@example.org')
-          @email_message.should have_reply_to('reply_to@example.org')
-          @email_message.should have_body_text('funky fresh')
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
         end
         it "should not alter normally sanitized attributes" do
-          @email_message.should have_to("to@example.org")
+          expect(@email_message).to have_to("to@example.org")
         end
       end
 
