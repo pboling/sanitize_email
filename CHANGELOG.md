@@ -1,3 +1,9 @@
+Version 1.1.6 - AUG.29.2015
+* spec run as default rake task & improve Rakefile syntax by Peter Boling
+* prevent direct configuration via `DEFAULTS` from working, as that is not the API by Peter Boling
+* better gem summary: "Email Condom for your Ruby Server" by Peter Boling
+* Improve specs and spec config by Peter Boling
+
 Version 1.1.5 - MAR.10.2015
 * Refactored `prepend_subject_array` by Scott Rocher
 * Specs for prepending to subject by Scott Rocher
