@@ -331,7 +331,7 @@ dependency on this gem using the [Pessimistic Version Constraint][pvc] with two 
 
 For example:
 
-    spec.add_dependency 'sanitize_email', '~> 1.0.8'
+    spec.add_dependency 'sanitize_email', '~> 1.1'
 
 ## References
 
@@ -343,7 +343,7 @@ For example:
 ## Legal
 
 * MIT License - See LICENSE file in this project
-* Copyright (c) 2008-2014 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
+* Copyright (c) 2008-2015 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
 * Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
 
 [semver]: http://semver.org/

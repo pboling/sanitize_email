@@ -26,7 +26,7 @@ end
 namespace :test do
   desc "Test against all supported Rails versions"
   task :all do
-    %w(3.0.x 3.1.x 3.2.x 4.0.x).each do |version|
+    %w(3.0.x 3.1.x 3.2.x 4.0.x 4.1.x 4.2.x).each do |version|
       sh %[BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle --quiet]
       sh %[BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle exec rspec spec]
     end
