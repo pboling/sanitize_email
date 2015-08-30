@@ -4,12 +4,11 @@
 module SanitizeEmail
   require 'sanitize_email/version'
   require 'sanitize_email/deprecation'
+  require 'sanitize_email/block_required'
   require 'sanitize_email/config'
   require 'sanitize_email/mail_header_tools'
   require 'sanitize_email/overridden_addresses'
   require 'sanitize_email/bleach'
-
-  class MissingBlockParameter < StandardError; end
 
   # Allow non-rails implementations to use this gem
   if defined?(::Rails)
@@ -21,6 +20,7 @@ module SanitizeEmail
       raise "Please use the 0.X.X versions of sanitize_email for Rails 2.X and below."
     end
   else
+    mailer = nil
     if defined?(Mailer)
       mailer = Mailer
     elsif defined?(Mail)
@@ -99,7 +99,6 @@ module SanitizeEmail
   # end
   #
   def self.unsanitary &block
-    raise MissingBlockParameter, "SanitizeEmail.unsanitary must be called with a block" unless block_given?
     janitor({:forcing => false}) do
       yield
     end
@@ -113,11 +112,12 @@ module SanitizeEmail
     SanitizeEmail.force_sanitize = original
   end
 
-  # Setup Deprecations!
+  # Setup Deprecatio and Block Requirementsns!
   class << self
     extend SanitizeEmail::Deprecation
     deprecated_alias :sanitized_recipients, :sanitized_to
-    deprecated :local_environments, :activation_proc
+    deprecated :local_environments, :activation_pr
+    prepend BlockRequired
   end
 
 end
