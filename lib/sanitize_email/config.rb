@@ -1,7 +1,9 @@
-# Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008-15 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
 module SanitizeEmail
+  # The API for configuring SanitizeEmail is via `SanitizeEmail.config`
+  # Available configuration options are listed in the `DEFAULTS`` constant.
   class Config
 
     extend SanitizeEmail::Deprecation
@@ -60,10 +62,13 @@ module SanitizeEmail
         @config[:sanitized_to] = @config[:sanitized_recipients]
       end
       if !@config[:force_sanitize].nil?
-        replacement = "
-  Please use SanitizeEmail.force_sanitize or SanitizeEmail.sanitary instead.
-  Refer to https://github.com/pboling/sanitize_email/wiki for examples."
-        deprecation("SanitizeEmail::Config.config[:force_sanitize]", replacement)
+        deprecation_warning_message(
+            <<-EOS
+              SanitizeEmail::Config.config[:force_sanitize] is deprecated.
+              Please use SanitizeEmail.force_sanitize or SanitizeEmail.sanitary instead.
+              Refer to https://github.com/pboling/sanitize_email/wiki for examples.
+            EOS
+        )
         SanitizeEmail.force_sanitize = @config[:force_sanitize]
       end
     end

@@ -1,9 +1,9 @@
-# Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008-15 Peter H. Boling of RailsBling.com
 # Released under the MIT license
-# See http://www.seejohncode.com/2012/01/09/deprecating-methods-in-ruby/
-#require 'facets/module/mattr' # gives cattr
 
 module SanitizeEmail
+  # Provides tools that allow methods to be deprecated with new releases of the gem.
+  # See http://www.seejohncode.com/2012/01/09/deprecating-methods-in-ruby/
   module Deprecation
 
     class << self
@@ -38,14 +38,15 @@ module SanitizeEmail
     end
 
     def deprecation(name, replacement = nil)
-      unless SanitizeEmail::Deprecation.deprecate_in_silence
-        if replacement
-          warn "SanitizeEmail: ##{name} deprecated#{replacement}"
-        else
-          warn "SanitizeEmail: ##{name} deprecated"
-        end
+      if replacement
+        deprecation_warning_message("SanitizeEmail: ##{name} deprecated#{replacement}")
+      else
+        deprecation_warning_message("SanitizeEmail: ##{name} deprecated")
       end
     end
 
+    def deprecation_warning_message(message)
+      warn message unless SanitizeEmail::Deprecation.deprecate_in_silence
+    end
   end
 end

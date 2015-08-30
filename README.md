@@ -303,7 +303,7 @@ bundle exec rake test:all
 If the tests pass refresh the `reek` list:
 
 ```
-bundle exec rake reek > REEK
+bundle exec reek > REEK
 ```
 
 Follow the instructions for "Contributing" below.

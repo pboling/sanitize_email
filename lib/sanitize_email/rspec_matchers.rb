@@ -1,9 +1,10 @@
-# Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008-15 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 require 'sanitize_email/test_helpers'
 require 'sanitize_email/mail_ext'
 
 module SanitizeEmail
+  # Provides matchers that can be used in Rspec tests to assert the behavior of email
   module RspecMatchers
     include SanitizeEmail::TestHelpers
     [:from, :to, :cc, :bcc, :reply_to].each do |attribute|

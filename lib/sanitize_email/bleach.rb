@@ -1,4 +1,4 @@
-# Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008-15 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
 module SanitizeEmail
@@ -7,7 +7,7 @@ module SanitizeEmail
 
     # Can override global configs at the instance level.
     attr_accessor :engage, # Turn sanitization on or off just for this instance
-                  :overridden_addresses
+                  :overridden_addresses # TODO: Just a stub.  Needs actual implementation
 
     def initialize(args = {})
       # Not using extract_options! because non-rails compatibility is a goal
@@ -20,11 +20,11 @@ module SanitizeEmail
         SanitizeEmail::MailHeaderTools.add_original_addresses_as_headers(message)
         SanitizeEmail::MailHeaderTools.prepend_custom_subject(message)
 
-        o = SanitizeEmail::OverriddenAddresses.new(message)
+        overridden = SanitizeEmail::OverriddenAddresses.new(message)
 
-        message.to = o.overridden_to
-        message.cc = o.overridden_cc
-        message.bcc = o.overridden_bcc
+        message.to = overridden.overridden_to
+        message.cc = overridden.overridden_cc
+        message.bcc = overridden.overridden_bcc
       end
     end
 

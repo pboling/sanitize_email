@@ -1,6 +1,8 @@
-# Copyright (c) 2008-13 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008-15 Peter H. Boling of RailsBling.com
 # Released under the MIT license
+
 module SanitizeEmail
+  # Tools for modifying the header of an email
   module MailHeaderTools
 
     def self.prepend_subject_array(message)
