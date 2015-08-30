@@ -7,7 +7,10 @@ Gem::Specification.new do |s|
 
   s.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
   s.summary = "Email Condom for your Ruby Server"
-  s.description = "In Rails, Sinatra, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses."
+  s.description = <<EOS
+  Email Condom for your Ruby Server.
+In Rails, Sinatra, et al, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses.
+EOS
   s.email = ["peter.boling@gmail.com"]
   s.extra_rdoc_files = [
     "CHANGELOG.md",
