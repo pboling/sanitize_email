@@ -1,3 +1,13 @@
+HEAD
+
+Version 1.1.7 - AUG.30.2015
+* No API changes
+* General improvement to the code base by Peter Boling
+  - small refactorings
+  - documentation
+  - setup reek properly
+  - Fixed travis build matrix, added latest Ruby and Rails, and bumped patch releases
+
 Version 1.1.6 - AUG.29.2015
 * spec run as default rake task & improve Rakefile syntax by Peter Boling
 * prevent direct configuration via `DEFAULTS` from working, as that is not the API by Peter Boling
