@@ -31,9 +31,9 @@ module SanitizeEmail
         'X-Sanitize-Email-To' => Array(message.to).uniq, # can be an array, so casting it as an array
         'X-Sanitize-Email-Cc' => Array(message.cc).uniq  # can be an array, so casting it as an array
         # Don't write out the BCC, as those addresses should not be visible in message headers for obvious reasons
-      }.each { |k, v|
+      }.each { |header_key, header_value|
         # For each type of address line
-        SanitizeEmail::MailHeaderTools.update_header(k, v, message)
+        SanitizeEmail::MailHeaderTools.update_header(header_key, header_value, message)
       }
     end
 
@@ -43,20 +43,15 @@ module SanitizeEmail
     end
 
     # According to https://github.com/mikel/mail this is the correct way to update headers.
-    def self.update_header(k, v, message)
-      # For each address, as v can be an array of addresses
-      Array(v).each_with_index { |a, index|
+    def self.update_header(header_key, header_value, message)
+      # For each address, as header_value can be an array of addresses
+      Array(header_value).each_with_index { |elem, index|
         num = index + 1
-        header_key = num > 1 ?
-          "#{k}-#{index+1}" :
-          k
-        #puts "for #{num}: #{header_key}"
-        message.header[header_key] = a.to_s
-        # Old way
-        # Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
-        #message.header = message.header.to_s.strip + "\n#{k}: #{a}"
-      } if v
-      #puts "\nafter message.header:\n #{message.header}\n"
+        new_header_key = num > 1 ?
+          "#{header_key}-#{num}" :
+          header_key
+        message.header[new_header_key] = elem.to_s
+      } if header_value
     end
 
   end

@@ -5,11 +5,16 @@ module SanitizeEmail
   # Tools for overriding addresses
   class OverriddenAddresses
 
-    class MissingTo < StandardError;
-    end
-    class UnknownOverride < StandardError;
-    end
+    # Raised when after applying all sanitization rules there are no addresses to send the email to.
+    class MissingTo < StandardError; end
 
+    # Raised if there is a recipient type that sanitize_email doesn't recognize.
+    # If you get this error please report it.
+    # recognized recipient types are: TO, CC, and BCC
+    class UnknownOverride < StandardError; end
+
+    REPLACE_AT = [/@/, " at "]
+    REPLACE_ALLIGATOR = [/[<>]/, "~"]
     attr_accessor :overridden_to, :overridden_cc, :overridden_bcc,
                   :good_list, # White-listed addresses will not be molested as to, cc, or bcc
                   :bad_list, # Black-listed addresses will be removed from to, cc and bcc when sanitization is engaged
@@ -101,7 +106,7 @@ module SanitizeEmail
           new_recipient = sanitized_addresses
         else
           #puts "SANITIZED: #{sanitized_addresses}"
-          new_recipient = sanitized_addresses.map { |sanitized| "#{real_recipient.gsub(/@/, ' at ').gsub(/[<>]/, '~')} <#{sanitized}>" }
+          new_recipient = sanitized_addresses.map { |sanitized| "#{real_recipient.gsub(REPLACE_AT[0], REPLACE_AT[1]).gsub(/[<>]/, '~')} <#{sanitized}>" }
         end
         result << new_recipient
         result

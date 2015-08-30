@@ -9,6 +9,7 @@ module SanitizeEmail
   require 'sanitize_email/overridden_addresses'
   require 'sanitize_email/bleach'
 
+  # Error is raised when a block parameter is required and not provided to a method
   class MissingBlockParameter < StandardError; end
 
   # Allow non-rails implementations to use this gem
@@ -38,7 +39,7 @@ module SanitizeEmail
     SanitizeEmail::Config.config[key.to_sym]
   end
 
-  def self.method_missing(name, *args)
+  def self.method_missing(name, *_)
     SanitizeEmail[name]
   end
 

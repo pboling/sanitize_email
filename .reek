@@ -1,3 +1,9 @@
 # attr_accessor is, in many cases, better than @instance variables which fail silently on typos, IMO
 Attribute:
   enabled: false
+# One line methods are awesome, but need to focus on bigger problems first.  Will lower this number as the code improves.
+TooManyStatements:
+  max_statements: 8
+FeatureEnvy:
+  exclude:
+  - delivering_email
