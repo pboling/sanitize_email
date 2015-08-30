@@ -4,6 +4,8 @@
 module SanitizeEmail
   # Helpers for test-unit
   module TestHelpers
+
+    # Error raised when unable to match an expected part of email in order to fail the test
     class UnexpectedMailType < StandardError; end
 
     def string_matching_attribute(matcher, part, mail_or_part)

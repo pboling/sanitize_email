@@ -1,0 +1,3 @@
+# attr_accessor is, in many cases, better than @instance variables which fail silently on typos, IMO
+Attribute:
+  enabled: false
