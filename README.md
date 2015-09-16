@@ -58,11 +58,15 @@ SanitizeEmail comes with some lightweight RspecMatchers covering most of what em
 
 In Gemfile:
 
-    gem 'sanitize_email'
+```ruby
+gem 'sanitize_email'
+```
 
 Then:
 
-    $ bundle install
+```bash
+$ bundle install
+```
 
 ## Setup with Ruby
 
@@ -72,27 +76,38 @@ There are four ways SanitizeEmail can be turned on; in order of precedence they 
 
 1. Only useful for local context.  Inside a method where you will be sending an email, set SanitizeEmail.force_sanitize = true just prior to delivering it.  Also useful in the console.
 
-        SanitizeEmail.force_sanitize = true # by default it is nil
+    ```ruby
+    SanitizeEmail.force_sanitize = true # by default it is nil
+    ```
 
 2. If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you. *Note*: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of `:engage => true):
 
-        Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default :engage is nil
+    ```ruby
+    Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default :engage is nil
+    ```
 
     Without :engage => true the interceptor is inactive, and will require engaging via one of the other methods.
 
-        Mail.register_interceptor(SanitizeEmail::Bleach.new)
-
+    ```ruby
+    Mail.register_interceptor(SanitizeEmail::Bleach.new)
+    ```
     As an example you could do the following to engage SanitizeEmail:
 
-        SanitizeEmail::Config.configure {|config| config[:engage] = true }
+    ```ruby
+    SanitizeEmail::Config.configure {|config| config[:engage] = true }
+    ```
 
 3. If you don't need to compute anything, then don't use this option, go with the next option.
 
-        SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default :activation_proc is false
+    ```ruby
+    SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default :activation_proc is false
+    ```
 
 4. This will turn it on.  Period.
 
-        SanitizeEmail::Config.configure {|config| config[:engage] = true } # by default :engage is nil
+    ```ruby
+    SanitizeEmail::Config.configure {|config| config[:engage] = true } # by default :engage is nil
+    ```
 
 ### Notes
 
@@ -103,7 +118,9 @@ If installed but not configured, sanitize_email DOES NOTHING.  Until configured 
 
 IMPORTANT: You may need to setup your own register_interceptor.  If sanitize_email doesn't seem to be working for you find your Mailer/Mail class and try this:
 
-        Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true))
+```ruby
+Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true))
+```
 
 If that causes an error you will know why sanitize_email doesn't work.
 Otherwise it will start working according to the rest of the configuration.
@@ -112,7 +129,7 @@ Otherwise it will start working according to the rest of the configuration.
 
 Create an initializer, if you are using rails, or otherwise configure:
 
-```
+```ruby
 SanitizeEmail::Config.configure do |config|
   config[:sanitized_to] =         'to@sanitize_email.org'
   config[:sanitized_cc] =         'cc@sanitize_email.org'
@@ -133,7 +150,7 @@ Let's say you have a method in your model that you can call to test the signup e
 
 To override the environment based switch use `force_sanitize`, which is normally `nil`, and ignored by default. When set to `true` or `false` it will turn sanitization on or off:
 
-```
+```ruby
   SanitizeEmail.force_sanitize = true
 ```
 
@@ -141,7 +158,7 @@ There are also two methods that take a block and turn SanitizeEmail on or off:
 
 Regardless of the Config settings of SanitizeEmail you can do a local override to force unsanitary email in any environment.
 
-```
+```ruby
   SanitizeEmail.unsanitary do
     Mail.deliver do
       from      'from@example.org'
@@ -156,7 +173,7 @@ Regardless of the Config settings of SanitizeEmail you can do a local override t
 You have access to all the same configuration options in the parameter hash as you can set in the actual
 SanitizeEmail.configure block.
 
-```
+```ruby
   SanitizeEmail.sanitary({:sanitized_to => 'boo@example.com'}) do # these config options are merged with the globals
     Mail.deliver do
       from      'from@example.org'
@@ -173,114 +190,128 @@ SanitizeEmail.configure block.
 
 In your `spec_helper.rb`:
 
-        require 'sanitize_email'
-        # rspec matchers are *not* loaded by default in sanitize_email, as it is not primarily a gem for test suites.
-        require 'sanitize_email/rspec_matchers'
+```ruby
+require 'sanitize_email'
+# rspec matchers are *not* loaded by default in sanitize_email, as it is not primarily a gem for test suites.
+require 'sanitize_email/rspec_matchers'
 
-        SanitizeEmail::Config.configure do |config|
-          config[:sanitized_to] =         'sanitize_email@example.org'
-          config[:sanitized_cc] =         'sanitize_email@example.org'
-          config[:sanitized_bcc] =        'sanitize_email@example.org'
-          # run/call whatever logic should turn sanitize_email on and off in this Proc.
-          # config[:activation_proc] =      Proc.new { true }
-          # Since this configuration is *inside* the spec_helper, it might be assumed that we always want to sanitize.  If we don't want to it can be easily manipulated with SanitizeEmail.unsanitary and SanitizeEmail.sanitary block helpers.
-          # Thus instead of using the Proc (slower) we just engage it always:
-          config[:engage] = true
-          config[:use_actual_email_prepended_to_subject] = true         # or false
-          config[:use_actual_environment_prepended_to_subject] = true   # or false
-          config[:use_actual_email_as_sanitized_user_name] = true       # or false
-        end
+SanitizeEmail::Config.configure do |config|
+  config[:sanitized_to] =         'sanitize_email@example.org'
+  config[:sanitized_cc] =         'sanitize_email@example.org'
+  config[:sanitized_bcc] =        'sanitize_email@example.org'
+  # run/call whatever logic should turn sanitize_email on and off in this Proc.
+  # config[:activation_proc] =      Proc.new { true }
+  # Since this configuration is *inside* the spec_helper, it might be assumed that we always want to sanitize.  If we don't want to it can be easily manipulated with SanitizeEmail.unsanitary and SanitizeEmail.sanitary block helpers.
+  # Thus instead of using the Proc (slower) we just engage it always:
+  config[:engage] = true
+  config[:use_actual_email_prepended_to_subject] = true         # or false
+  config[:use_actual_environment_prepended_to_subject] = true   # or false
+  config[:use_actual_email_as_sanitized_user_name] = true       # or false
+end
 
-        # If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
-        # Mail.register_interceptor(SanitizeEmail::Bleach.new)
+# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
+# Mail.register_interceptor(SanitizeEmail::Bleach.new)
 
-        RSpec.configure do |config|
-          # ...
-          # From sanitize_email gem
-          config.include SanitizeEmail::RspecMatchers
-        end
+RSpec.configure do |config|
+  # ...
+  # From sanitize_email gem
+  config.include SanitizeEmail::RspecMatchers
+end
 
-        context "an email test" do
-          subject { Mail.deliver(@message_hash) }
-          it { should have_to "sanitize_email@example.org" }
-        end
+context "an email test" do
+  subject { Mail.deliver(@message_hash) }
+  it { should have_to "sanitize_email@example.org" }
+end
+```
 
 #### have_* matchers
 
 These will look for an email address in any of the following
 
-        :from, :to, :cc, :bcc, :subject, :reply_to
+```ruby
+:from, :to, :cc, :bcc, :subject, :reply_to
+```
 
 Example:
 
-        context "the subject line must have the email address sanitize_email@example.org" do
-          subject { Mail.deliver(@message_hash) }
-          it { should have_subject "sanitize_email@example.org" }
-        end
+```ruby
+context "the subject line must have the email address sanitize_email@example.org" do
+  subject { Mail.deliver(@message_hash) }
+  it { should have_subject "sanitize_email@example.org" }
+end
+```
 
 #### be_* matchers
 
 These will look for a matching string in any of the following
 
-        :from, :to, :cc, :bcc, :subject, :reply_to
+```ruby
+:from, :to, :cc, :bcc, :subject, :reply_to
+```
 
 Example:
 
-        context "the subject line must have the string 'foobarbaz'" do
-          subject { Mail.deliver(@message_hash) }
-          it { should be_subject "foobarbaz" }
-        end
+```ruby
+context "the subject line must have the string 'foobarbaz'" do
+  subject { Mail.deliver(@message_hash) }
+  it { should be_subject "foobarbaz" }
+end
+```
 
 #### have_to_username matcher
 
 The `username` in the `:to` field is when the `:to` field is formatted like this:
 
-        Peter Boling <sanitize_email@example.org>
+`Peter Boling <sanitize_email@example.org>`
 
 Example:
 
-        context "the to field must have the username 'Peter Boling'" do
-          subject { Mail.deliver(@message_hash) }
-          it { should have_to_username "Peter Boling" }
-        end
+```ruby
+context "the to field must have the username 'Peter Boling'" do
+  subject { Mail.deliver(@message_hash) }
+  it { should have_to_username "Peter Boling" }
+end
+```
 
 ### non-rspec (Test::Unit, mini-test, etc)
 
 In your setup file:
 
-        require 'sanitize_email'
-        # test helpers are *not* loaded by default in sanitize_email, as it is not primarily a gem for test suites.
-        require 'sanitize_email/test_helpers'
+```ruby
+require 'sanitize_email'
+# test helpers are *not* loaded by default in sanitize_email, as it is not primarily a gem for test suites.
+require 'sanitize_email/test_helpers'
 
-        SanitizeEmail::Config.configure do |config|
-          config[:sanitized_to] =         'sanitize_email@example.org'
-          config[:sanitized_cc] =         'sanitize_email@example.org'
-          config[:sanitized_bcc] =        'sanitize_email@example.org'
-          # run/call whatever logic should turn sanitize_email on and off in this Proc.
-          # config[:activation_proc] =      Proc.new { true }
-          # Since this configuration is *inside* the spec_helper, it might be assumed that we always want to sanitize.  If we don't want to it can be easily manipulated with SanitizeEmail.unsanitary and SanitizeEmail.sanitary block helpers.
-          # Thus instead of using the Proc (slower) we just engage it always:
-          config[:engage] = true
-          config[:use_actual_email_prepended_to_subject] = true         # or false
-          config[:use_actual_environment_prepended_to_subject] = true   # or false
-          config[:use_actual_email_as_sanitized_user_name] = true       # or false
-        end
+SanitizeEmail::Config.configure do |config|
+  config[:sanitized_to] =         'sanitize_email@example.org'
+  config[:sanitized_cc] =         'sanitize_email@example.org'
+  config[:sanitized_bcc] =        'sanitize_email@example.org'
+  # run/call whatever logic should turn sanitize_email on and off in this Proc.
+  # config[:activation_proc] =      Proc.new { true }
+  # Since this configuration is *inside* the spec_helper, it might be assumed that we always want to sanitize.  If we don't want to it can be easily manipulated with SanitizeEmail.unsanitary and SanitizeEmail.sanitary block helpers.
+  # Thus instead of using the Proc (slower) we just engage it always:
+  config[:engage] = true
+  config[:use_actual_email_prepended_to_subject] = true         # or false
+  config[:use_actual_environment_prepended_to_subject] = true   # or false
+  config[:use_actual_email_as_sanitized_user_name] = true       # or false
+end
 
-        # If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
-        # Mail.register_interceptor(SanitizeEmail::Bleach.new)
+# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
+# Mail.register_interceptor(SanitizeEmail::Bleach.new)
 
-        # You need to know what to do here... somehow get the methods into rhw scope of your tests.
-        # Something like this maybe?
-        include SanitizeEmail::TestHelpers
-        # Look here to see what it gives you:
-        # https://github.com/pboling/sanitize_email/blob/master/lib/sanitize_email/test_helpers.rb
+# You need to know what to do here... somehow get the methods into rhw scope of your tests.
+# Something like this maybe?
+include SanitizeEmail::TestHelpers
+# Look here to see what it gives you:
+# https://github.com/pboling/sanitize_email/blob/master/lib/sanitize_email/test_helpers.rb
+```
 
 ## Deprecations
 
 Sometimes things get deprecated (meaning they still work, but are noisy about it).  If this happens to you, and you like your head in the sand, call this number:
 
-```
-  SanitizeEmail::Deprecation.deprecate_in_silence = true
+```ruby
+SanitizeEmail::Deprecation.deprecate_in_silence = true
 ```
 
 ## Authors
@@ -296,15 +327,11 @@ See the [Network View](https://github.com/pboling/sanitize_email/network) and th
 
 Take a look at the `reek` list which is the file called `REEK` and stat fixing things.  Once you complete a change, run the tests:
 
-```
-bundle exec rake test:all
-```
+`bundle exec rake test:all`
 
 If the tests pass refresh the `reek` list:
 
-```
-bundle exec reek > REEK
-```
+`bundle exec reek > REEK`
 
 Follow the instructions for "Contributing" below.
 
@@ -331,7 +358,9 @@ dependency on this gem using the [Pessimistic Version Constraint][pvc] with two 
 
 For example:
 
-    spec.add_dependency 'sanitize_email', '~> 1.1'
+```ruby
+spec.add_dependency 'sanitize_email', '~> 1.1'
+```
 
 ## References
 
