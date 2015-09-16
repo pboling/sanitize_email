@@ -74,13 +74,13 @@ $ bundle install
 
 There are four ways SanitizeEmail can be turned on; in order of precedence they are:
 
-1. Only useful for local context.  Inside a method where you will be sending an email, set SanitizeEmail.force_sanitize = true just prior to delivering it.  Also useful in the console.
+1. Only useful for local context.  Inside a method where you will be sending an email, set `SanitizeEmail.force_sanitize = true` just prior to delivering it.  Also useful in the console.
 
     ```ruby
     SanitizeEmail.force_sanitize = true # by default it is nil
     ```
 
-2. If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you. *Note*: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of `:engage => true):
+2. If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you. *Note*: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of `:engage => true`):
 
     ```ruby
     Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default :engage is nil
@@ -171,7 +171,7 @@ Regardless of the Config settings of SanitizeEmail you can do a local override t
 
 Regardless of the Config settings of SanitizeEmail you can do a local override to send sanitary email in any environment.
 You have access to all the same configuration options in the parameter hash as you can set in the actual
-SanitizeEmail.configure block.
+`SanitizeEmail.configure` block.
 
 ```ruby
   SanitizeEmail.sanitary({:sanitized_to => 'boo@example.com'}) do # these config options are merged with the globals
