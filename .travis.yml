@@ -14,14 +14,12 @@ gemfile:
 matrix:
   allow_failures:
     - rvm: ruby-head
+    - rvm: 1.9.3
   exclude:
     - rvm: 2.0.0
       gemfile: gemfiles/Gemfile.rails-4.2.x
     - rvm: 2.1.7
       gemfile: gemfiles/Gemfile.rails-4.2.x
-matrix:
-  allow_failures:
-    - rvm: 1.9.3
   include:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.rails-3.0.x
