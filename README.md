@@ -13,7 +13,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | inline documenation     |  [![Inline docs](http://inch-ci.org/github/pboling/sanitize_email.png)](http://inch-ci.org/github/pboling/sanitize_email) |
 | continuous integration  |  [![Build Status](https://secure.travis-ci.org/pboling/sanitize_email.png?branch=master)](https://travis-ci.org/pboling/sanitize_email) |
 | test coverage           |  [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.png)](https://coveralls.io/r/pboling/sanitize_email) |
-| homepage                |  [https://github.com/pboling/sanitize_email][homepage] |
+| homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage] |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | author                  |  [Peter Boling](https://coderbits.com/pboling) |
 | Spread ~♡ⓛⓞⓥⓔ♡~      |  [![Endorse Me](https://api.coderwall.com/pboling/endorsecount.png)](http://coderwall.com/pboling) |
@@ -381,7 +381,3 @@ spec.add_dependency 'sanitize_email', '~> 1.1'
 [peterboling]: http://www.peterboling.com
 [documentation]: http://rdoc.info/github/pboling/sanitize_email/frames
 [homepage]: https://github.com/pboling/sanitize_email
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pboling/sanitize_email/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
