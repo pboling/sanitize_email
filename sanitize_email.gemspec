@@ -33,6 +33,7 @@ EOS
   #s.add_runtime_dependency("facets", ["> 0"])
 
   # Development Dependencies
+  s.add_development_dependency "bundler"
   s.add_development_dependency("rails", [">= 3.0"])
   s.add_development_dependency("actionmailer", [">= 3.0"])
   s.add_development_dependency("letter_opener", [">= 0"])
