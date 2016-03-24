@@ -380,4 +380,4 @@ spec.add_dependency 'sanitize_email', '~> 1.1'
 [railsbling]: http://www.railsbling.com
 [peterboling]: http://www.peterboling.com
 [documentation]: http://rdoc.info/github/pboling/sanitize_email/frames
-[homepage]: https://github.com/pboling/sanitize_email
+[homepage]: http://www.railsbling.com/tags/sanitize_email/
