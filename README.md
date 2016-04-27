@@ -1,5 +1,7 @@
 # sanitize_email
 
+[![Join the chat at https://gitter.im/pboling/sanitize_email](https://badges.gitter.im/pboling/sanitize_email.svg)](https://gitter.im/pboling/sanitize_email?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This gem allows you to override your mail delivery settings, globally or in a local context.  It is like a Ruby encrusted condom for your email server, just in case it decides to have intercourse with other servers via sundry mail protocols.
 
 | Project                 |  Sanitize Email   |
