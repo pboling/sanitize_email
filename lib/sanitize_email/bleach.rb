@@ -9,7 +9,14 @@ module SanitizeEmail
     attr_accessor :overridden_addresses # TODO: Just a stub, not implemented
 
     def initialize(*args)
-      self.class.deprecation_warning_message("SanitizeEmail: passing options to new as: SanitizeEmail::Bleach.new(options) is deprecated.") unless args.empty?
+      deprecation_message = <<EOS
+SanitizeEmail:
+  Passing arguments to SanitizeEmail::Bleach.new is deprecated.
+  SanitizeEmail::Bleach.new now takes no arguments.
+EOS
+      if !args.empty?
+        self.class.deprecation_warning_message(deprecation_message)
+      end
     end
 
     # If all recipient addresses are white-listed the field is left alone.
