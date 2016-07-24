@@ -17,7 +17,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage] |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | live chat               |  [![Join the chat at https://gitter.im/pboling/sanitize_email](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pboling/sanitize_email?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
-| Spread ~♡ⓛⓞⓥⓔ♡~      |  [on Coderbits](https://coderbits.com/pboling), [on Coderwall](http://coderwall.com/pboling) |
+| Spread ~♡ⓛⓞⓥⓔ♡~      |  [AngeList](https://angel.co/peter-boling), [on Coderwall](http://coderwall.com/pboling), [on TopCoder](https://www.topcoder.com/members/pboling/) |
 
 ## Summary
 
