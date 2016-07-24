@@ -1,6 +1,6 @@
 HEAD
 
-Version 1.2.0- JUL.24.2016
+Version 1.2.0 - JUL.24.2016
 * No longer registers instance of SanitizeEmail::Bleach to avoid the dev env reloading problem (fixes #12)
 * Instead registers SanitizeEmail::Bleach class.
 * Deprecate sending arguments to SanitizeEmail::Bleach.new
