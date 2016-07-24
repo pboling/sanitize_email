@@ -28,7 +28,7 @@ module SanitizeEmail
       mailer = Mail
     end
     if mailer.respond_to?(:register_interceptor)
-      mailer.register_interceptor(SanitizeEmail::Bleach.new)
+      mailer.register_interceptor(SanitizeEmail::Bleach)
     else
       warn "SanitizeEmail was unable to detect a compatible Mail class to register an interceptor on."
     end
