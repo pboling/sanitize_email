@@ -5,8 +5,12 @@ module SanitizeEmail
   # Determines whether to sanitize the headers of an email,
   #   and does so when appropriate.
   class Bleach
-
+    extend SanitizeEmail::Deprecation
     attr_accessor :overridden_addresses # TODO: Just a stub, not implemented
+
+    def initialize(*args)
+      self.class.deprecation_warning_message("SanitizeEmail: passing options to new as: SanitizeEmail::Bleach.new(options) is deprecated.") unless args.empty?
+    end
 
     # If all recipient addresses are white-listed the field is left alone.
     def self.delivering_email(message)
