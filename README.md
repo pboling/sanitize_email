@@ -73,7 +73,7 @@ $ bundle install
 
 *keep scrolling for Rails, but read this for a better understanding of Magic*
 
-There are four ways SanitizeEmail can be turned on; in order of precedence they are:
+There are three ways SanitizeEmail can be turned on; in order of precedence they are:
 
 1. Only useful for local context.  Inside a method where you will be sending an email, set `SanitizeEmail.force_sanitize = true` just prior to delivering it.  Also useful in the console.
 
