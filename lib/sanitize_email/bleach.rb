@@ -2,23 +2,30 @@
 # Released under the MIT license
 
 module SanitizeEmail
-  # SanitizeEmail::Bleach determines whether to sanitize the headers of an email, and does so when appropriate.
+  # Determines whether to sanitize the headers of an email,
+  #   and does so when appropriate.
   class Bleach
+    extend SanitizeEmail::Deprecation
+    attr_accessor :overridden_addresses # TODO: Just a stub, not implemented
 
-    # Can override global configs at the instance level.
-    attr_accessor :engage, # Turn sanitization on or off just for this instance
-                  :overridden_addresses # TODO: Just a stub.  Needs actual implementation
-
-    def initialize(args = {})
-      # Not using extract_options! because non-rails compatibility is a goal
-      @engage = args[:engage] || SanitizeEmail::Config.config[:engage]
+    def initialize(*args)
+      deprecation_message = <<EOS
+SanitizeEmail:
+  Passing arguments to SanitizeEmail::Bleach.new is deprecated.
+  SanitizeEmail::Bleach.new now takes no arguments.
+EOS
+      if !args.empty?
+        self.class.deprecation_warning_message(deprecation_message)
+      end
     end
 
     # If all recipient addresses are white-listed the field is left alone.
-    def delivering_email(message)
+    def self.delivering_email(message)
       if self.sanitize_engaged?(message)
-        SanitizeEmail::MailHeaderTools.add_original_addresses_as_headers(message)
-        SanitizeEmail::MailHeaderTools.prepend_custom_subject(message)
+        SanitizeEmail::MailHeaderTools.
+          add_original_addresses_as_headers(message)
+        SanitizeEmail::MailHeaderTools.
+          prepend_custom_subject(message)
 
         overridden = SanitizeEmail::OverriddenAddresses.new(message)
 
@@ -28,28 +35,47 @@ module SanitizeEmail
       end
     end
 
-    # This method will be called by the Hook to determine if an override should occur
-    # There are four ways SanitizeEmail can be turned on; in order of precedence they are:
+    # Will be called by the Hook to determine if an override should occur
+    # There are three ways SanitizeEmail can be turned on;
+    #   in order of precedence they are:
     #
     # 1. SanitizeEmail.force_sanitize = true # by default it is nil
-    #   Only useful for local context.  Inside a method where you will be sending an email,
-    #   set SanitizeEmail.force_sanitize = true just prior to delivering it.  Also useful in the console.
-    # 2. Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default it is nil
-    #   If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you.
-    #   Note: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of :engage => true):
-    #     Mail.register_interceptor(SanitizeEmail::Bleach.new
-    #   Without :engage => true the interceptor is inactive, and will require engaging via one of the other methods.
-    #   As an example you could do the following to engage SanitizeEmail:
+    #   Only useful for local context.
+    #   Inside a method where you will be sending an email, set
+    #
+    #     SanitizeEmail.force_sanitize = true
+    #
+    #   just prior to delivering it.  Also useful in the console.
+    #
+    # 2. If SanitizeEmail seems to not be sanitizing,
+    #     you have probably not registered the interceptor.
+    #   SanitizeEmail tries to do this for you.
+    #   *Note*: If you are working in an environment that has
+    #           a Mail or Mailer class that uses the register_interceptor API,
+    #           the interceptor will already have been registered.
+    #   The gem will probably have already done this for you,
+    #   but some really old versions of Rails may need you to do this manually:
+    #
+    #     Mail.register_interceptor(SanitizeEmail::Bleach)
+    #
+    #   Once registered, SanitizeEmail needs to be engaged:
+    #
+    #     # in config/initializers/sanitize_email.rb
     #     SanitizeEmail::Config.configure {|config| config[:engage] = true }
-    # 3. SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default it is false
-    #   If you don't need to compute anything, then don't use the Proc, go with the next option.
-    # 4. SanitizeEmail::Config.configure {|config| config[:engage] = true } # by default it is nil
+    #
+    # 3. SanitizeEmail::Config.configure do |config|
+    #      config[:activation_proc] = Proc.new { true }
+    #    end
+    #
+    #   If you don't need to compute anything,
+    #     then don't use the Proc, go with the previous option.
     #
     # Note: Number 1 is the method used by the SanitizeEmail.sanitary block
-    # Note: Number 2 See note accompanying 2: you may need to setup your own register_interceptor
+    # Note: Number 2 You may need to setup your own register_interceptor
     #
-    # If installed but not configured, sanitize_email DOES NOTHING.  Until configured the defaults leave it turned off.
-    def sanitize_engaged?(message)
+    # If installed but not configured, sanitize_email DOES NOTHING.
+    # Until configured the defaults leave it turned off.
+    def self.sanitize_engaged?(message)
 
       # Don't sanitize the message if it will not be delivered
       return false unless message.perform_deliveries
@@ -59,7 +85,7 @@ module SanitizeEmail
       return forced unless forced.nil?
 
       # Is this particular instance of Bleach engaged
-      engaged = self.engage
+      engaged = SanitizeEmail::Config.config[:engage]
       return engaged unless engaged.nil?
 
       # Should we sanitize due to the activation_proc?

@@ -56,7 +56,7 @@ describe SanitizeEmail do
       config[:sanitized_recipients] = options[:sanitized_recipients] if options[:sanitized_recipients]
       config[:force_sanitize] = options[:force_sanitize] unless options[:force_sanitize].nil?
     end
-    Mail.register_interceptor(SanitizeEmail::Bleach.new)
+    Mail.register_interceptor(SanitizeEmail::Bleach)
   end
 
   def funky_config
@@ -70,7 +70,7 @@ describe SanitizeEmail do
       config[:use_actual_environment_prepended_to_subject] = true
       config[:use_actual_email_as_sanitized_user_name] = false
     end
-    Mail.register_interceptor(SanitizeEmail::Bleach.new)
+    Mail.register_interceptor(SanitizeEmail::Bleach)
   end
 
   def sanitary_mail_delivery(config_options = {})

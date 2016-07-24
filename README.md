@@ -73,7 +73,7 @@ $ bundle install
 
 *keep scrolling for Rails, but read this for a better understanding of Magic*
 
-There are four ways SanitizeEmail can be turned on; in order of precedence they are:
+There are three ways SanitizeEmail can be turned on; in order of precedence they are:
 
 1. Only useful for local context.  Inside a method where you will be sending an email, set `SanitizeEmail.force_sanitize = true` just prior to delivering it.  Also useful in the console.
 
@@ -81,33 +81,24 @@ There are four ways SanitizeEmail can be turned on; in order of precedence they 
     SanitizeEmail.force_sanitize = true # by default it is nil
     ```
 
-2. If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you. *Note*: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail (however, note lack of `:engage => true`):
+2. If SanitizeEmail seems to not be sanitizing you have probably not registered the interceptor.  SanitizeEmail tries to do this for you. *Note*: If you are working in an environment that has a Mail or Mailer class that uses the register_interceptor API, the interceptor will already have been registered by SanitizeEmail:
 
     ```ruby
-    Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true)) # by default :engage is nil
+    # The gem will probably have already done this for you, but some really old versions of Rails may need you to do this manually:
+    Mail.register_interceptor(SanitizeEmail::Bleach)
     ```
 
-    Without :engage => true the interceptor is inactive, and will require engaging via one of the other methods.
+    Once registered, SanitizeEmail needs to be engaged:
 
     ```ruby
-    Mail.register_interceptor(SanitizeEmail::Bleach.new)
-    ```
-    As an example you could do the following to engage SanitizeEmail:
-
-    ```ruby
+    # in config/initializers/sanitize_email.rb
     SanitizeEmail::Config.configure {|config| config[:engage] = true }
     ```
 
-3. If you don't need to compute anything, then don't use this option, go with the next option.
+3. If you don't need to compute anything, then don't use this option, go with the previous option.
 
     ```ruby
     SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default :activation_proc is false
-    ```
-
-4. This will turn it on.  Period.
-
-    ```ruby
-    SanitizeEmail::Config.configure {|config| config[:engage] = true } # by default :engage is nil
     ```
 
 ### Notes
@@ -120,7 +111,9 @@ If installed but not configured, sanitize_email DOES NOTHING.  Until configured 
 IMPORTANT: You may need to setup your own register_interceptor.  If sanitize_email doesn't seem to be working for you find your Mailer/Mail class and try this:
 
 ```ruby
-Mail.register_interceptor(SanitizeEmail::Bleach.new(:engage => true))
+# in config/initializers/sanitize_email.rb
+Mail.register_interceptor(SanitizeEmail::Bleach)
+SanitizeEmail::Config.configure {|config| config[:engage] = true }
 ```
 
 If that causes an error you will know why sanitize_email doesn't work.
@@ -210,8 +203,8 @@ SanitizeEmail::Config.configure do |config|
   config[:use_actual_email_as_sanitized_user_name] = true       # or false
 end
 
-# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
-# Mail.register_interceptor(SanitizeEmail::Bleach.new)
+# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) 
+# then you will need to do the equivalent for whatever Mail system you are using.
 
 RSpec.configure do |config|
   # ...
@@ -297,8 +290,8 @@ SanitizeEmail::Config.configure do |config|
   config[:use_actual_email_as_sanitized_user_name] = true       # or false
 end
 
-# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) then you will need to do the equivalent for whatever Mail system you are using:
-# Mail.register_interceptor(SanitizeEmail::Bleach.new)
+# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) 
+# then you will need to do the equivalent for whatever Mail system you are using.
 
 # You need to know what to do here... somehow get the methods into rhw scope of your tests.
 # Something like this maybe?
