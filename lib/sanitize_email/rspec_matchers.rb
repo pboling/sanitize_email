@@ -1,4 +1,4 @@
-# Copyright (c) 2008-15 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 require 'sanitize_email/test_helpers'
 require 'sanitize_email/mail_ext'
