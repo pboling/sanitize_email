@@ -12,9 +12,9 @@ module SanitizeEmail
     def self.delivering_email(message)
       if self.sanitize_engaged?(message)
         SanitizeEmail::MailHeaderTools.
-            add_original_addresses_as_headers(message)
+          add_original_addresses_as_headers(message)
         SanitizeEmail::MailHeaderTools.
-            prepend_custom_subject(message)
+          prepend_custom_subject(message)
 
         overridden = SanitizeEmail::OverriddenAddresses.new(message)
 
