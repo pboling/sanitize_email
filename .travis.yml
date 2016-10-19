@@ -17,7 +17,6 @@ sudo: false
 
 rvm:
   - jruby-9.1.16.0
-  - 2.2.9
   - 2.3.6
   - 2.4.3
   - 2.5.0
@@ -40,8 +39,6 @@ matrix:
     - rvm: jruby-9.1.16.0
       gemfile: gemfiles/rails_4_2.gemfile
     - rvm: jruby-9.1.16.0
-      gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 2.2.9
       gemfile: gemfiles/rails_5_0.gemfile
     - rvm: 2.5.0
       gemfile: gemfiles/rails_4_2.gemfile
