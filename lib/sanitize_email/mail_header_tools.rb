@@ -39,7 +39,7 @@ module SanitizeEmail
 
     def self.prepend_custom_subject(message)
       message.subject = "" unless message.subject
-      message.subject.prepend(SanitizeEmail::MailHeaderTools.custom_subject(message))
+      message.subject = message.subject.dup.prepend(SanitizeEmail::MailHeaderTools.custom_subject(message))
     end
 
     # According to https://github.com/mikel/mail this is the correct way to update headers.
