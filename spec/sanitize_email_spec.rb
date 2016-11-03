@@ -707,7 +707,9 @@ describe SanitizeEmail do
     context ":use_actual_email_as_sanitized_user_name" do
       context "true" do
         before(:each) do
-          configure_sanitize_email(use_actual_email_as_sanitized_user_name: true)
+          configure_sanitize_email(
+            use_actual_email_as_sanitized_user_name: true
+          )
           sanitary_mail_delivery
         end
         it "original to is munged and prepended" do
@@ -731,7 +733,9 @@ describe SanitizeEmail do
       end
       context "false" do
         before(:each) do
-          configure_sanitize_email(use_actual_email_as_sanitized_user_name: false)
+          configure_sanitize_email(
+            use_actual_email_as_sanitized_user_name: false
+          )
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
