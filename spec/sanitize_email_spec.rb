@@ -13,7 +13,7 @@ describe SanitizeEmail do
     :use_actual_email_prepended_to_subject => false,
     :use_actual_environment_prepended_to_subject => false,
     :use_actual_email_as_sanitized_user_name => false
-  }
+  }.freeze
 
   before(:all) do
     SanitizeEmail::Deprecation.deprecate_in_silence = true
@@ -35,6 +35,7 @@ describe SanitizeEmail do
     Mail.defaults do
       delivery_method LetterOpener::DeliveryMethod, :location => location
     end
+    SanitizeEmail::Config.instance_variable_set(:@config, SanitizeEmail::Config::DEFAULTS.dup)
     allow(Rails).to receive(:env).and_return(rails_env)
   end
 
@@ -42,6 +43,7 @@ describe SanitizeEmail do
     options = DEFAULT_TEST_CONFIG.merge(sanitize_hash).dup
     options.reverse_merge!({ :sanitized_to => 'to@sanitize_email.org' }) unless sanitize_hash.has_key?(:sanitized_recipients)
     SanitizeEmail::Config.configure do |config|
+      config[:engage] = options[:engage]
       config[:environment] = options[:environment]
       config[:activation_proc] = options[:activation_proc]
       config[:sanitized_to] = options[:sanitized_to]
@@ -127,11 +129,11 @@ describe SanitizeEmail do
     end
   end
 
-  context "module methods" do
-    before(:each) do
-      sanitize_spec_dryer
-    end
+  before(:each) do
+    sanitize_spec_dryer
+  end
 
+  context "module methods" do
     context "unsanitary" do
       before(:each) do
         configure_sanitize_email
@@ -374,7 +376,6 @@ describe SanitizeEmail do
       context "nil" do
         context "activation proc enables" do
           before(:each) do
-            sanitize_spec_dryer
             # Should ignore force_sanitize setting
             configure_sanitize_email({:activation_proc => Proc.new {true}})
             SanitizeEmail.force_sanitize = nil
@@ -396,7 +397,6 @@ describe SanitizeEmail do
         end
         context "activation proc disables" do
           before(:each) do
-            sanitize_spec_dryer
             # Should ignore force_sanitize setting
             configure_sanitize_email({:activation_proc => Proc.new {false}})
             SanitizeEmail.force_sanitize = nil
@@ -465,7 +465,6 @@ describe SanitizeEmail do
     context ":use_actual_email_prepended_to_subject" do
       context "true" do
         before(:each) do
-          sanitize_spec_dryer
           configure_sanitize_email({:use_actual_email_prepended_to_subject => true})
           sanitary_mail_delivery
         end
@@ -484,7 +483,6 @@ describe SanitizeEmail do
       end
       context "false" do
         before(:each) do
-          sanitize_spec_dryer
           configure_sanitize_email({:use_actual_email_prepended_to_subject => false})
           sanitary_mail_delivery
         end
@@ -506,7 +504,6 @@ describe SanitizeEmail do
     context ":use_actual_email_as_sanitized_user_name" do
       context "true" do
         before(:each) do
-          sanitize_spec_dryer
           configure_sanitize_email({:use_actual_email_as_sanitized_user_name => true})
           sanitary_mail_delivery
         end
@@ -525,7 +522,6 @@ describe SanitizeEmail do
       end
       context "false" do
         before(:each) do
-          sanitize_spec_dryer
           configure_sanitize_email({:use_actual_email_as_sanitized_user_name => false})
           sanitary_mail_delivery
         end
@@ -544,6 +540,59 @@ describe SanitizeEmail do
       end
     end
 
+    context ":engage" do
+      context "is true" do
+        before(:each) do
+          # Should turn off sanitization using the force_sanitize
+          configure_sanitize_email({
+                                     :engage => true,
+                                     :sanitized_recipients => 'marv@example.org',
+                                     :use_actual_email_prepended_to_subject => true,
+                                     :use_actual_email_as_sanitized_user_name => true
+                                   })
+          mail_delivery
+        end
+        it "should not alter non-sanitized attributes" do
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
+        end
+        it "should prepend overrides" do
+          expect(@email_message).to have_to_username("to at example.org")
+          expect(@email_message).to have_subject("(to at example.org)")
+        end
+        it "should not alter normally sanitized attributes" do
+          expect(@email_message).to_not have_to("to@example.org")
+          expect(@email_message).to have_to("marv@example.org")
+        end
+      end
+      context "is false" do
+        before(:each) do
+          # Should turn off sanitization using the force_sanitize
+          configure_sanitize_email({
+                                     :engage => false,
+                                     :sanitized_recipients => 'marv@example.org',
+                                     :use_actual_email_prepended_to_subject => true,
+                                     :use_actual_email_as_sanitized_user_name => true
+                                   })
+          mail_delivery
+        end
+        it "should not alter non-sanitized attributes" do
+          expect(@email_message).to have_from('from@example.org')
+          expect(@email_message).to have_reply_to('reply_to@example.org')
+          expect(@email_message).to have_body_text('funky fresh')
+        end
+        it "should not prepend overrides" do
+          expect(@email_message).to_not have_to_username("to at example.org")
+          expect(@email_message).to_not have_subject("(to at example.org)")
+        end
+        it "should not alter normally sanitized attributes" do
+          expect(@email_message).to have_to("to@example.org")
+          expect(@email_message).to_not have_to("marv@example.org")
+        end
+      end
+    end
+
     context "deprecated" do
       #before(:each) do
       #  SanitizeEmail::Deprecation.deprecate_in_silence = false
@@ -551,7 +600,6 @@ describe SanitizeEmail do
       context ":local_environments" do
         context "matching" do
           before(:each) do
-            sanitize_spec_dryer('test')
             configure_sanitize_email({:local_environments => ['test']})
             expect(SanitizeEmail[:activation_proc].call).to eq(true)
             mail_delivery
@@ -562,9 +610,9 @@ describe SanitizeEmail do
             expect(@email_message).to have_body_text('funky fresh')
           end
           it "should use activation_proc for matching environment" do
-            expect(@email_message).to have_to("to@sanitize_email.org")
-            expect(@email_message).to have_cc("cc@sanitize_email.org")
-            expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+            expect(@email_message).to match_to("to@sanitize_email.org")
+            expect(@email_message).to match_cc("cc@sanitize_email.org")
+            expect(@email_message).to match_bcc("bcc@sanitize_email.org")
           end
         end
         context "non-matching" do
@@ -589,7 +637,6 @@ describe SanitizeEmail do
 
       context ":sanitized_recipients" do
         before(:each) do
-          sanitize_spec_dryer
           configure_sanitize_email({:sanitized_recipients => 'barney@sanitize_email.org'})
           sanitary_mail_delivery
         end
@@ -605,7 +652,6 @@ describe SanitizeEmail do
 
       context ":force_sanitize" do
         before(:each) do
-          sanitize_spec_dryer
           # Should turn off sanitization using the force_sanitize
           configure_sanitize_email({:activation_proc => Proc.new {true}, :force_sanitize => false})
           mail_delivery
@@ -619,7 +665,6 @@ describe SanitizeEmail do
           expect(@email_message).to have_to("to@example.org")
         end
       end
-
     end
   end
 end
