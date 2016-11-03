@@ -3,7 +3,8 @@
 require "spec_helper"
 
 #
-# TODO: Letter Opener should *not* be required, but setting the delivery method to :file was causing connection errors... WTF?
+# TODO: Letter Opener should *not* be required,
+#       but setting the delivery method to :file was causing connection errors... WTF?
 #
 describe SanitizeEmail do
 
@@ -23,9 +24,10 @@ describe SanitizeEmail do
   after(:each) do
     SanitizeEmail::Config.config = SanitizeEmail::Config::DEFAULTS
     SanitizeEmail.force_sanitize = nil
-    # The following works with Ruby > 1.9, but to make the test suite run on 18.7 we need a little help
-    # Mail.class_variable_get(:@@delivery_interceptors).pop
-    Mail.send(:class_variable_get, :@@delivery_interceptors).pop
+    # The following works with Ruby > 1.9,
+    Mail.class_variable_get(:@@delivery_interceptors).pop
+    #   but to make the test suite run on 1.8.7 we need a little help
+    # Mail.send(:class_variable_get, :@@delivery_interceptors).pop
   end
 
   def sanitize_spec_dryer(rails_env = "test")
@@ -41,7 +43,9 @@ describe SanitizeEmail do
 
   def configure_sanitize_email(sanitize_hash = {})
     options = DEFAULT_TEST_CONFIG.merge(sanitize_hash).dup
-    options.reverse_merge!({ :sanitized_to => "to@sanitize_email.org" }) unless sanitize_hash.has_key?(:sanitized_recipients)
+    unless sanitize_hash.has_key?(:sanitized_recipients)
+      options.reverse_merge!(:sanitized_to => "to@sanitize_email.org")
+    end
     SanitizeEmail::Config.configure do |config|
       config[:engage] = options[:engage]
       config[:environment] = options[:environment]
@@ -49,13 +53,20 @@ describe SanitizeEmail do
       config[:sanitized_to] = options[:sanitized_to]
       config[:sanitized_cc] = options[:sanitized_cc]
       config[:sanitized_bcc] = options[:sanitized_bcc]
-      config[:use_actual_email_prepended_to_subject] = options[:use_actual_email_prepended_to_subject]
-      config[:use_actual_environment_prepended_to_subject] = options[:use_actual_environment_prepended_to_subject]
-      config[:use_actual_email_as_sanitized_user_name] = options[:use_actual_email_as_sanitized_user_name]
+      config[:use_actual_email_prepended_to_subject] =
+        options[:use_actual_email_prepended_to_subject]
+      config[:use_actual_environment_prepended_to_subject] =
+        options[:use_actual_environment_prepended_to_subject]
+      config[:use_actual_email_as_sanitized_user_name] =
+        options[:use_actual_email_as_sanitized_user_name]
 
       # For testing *deprecated* configuration options:
-      config[:local_environments] = options[:local_environments] if options[:local_environments]
-      config[:sanitized_recipients] = options[:sanitized_recipients] if options[:sanitized_recipients]
+      if options[:local_environments]
+        config[:local_environments] = options[:local_environments]
+      end
+      if options[:sanitized_recipients]
+        config[:sanitized_recipients] = options[:sanitized_recipients]
+      end
       config[:force_sanitize] = options[:force_sanitize] unless options[:force_sanitize].nil?
     end
     Mail.register_interceptor(SanitizeEmail::Bleach)
@@ -63,11 +74,12 @@ describe SanitizeEmail do
 
   def funky_config
     SanitizeEmail::Config.configure do |config|
-      config[:sanitized_to] =         %w( funky@sanitize_email.org yummy@sanitize_email.org same@example.org )
-      config[:sanitized_cc] =         nil
-      config[:sanitized_bcc] =        nil
+      config[:sanitized_to] =
+        %w( funky@sanitize_email.org yummy@sanitize_email.org same@example.org )
+      config[:sanitized_cc] = nil
+      config[:sanitized_bcc] = nil
       # run/call whatever logic should turn sanitize_email on and off in this Proc:
-      config[:activation_proc] =      Proc.new { Rails.env != "production" }
+      config[:activation_proc] = Proc.new { Rails.env != "production" }
       config[:use_actual_email_prepended_to_subject] = true
       config[:use_actual_environment_prepended_to_subject] = true
       config[:use_actual_email_as_sanitized_user_name] = false
@@ -96,7 +108,13 @@ describe SanitizeEmail do
   def mail_delivery_hot_mess
     @email_message = Mail.deliver do
       from      "same@example.org"
-      to        %w( same@example.org same@example.org same@example.org same@example.org same@example.org )
+      to        %w(
+                  same@example.org
+                  same@example.org
+                  same@example.org
+                  same@example.org
+                  same@example.org
+                )
       cc        "same@example.org"
       bcc       "same@example.org"
       reply_to  "same@example.org"
@@ -225,11 +243,16 @@ describe SanitizeEmail do
         expect(@email_message).to have_header("X-Sanitize-Email-Cc-3", "cc3@example.org")
       end
       it "should not set headers for sanitized :bcc recipients" do
-        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc1@sanitize_email.org")
-        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-0", "bcc1@sanitize_email.org")
-        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-1", "bcc1@sanitize_email.org")
-        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-2", "bcc2@sanitize_email.org")
-        expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc-3", "bcc3@sanitize_email.org")
+        expect(@email_message).not_to
+          have_header("X-Sanitize-Email-Bcc", "bcc1@sanitize_email.org")
+        expect(@email_message).not_to
+          have_header("X-Sanitize-Email-Bcc-0", "bcc1@sanitize_email.org")
+        expect(@email_message).not_to
+          have_header("X-Sanitize-Email-Bcc-1", "bcc1@sanitize_email.org")
+        expect(@email_message).not_to
+          have_header("X-Sanitize-Email-Bcc-2", "bcc2@sanitize_email.org")
+        expect(@email_message).not_to
+          have_header("X-Sanitize-Email-Bcc-3", "bcc3@sanitize_email.org")
       end
       it "should not prepend originals by default" do
         expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
@@ -247,7 +270,8 @@ describe SanitizeEmail do
         expect(@email_message).to have_subject(/\(to at example.org\).*original subject/)
       end
       it "original to is only prepended once to subject" do
-        expect(@email_message).not_to have_subject(/\(to at example.org\).*\(to at example.org\).*original subject/)
+        expect(@email_message).not_to
+          have_subject(/\(to at example.org\).*\(to at example.org\).*original subject/)
       end
       it "should not alter non-sanitized attributes" do
         expect(@email_message).to have_from("from@example.org")
@@ -294,7 +318,8 @@ describe SanitizeEmail do
         expect(@email_message).to have_subject(/\(same at example.org\).*original subject/)
       end
       it "original to is only prepended once to subject" do
-        expect(@email_message).not_to have_subject(/\(same at example.org\).*\(same at example.org\).*original subject/)
+        expect(@email_message).not_to
+          have_subject(/\(same at example.org\).*\(same at example.org\).*original subject/)
       end
       it "should not alter non-sanitized attributes" do
         expect(@email_message).to have_from("same@example.org")
@@ -349,7 +374,8 @@ describe SanitizeEmail do
         it "should set headers" do
           expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
           expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
-          expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+          expect(@email_message).not_to
+            have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
         end
       end
       context "false" do
@@ -392,7 +418,8 @@ describe SanitizeEmail do
             expect(@email_message).to have_bcc("bcc@sanitize_email.org")
             expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
             expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
-            expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+            expect(@email_message).not_to
+              have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
           end
         end
         context "activation proc disables" do
@@ -424,7 +451,10 @@ describe SanitizeEmail do
     context ":use_actual_environment_prepended_to_subject" do
       context "true" do
         before(:each) do
-          configure_sanitize_email({:environment => "{{serverABC}}", :use_actual_environment_prepended_to_subject => true})
+          configure_sanitize_email(
+            :environment => "{{serverABC}}",
+            :use_actual_environment_prepended_to_subject => true
+          )
           sanitary_mail_delivery
         end
         it "original to is prepended" do
@@ -442,7 +472,10 @@ describe SanitizeEmail do
       end
       context "false" do
         before(:each) do
-          configure_sanitize_email({:environment => "{{serverABC}}", :use_actual_environment_prepended_to_subject => false})
+          configure_sanitize_email(
+            :environment => "{{serverABC}}",
+            :use_actual_environment_prepended_to_subject => false
+          )
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
@@ -525,7 +558,8 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
-          expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
+          expect(@email_message).not_to
+            have_to_username("to at example.org <to@sanitize_email.org>")
         end
         it "should not alter non-sanitized attributes" do
           expect(@email_message).to have_from("from@example.org")
