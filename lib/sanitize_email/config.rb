@@ -43,6 +43,9 @@ module SanitizeEmail
       # e.g. "[development] rest of subject"
       :use_actual_environment_prepended_to_subject => false,
 
+      # True / False turns on or off sanitization, while nil ignores this setting and checks activation_proc
+      :engage => nil,
+
       :activation_proc => Proc.new { false }
     }
 
