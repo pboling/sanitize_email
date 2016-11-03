@@ -338,6 +338,13 @@ Follow the instructions for "Contributing" below.
 5. Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 6. Create new Pull Request
 
+## Running Specs
+
+```
+appraisal install
+rake
+```
+
 ## Versioning
 
 This library aims to adhere to [Semantic Versioning 2.0.0][semver].
@@ -353,7 +360,7 @@ dependency on this gem using the [Pessimistic Version Constraint][pvc] with two 
 For example:
 
 ```ruby
-spec.add_dependency 'sanitize_email', '~> 1.1'
+spec.add_dependency 'sanitize_email', '~> 1.3'
 ```
 
 ## References

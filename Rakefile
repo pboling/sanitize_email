@@ -1,13 +1,17 @@
 # encoding: utf-8
 #!/usr/bin/env rake
+require "rubygems"
+require "bundler/setup"
 require "bundler/gem_tasks"
 require "rake"
 
 begin
+  require "wwtd/tasks"
   require "rspec/core/rake_task"
   RSpec::Core::RakeTask.new(:spec)
   task :default => :spec
 rescue LoadError
+  warn "Failed to load rspec or wwtd"
 end
 
 require "reek/rake/task"
@@ -21,44 +25,6 @@ require "roodi"
 require "roodi_task"
 RoodiTask.new do |t|
   t.verbose = false
-end
-
-namespace :test do
-  desc "Test against all supported Rails versions"
-  task :all do
-    %w(3.0.x 3.1.x 3.2.x 4.0.x).each do |version|
-      system(<<-EOS
-          bash -i -c "rvm use 1.9.3"
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle --quiet
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle exec rspec spec
-      EOS
-      )
-    end
-    %w(3.2.x 4.0.x 4.1.x).each do |version|
-      system(<<-EOS
-          bash -i -c "rvm use 2.0.0"
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle --quiet
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle exec rspec spec
-        EOS
-      )
-    end
-    %w(3.2.x 4.0.x 4.1.x).each do |version|
-      system(<<-EOS
-          bash -i -c "rvm use 2.1.7"
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle --quiet
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle exec rspec spec
-      EOS
-      )
-    end
-    %w(3.2.x 4.0.x 4.1.x 4.2.x).each do |version|
-      system(<<-EOS
-          bash -i -c "rvm use 2.2.3"
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle --quiet
-          BUNDLE_GEMFILE="gemfiles/Gemfile.rails-#{version}" bundle exec rspec spec
-      EOS
-      )
-    end
-  end
 end
 
 require File.expand_path("../lib/sanitize_email/version", __FILE__)

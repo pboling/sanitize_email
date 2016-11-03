@@ -2,26 +2,39 @@ language: ruby
 cache: bundler
 sudo: false
 rvm:
+  - 1.9
   - 2.0
   - 2.1
   - 2.2
+  - 2.3
   - ruby-head
 gemfile:
-  - gemfiles/Gemfile.rails-3.2.x
-  - gemfiles/Gemfile.rails-4.0.x
-  - gemfiles/Gemfile.rails-4.1.x
-  - gemfiles/Gemfile.rails-4.2.x
+  - gemfiles/rails_3_0.gemfile
+  - gemfiles/rails_3_1.gemfile
+  - gemfiles/rails_3_2.gemfile
+  - gemfiles/rails_4_0.gemfile
+  - gemfiles/rails_4_1.gemfile
+  - gemfiles/rails_4_2.gemfile
+  - gemfiles/rails_5_0.gemfile
 matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: 1.9
   exclude:
     - rvm: 2.0
-      gemfile: gemfiles/Gemfile.rails-4.2.x
+      gemfile: gemfiles/rails_4_2.gemfile
+    - rvm: 2.0
+      gemfile: gemfiles/rails_5_0.gemfile
     - rvm: 2.1
-      gemfile: gemfiles/Gemfile.rails-4.2.x
+      gemfile: gemfiles/rails_4_2.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/rails_5_0.gemfile
+    - rvm: 2.2
+      gemfile: gemfiles/rails_5_0.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/rails_5_0.gemfile
   include:
     - rvm: 1.9
-      gemfile: gemfiles/Gemfile.rails-3.0.x
+      gemfile: gemfiles/rails_3_0.gemfile
     - rvm: 1.9
-      gemfile: gemfiles/Gemfile.rails-3.1.x
+      gemfile: gemfiles/rails_3_1.gemfile
