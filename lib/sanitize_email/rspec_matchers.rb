@@ -6,7 +6,8 @@
 require "sanitize_email/mail_ext"
 
 module SanitizeEmail
-  # Provides matchers that can be used in Rspec tests to assert the behavior of email
+  # Provides matchers that can be used in
+  #   Rspec tests to assert the behavior of email
   module RspecMatchers
     [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
       RSpec::Matchers.define "have_#{attribute}" do |matcher|
@@ -46,7 +47,7 @@ module SanitizeEmail
       end
       match do |actual|
         @actual = get_to_username(actual)
-        expect(@actual).to match(matcher), "expected email to have X-Sanitize-Email-To header matching #{matcher.inspect}, got #{@actual.inspect}"
+        expect(@actual).to match(matcher)
       end
     end
 
@@ -58,7 +59,7 @@ module SanitizeEmail
       end
       match do |actual|
         @actual = get_cc_username(actual)
-        expect(@actual).to match(matcher), "expected email to have X-Sanitize-Email-Cc header matching #{matcher.inspect}, got #{@actual.inspect}"
+        expect(@actual).to match(matcher)
       end
     end
 
@@ -74,7 +75,7 @@ module SanitizeEmail
       match do |actual|
         @actual = get_fuzzy_body(actual)
         fuzzy_matcher = get_fuzzy_matcher(matcher)
-        expect(@actual).to match(fuzzy_matcher), "expected email body match #{matcher.inspect}, got #{@actual.inspect}"
+        expect(@actual).to match(fuzzy_matcher)
       end
     end
 
@@ -83,7 +84,7 @@ module SanitizeEmail
       match do |actual|
         @actual = actual.header[name]
         @actual = @actual.value unless @actual.nil?
-        expect(@actual).to match(matcher), "expected email to have header #{name} matching #{matcher.inspect}, got #{@actual.inspect}"
+        expect(@actual).to match(matcher)
       end
     end
 

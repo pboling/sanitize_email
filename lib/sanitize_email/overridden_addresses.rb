@@ -106,7 +106,7 @@ module SanitizeEmail
           new_recipient = sanitized_addresses
         else
           #puts "SANITIZED: #{sanitized_addresses}"
-          new_recipient = sanitized_addresses.map { |sanitized| "#{real_recipient.gsub(REPLACE_AT[0], REPLACE_AT[1]).gsub(/[<>]/, "~")} <#{sanitized}>" }
+          new_recipient = sanitized_addresses.map { |sanitized| "#{real_recipient.gsub(REPLACE_AT[0], REPLACE_AT[1]).gsub(/[<>]/, '~')} <#{sanitized}>" }
         end
         result << new_recipient
         result
