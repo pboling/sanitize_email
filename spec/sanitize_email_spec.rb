@@ -78,7 +78,11 @@ describe SanitizeEmail do
   def funky_config
     SanitizeEmail::Config.configure do |config|
       config[:sanitized_to] =
-        %w( funky@sanitize_email.org yummy@sanitize_email.org same@example.org )
+        %w(
+             funky@sanitize_email.org
+             yummy@sanitize_email.org
+             same@example.org
+          )
       config[:sanitized_cc] = nil
       config[:sanitized_bcc] = nil
       # logic to turn sanitize_email on and off goes in this Proc:
