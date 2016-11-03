@@ -112,11 +112,11 @@ describe SanitizeEmail do
     @email_message = Mail.deliver do
       from      "same@example.org"
       to        %w(
-                  same@example.org
-                  same@example.org
-                  same@example.org
-                  same@example.org
-                  same@example.org
+                    same@example.org
+                    same@example.org
+                    same@example.org
+                    same@example.org
+                    same@example.org
                 )
       cc        "same@example.org"
       bcc       "same@example.org"
