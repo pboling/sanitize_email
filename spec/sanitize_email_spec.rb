@@ -240,16 +240,26 @@ describe SanitizeEmail do
         expect(@email_message).to have_header("X-Sanitize-Email-Cc-3", "cc3@example.org")
       end
       it "should not set headers for sanitized :bcc recipients" do
-        expect(@email_message).not_to
-          have_header("X-Sanitize-Email-Bcc", "bcc1@sanitize_email.org")
-        expect(@email_message).not_to
-          have_header("X-Sanitize-Email-Bcc-0", "bcc1@sanitize_email.org")
-        expect(@email_message).not_to
-          have_header("X-Sanitize-Email-Bcc-1", "bcc1@sanitize_email.org")
-        expect(@email_message).not_to
-          have_header("X-Sanitize-Email-Bcc-2", "bcc2@sanitize_email.org")
-        expect(@email_message).not_to
-          have_header("X-Sanitize-Email-Bcc-3", "bcc3@sanitize_email.org")
+        expect(@email_message).not_to have_header(
+                                        "X-Sanitize-Email-Bcc",
+                                        "bcc1@sanitize_email.org"
+                                      )
+        expect(@email_message).not_to have_header(
+                                        "X-Sanitize-Email-Bcc-0",
+                                        "bcc1@sanitize_email.org"
+                                      )
+        expect(@email_message).not_to have_header(
+                                        "X-Sanitize-Email-Bcc-1",
+                                        "bcc1@sanitize_email.org"
+                                      )
+        expect(@email_message).not_to have_header(
+                                        "X-Sanitize-Email-Bcc-2",
+                                        "bcc2@sanitize_email.org"
+                                      )
+        expect(@email_message).not_to have_header(
+                                        "X-Sanitize-Email-Bcc-3",
+                                        "bcc3@sanitize_email.org"
+                                      )
       end
       it "should not prepend originals by default" do
         expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
@@ -267,8 +277,8 @@ describe SanitizeEmail do
         expect(@email_message).to have_subject(/\(to at example.org\).*original subject/)
       end
       it "original to is only prepended once to subject" do
-        expect(@email_message).not_to
-          have_subject(/\(to at example.org\).*\(to at example.org\).*original subject/)
+        regex = /\(to at example.org\).*\(to at example.org\).*original subject/
+        expect(@email_message).not_to have_subject(regex)
       end
       it "should not alter non-sanitized attributes" do
         expect(@email_message).to have_from("from@example.org")
@@ -312,11 +322,12 @@ describe SanitizeEmail do
         mail_delivery_hot_mess
       end
       it "original to is prepended to subject" do
-        expect(@email_message).to have_subject(/\(same at example.org\).*original subject/)
+        regex = /\(same at example.org\).*original subject/
+        expect(@email_message).to match_subject(regex)
       end
       it "original to is only prepended once to subject" do
-        expect(@email_message).not_to
-          have_subject(/\(same at example.org\).*\(same at example.org\).*original subject/)
+        regex = /\(same at example.org\).*\(same at example.org\).*original subject/
+        expect(@email_message).not_to match_subject(regex)
       end
       it "should not alter non-sanitized attributes" do
         expect(@email_message).to have_from("same@example.org")
@@ -342,7 +353,7 @@ describe SanitizeEmail do
       end
       it "should not set headers of overrides" do
         expect(@email_message).not_to have_header("X-Sanitize-Email-Bcc", "same@example.org")
-        puts "email headers:\n#{@email_message.header}"
+        # puts "email headers:\n#{@email_message.header}"
       end
       it "should not prepend originals by default" do
         expect(@email_message).not_to have_to_username("same at example.org <same@example.org>")
@@ -371,8 +382,10 @@ describe SanitizeEmail do
         it "should set headers" do
           expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
           expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
-          expect(@email_message).not_to
-            have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+          expect(@email_message).not_to have_header(
+                                          "X-Sanitize-Email-Bcc",
+                                          "bcc@sanitize_email.org"
+                                        )
         end
       end
       context "false" do
@@ -415,8 +428,10 @@ describe SanitizeEmail do
             expect(@email_message).to have_bcc("bcc@sanitize_email.org")
             expect(@email_message).to have_header("X-Sanitize-Email-To", "to@example.org")
             expect(@email_message).to have_header("X-Sanitize-Email-Cc", "cc@example.org")
-            expect(@email_message).not_to
-              have_header("X-Sanitize-Email-Bcc", "bcc@sanitize_email.org")
+            expect(@email_message).not_to have_header(
+                                            "X-Sanitize-Email-Bcc",
+                                            "bcc@sanitize_email.org"
+                                          )
           end
         end
         context "activation proc disables" do
@@ -555,8 +570,9 @@ describe SanitizeEmail do
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
-          expect(@email_message).not_to
-            have_to_username("to at example.org <to@sanitize_email.org>")
+          expect(@email_message).not_to have_to_username(
+                                          "to at example.org <to@sanitize_email.org>"
+                                        )
         end
         it "should not alter non-sanitized attributes" do
           expect(@email_message).to have_from("from@example.org")
@@ -591,7 +607,7 @@ describe SanitizeEmail do
           expect(@email_message).to have_to_username("to at example.org")
           expect(@email_message).to have_subject("(to at example.org)")
         end
-        it "should not alter normally sanitized attributes" do
+        it "should alter normally sanitized attributes" do
           expect(@email_message).to_not have_to("to@example.org")
           expect(@email_message).to have_to("marv@example.org")
         end
@@ -600,11 +616,11 @@ describe SanitizeEmail do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
           configure_sanitize_email(
-                                     engage: false,
-                                     sanitized_recipients: "marv@example.org",
-                                     use_actual_email_prepended_to_subject: true,
-                                     use_actual_email_as_sanitized_user_name: true
-                                   )
+            engage: false,
+            sanitized_recipients: "marv@example.org",
+            use_actual_email_prepended_to_subject: true,
+            use_actual_email_as_sanitized_user_name: true
+          )
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
