@@ -67,6 +67,7 @@ module SanitizeEmail
       def get_fuzzy_body(email_message)
         email_message.default_part_body.to_s.gsub(/\s+/, " ")
       end
+
       def get_fuzzy_matcher(to_fuzz)
         to_fuzz.gsub(/\s+/, " ")
       end
