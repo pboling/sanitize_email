@@ -117,7 +117,7 @@ describe SanitizeEmail do
                     same@example.org
                     same@example.org
                     same@example.org
-                )
+                  )
       cc        "same@example.org"
       bcc       "same@example.org"
       reply_to  "same@example.org"
