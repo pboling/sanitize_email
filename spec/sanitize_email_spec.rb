@@ -563,7 +563,7 @@ describe SanitizeEmail do
         context "activation proc disables" do
           before(:each) do
             # Should ignore force_sanitize setting
-            configure_sanitize_email(activation_proc: Proc.new {false})
+            configure_sanitize_email(activation_proc: proc { false })
             SanitizeEmail.force_sanitize = nil
             mail_delivery
           end
