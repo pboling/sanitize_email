@@ -1,5 +1,16 @@
 HEAD
 
+Version 1.2.1 - NOV.03.2016
+* Fix bug where non-array to address would not get prepended to subject when that feature is turned on
+* SanitizeEmail::TestHelpers::UnexpectedMailType no longer raised by SanitizeEmail::RspecMatchers (a breaking change if you were depending on that for your specs to pass)
+* SanitizeEmail::RspecMatchers are now fully composed Rspec Matchers with much improved spec failure output
+* Many linting improvements
+* Added Rails 5.0 to test matrix
+  - but is only tested on travis against 2.0, 2.1, 2.2, and 2.3
+  - Rails versions tested are now 3.2, 4.0, 4.1, 4.2, 5.0
+  - Runtime code might still be compatible with ruby 1.8.7, should be compatible with 1.9.3
+  - Specs suite should still run 1.9.3 if you want to run them manually
+
 Version 1.2.0 - JUL.24.2016
 * No longer registers instance of SanitizeEmail::Bleach to avoid the dev env reloading problem (fixes #12)
 * Instead registers SanitizeEmail::Bleach class.
