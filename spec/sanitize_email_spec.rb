@@ -9,11 +9,11 @@ require "spec_helper"
 describe SanitizeEmail do
 
   DEFAULT_TEST_CONFIG = {
-    :sanitized_cc =>  "cc@sanitize_email.org",
-    :sanitized_bcc => "bcc@sanitize_email.org",
-    :use_actual_email_prepended_to_subject => false,
-    :use_actual_environment_prepended_to_subject => false,
-    :use_actual_email_as_sanitized_user_name => false
+    sanitized_cc:  "cc@sanitize_email.org",
+    sanitized_bcc: "bcc@sanitize_email.org",
+    use_actual_email_prepended_to_subject: false,
+    use_actual_environment_prepended_to_subject: false,
+    use_actual_email_as_sanitized_user_name: false
   }.freeze
 
   before(:all) do
@@ -24,10 +24,7 @@ describe SanitizeEmail do
   after(:each) do
     SanitizeEmail::Config.config = SanitizeEmail::Config::DEFAULTS
     SanitizeEmail.force_sanitize = nil
-    # The following works with Ruby > 1.9,
     Mail.class_variable_get(:@@delivery_interceptors).pop
-    #   but to make the test suite run on 1.8.7 we need a little help
-    # Mail.send(:class_variable_get, :@@delivery_interceptors).pop
   end
 
   def sanitize_spec_dryer(rails_env = "test")
@@ -35,7 +32,7 @@ describe SanitizeEmail do
     location = File.expand_path("../tmp/mail_dump", __FILE__)
     FileUtils.remove_file(location, true)
     Mail.defaults do
-      delivery_method LetterOpener::DeliveryMethod, :location => location
+      delivery_method LetterOpener::DeliveryMethod, location: location
     end
     SanitizeEmail::Config.instance_variable_set(:@config, SanitizeEmail::Config::DEFAULTS.dup)
     allow(Rails).to receive(:env).and_return(rails_env)
@@ -43,8 +40,8 @@ describe SanitizeEmail do
 
   def configure_sanitize_email(sanitize_hash = {})
     options = DEFAULT_TEST_CONFIG.merge(sanitize_hash).dup
-    unless sanitize_hash.has_key?(:sanitized_recipients)
-      options.reverse_merge!(:sanitized_to => "to@sanitize_email.org")
+    unless sanitize_hash.key?(:sanitized_recipients)
+      options.reverse_merge!(sanitized_to: "to@sanitize_email.org")
     end
     SanitizeEmail::Config.configure do |config|
       config[:engage] = options[:engage]
@@ -357,7 +354,7 @@ describe SanitizeEmail do
       context "true" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email({:activation_proc => Proc.new {true}})
+          configure_sanitize_email(activation_proc: Proc.new {true})
           SanitizeEmail.force_sanitize = true
           mail_delivery
         end
@@ -381,7 +378,7 @@ describe SanitizeEmail do
       context "false" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email({:activation_proc => Proc.new {true}})
+          configure_sanitize_email(activation_proc: Proc.new {true})
           SanitizeEmail.force_sanitize = false
           mail_delivery
         end
@@ -403,7 +400,7 @@ describe SanitizeEmail do
         context "activation proc enables" do
           before(:each) do
             # Should ignore force_sanitize setting
-            configure_sanitize_email({:activation_proc => Proc.new {true}})
+            configure_sanitize_email(activation_proc: Proc.new {true})
             SanitizeEmail.force_sanitize = nil
             mail_delivery
           end
@@ -425,7 +422,7 @@ describe SanitizeEmail do
         context "activation proc disables" do
           before(:each) do
             # Should ignore force_sanitize setting
-            configure_sanitize_email({:activation_proc => Proc.new {false}})
+            configure_sanitize_email(activation_proc: Proc.new {false})
             SanitizeEmail.force_sanitize = nil
             mail_delivery
           end
@@ -452,8 +449,8 @@ describe SanitizeEmail do
       context "true" do
         before(:each) do
           configure_sanitize_email(
-            :environment => "{{serverABC}}",
-            :use_actual_environment_prepended_to_subject => true
+            environment: "{{serverABC}}",
+            use_actual_environment_prepended_to_subject: true
           )
           sanitary_mail_delivery
         end
@@ -473,8 +470,8 @@ describe SanitizeEmail do
       context "false" do
         before(:each) do
           configure_sanitize_email(
-            :environment => "{{serverABC}}",
-            :use_actual_environment_prepended_to_subject => false
+            environment: "{{serverABC}}",
+            use_actual_environment_prepended_to_subject: false
           )
           sanitary_mail_delivery
         end
@@ -497,7 +494,7 @@ describe SanitizeEmail do
     context ":use_actual_email_prepended_to_subject" do
       context "true" do
         before(:each) do
-          configure_sanitize_email({:use_actual_email_prepended_to_subject => true})
+          configure_sanitize_email(use_actual_email_prepended_to_subject: true)
           sanitary_mail_delivery
         end
         it "original to is prepended" do
@@ -515,7 +512,7 @@ describe SanitizeEmail do
       end
       context "false" do
         before(:each) do
-          configure_sanitize_email({:use_actual_email_prepended_to_subject => false})
+          configure_sanitize_email(use_actual_email_prepended_to_subject: false)
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
@@ -536,7 +533,7 @@ describe SanitizeEmail do
     context ":use_actual_email_as_sanitized_user_name" do
       context "true" do
         before(:each) do
-          configure_sanitize_email({:use_actual_email_as_sanitized_user_name => true})
+          configure_sanitize_email(use_actual_email_as_sanitized_user_name: true)
           sanitary_mail_delivery
         end
         it "original to is munged and prepended" do
@@ -554,7 +551,7 @@ describe SanitizeEmail do
       end
       context "false" do
         before(:each) do
-          configure_sanitize_email({:use_actual_email_as_sanitized_user_name => false})
+          configure_sanitize_email(use_actual_email_as_sanitized_user_name: false)
           sanitary_mail_delivery
         end
         it "original to is not prepended" do
@@ -577,12 +574,12 @@ describe SanitizeEmail do
       context "is true" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email({
-                                     :engage => true,
-                                     :sanitized_recipients => "marv@example.org",
-                                     :use_actual_email_prepended_to_subject => true,
-                                     :use_actual_email_as_sanitized_user_name => true
-                                   })
+          configure_sanitize_email(
+            engage: true,
+            sanitized_recipients: "marv@example.org",
+            use_actual_email_prepended_to_subject: true,
+            use_actual_email_as_sanitized_user_name: true
+          )
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
@@ -602,12 +599,12 @@ describe SanitizeEmail do
       context "is false" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email({
-                                     :engage => false,
-                                     :sanitized_recipients => "marv@example.org",
-                                     :use_actual_email_prepended_to_subject => true,
-                                     :use_actual_email_as_sanitized_user_name => true
-                                   })
+          configure_sanitize_email(
+                                     engage: false,
+                                     sanitized_recipients: "marv@example.org",
+                                     use_actual_email_prepended_to_subject: true,
+                                     use_actual_email_as_sanitized_user_name: true
+                                   )
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
@@ -633,7 +630,7 @@ describe SanitizeEmail do
       context ":local_environments" do
         context "matching" do
           before(:each) do
-            configure_sanitize_email({:local_environments => ["test"]})
+            configure_sanitize_email(local_environments: ["test"])
             expect(SanitizeEmail[:activation_proc].call).to eq(true)
             mail_delivery
           end
@@ -651,7 +648,7 @@ describe SanitizeEmail do
         context "non-matching" do
           before(:each) do
             sanitize_spec_dryer("production")
-            configure_sanitize_email({:local_environments => ["development"]}) # Won't match!
+            configure_sanitize_email(local_environments: ["development"]) # Won't match!
             expect(SanitizeEmail[:activation_proc].call).to eq(false)
             mail_delivery
           end
@@ -670,7 +667,7 @@ describe SanitizeEmail do
 
       context ":sanitized_recipients" do
         before(:each) do
-          configure_sanitize_email({:sanitized_recipients => "barney@sanitize_email.org"})
+          configure_sanitize_email(sanitized_recipients: "barney@sanitize_email.org")
           sanitary_mail_delivery
         end
         it "should not alter non-sanitized attributes" do
@@ -686,7 +683,7 @@ describe SanitizeEmail do
       context ":force_sanitize" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email({:activation_proc => Proc.new {true}, :force_sanitize => false})
+          configure_sanitize_email(activation_proc: Proc.new {true}, force_sanitize: false)
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
