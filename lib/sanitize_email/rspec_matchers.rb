@@ -3,7 +3,7 @@
 # Note: the RspecMatchers are composed matchers:
 # See: http://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/composing-matchers
 
-require 'sanitize_email/mail_ext'
+require "sanitize_email/mail_ext"
 
 module SanitizeEmail
   # Provides matchers that can be used in Rspec tests to assert the behavior of email
@@ -12,7 +12,7 @@ module SanitizeEmail
       RSpec::Matchers.define "have_#{attribute}" do |matcher|
         match do |actual|
           @actual = actual.send(attribute)
-          @actual = @actual.join(', ') if @actual.respond_to?(:join)
+          @actual = @actual.join(", ") if @actual.respond_to?(:join)
           expect(@actual).to match(matcher)
         end
       end
@@ -22,7 +22,7 @@ module SanitizeEmail
       RSpec::Matchers.define "match_#{attribute}" do |matcher|
         match do |actual|
           @actual = actual.send(attribute)
-          @actual = @actual.join(', ') if @actual.respond_to?(:join)
+          @actual = @actual.join(", ") if @actual.respond_to?(:join)
           expect(@actual).to match(matcher)
         end
       end
@@ -32,7 +32,7 @@ module SanitizeEmail
       RSpec::Matchers.define "be_#{attribute}" do |matcher|
         match do |actual|
           @actual = actual.send(attribute)
-          @actual = @actual.join(', ') if @actual.respond_to?(:join)
+          @actual = @actual.join(", ") if @actual.respond_to?(:join)
           expect(@actual).to be(matcher)
         end
       end

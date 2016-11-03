@@ -28,7 +28,7 @@ module SanitizeEmail
 
     # Normalize arrays to strings
     def array_matching(matcher, part, attribute)
-      attribute = attribute.join(', ') if attribute.respond_to?(:join)
+      attribute = attribute.join(", ") if attribute.respond_to?(:join)
       string_matching(matcher, part, attribute)
     end
 

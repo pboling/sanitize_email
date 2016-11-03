@@ -1,18 +1,18 @@
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
-require 'launchy'
-require 'mail'
-require 'rails'
-require 'letter_opener'
-require 'action_mailer'
-require 'pry'
+require "launchy"
+require "mail"
+require "rails"
+require "letter_opener"
+require "action_mailer"
+require "pry"
 
 # For code coverage, must be required before all application / gem / library code.
-require 'coveralls'
+require "coveralls"
 Coveralls.wear!
 
-require 'sanitize_email'
-require 'sanitize_email/rspec_matchers'
+require "sanitize_email"
+require "sanitize_email/rspec_matchers"
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

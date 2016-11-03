@@ -1,6 +1,6 @@
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
-require 'spec_helper'
+require "spec_helper"
 
 #
 # TODO: Letter Opener should *not* be required, but setting the delivery method to :file was causing connection errors... WTF?
@@ -8,8 +8,8 @@ require 'spec_helper'
 describe SanitizeEmail do
 
   DEFAULT_TEST_CONFIG = {
-    :sanitized_cc =>  'cc@sanitize_email.org',
-    :sanitized_bcc => 'bcc@sanitize_email.org',
+    :sanitized_cc =>  "cc@sanitize_email.org",
+    :sanitized_bcc => "bcc@sanitize_email.org",
     :use_actual_email_prepended_to_subject => false,
     :use_actual_environment_prepended_to_subject => false,
     :use_actual_email_as_sanitized_user_name => false
@@ -28,9 +28,9 @@ describe SanitizeEmail do
     Mail.send(:class_variable_get, :@@delivery_interceptors).pop
   end
 
-  def sanitize_spec_dryer(rails_env = 'test')
+  def sanitize_spec_dryer(rails_env = "test")
     allow(Launchy).to receive(:open)
-    location = File.expand_path('../tmp/mail_dump', __FILE__)
+    location = File.expand_path("../tmp/mail_dump", __FILE__)
     FileUtils.remove_file(location, true)
     Mail.defaults do
       delivery_method LetterOpener::DeliveryMethod, :location => location
@@ -41,7 +41,7 @@ describe SanitizeEmail do
 
   def configure_sanitize_email(sanitize_hash = {})
     options = DEFAULT_TEST_CONFIG.merge(sanitize_hash).dup
-    options.reverse_merge!({ :sanitized_to => 'to@sanitize_email.org' }) unless sanitize_hash.has_key?(:sanitized_recipients)
+    options.reverse_merge!({ :sanitized_to => "to@sanitize_email.org" }) unless sanitize_hash.has_key?(:sanitized_recipients)
     SanitizeEmail::Config.configure do |config|
       config[:engage] = options[:engage]
       config[:environment] = options[:environment]
@@ -67,7 +67,7 @@ describe SanitizeEmail do
       config[:sanitized_cc] =         nil
       config[:sanitized_bcc] =        nil
       # run/call whatever logic should turn sanitize_email on and off in this Proc:
-      config[:activation_proc] =      Proc.new { Rails.env != 'production' }
+      config[:activation_proc] =      Proc.new { Rails.env != "production" }
       config[:use_actual_email_prepended_to_subject] = true
       config[:use_actual_environment_prepended_to_subject] = true
       config[:use_actual_email_as_sanitized_user_name] = false
@@ -95,37 +95,37 @@ describe SanitizeEmail do
 
   def mail_delivery_hot_mess
     @email_message = Mail.deliver do
-      from      'same@example.org'
+      from      "same@example.org"
       to        %w( same@example.org same@example.org same@example.org same@example.org same@example.org )
-      cc        'same@example.org'
-      bcc       'same@example.org'
-      reply_to  'same@example.org'
-      subject   'original subject'
-      body      'funky fresh'
+      cc        "same@example.org"
+      bcc       "same@example.org"
+      reply_to  "same@example.org"
+      subject   "original subject"
+      body      "funky fresh"
     end
   end
 
   def mail_delivery
     @email_message = Mail.deliver do
-      from      'from@example.org'
-      to        'to@example.org'
-      cc        'cc@example.org'
-      bcc       'bcc@example.org'
-      reply_to  'reply_to@example.org'
-      subject   'original subject'
-      body      'funky fresh'
+      from      "from@example.org"
+      to        "to@example.org"
+      cc        "cc@example.org"
+      bcc       "bcc@example.org"
+      reply_to  "reply_to@example.org"
+      subject   "original subject"
+      body      "funky fresh"
     end
   end
 
   def mail_delivery_multiple_recipients
     @email_message = Mail.deliver do
-      from      'from@example.org'
+      from      "from@example.org"
       to        %w( to1@example.org to2@example.org to3@example.org )
       cc        %w( cc1@example.org cc2@example.org cc3@example.org )
       bcc       %w( bcc1@example.org bcc2@example.org bcc3@example.org )
-      reply_to  'reply_to@example.org'
-      subject   'original subject'
-      body      'funky fresh'
+      reply_to  "reply_to@example.org"
+      subject   "original subject"
+      body      "funky fresh"
     end
   end
 
@@ -140,24 +140,24 @@ describe SanitizeEmail do
         unsanitary_mail_delivery
       end
       it "should not alter non-sanitized attributes" do
-        expect(@email_message).to have_from('from@example.org')
-        expect(@email_message).to have_reply_to('reply_to@example.org')
-        expect(@email_message).to have_body_text('funky fresh')
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
       end
       it "should not prepend overrides" do
         expect(@email_message).not_to have_to_username("to at sanitize_email.org")
         expect(@email_message).not_to have_subject("(to at sanitize_email.org)")
       end
       it "alters nothing" do
-        expect(@email_message).to have_from('from@example.org')
-        expect(@email_message).to have_reply_to('reply_to@example.org')
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
         expect(@email_message).to have_from("from@example.org")
         expect(@email_message).to have_to("to@example.org")
         expect(@email_message).not_to have_to_username("to at")
         expect(@email_message).to have_cc("cc@example.org")
         expect(@email_message).to have_bcc("bcc@example.org")
         expect(@email_message).to have_subject("original subject")
-        expect(@email_message).to have_body_text('funky fresh')
+        expect(@email_message).to have_body_text("funky fresh")
       end
     end
 
@@ -167,9 +167,9 @@ describe SanitizeEmail do
         sanitary_mail_delivery
       end
       it "should not alter non-sanitized attributes" do
-        expect(@email_message).to have_from('from@example.org')
-        expect(@email_message).to have_reply_to('reply_to@example.org')
-        expect(@email_message).to have_body_text('funky fresh')
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
       end
       it "should not prepend overrides" do
         expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -197,9 +197,9 @@ describe SanitizeEmail do
         sanitary_mail_delivery_multiple_recipients
       end
       it "should not alter non-sanitized attributes" do
-        expect(@email_message).to have_from('from@example.org')
-        expect(@email_message).to have_reply_to('reply_to@example.org')
-        expect(@email_message).to have_body_text('funky fresh')
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
       end
       it "should not prepend overrides" do
         expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -250,9 +250,9 @@ describe SanitizeEmail do
         expect(@email_message).not_to have_subject(/\(to at example.org\).*\(to at example.org\).*original subject/)
       end
       it "should not alter non-sanitized attributes" do
-        expect(@email_message).to have_from('from@example.org')
-        expect(@email_message).to have_reply_to('reply_to@example.org')
-        expect(@email_message).to have_body_text('funky fresh')
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
       end
       it "should not prepend overrides" do
         expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -297,9 +297,9 @@ describe SanitizeEmail do
         expect(@email_message).not_to have_subject(/\(same at example.org\).*\(same at example.org\).*original subject/)
       end
       it "should not alter non-sanitized attributes" do
-        expect(@email_message).to have_from('same@example.org')
-        expect(@email_message).to have_reply_to('same@example.org')
-        expect(@email_message).to have_body_text('funky fresh')
+        expect(@email_message).to have_from("same@example.org")
+        expect(@email_message).to have_reply_to("same@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
       end
       it "should not prepend overrides" do
         expect(@email_message).not_to have_to_username("same at example.org")
@@ -337,9 +337,9 @@ describe SanitizeEmail do
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should override" do
           expect(@email_message).to have_to("to@sanitize_email.org")
@@ -360,9 +360,9 @@ describe SanitizeEmail do
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not alter normally sanitized attributes" do
           expect(@email_message).to have_to("to@example.org")
@@ -382,9 +382,9 @@ describe SanitizeEmail do
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            expect(@email_message).to have_from('from@example.org')
-            expect(@email_message).to have_reply_to('reply_to@example.org')
-            expect(@email_message).to have_body_text('funky fresh')
+            expect(@email_message).to have_from("from@example.org")
+            expect(@email_message).to have_reply_to("reply_to@example.org")
+            expect(@email_message).to have_body_text("funky fresh")
           end
           it "should override" do
             expect(@email_message).to have_to("to@sanitize_email.org")
@@ -403,9 +403,9 @@ describe SanitizeEmail do
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            expect(@email_message).to have_from('from@example.org')
-            expect(@email_message).to have_reply_to('reply_to@example.org')
-            expect(@email_message).to have_body_text('funky fresh')
+            expect(@email_message).to have_from("from@example.org")
+            expect(@email_message).to have_reply_to("reply_to@example.org")
+            expect(@email_message).to have_body_text("funky fresh")
           end
           it "should not alter normally sanitized attributes" do
             expect(@email_message).to have_to("to@example.org")
@@ -431,9 +431,9 @@ describe SanitizeEmail do
           expect(@email_message).to have_subject("{{serverABC}} original subject")
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not prepend overrides" do
           expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -442,7 +442,6 @@ describe SanitizeEmail do
       end
       context "false" do
         before(:each) do
-          sanitize_spec_dryer('test')
           configure_sanitize_email({:environment => "{{serverABC}}", :use_actual_environment_prepended_to_subject => false})
           sanitary_mail_delivery
         end
@@ -451,9 +450,9 @@ describe SanitizeEmail do
           expect(@email_message.subject).to eq("original subject")
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not prepend overrides" do
           expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -472,9 +471,9 @@ describe SanitizeEmail do
           expect(@email_message).to have_subject("(to at example.org) original subject")
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not prepend overrides" do
           expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -490,9 +489,9 @@ describe SanitizeEmail do
           expect(@email_message).not_to have_subject("(to at example.org) original subject")
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not prepend overrides" do
           expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -511,9 +510,9 @@ describe SanitizeEmail do
           expect(@email_message).to have_to_username("to at example.org <to@sanitize_email.org>")
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not prepend overrides" do
           expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -529,9 +528,9 @@ describe SanitizeEmail do
           expect(@email_message).not_to have_to_username("to at example.org <to@sanitize_email.org>")
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not prepend overrides" do
           expect(@email_message).not_to have_to_username("to at sanitize_email.org")
@@ -546,16 +545,16 @@ describe SanitizeEmail do
           # Should turn off sanitization using the force_sanitize
           configure_sanitize_email({
                                      :engage => true,
-                                     :sanitized_recipients => 'marv@example.org',
+                                     :sanitized_recipients => "marv@example.org",
                                      :use_actual_email_prepended_to_subject => true,
                                      :use_actual_email_as_sanitized_user_name => true
                                    })
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should prepend overrides" do
           expect(@email_message).to have_to_username("to at example.org")
@@ -571,16 +570,16 @@ describe SanitizeEmail do
           # Should turn off sanitization using the force_sanitize
           configure_sanitize_email({
                                      :engage => false,
-                                     :sanitized_recipients => 'marv@example.org',
+                                     :sanitized_recipients => "marv@example.org",
                                      :use_actual_email_prepended_to_subject => true,
                                      :use_actual_email_as_sanitized_user_name => true
                                    })
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not prepend overrides" do
           expect(@email_message).to_not have_to_username("to at example.org")
@@ -600,14 +599,14 @@ describe SanitizeEmail do
       context ":local_environments" do
         context "matching" do
           before(:each) do
-            configure_sanitize_email({:local_environments => ['test']})
+            configure_sanitize_email({:local_environments => ["test"]})
             expect(SanitizeEmail[:activation_proc].call).to eq(true)
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            expect(@email_message).to have_from('from@example.org')
-            expect(@email_message).to have_reply_to('reply_to@example.org')
-            expect(@email_message).to have_body_text('funky fresh')
+            expect(@email_message).to have_from("from@example.org")
+            expect(@email_message).to have_reply_to("reply_to@example.org")
+            expect(@email_message).to have_body_text("funky fresh")
           end
           it "should use activation_proc for matching environment" do
             expect(@email_message).to match_to("to@sanitize_email.org")
@@ -617,15 +616,15 @@ describe SanitizeEmail do
         end
         context "non-matching" do
           before(:each) do
-            sanitize_spec_dryer('production')
-            configure_sanitize_email({:local_environments => ['development']}) # Won't match!
+            sanitize_spec_dryer("production")
+            configure_sanitize_email({:local_environments => ["development"]}) # Won't match!
             expect(SanitizeEmail[:activation_proc].call).to eq(false)
             mail_delivery
           end
           it "should not alter non-sanitized attributes" do
-            expect(@email_message).to have_from('from@example.org')
-            expect(@email_message).to have_reply_to('reply_to@example.org')
-            expect(@email_message).to have_body_text('funky fresh')
+            expect(@email_message).to have_from("from@example.org")
+            expect(@email_message).to have_reply_to("reply_to@example.org")
+            expect(@email_message).to have_body_text("funky fresh")
           end
           it "should use activation_proc for non-matching environment" do
             expect(@email_message).to have_to("to@example.org")
@@ -637,13 +636,13 @@ describe SanitizeEmail do
 
       context ":sanitized_recipients" do
         before(:each) do
-          configure_sanitize_email({:sanitized_recipients => 'barney@sanitize_email.org'})
+          configure_sanitize_email({:sanitized_recipients => "barney@sanitize_email.org"})
           sanitary_mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "used as sanitized_to" do
           expect(@email_message).to have_to("barney@sanitize_email.org")
@@ -657,9 +656,9 @@ describe SanitizeEmail do
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
-          expect(@email_message).to have_from('from@example.org')
-          expect(@email_message).to have_reply_to('reply_to@example.org')
-          expect(@email_message).to have_body_text('funky fresh')
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
         end
         it "should not alter normally sanitized attributes" do
           expect(@email_message).to have_to("to@example.org")

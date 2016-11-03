@@ -2,12 +2,12 @@
 # Released under the MIT license
 
 module SanitizeEmail
-  require 'sanitize_email/version'
-  require 'sanitize_email/deprecation'
-  require 'sanitize_email/config'
-  require 'sanitize_email/mail_header_tools'
-  require 'sanitize_email/overridden_addresses'
-  require 'sanitize_email/bleach'
+  require "sanitize_email/version"
+  require "sanitize_email/deprecation"
+  require "sanitize_email/config"
+  require "sanitize_email/mail_header_tools"
+  require "sanitize_email/overridden_addresses"
+  require "sanitize_email/bleach"
 
   # Error is raised when a block parameter is required and not provided to a method
   class MissingBlockParameter < StandardError; end
@@ -15,9 +15,9 @@ module SanitizeEmail
   # Allow non-rails implementations to use this gem
   if defined?(::Rails)
     if defined?(::Rails::Engine)
-      require 'sanitize_email/engine'
+      require "sanitize_email/engine"
     elsif ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR == 0
-      require 'sanitize_email/railtie'
+      require "sanitize_email/railtie"
     else
       raise "Please use the 0.X.X versions of sanitize_email for Rails 2.X and below."
     end
@@ -69,12 +69,12 @@ module SanitizeEmail
   # You have access to all the same configuration options in the parameter hash as you can set in the actual
   # SanitizeEmail.configure block.
   #
-  # SanitizeEmail.sanitary({:sanitized_to => 'boo@example.com'}) do # these config options are merged with the globals
+  # SanitizeEmail.sanitary({:sanitized_to => "boo@example.com"}) do # these config options are merged with the globals
   #   Mail.deliver do
-  #     from      'from@example.org'
-  #     to        'to@example.org' # Will actually be sent to the override addresses, in this case: boo@example.com
-  #     reply_to  'reply_to@example.org'
-  #     subject   'subject'
+  #     from      "from@example.org"
+  #     to        "to@example.org" # Will actually be sent to the override addresses, in this case: boo@example.com
+  #     reply_to  "reply_to@example.org"
+  #     subject   "subject"
   #   end
   # end
   #
@@ -92,10 +92,10 @@ module SanitizeEmail
   #
   # SanitizeEmail.unsanitary do
   #   Mail.deliver do
-  #     from      'from@example.org'
-  #     to        'to@example.org'
-  #     reply_to  'reply_to@example.org'
-  #     subject   'subject'
+  #     from      "from@example.org"
+  #     to        "to@example.org"
+  #     reply_to  "reply_to@example.org"
+  #     subject   "subject"
   #   end
   # end
   #

@@ -1,2 +1,2 @@
-require 'sanitize_email'
+require "sanitize_email"
 

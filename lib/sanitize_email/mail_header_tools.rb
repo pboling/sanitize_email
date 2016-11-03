@@ -22,14 +22,14 @@ module SanitizeEmail
     end
 
     def self.prepend_email_to_subject(actual_addresses)
-      "(#{actual_addresses.uniq.join(',').gsub(/@/, ' at ').gsub(/[<>]/, '~')})" if actual_addresses.respond_to?(:join)
+      "(#{actual_addresses.uniq.join(",").gsub(/@/, " at ").gsub(/[<>]/, "~")})" if actual_addresses.respond_to?(:join)
     end
 
     def self.add_original_addresses_as_headers(message)
       ## Add headers by string concat. Setting hash values on message.headers does nothing, strangely. http://goo.gl/v46GY
       {
-        'X-Sanitize-Email-To' => Array(message.to).uniq, # can be an array, so casting it as an array
-        'X-Sanitize-Email-Cc' => Array(message.cc).uniq  # can be an array, so casting it as an array
+        "X-Sanitize-Email-To" => Array(message.to).uniq, # can be an array, so casting it as an array
+        "X-Sanitize-Email-Cc" => Array(message.cc).uniq  # can be an array, so casting it as an array
         # Don't write out the BCC, as those addresses should not be visible in message headers for obvious reasons
       }.each { |header_key, header_value|
         # For each type of address line
