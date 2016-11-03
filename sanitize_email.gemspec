@@ -45,5 +45,7 @@ EOS
   s.add_development_dependency("roodi", [">= 2.1.0"])
   s.add_development_dependency("rake", [">= 0"])
   s.add_development_dependency("pry", [">= 0"])
+  s.add_development_dependency("appraisal")
+  s.add_development_dependency("wwtd")
   s.add_development_dependency("coveralls")
 end

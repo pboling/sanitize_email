@@ -1,24 +1,30 @@
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
-require 'sanitize_email/test_helpers'
-require 'sanitize_email/mail_ext'
+# Note: the RspecMatchers are composed matchers:
+# See: http://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/composing-matchers
+
+require "sanitize_email/mail_ext"
 
 module SanitizeEmail
-  # Provides matchers that can be used in Rspec tests to assert the behavior of email
+  # Provides matchers that can be used in
+  #   Rspec tests to assert the behavior of email
   module RspecMatchers
-    include SanitizeEmail::TestHelpers
-    [:from, :to, :cc, :bcc, :reply_to].each do |attribute|
+    [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
       RSpec::Matchers.define "have_#{attribute}" do |matcher|
         match do |actual|
-          email_matching(matcher, attribute, actual)
+          @actual = actual.send(attribute)
+          @actual = @actual.join(", ") if @actual.respond_to?(:join)
+          expect(@actual).to match(matcher)
         end
       end
     end
 
-    [:subject].each do |attribute|
-      RSpec::Matchers.define "have_#{attribute}" do |matcher|
+    [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
+      RSpec::Matchers.define "match_#{attribute}" do |matcher|
         match do |actual|
-          string_matching_attribute(matcher, attribute, actual)
+          @actual = actual.send(attribute)
+          @actual = @actual.join(", ") if @actual.respond_to?(:join)
+          expect(@actual).to match(matcher)
         end
       end
     end
@@ -26,46 +32,59 @@ module SanitizeEmail
     [:from, :to, :cc, :bcc, :subject, :reply_to].each do |attribute|
       RSpec::Matchers.define "be_#{attribute}" do |matcher|
         match do |actual|
-          string_matching(matcher, attribute, actual)
+          @actual = actual.send(attribute)
+          @actual = @actual.join(", ") if @actual.respond_to?(:join)
+          expect(@actual).to be(matcher)
         end
       end
     end
 
     RSpec::Matchers.define "have_to_username" do |matcher|
-      def get_username(email_message)
+      def get_to_username(email_message)
+        username_header = email_message.header["X-Sanitize-Email-To"]
+        return username_header unless username_header.is_a?(Mail::Field)
         email_message.header.fields[3].value
       end
       match do |actual|
-        string_matching(matcher, :to_username, get_username(actual))
+        @actual = get_to_username(actual)
+        expect(@actual).to match(matcher)
+      end
+    end
+
+    RSpec::Matchers.define "have_cc_username" do |matcher|
+      def get_cc_username(email_message)
+        username_header = email_message.header["X-Sanitize-Email-Cc"]
+        return username_header unless username_header.is_a?(Mail::Field)
+        email_message.header.fields[3].value
+      end
+      match do |actual|
+        @actual = get_cc_username(actual)
+        expect(@actual).to match(matcher)
       end
     end
 
     # Cribbed from email_spec gem
     RSpec::Matchers.define "have_body_text" do |matcher|
+      def get_fuzzy_body(email_message)
+        email_message.default_part_body.to_s.gsub(/\s+/, " ")
+      end
+
+      def get_fuzzy_matcher(to_fuzz)
+        to_fuzz.gsub(/\s+/, " ")
+      end
       match do |actual|
-        # Normalize all the whitespace, to improve match fuzz
-        if matcher.is_a?(String)
-          actual_text =  actual.default_part_body.to_s.gsub(/\s+/, " ")
-          matcher_text = matcher.gsub(/\s+/, " ")
-          raise SanitizeEmail::TestHelpers::UnexpectedMailType, "Cannot find #{matcher} in body" unless actual_text.respond_to?(:include?)
-          actual_text.include?(matcher_text)
-        else
-          actual_text =  actual.default_part_body.to_s
-          raise SanitizeEmail::TestHelpers::UnexpectedMailType, "Cannot find #{matcher} in body" unless actual_text.respond_to?(:=~)
-          !!(actual_text =~ matcher)
-        end
+        @actual = get_fuzzy_body(actual)
+        fuzzy_matcher = get_fuzzy_matcher(matcher)
+        expect(@actual).to match(fuzzy_matcher)
       end
     end
 
     # Cribbed from email_spec gem
     RSpec::Matchers.define "have_header" do |name, matcher|
       match do |actual|
-        header = actual.header
-        if matcher.is_a?(String)
-          header[name].to_s == matcher
-        else
-          header[name].to_s =~ matcher
-        end
+        @actual = actual.header[name]
+        @actual = @actual.value unless @actual.nil?
+        expect(@actual).to match(matcher)
       end
     end
 

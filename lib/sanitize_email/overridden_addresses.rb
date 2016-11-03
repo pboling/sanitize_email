@@ -42,15 +42,15 @@ module SanitizeEmail
     def to_override(actual_addresses)
       to = override_email(:to, actual_addresses)
       raise MissingTo, "after overriding :to (#{actual_addresses}) there are no addresses to send in To: header." if to.empty?
-      to.join(',')
+      to.join(",")
     end
 
     def cc_override(actual_addresses)
-      override_email(:cc, actual_addresses).join(',')
+      override_email(:cc, actual_addresses).join(",")
     end
 
     def bcc_override(actual_addresses)
-      override_email(:bcc, actual_addresses).join(',')
+      override_email(:bcc, actual_addresses).join(",")
     end
 
     def override_email(type, actual_addresses)
@@ -78,14 +78,14 @@ module SanitizeEmail
       sanitized_addresses = self.clean_addresses(sanitized_addresses, :bad_list)
       #puts "override_email 5: #{type} - #{sanitized_addresses}"
 
-      # If we don't want to inject the 'email' in the 'user name' section of the sanitized recipients,
+      # If we don't want to inject the "email" in the "user name" section of the sanitized recipients,
       # then just return the default sanitized recipients
       return sanitized_addresses unless SanitizeEmail.use_actual_email_as_sanitized_user_name
 
       with_user_names = self.inject_user_names(real_addresses, sanitized_addresses)
       #puts "real_addresses 2: #{real_addresses}"
       #puts "override_email 6: #{type} - #{with_user_names}"
-      # Otherwise inject the email as the 'user name'
+      # Otherwise inject the email as the "user name"
       return with_user_names
     end
 
