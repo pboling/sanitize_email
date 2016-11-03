@@ -5,5 +5,7 @@ source "http://rubygems.org"
 gem "actionmailer", "~> 4.1.0"
 gem "railties", "~> 4.1.0"
 gem "reek", "~>3.11.0"
+gem "json", "~> 1.8.3"
+gem "rake", "~> 11.2.2"
 
 gemspec :path => "../"

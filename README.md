@@ -340,9 +340,21 @@ Follow the instructions for "Contributing" below.
 
 ## Running Specs
 
+The basic compatibility matrix:
 ```
 appraisal install
-rake
+appraisal rake test
+```
+
+Run the whole travis compatibility matrix:
+```
+rake wwtd:bundle
+rake wwtd
+```
+
+Sometimes also:
+```
+appraisal update
 ```
 
 ## Versioning

@@ -6,5 +6,8 @@ gem "actionmailer", "~> 3.1.0"
 gem "railties", "~> 3.1.0"
 gem "reek", "~> 2.0"
 gem "tins", "~> 1.6.0"
+gem "json", "~> 1.8.3"
+gem "rake", "~> 11.2.2"
+gem "rest-client", "~> 1.8.0"
 
 gemspec :path => "../"

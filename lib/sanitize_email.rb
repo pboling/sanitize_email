@@ -65,14 +65,16 @@ module SanitizeEmail
   end
   @force_sanitize = nil
 
-  # Regardless of the Config settings of SanitizeEmail you can do a local override to send sanitary email in any environment.
-  # You have access to all the same configuration options in the parameter hash as you can set in the actual
-  # SanitizeEmail.configure block.
+  # Regardless of the Config settings of SanitizeEmail you can do a local
+  # override to send sanitary email in any environment.
+  # You have access to all the same configuration options in the parameter hash
+  # as you can set in the actual SanitizeEmail.configure block.
   #
-  # SanitizeEmail.sanitary({:sanitized_to => "boo@example.com"}) do # these config options are merged with the globals
+  # SanitizeEmail.sanitary({:sanitized_to => "boo@example.com"}) do
   #   Mail.deliver do
   #     from      "from@example.org"
-  #     to        "to@example.org" # Will actually be sent to the override addresses, in this case: boo@example.com
+  #     # Will actually be sent to the override addresses, not this one:
+  #     to        "to@example.org"
   #     reply_to  "reply_to@example.org"
   #     subject   "subject"
   #   end
@@ -88,7 +90,8 @@ module SanitizeEmail
     end
   end
 
-  # Regardless of the Config settings of SanitizeEmail you can do a local override to force unsanitary email in any environment.
+  # Regardless of the Config settings of SanitizeEmail you can do a local
+  # override to force unsanitary email in any environment.
   #
   # SanitizeEmail.unsanitary do
   #   Mail.deliver do
