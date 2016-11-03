@@ -82,7 +82,7 @@ describe SanitizeEmail do
       config[:sanitized_cc] = nil
       config[:sanitized_bcc] = nil
       # logic to turn sanitize_email on and off goes in this Proc:
-      config[:activation_proc] = Proc.new { Rails.env != "production" }
+      config[:activation_proc] = proc { Rails.env != "production" }
       config[:use_actual_email_prepended_to_subject] = true
       config[:use_actual_environment_prepended_to_subject] = true
       config[:use_actual_email_as_sanitized_user_name] = false
