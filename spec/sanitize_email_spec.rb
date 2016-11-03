@@ -365,7 +365,7 @@ describe SanitizeEmail do
       context "true" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email(activation_proc: Proc.new {true})
+          configure_sanitize_email(activation_proc: proc { true })
           SanitizeEmail.force_sanitize = true
           mail_delivery
         end
@@ -391,7 +391,7 @@ describe SanitizeEmail do
       context "false" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email(activation_proc: Proc.new {true})
+          configure_sanitize_email(activation_proc: proc { true })
           SanitizeEmail.force_sanitize = false
           mail_delivery
         end
@@ -413,7 +413,7 @@ describe SanitizeEmail do
         context "activation proc enables" do
           before(:each) do
             # Should ignore force_sanitize setting
-            configure_sanitize_email(activation_proc: Proc.new {true})
+            configure_sanitize_email(activation_proc: proc { true })
             SanitizeEmail.force_sanitize = nil
             mail_delivery
           end
@@ -699,7 +699,7 @@ describe SanitizeEmail do
       context ":force_sanitize" do
         before(:each) do
           # Should turn off sanitization using the force_sanitize
-          configure_sanitize_email(activation_proc: Proc.new {true}, force_sanitize: false)
+          configure_sanitize_email(activation_proc: proc { true }, force_sanitize: false)
           mail_delivery
         end
         it "should not alter non-sanitized attributes" do
