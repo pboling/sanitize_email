@@ -1,5 +1,8 @@
 HEAD
 
+Version 1.2.2 - FEB.17.2017
+* Improve handling of frozen strings, which are becoming more common by @milgner
+
 Version 1.2.1 - NOV.03.2016
 * Fix bug where non-array to address would not get prepended to subject when that feature is turned on
 * SanitizeEmail::TestHelpers::UnexpectedMailType no longer raised by SanitizeEmail::RspecMatchers (a breaking change if you were depending on that for your specs to pass)
