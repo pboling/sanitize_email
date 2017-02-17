@@ -55,9 +55,12 @@ module SanitizeEmail
 
     def self.prepend_custom_subject(message)
       message.subject = "" unless message.subject
-      message.subject.prepend(
-        SanitizeEmail::MailHeaderTools.custom_subject(message)
-      )
+      custom_subject = SanitizeEmail::MailHeaderTools.custom_subject(message)
+      if message.subject.frozen?
+        message.subject = "#{custom_subject}#{message.subject}"
+      else
+        message.subject.prepend(custom_subject)
+      end
     end
 
     # According to https://github.com/mikel/mail

@@ -106,9 +106,24 @@ describe SanitizeEmail do
     end
   end
 
+  def sanitary_mail_delivery_frozen_strings(config_options = {})
+    SanitizeEmail.sanitary(config_options) do
+      mail_delivery_frozen_strings
+    end
+  end
+
   def unsanitary_mail_delivery
     SanitizeEmail.unsanitary do
       mail_delivery
+    end
+  end
+
+  def mail_delivery_frozen_strings
+    @email_message = Mail.deliver do
+      from      "from@example.org".freeze
+      to        "to@example.org".freeze
+      subject   "original subject".freeze
+      body      "funky fresh".freeze
     end
   end
 
@@ -467,6 +482,16 @@ describe SanitizeEmail do
         expect(@email_message).not_to have_subject(
           "(same at example.org) original subject"
         )
+      end
+    end
+
+    context "with frozen string (literals)" do
+      it "prepends strings without exception" do
+        configure_sanitize_email(
+          environment: "{{serverABC}}",
+          use_actual_environment_prepended_to_subject: true
+        )
+        expect { sanitary_mail_delivery_frozen_strings }.to_not raise_exception
       end
     end
 
