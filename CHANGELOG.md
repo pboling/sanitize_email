@@ -1,7 +1,7 @@
 HEAD
 
 *UNRELEASED*
-* Drop support for MRI Ruby 1.9, 2.0, and 2.1 by Peter Boling
+* Drop support for MRI Ruby 1.9, 2.0, 2.1, and 2.2 by Peter Boling
 * Drop support for JRuby 1.7 and 9.0, while still supporting 9.1 by Peter Boling
 * Drop support for Rails 3.0, 3.1, 3.2, 4.0, 4.1, while still supporting 4.2 by Peter Boling
 * Add testing for Rails 5.1 and 5.2 by Peter Boling
