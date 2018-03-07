@@ -4,5 +4,5 @@
 # Released under the MIT license
 
 module SanitizeEmail
-  VERSION = '2.0.0'
+  VERSION = '2.0.1'
 end
