@@ -16,11 +16,6 @@ language: ruby
 sudo: false
 
 rvm:
-  - jruby-1.7.27
-  - 1.9.3-p551
-  - 2.0.0-p648
-  - 2.1.10
-  - jruby-9.0.5.0
   - jruby-9.1.16.0
   - 2.2.9
   - 2.3.6
@@ -30,13 +25,10 @@ rvm:
   - ruby-head
   - rbx-3
 gemfile:
-  - gemfiles/rails_3_0.gemfile
-  - gemfiles/rails_3_1.gemfile
-  - gemfiles/rails_3_2.gemfile
-  - gemfiles/rails_4_0.gemfile
-  - gemfiles/rails_4_1.gemfile
   - gemfiles/rails_4_2.gemfile
   - gemfiles/rails_5_0.gemfile
+  - gemfiles/rails_5_1.gemfile
+  - gemfiles/rails_5_2.gemfile
 
 matrix:
   allow_failures:
@@ -45,87 +37,21 @@ matrix:
     - rvm: rbx-3
   fast_finish: true
   exclude:
-    - rvm: jruby-1.7.27
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: jruby-1.7.27
-      gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 1.9.3-p551
-      gemfile: gemfiles/rails_3_2.gemfile
-    - rvm: 1.9.3-p551
-      gemfile: gemfiles/rails_4_0.gemfile
-    - rvm: 1.9.3-p551
-      gemfile: gemfiles/rails_4_1.gemfile
-    - rvm: 1.9.3-p551
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: 1.9.3-p551
-      gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 2.0.0-p648
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: 2.0.0-p648
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.0.0-p648
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: 2.0.0-p648
-      gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: 2.1.10
-      gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: jruby-9.0.5.0
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: jruby-9.0.5.0
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: jruby-9.0.5.0
-      gemfile: gemfiles/rails_3_2.gemfile
-    - rvm: jruby-9.0.5.0
-      gemfile: gemfiles/rails_5_0.gemfile
     - rvm: jruby-9.1.16.0
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: jruby-9.1.16.0
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: jruby-9.1.16.0
-      gemfile: gemfiles/rails_3_2.gemfile
-    - rvm: 2.2.9
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: 2.2.9
-      gemfile: gemfiles/rails_3_1.gemfile
+      gemfile: gemfiles/rails_4_2.gemfile
     - rvm: 2.2.9
       gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 2.3.6
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: 2.3.6
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.4.3
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: 2.4.3
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.4.3
-      gemfile: gemfiles/rails_3_2.gemfile
     - rvm: 2.5.0
-      gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: 2.5.0
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.5.0
-      gemfile: gemfiles/rails_3_2.gemfile
+      gemfile: gemfiles/rails_4_2.gemfile
     - rvm: jruby-head
-      gemfile: gemfiles/rails_3_0.gemfile
+      gemfile: gemfiles/rails_4_2.gemfile
     - rvm: jruby-head
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: jruby-head
-      gemfile: gemfiles/rails_3_2.gemfile
+      gemfile: gemfiles/rails_5_0.gemfile
     - rvm: ruby-head
-      gemfile: gemfiles/rails_3_0.gemfile
+      gemfile: gemfiles/rails_4_2.gemfile
     - rvm: ruby-head
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: ruby-head
-      gemfile: gemfiles/rails_3_2.gemfile
+      gemfile: gemfiles/rails_5_0.gemfile
     - rvm: rbx-3
-      gemfile: gemfiles/rails_3_0.gemfile
+      gemfile: gemfiles/rails_4_2.gemfile
     - rvm: rbx-3
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: rbx-3
-      gemfile: gemfiles/rails_3_2.gemfile
+      gemfile: gemfiles/rails_5_0.gemfile

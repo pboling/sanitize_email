@@ -2,9 +2,9 @@
 
 source "http://rubygems.org"
 
-gem "actionmailer", "~> 4.0.0"
-gem "railties", "~> 4.0.0"
-gem "json", "~> 1.8.3"
+gem "actionmailer", "5.2.0.rc1"
+gem "railties", "5.2.0.rc1"
+gem "json", "~> 2.0.2"
 gem "rake", "~> 11.2.2"
 
 gemspec :path => "../"

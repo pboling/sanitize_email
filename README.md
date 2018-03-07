@@ -9,11 +9,11 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | expert support          |  [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/peterboling?utm_source=github&utm_medium=button&utm_term=peterboling&utm_campaign=github) |
 | download rank               |  [![Total Downloads](https://img.shields.io/gem/rt/sanitize_email.svg)](https://rubygems.org/gems/sanitize_email) |
 | version                 |  [![Version](https://img.shields.io/gem/v/sanitize_email.svg)](https://rubygems.org/gems/sanitize_email) |
-| dependencies            |  [![Dependency Status](https://gemnasium.com/pboling/sanitize_email.png)](https://gemnasium.com/pboling/sanitize_email) |
+| dependencies            |  [![Depfu](https://badges.depfu.com/badges/bba430e8f19a2ba3273fb20d5e8c82d6/count.svg)](https://depfu.com/github/pboling/sanitize_email) |
 | code quality            |  [![Code Quality](https://img.shields.io/codeclimate/github/pboling/sanitize_email.svg)](https://codeclimate.com/github/pboling/sanitize_email) |
-| inline documenation     |  [![Documentation](http://inch-ci.org/github/pboling/sanitize_email.png)](http://inch-ci.org/github/pboling/sanitize_email) |
+| inline documenation     |  [![Documentation](http://inch-ci.org/github/pboling/sanitize_email.svg)](http://inch-ci.org/github/pboling/sanitize_email) |
 | continuous integration  |  [![Build](https://img.shields.io/travis/pboling/sanitize_email.svg)](https://travis-ci.org/pboling/sanitize_email) |
-| test coverage           |  [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.png)](https://coveralls.io/r/pboling/sanitize_email) |
+| test coverage           |  [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.svg)](https://coveralls.io/r/pboling/sanitize_email) |
 | homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage] |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | live chat               |  [![Join the chat at https://gitter.im/pboling/sanitize_email](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pboling/sanitize_email?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
@@ -384,10 +384,11 @@ spec.add_dependency 'sanitize_email', '~> 1.3'
 
 ## Legal
 
-* MIT License - See LICENSE file in this project
-* Copyright (c) 2008-2015 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
+* MIT License - See [LICENSE file][license] in this project
 * Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
+* Copyright (c) 2008-2015 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
 
+[license]: LICENSE
 [semver]: http://semver.org/
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 [railsbling]: http://www.railsbling.com
