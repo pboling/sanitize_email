@@ -8,7 +8,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | license                 |  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 | expert support          |  [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/peterboling?utm_source=github&utm_medium=button&utm_term=peterboling&utm_campaign=github) |
 | download rank               |  [![Total Downloads](https://img.shields.io/gem/rt/sanitize_email.svg)](https://rubygems.org/gems/sanitize_email) |
-| version                 |  [![Version](https://img.shields.io/gem/v/sanitize_email.svg)](https://rubygems.org/gems/sanitize_email) |
+| version                 |  [![Version](https://img.shields.io/gem/v/sanitize_email.png)](https://rubygems.org/gems/sanitize_email) |
 | dependencies            |  [![Depfu](https://badges.depfu.com/badges/bba430e8f19a2ba3273fb20d5e8c82d6/count.svg)](https://depfu.com/github/pboling/sanitize_email) |
 | code quality            |  [![Code Quality](https://img.shields.io/codeclimate/github/pboling/sanitize_email.svg)](https://codeclimate.com/github/pboling/sanitize_email) |
 | inline documenation     |  [![Documentation](http://inch-ci.org/github/pboling/sanitize_email.svg)](http://inch-ci.org/github/pboling/sanitize_email) |
