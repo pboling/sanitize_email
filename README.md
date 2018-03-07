@@ -23,8 +23,10 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 
 It's particularly helpful when you want to prevent the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
-* compatible with Rails >= 3.X (since v1.0.5)
-* compatible with any Ruby app with a Mail handler that uses the `register_interceptor` API (a la ActionMailer and Mail gems)
+* compatible without Rails!  Can work with just the `mail` gem.
+* compatible with Rails >= 4.2.  See gem versions 1.x for older versions of Rails.
+* compatible with Ruby >= 2.3.  See gem versions 1.x for older versions of Ruby.
+* compatible with any Ruby app with a mail handler that uses the `register_interceptor` API (a la ActionMailer and `mail` gems)
 * configure it and forget it
 * little configuration required
 * solves common problems in ruby web applications that use email
