@@ -1,2 +1,3 @@
-require "sanitize_email"
+# frozen_string_literal: true
 
+require 'sanitize_email'

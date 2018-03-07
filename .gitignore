@@ -9,3 +9,4 @@ spec/tmp
 Gemfile.lock
 gemfiles/*.lock
 rdoc/*
+.byebug_history

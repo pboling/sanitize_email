@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
@@ -5,7 +7,6 @@ module SanitizeEmail
   # Provides tools that allow methods to be deprecated with new releases of the gem.
   # See http://www.seejohncode.com/2012/01/09/deprecating-methods-in-ruby/
   module Deprecation
-
     class << self
       attr_accessor :deprecate_in_silence
     end
@@ -32,7 +33,7 @@ module SanitizeEmail
       alias_method old_name, name
       # And replace it with a wrapped version
       define_method(name) do |*args, &block|
-        self.deprecation(name, " (please use ##{replacement})")
+        deprecation(name, " (please use ##{replacement})")
         send old_name, *args, &block
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 # Note: the RspecMatchers no longer use these methods.  Instead they are composed matchers:
@@ -6,7 +8,6 @@
 module SanitizeEmail
   # Helpers for test-unit
   module TestHelpers
-
     # Error raised when unable to match an expected part of email in order to fail the test
     class UnexpectedMailType < StandardError; end
 
@@ -15,20 +16,18 @@ module SanitizeEmail
     end
 
     def string_matching(matcher, part, attribute)
-      if attribute.respond_to?(:=~) # Can we match a regex against it?
-        if matcher.is_a?(Regexp)
-          attribute =~ matcher
-        else
-          attribute =~ Regexp.new(Regexp.escape(matcher))
-        end
-      else
-        raise UnexpectedMailType, "Cannot match #{matcher} for #{part}"
-      end
+      # Can we match a regex against it?
+      raise UnexpectedMailType, "Cannot match #{matcher} for #{part}" unless attribute.respond_to?(:=~)
+      attribute =~ if matcher.is_a?(Regexp)
+                     matcher
+                   else
+                     Regexp.new(Regexp.escape(matcher))
+                   end
     end
 
     # Normalize arrays to strings
     def array_matching(matcher, part, attribute)
-      attribute = attribute.join(", ") if attribute.respond_to?(:join)
+      attribute = attribute.join(', ') if attribute.respond_to?(:join)
       string_matching(matcher, part, attribute)
     end
 
@@ -39,6 +38,5 @@ module SanitizeEmail
     def email_attribute_matching(matcher, part, attribute)
       array_matching(matcher, part, attribute)
     end
-
   end
 end

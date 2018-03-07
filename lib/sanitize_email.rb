@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
-module SanitizeEmail
-  require "sanitize_email/version"
-  require "sanitize_email/deprecation"
-  require "sanitize_email/config"
-  require "sanitize_email/mail_header_tools"
-  require "sanitize_email/overridden_addresses"
-  require "sanitize_email/bleach"
+require 'sanitize_email/version'
+require 'sanitize_email/deprecation'
+require 'sanitize_email/config'
+require 'sanitize_email/mail_header_tools'
+require 'sanitize_email/overridden_addresses'
+require 'sanitize_email/bleach'
 
+module SanitizeEmail
   # Error is raised when a block parameter is required and not provided to a method
   class MissingBlockParameter < StandardError; end
 
   # Allow non-rails implementations to use this gem
   if defined?(::Rails)
     if defined?(::Rails::Engine)
-      require "sanitize_email/engine"
-    elsif ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR == 0
-      require "sanitize_email/railtie"
+      require 'sanitize_email/engine'
+    elsif ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR.zero?
+      require 'sanitize_email/railtie'
     else
-      raise "Please use the 0.X.X versions of sanitize_email for Rails 2.X and below."
+      raise 'Please use the 0.X.X versions of sanitize_email for Rails 2.X and below.'
     end
   else
     if defined?(Mailer)
@@ -30,7 +32,7 @@ module SanitizeEmail
     if mailer.respond_to?(:register_interceptor)
       mailer.register_interceptor(SanitizeEmail::Bleach)
     else
-      warn "SanitizeEmail was unable to detect a compatible Mail class to register an interceptor on."
+      warn 'SanitizeEmail was unable to detect a compatible Mail class to register an interceptor on.'
     end
   end
 
@@ -39,7 +41,7 @@ module SanitizeEmail
     SanitizeEmail::Config.config[key.to_sym]
   end
 
-  def self.method_missing(name, *_)
+  def self.method_missing(name, *_args)
     SanitizeEmail[name]
   end
 
@@ -80,9 +82,9 @@ module SanitizeEmail
   #   end
   # end
   #
-  def self.sanitary(config_options = {}, &block)
-    raise MissingBlockParameter, "SanitizeEmail.sanitary must be called with a block" unless block_given?
-    janitor({:forcing => true}) do
+  def self.sanitary(config_options = {})
+    raise MissingBlockParameter, 'SanitizeEmail.sanitary must be called with a block' unless block_given?
+    janitor(:forcing => true) do
       original = SanitizeEmail::Config.config.dup
       SanitizeEmail::Config.config.merge!(config_options)
       yield
@@ -102,15 +104,15 @@ module SanitizeEmail
   #   end
   # end
   #
-  def self.unsanitary &block
-    raise MissingBlockParameter, "SanitizeEmail.unsanitary must be called with a block" unless block_given?
-    janitor({:forcing => false}) do
+  def self.unsanitary
+    raise MissingBlockParameter, 'SanitizeEmail.unsanitary must be called with a block' unless block_given?
+    janitor(:forcing => false) do
       yield
     end
   end
 
-  def self.janitor(options, &block)
-    raise MissingBlockParameter, "SanitizeEmail.janitor must be called with a block" unless block_given?
+  def self.janitor(options)
+    raise MissingBlockParameter, 'SanitizeEmail.janitor must be called with a block' unless block_given?
     original = SanitizeEmail.force_sanitize
     SanitizeEmail.force_sanitize = options[:forcing]
     yield
@@ -123,5 +125,4 @@ module SanitizeEmail
     deprecated_alias :sanitized_recipients, :sanitized_to
     deprecated :local_environments, :activation_proc
   end
-
 end

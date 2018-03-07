@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
@@ -5,7 +7,6 @@ module SanitizeEmail
   # The API for configuring SanitizeEmail is via `SanitizeEmail.config`
   # Available configuration options are listed in the `DEFAULTS` constant.
   class Config
-
     extend SanitizeEmail::Deprecation
 
     class << self
@@ -34,9 +35,9 @@ module SanitizeEmail
       :bad_list => nil,
 
       :environment => if defined?(Rails) && Rails.env.present?
-                        ("[" << Rails.env << "]")
+                        "[#{Rails.env}]"
                       else
-                        "[UNKNOWN ENVIRONMENT]"
+                        '[UNKNOWN ENVIRONMENT]'
                       end,
 
       # Use the "real" email address as the username
@@ -56,20 +57,20 @@ module SanitizeEmail
       #   while nil ignores this setting and checks activation_proc
       :engage => nil,
 
-      :activation_proc => Proc.new { false }
-    }
+      :activation_proc => proc { false },
+    }.freeze
 
     @config ||= DEFAULTS.dup
-    def self.configure &block
+    def self.configure
       yield @config
 
       # Gracefully handle deprecated config values.
       # Actual deprecation warnings are thrown in the top SanitizeEmail module
       #   thanks to our use of dynamic methods.
       if @config[:local_environments] && defined?(Rails)
-        @config[:activation_proc] = Proc.new {
+        @config[:activation_proc] = proc do
           SanitizeEmail.local_environments.include?(Rails.env)
-        }
+        end
       end
       if @config[:sanitized_recipients]
         # calling it to trigger the deprecation warning.
@@ -78,17 +79,24 @@ module SanitizeEmail
         SanitizeEmail.sanitized_recipients
         @config[:sanitized_to] = @config[:sanitized_recipients]
       end
-      if !@config[:force_sanitize].nil?
-        deprecation_warning_message(
-            <<-EOS
+      config_force_sanitize_deprecation_warning
+    end
+
+    def self.config_force_sanitize_deprecation_warning
+      return nil if @config[:force_sanitize].nil?
+      deprecation_warning_message(
+        <<-DEPRECATION
               SanitizeEmail::Config.config[:force_sanitize] is deprecated.
               Please use SanitizeEmail.force_sanitize or SanitizeEmail.sanitary instead.
               Refer to https://github.com/pboling/sanitize_email/wiki for examples.
-            EOS
-        )
-        SanitizeEmail.force_sanitize = @config[:force_sanitize]
-      end
+      DEPRECATION
+      )
+      SanitizeEmail.force_sanitize = @config[:force_sanitize]
     end
 
+    INIT_KEYS = [:sanitized_to, :sanitized_cc, :sanitized_bcc, :good_list, :bad_list].freeze
+    def self.to_init
+      @config.select { |key, _value| INIT_KEYS.include?(key) }
+    end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
@@ -9,30 +11,22 @@ module SanitizeEmail
     attr_accessor :overridden_addresses # TODO: Just a stub, not implemented
 
     def initialize(*args)
-      deprecation_message = <<EOS
-SanitizeEmail:
-  Passing arguments to SanitizeEmail::Bleach.new is deprecated.
-  SanitizeEmail::Bleach.new now takes no arguments.
-EOS
-      if !args.empty?
-        self.class.deprecation_warning_message(deprecation_message)
-      end
+      deprecation_message unless args.empty?
     end
 
     # If all recipient addresses are white-listed the field is left alone.
     def self.delivering_email(message)
-      if self.sanitize_engaged?(message)
-        SanitizeEmail::MailHeaderTools.
-          add_original_addresses_as_headers(message)
-        SanitizeEmail::MailHeaderTools.
-          prepend_custom_subject(message)
+      return nil unless sanitize_engaged?(message)
+      SanitizeEmail::MailHeaderTools.
+        add_original_addresses_as_headers(message)
+      SanitizeEmail::MailHeaderTools.
+        prepend_custom_subject(message)
 
-        overridden = SanitizeEmail::OverriddenAddresses.new(message)
+      overridden = SanitizeEmail::OverriddenAddresses.new(message)
 
-        message.to = overridden.overridden_to
-        message.cc = overridden.overridden_cc
-        message.bcc = overridden.overridden_bcc
-      end
+      message.to = overridden.overridden_to
+      message.cc = overridden.overridden_cc
+      message.bcc = overridden.overridden_bcc
     end
 
     # Will be called by the Hook to determine if an override should occur
@@ -76,7 +70,6 @@ EOS
     # If installed but not configured, sanitize_email DOES NOTHING.
     # Until configured the defaults leave it turned off.
     def self.sanitize_engaged?(message)
-
       # Don't sanitize the message if it will not be delivered
       return false unless message.perform_deliveries
 
@@ -89,11 +82,18 @@ EOS
       return engaged unless engaged.nil?
 
       # Should we sanitize due to the activation_proc?
-      return SanitizeEmail.activate?(message)
-
+      SanitizeEmail.activate?(message)
     end
 
-  end # end Class Bleach
-end # end Module SanitizeEmail
+  private
 
-
+    def deprecation_message
+      deprecation = <<~DEPRECATION
+        SanitizeEmail:
+          Passing arguments to SanitizeEmail::Bleach.new is deprecated.
+          SanitizeEmail::Bleach.new now takes no arguments.
+      DEPRECATION
+      self.class.deprecation_warning_message(deprecation)
+    end
+  end
+end
