@@ -25,6 +25,7 @@ EOS
   s.email = 'peter.boling@gmail.com'
   s.require_paths = ["lib"]
   s.platform = Gem::Platform::RUBY
+  s.required_ruby_version = '>= 2.3.0'
 
   # Runtime Dependencies
   # A project wanting to use this gem's engine/railtie will be expected to have already loaded the rails/railtie gem.
@@ -34,7 +35,7 @@ EOS
 
   # Development Dependencies
   s.add_development_dependency "bundler"
-  s.add_development_dependency("rails", [">= 3.0.20", "< 6"])
+  s.add_development_dependency("rails", [">= 3.2", "< 6"])
   s.add_development_dependency("actionmailer", [">= 3"])
   s.add_development_dependency("rspec", [">= 3"])
   s.add_development_dependency("mail", [">= 0"])
