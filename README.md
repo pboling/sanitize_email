@@ -310,8 +310,9 @@ SanitizeEmail::Deprecation.deprecate_in_silence = true
 
 ## Authors
 
-Peter Boling is the original author of the code, and current maintainer of both the rails 2 and rails 3 development tracks.
-John Trupiano did the initial gemification and some refactoring.
+Peter Boling is the original author of the code, and current maintainer.
+
+Thanks to John Trupiano for turning Peter's original Rails plugin into this gem!
 
 ## Contributors
 
