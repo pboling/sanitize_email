@@ -1,11 +1,10 @@
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
-require "launchy"
 require "mail"
 require "rails"
-require "letter_opener"
 require "action_mailer"
 require "pry"
+require "logger"
 
 # For code coverage, must be required before all application / gem / library code.
 require "coveralls"

@@ -15,17 +15,25 @@ rescue LoadError
   warn "Failed to load rspec or wwtd"
 end
 
-require "reek/rake/task"
-Reek::Rake::Task.new do |t|
-  t.fail_on_error = true
-  t.verbose = false
-  t.source_files = "lib/**/*.rb"
+begin
+  require "reek/rake/task"
+  Reek::Rake::Task.new do |t|
+    t.fail_on_error = true
+    t.verbose = false
+    t.source_files = "lib/**/*.rb"
+  end
+rescue LoadError
+  warn "Failed to load reek"
 end
 
-require "roodi"
-require "roodi_task"
-RoodiTask.new do |t|
-  t.verbose = false
+begin
+  require "roodi"
+  require "roodi_task"
+  RoodiTask.new do |t|
+    t.verbose = false
+  end
+rescue LoadError
+  warn "Failed to load roodi"
 end
 
 require File.expand_path("../lib/sanitize_email/version", __FILE__)

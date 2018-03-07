@@ -2,13 +2,7 @@
 # Released under the MIT license
 require "spec_helper"
 
-#
-# TODO: Letter Opener should *not* be required,
-#       but setting the delivery method to :file
-#       was causing connection errors... WTF?
-#
 describe SanitizeEmail do
-
   DEFAULT_TEST_CONFIG = {
     sanitized_cc:  "cc@sanitize_email.org",
     sanitized_bcc: "bcc@sanitize_email.org",
@@ -29,11 +23,12 @@ describe SanitizeEmail do
   end
 
   def sanitize_spec_dryer(rails_env = "test")
-    allow(Launchy).to receive(:open)
-    location = File.expand_path("../tmp/mail_dump", __FILE__)
-    FileUtils.remove_file(location, true)
+    logger = Logger.new($stdout).tap do |logger|
+      logger.level = 5 # Unknown (make it silent!)
+    end
+
     Mail.defaults do
-      delivery_method LetterOpener::DeliveryMethod, location: location
+      delivery_method :logger, logger: logger, severity: :info
     end
     SanitizeEmail::Config.instance_variable_set(
       :@config,
