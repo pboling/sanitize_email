@@ -389,7 +389,7 @@ spec.add_dependency 'sanitize_email', '~> 1.3'
 * Copyright (c) 2009 [John Trupiano](http://smartlogicsolutions.com/wiki/John_Trupiano) of [SmartLogic Solutions, LLC](http://www.smartlogicsolutions.com)
 
 [semver]: http://semver.org/
-[pvc]: http://docs.rubygems.org/read/chapter/16#page74
+[pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 [railsbling]: http://www.railsbling.com
 [peterboling]: http://www.peterboling.com
 [documentation]: http://rdoc.info/github/pboling/sanitize_email/frames
