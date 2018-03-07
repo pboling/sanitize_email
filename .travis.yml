@@ -10,7 +10,7 @@ cache: bundler
 
 env:
   global:
-    - JRUBY_OPTS="$JRUBY_OPTS -Xcli.debug=true --debug"
+    - JRUBY_OPTS="-Xcli.debug=true --debug"
 
 language: ruby
 sudo: false
@@ -24,11 +24,11 @@ rvm:
   - jruby-head
   - ruby-head
   - rbx-3
+
 gemfile:
   - gemfiles/rails_4_2.gemfile
   - gemfiles/rails_5_0.gemfile
   - gemfiles/rails_5_1.gemfile
-  - gemfiles/rails_5_2.gemfile
 
 matrix:
   allow_failures:
@@ -39,6 +39,8 @@ matrix:
   exclude:
     - rvm: jruby-9.1.16.0
       gemfile: gemfiles/rails_4_2.gemfile
+    - rvm: jruby-9.1.16.0
+      gemfile: gemfiles/rails_5_0.gemfile
     - rvm: 2.2.9
       gemfile: gemfiles/rails_5_0.gemfile
     - rvm: 2.5.0

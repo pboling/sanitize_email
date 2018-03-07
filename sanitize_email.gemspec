@@ -34,7 +34,7 @@ EOS
 
   # Development Dependencies
   s.add_development_dependency "bundler"
-  s.add_development_dependency("rails", [">= 3"])
+  s.add_development_dependency("rails", [">= 3.0.20", "< 6"])
   s.add_development_dependency("actionmailer", [">= 3"])
   s.add_development_dependency("rspec", [">= 3"])
   s.add_development_dependency("mail", [">= 0"])
