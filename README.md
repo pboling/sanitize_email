@@ -14,7 +14,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | inline documenation     |  [![Documentation](http://inch-ci.org/github/pboling/sanitize_email.svg)](http://inch-ci.org/github/pboling/sanitize_email) |
 | continuous integration  |  [![Build](https://img.shields.io/travis/pboling/sanitize_email.svg)](https://travis-ci.org/pboling/sanitize_email) |
 | test coverage           |  [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.svg)](https://coveralls.io/r/pboling/sanitize_email) |
-| homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage] |
+| homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage]  |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | live chat               |  [![Join the chat at https://gitter.im/pboling/sanitize_email](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pboling/sanitize_email?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
 | Spread ~♡ⓛⓞⓥⓔ♡~      |  [AngeList](https://angel.co/peter-boling), [on Coderwall](http://coderwall.com/pboling), [on TopCoder](https://www.topcoder.com/members/pboling/) |
@@ -398,3 +398,5 @@ spec.add_dependency 'sanitize_email', '~> 1.3'
 [peterboling]: http://www.peterboling.com
 [documentation]: http://rdoc.info/github/pboling/sanitize_email/frames
 [homepage]: http://www.railsbling.com/tags/sanitize_email/
+
+[![ghit.me](https://ghit.me/badge.svg?repo=pboling/sanitize_email)](https://ghit.me/repo/pboling/sanitize_email)
