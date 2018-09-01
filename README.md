@@ -398,5 +398,3 @@ spec.add_dependency 'sanitize_email', '~> 1.3'
 [peterboling]: http://www.peterboling.com
 [documentation]: http://rdoc.info/github/pboling/sanitize_email/frames
 [homepage]: http://www.railsbling.com/tags/sanitize_email/
-
-[![ghit.me](https://ghit.me/badge.svg?repo=pboling/sanitize_email)](https://ghit.me/repo/pboling/sanitize_email)
