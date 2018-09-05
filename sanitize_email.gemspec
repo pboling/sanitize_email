@@ -37,11 +37,10 @@ DESCRIPTION
   # Development Dependencies
   s.add_development_dependency('actionmailer', ['>= 3'])
   s.add_development_dependency('appraisal')
-  s.add_development_dependency 'bundler'
-  s.add_development_dependency('byebug', ['>= 0'])
+  s.add_development_dependency('bundler')
   s.add_development_dependency('coveralls')
   s.add_development_dependency('mail', ['>= 0'])
-  s.add_development_dependency('rails', ['>= 3.2', '< 6'])
+  s.add_development_dependency('rails', ['>= 3.0', '< 6'])
   s.add_development_dependency('rake', ['>= 12'])
   s.add_development_dependency('rdoc', ['>= 3.12'])
   s.add_development_dependency('rspec', ['>= 3'])

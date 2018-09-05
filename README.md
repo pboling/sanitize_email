@@ -322,11 +322,9 @@ See the [Network View](https://github.com/pboling/sanitize_email/network) and th
 
 ## How you can help!
 
-Take a look at the `reek` list which is the file called `REEK` and stat fixing things.  Once you complete a change, run the tests:
+Take a look at the `reek` list which is the file called `REEK` and stat fixing things.
 
-`bundle exec rake test:all`
-
-If the tests pass refresh the `reek` list:
+To refresh the `reek` list:
 
 `bundle exec reek > REEK`
 

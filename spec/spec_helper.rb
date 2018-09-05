@@ -5,7 +5,10 @@
 require 'mail'
 require 'rails'
 require 'action_mailer'
-require 'byebug'
+if RUBY_ENGINE == 'mri'
+  require 'byebug'
+  require 'pry-byebug'
+end
 require 'logger'
 
 # For code coverage, must be required before all application / gem / library code.

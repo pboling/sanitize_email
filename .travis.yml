@@ -1,3 +1,5 @@
+script: bundle exec appraisal rspec
+
 before_install:
   - gem update --system
   - gem install bundler
@@ -16,41 +18,43 @@ language: ruby
 sudo: false
 
 rvm:
-  - jruby-9.1.16.0
-  - 2.3.6
-  - 2.4.3
-  - 2.5.0
+  # latest versions on travis-ci as of 2018.09.04
+  - jruby-9.1.9.0
+  - ruby-2.3.7
+  - ruby-2.4.4
+  - ruby-2.5.1
   - jruby-head
   - ruby-head
-  - rbx-3
 
 gemfile:
-  - gemfiles/rails_4_2.gemfile
-  - gemfiles/rails_5_0.gemfile
-  - gemfiles/rails_5_1.gemfile
+- gemfiles/rails_4_2.gemfile
+- gemfiles/rails_5_0.gemfile
+- gemfiles/rails_5_1.gemfile
+- gemfiles/rails_5_2.gemfile
 
 matrix:
   allow_failures:
     - rvm: jruby-head
     - rvm: ruby-head
-    - rvm: rbx-3
   fast_finish: true
   exclude:
-    - rvm: jruby-9.1.16.0
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: jruby-9.1.16.0
+    # ruby-2.3.7 tests on all versions
+    # ruby-2.4.4 tests on all versions
+    # ruby-2.5.1 tests on all versions
+    # jruby-9.1.9.0 only tests on rails 5.1+
+    - rvm: jruby-9.1.9.0
       gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 2.5.0
-      gemfile: gemfiles/rails_4_2.gemfile
+    # jruby-head only tests on rails 5.2+
     - rvm: jruby-head
       gemfile: gemfiles/rails_4_2.gemfile
     - rvm: jruby-head
       gemfile: gemfiles/rails_5_0.gemfile
+    - rvm: jruby-head
+      gemfile: gemfiles/rails_5_1.gemfile
+    # ruby-head only tests on rails 5.2+
     - rvm: ruby-head
       gemfile: gemfiles/rails_4_2.gemfile
     - rvm: ruby-head
       gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: rbx-3
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: rbx-3
-      gemfile: gemfiles/rails_5_0.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/rails_5_1.gemfile
