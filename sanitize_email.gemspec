@@ -36,13 +36,14 @@ DESCRIPTION
 
   # Development Dependencies
   s.add_development_dependency('actionmailer', ['>= 3'])
-  s.add_development_dependency('appraisal')
-  s.add_development_dependency('bundler')
-  s.add_development_dependency('coveralls')
+  s.add_development_dependency('appraisal', '~> 1')
+  s.add_development_dependency('bundler', '~> 1')
+  s.add_development_dependency('gem-release', '~> 2')
+  s.add_development_dependency('coveralls', '~> 0')
   s.add_development_dependency('mail', ['>= 0'])
   s.add_development_dependency('rails', ['>= 3.0', '< 6'])
   s.add_development_dependency('rake', ['>= 12'])
   s.add_development_dependency('rdoc', ['>= 3.12'])
   s.add_development_dependency('rspec', ['>= 3'])
-  s.add_development_dependency('wwtd')
+  s.add_development_dependency('wwtd', '~> 1')
 end
