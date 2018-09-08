@@ -17,7 +17,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage]  |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | live chat               |  [![Join the chat at https://gitter.im/pboling/sanitize_email](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pboling/sanitize_email?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
-| Spread ~♡ⓛⓞⓥⓔ♡~      |  [🌍 🌎 🌏](https://about.me/peter.boling), [🍚](https://www.crowdrise.com/helprefugeeswithhopefortomorrowliberia/fundraiser/peterboling), [➕](https://plus.google.com/+PeterBoling/posts), [👼](https://angel.co/peter-boling), [🐛](https://www.topcoder.com/members/pboling/), , [:shipit:](http://coderwall.com/pboling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](http://twitter.com/galtzo) |
+| Spread ~♡ⓛⓞⓥⓔ♡~      |  [🌍 🌎 🌏](https://about.me/peter.boling), [🍚](https://www.crowdrise.com/helprefugeeswithhopefortomorrowliberia/fundraiser/peterboling), [➕](https://plus.google.com/+PeterBoling/posts), [👼](https://angel.co/peter-boling), [🐛](https://www.topcoder.com/members/pboling/), [:shipit:](http://coderwall.com/pboling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](http://twitter.com/galtzo) |
 
 ## Summary
 
