@@ -10,14 +10,14 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | download rank               |  [![Total Downloads](https://img.shields.io/gem/rt/sanitize_email.svg)](https://rubygems.org/gems/sanitize_email) |
 | version                 |  [![Version](https://img.shields.io/gem/v/sanitize_email.png)](https://rubygems.org/gems/sanitize_email) |
 | dependencies            |  [![Depfu](https://badges.depfu.com/badges/bba430e8f19a2ba3273fb20d5e8c82d6/count.svg)](https://depfu.com/github/pboling/sanitize_email) |
-| code quality            |  [![Code Quality](https://img.shields.io/codeclimate/github/pboling/sanitize_email.svg)](https://codeclimate.com/github/pboling/sanitize_email) |
-| inline documenation     |  [![Documentation](http://inch-ci.org/github/pboling/sanitize_email.svg)](http://inch-ci.org/github/pboling/sanitize_email) |
 | continuous integration  |  [![Build](https://img.shields.io/travis/pboling/sanitize_email.svg)](https://travis-ci.org/pboling/sanitize_email) |
-| test coverage           |  [![Coverage Status](https://coveralls.io/repos/pboling/sanitize_email/badge.svg)](https://coveralls.io/r/pboling/sanitize_email) |
+| test coverage           |  [![Test Coverage](https://api.codeclimate.com/v1/badges/65af4948d859903a0372/test_coverage)](https://codeclimate.com/github/pboling/sanitize_email/test_coverage) |
+| code quality            |  [![Maintainability](https://api.codeclimate.com/v1/badges/65af4948d859903a0372/maintainability)](https://codeclimate.com/github/pboling/sanitize_email/maintainability) |
+| inline documenation     |  [![Documentation](http://inch-ci.org/github/pboling/sanitize_email.svg)](http://inch-ci.org/github/pboling/sanitize_email) |
 | homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage]  |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | live chat               |  [![Join the chat at https://gitter.im/pboling/sanitize_email](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pboling/sanitize_email?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
-| Spread ~♡ⓛⓞⓥⓔ♡~      |  [:fa-angellist:](https://angel.co/peter-boling), [:fa-code-branch:](https://www.topcoder.com/members/pboling/), [:fa-code-branch:](http://coderwall.com/pboling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](http://twitter.com/galtzo) |
+| Spread ~♡ⓛⓞⓥⓔ♡~      |  [➕](https://plus.google.com/+PeterBoling/posts), [👼](https://angel.co/peter-boling), [🐛](https://www.topcoder.com/members/pboling/), [🌍 🌎 🌏](https://about.me/peter.boling), [🍚](https://www.crowdrise.com/helprefugeeswithhopefortomorrowliberia/fundraiser/peterboling) [:shipit:](http://coderwall.com/pboling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](http://twitter.com/galtzo) |
 
 ## Summary
 
