@@ -15,7 +15,7 @@ module SanitizeEmail
   class MissingBlockParameter < StandardError; end
 
   # Allow non-rails implementations to use this gem
-  if defined?(::Rails)
+  if !defined?(::Rails)
     if defined?(::Rails::Engine)
       require 'sanitize_email/engine'
     elsif ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR.zero?
