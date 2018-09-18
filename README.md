@@ -43,6 +43,15 @@ It's particularly helpful when you want to prevent the delivery of email (e.g. i
 7. Iterate on email content design
 8. No risk of emailing production addresses
 
+## ACDCORP versions
+We are hosting several gems that our projects are using because bundle requires
+them from the custom fork or original repo where they can get updates and crash our
+projects, therefore, every gem fork contains the following branch(es):
+
+  * fork-stable => Stable or initial branch from the fork
+  * x.x-acdcorp-stable => custom stable version
+  * master => continues development and tracking original repos
+
 ## Re-routing Email on a Staging or QA Server
 
 Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  Similarly, we set up QA instances for our own QA team and we use [rails-caddy](http://github.com/jtrupiano/rails-caddy) to allow each QA person to configure it specifically for them.
@@ -205,7 +214,7 @@ SanitizeEmail::Config.configure do |config|
   config[:use_actual_email_as_sanitized_user_name] = true       # or false
 end
 
-# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) 
+# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail)
 # then you will need to do the equivalent for whatever Mail system you are using.
 
 RSpec.configure do |config|
@@ -292,7 +301,7 @@ SanitizeEmail::Config.configure do |config|
   config[:use_actual_email_as_sanitized_user_name] = true       # or false
 end
 
-# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail) 
+# If your mail system is not one that sanitize_email automatically configures an interceptor for (ActionMailer, Mail)
 # then you will need to do the equivalent for whatever Mail system you are using.
 
 # You need to know what to do here... somehow get the methods into rhw scope of your tests.
