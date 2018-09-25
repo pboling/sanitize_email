@@ -34,7 +34,7 @@ module SanitizeEmail
       # a black list
       :bad_list => nil,
 
-      :environment => if !defined?(Rails) && Rails.env.present?
+      :environment => if !!defined?(Rails) && !!defined?(Rails.env)
                         "[#{Rails.env}]"
                       else
                         '[UNKNOWN ENVIRONMENT]'
