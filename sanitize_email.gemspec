@@ -41,7 +41,7 @@ DESCRIPTION
   s.add_development_dependency('gem-release', '~> 2')
   s.add_development_dependency('coveralls', '~> 0')
   s.add_development_dependency('mail', ['>= 0'])
-  s.add_development_dependency('rails', ['>= 3.0', '< 6'])
+  s.add_development_dependency('rails', ['>= 3.0', '<= 6.1.0'])
   s.add_development_dependency('rake', ['>= 12'])
   s.add_development_dependency('rdoc', ['>= 3.12'])
   s.add_development_dependency('rspec', ['>= 3'])
