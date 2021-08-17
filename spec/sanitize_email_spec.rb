@@ -157,6 +157,37 @@ describe SanitizeEmail do
     end
   end
 
+  # def mail_delivery_multiple_personalizations
+  #   @email_message = Mail.deliver do
+  #     @email_message = Mail.deliver do
+  #       from      'from@example.org'
+  #       to        %w[to1@example.org to2@example.org to3@example.org]
+  #       cc        %w[cc1@example.org cc2@example.org cc3@example.org]
+  #       bcc       %w[bcc1@example.org bcc2@example.org bcc3@example.org]
+  #       reply_to  'reply_to@example.org'
+  #       subject   'original subject'
+  #       body      'funky fresh'
+  #       personalizations [
+  #         {
+  #           to: 'to1@example.org',
+  #           cc: 'cc1@example.org',
+  #           bcc: 'bcc1@example.org'
+  #         },
+  #         {
+  #           to: 'to2@example.org',
+  #           cc: 'cc2@example.org',
+  #           bcc: 'bcc2@example.org'
+  #         },
+  #         {
+  #           to: 'to3@example.org',
+  #           cc: 'cc3@example.org',
+  #           bcc: 'bcc3@example.org'
+  #         },
+  #       ]
+  #     end
+  #   end
+  # end
+
   before do
     SanitizeEmail::Deprecation.deprecate_in_silence = true
     sanitize_spec_dryer
