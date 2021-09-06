@@ -17,6 +17,7 @@ module SanitizeEmail
     # If all recipient addresses are white-listed the field is left alone.
     def self.delivering_email(message)
       return nil unless sanitize_engaged?(message)
+
       SanitizeEmail::MailHeaderTools.
         add_original_addresses_as_headers(message)
       SanitizeEmail::MailHeaderTools.
@@ -28,8 +29,9 @@ module SanitizeEmail
       message.cc = overridden.overridden_cc
       message.bcc = overridden.overridden_bcc
 
-      return if message["personalizations"].nil?
-      message["personalizations"].value = overridden.overridden_personalizations
+      return if message['personalizations'].nil?
+
+      message['personalizations'].value = overridden.overridden_personalizations
     end
 
     # Will be called by the Hook to determine if an override should occur
