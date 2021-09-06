@@ -63,13 +63,13 @@ module SanitizeEmail
       actual_personalizations.unparsed_value.map do |actual_personalization|
         actual_personalization.merge(
           to: actual_personalization[:to]&.map do |to|
-            to.merge(:email => override_email(:to, to[:email]).join(','))
+            to.merge(email: override_email(:to, to[:email]).join(","))
           end,
           cc: actual_personalization[:cc]&.map do |cc|
-            cc.merge(:email => override_email(:cc, cc[:email]).join(','))
+            cc.merge(email: override_email(:cc, cc[:email]).join(","))
           end,
           bcc: actual_personalization[:bcc]&.map do |bcc|
-            bcc.merge(:email => override_email(:bcc, bcc[:email]).join(','))
+            bcc.merge(email: override_email(:bcc, bcc[:email]).join(","))
           end
         )
       end
