@@ -27,7 +27,9 @@ module SanitizeEmail
       message.to = overridden.overridden_to
       message.cc = overridden.overridden_cc
       message.bcc = overridden.overridden_bcc
-      message['personalizations'].value = overridden.overridden_personalizations unless message['personalizations'].nil?
+
+      return if message['personalizations'].nil?
+      message['personalizations'].value = overridden.overridden_personalizations
     end
 
     # Will be called by the Hook to determine if an override should occur

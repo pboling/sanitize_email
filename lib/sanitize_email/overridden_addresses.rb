@@ -16,7 +16,8 @@ module SanitizeEmail
 
     REPLACE_AT = [/@/, ' at '].freeze
     REPLACE_ALLIGATOR = [/[<>]/, '~'].freeze
-    attr_accessor :overridden_to, :overridden_cc, :overridden_bcc, :overridden_personalizations,
+    attr_accessor :overridden_to, :overridden_cc, :overridden_bcc,
+                  :overridden_personalizations,
                   :good_list, # White-listed addresses will not be molested as to, cc, or bcc
                   :bad_list, # Black-listed addresses will be removed from to, cc and bcc when sanitization is engaged
                   :sanitized_to, :sanitized_cc, :sanitized_bcc # Replace non-white-listed addresses with these sanitized addresses.
@@ -32,7 +33,8 @@ module SanitizeEmail
       @overridden_to = to_override(message.to)
       @overridden_cc = cc_override(message.cc)
       @overridden_bcc = bcc_override(message.bcc)
-      @overridden_personalizations = personalizations_override(message['personalizations']) unless message['personalizations'].nil?
+      return if message['personalizations'].nil?
+      @overridden_personalizations = personalizations_override(message['personalizations'])
     end
 
     # Allow good listed email addresses, and then remove the bad listed addresses
