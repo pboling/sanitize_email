@@ -104,6 +104,21 @@ There are three ways SanitizeEmail can be turned on; in order of precedence they
     SanitizeEmail::Config.configure {|config| config[:activation_proc] = Proc.new { true } } # by default :activation_proc is false
     ```
 
+### Examples
+
+#### Only allow email to a specific domain
+
+This works by ensuring that all recipients have the "allowed" domain.
+In other words, none of the recipients have a domain other than the allowed domain.
+
+```ruby
+ALLOWED_DOMAIN = 'example.com'
+# NOTE: you may need to check CC and BCC also, depending on your use case...
+config[:activation_proc] = ->(message) do
+   !Array(message.to).any? { |recipient| Mail::Address.new(recipient).domain != ALLOWED_DOMAIN }
+end
+```
+
 ### Notes
 
 Number 1, above, is the method used by the SanitizeEmail.sanitary block.
