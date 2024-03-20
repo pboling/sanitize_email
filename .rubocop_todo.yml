@@ -17,5 +17,8 @@ Style/ExpandPathArguments:
 Style/CommentedKeyword:
   Enabled: false
 
-Style/MethodMissing:
+Style/MethodMissingSuper:
+  Enabled: false
+
+Style/MissingRespondToMissing:
   Enabled: false

@@ -17,6 +17,7 @@ module SanitizeEmail
     REPLACE_AT = [/@/, ' at '].freeze
     REPLACE_ALLIGATOR = [/[<>]/, '~'].freeze
     attr_accessor :overridden_to, :overridden_cc, :overridden_bcc,
+                  :overridden_personalizations,
                   :good_list, # White-listed addresses will not be molested as to, cc, or bcc
                   :bad_list, # Black-listed addresses will be removed from to, cc and bcc when sanitization is engaged
                   :sanitized_to, :sanitized_cc, :sanitized_bcc # Replace non-white-listed addresses with these sanitized addresses.
@@ -32,6 +33,10 @@ module SanitizeEmail
       @overridden_to = to_override(message.to)
       @overridden_cc = cc_override(message.cc)
       @overridden_bcc = bcc_override(message.bcc)
+      return if message['personalizations'].nil?
+
+      @overridden_personalizations =
+        personalizations_override(message['personalizations'])
     end
 
     # Allow good listed email addresses, and then remove the bad listed addresses
@@ -44,6 +49,7 @@ module SanitizeEmail
     def to_override(actual_addresses)
       to = override_email(:to, actual_addresses)
       raise MissingTo, "after overriding :to (#{actual_addresses}) there are no addresses to send in To: header." if to.empty?
+
       to.join(',')
     end
 
@@ -53,6 +59,22 @@ module SanitizeEmail
 
     def bcc_override(actual_addresses)
       override_email(:bcc, actual_addresses).join(',')
+    end
+
+    def personalizations_override(actual_personalizations)
+      actual_personalizations.unparsed_value.map do |actual_personalization|
+        actual_personalization.merge(
+          :to => actual_personalization[:to]&.map do |to|
+            to.merge(:email => override_email(:to, to[:email]).join(','))
+          end,
+          :cc => actual_personalization[:cc]&.map do |cc|
+            cc.merge(:email => override_email(:cc, cc[:email]).join(','))
+          end,
+          :bcc => actual_personalization[:bcc]&.map do |bcc|
+            bcc.merge(:email => override_email(:bcc, bcc[:email]).join(','))
+          end
+        )
+      end
     end
 
     def override_email(type, actual_addresses)
