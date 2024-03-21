@@ -788,9 +788,14 @@ describe SanitizeEmail do
           )
           sanitary_mail_delivery
         end
-        it 'original to is munged and prepended' do
+        it 'original to is in header' do
+          expect(@email_message).to have_sanitized_to_header(
+            'to@example.org'
+          )
+        end
+        it 'munged original to is to username' do
           expect(@email_message).to have_to_username(
-            'to at example.org <to@sanitize_email.org>'
+            'to at example.org'
           )
         end
         it 'does not alter non-sanitized attributes' do
