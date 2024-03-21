@@ -252,7 +252,6 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wwtd (1.4.1)
     zeitwerk (2.6.13)
 
 PLATFORMS
@@ -278,7 +277,6 @@ DEPENDENCIES
   rubocop (~> 0.59.2)
   rubocop-rspec (~> 1.29.1)
   sanitize_email!
-  wwtd (~> 1)
 
 BUNDLED WITH
    2.5.6
