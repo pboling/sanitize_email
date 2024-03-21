@@ -2,7 +2,6 @@
 
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
-require 'spec_helper'
 
 describe SanitizeEmail do
   DEFAULT_TEST_CONFIG = {
