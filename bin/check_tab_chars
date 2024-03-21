@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Absolutely no tab characters in any *.rb, *.yml, or *.yaml files.
+(test $(grep -nR $'\t' --include="*.rb" --include="*.yml" --include="*.yaml" | tee pb_ruby_tabs_found.txt | wc -l) -eq "0" && \
+  rm pb_ruby_tabs_found.txt) || \
+  (cat pb_ruby_tabs_found.txt && rm pb_ruby_tabs_found.txt && exit 1)
