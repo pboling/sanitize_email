@@ -43,10 +43,9 @@ DESCRIPTION
   # Development Dependencies
   spec.add_development_dependency('actionmailer', ['>= 3'])
   spec.add_development_dependency('appraisal', '~> 2')
-  spec.add_development_dependency('gem-release', '~> 2')
-  spec.add_development_dependency('coveralls', '~> 0')
   spec.add_development_dependency('rails', ['>= 3.0', '<= 8'])
   spec.add_development_dependency('rake', ['>= 12'])
   spec.add_development_dependency('rdoc', ['>= 3.12'])
   spec.add_development_dependency('rspec', ['>= 3'])
+  spec.add_development_dependency('rspec-block_is_expected', ['~> 1.0', '>= 1.0.5'])
 end

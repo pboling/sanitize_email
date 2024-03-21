@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-group :test do
-  # Travis-CI does not support C-extensions on JRuby
-  ruby_version = Gem::Version.new(RUBY_VERSION)
-  if ruby_version >= Gem::Version.new('2.1')
-    gem 'rubocop', '~> 0.59.2', platforms: :mri
-    gem 'rubocop-rspec', '~> 1.29.1', platforms: :mri
-  end
-  if ruby_version >= Gem::Version.new('2.0')
-    gem 'byebug', platforms: :mri
-    gem 'pry', platforms: :mri
-    gem 'pry-byebug', platforms: :mri
-  end
-end
-
 # Specify your gem's dependencies in sanitize_email.gemspec
 gemspec
+
+platform :mri do
+  # Debugging
+  gem "byebug", ">= 11"
+end
+
+# Coverage
+gem "kettle-soup-cover", "~> 1.0", ">= 1.0.2"
+
+# Linting
+gem "rubocop-lts", "~> 10.1", ">= 10.1.1"
+gem "rubocop-packaging", "~> 0.5", ">= 0.5.2"
+gem "rubocop-rspec", "~> 2.10"

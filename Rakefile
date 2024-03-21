@@ -1,47 +1,46 @@
 # frozen_string_literal: true
 
-require 'bundler/gem_tasks'
+require "bundler/gem_tasks"
 
 begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:spec)
-  desc "alias test => spec"
-  task :default => :spec
-  task :test => :spec
+  require "rspec/core/rake_task"
+  RSpec::Core::RakeTask.new
+  desc("alias spec => test")
+  task(spec: :test)
 rescue LoadError
-  warn 'Failed to load rspec'
+  warn("Failed to load rspec")
 end
 
 begin
-  require 'reek/rake/task'
+  require "reek/rake/task"
   Reek::Rake::Task.new do |t|
     t.fail_on_error = true
     t.verbose = false
-    t.source_files = 'lib/**/*.rb'
+    t.source_files = "lib/**/*.rb"
   end
 rescue LoadError
-  warn 'Failed to load reek'
+  warn("Failed to load reek")
 end
 
 begin
-  require 'roodi'
-  require 'roodi_task'
+  require "roodi"
+  require "roodi_task"
   RoodiTask.new do |t|
     t.verbose = false
   end
 rescue LoadError
-  warn 'Failed to load roodi'
+  warn("Failed to load roodi")
 end
 
-require File.expand_path('lib/sanitize_email/version', __dir__)
-require 'rdoc'
-require 'rdoc/task'
+require "lib/sanitize_email/version"
+require "rdoc"
+require "rdoc/task"
 RDoc::Task.new do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = "SanitizeEmail #{SanitizeEmail::VERSION}"
-  rdoc.options << '--line-numbers'
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_dir = "rdoc"
+  rdoc.title = "SanitizeEmail #{SanitizeEmail::VERSION}"
+  rdoc.options << "--line-numbers"
+  rdoc.rdoc_files.include("README*")
+  rdoc.rdoc_files.include("lib/**/*.rb")
 end
 
 begin
