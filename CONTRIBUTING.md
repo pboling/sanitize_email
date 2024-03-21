@@ -20,7 +20,7 @@ To release a new version:
 6. Run `git checkout main` (Or whichever branch is considered `trunk`, e.g. `master`)
 7. Run `git pull origin main` to ensure you will release the latest trunk code.
 8. Set `SOURCE_DATE_EPOCH` so `rake build` and `rake release` use same timestamp, and generate same checksums
-   a. Run `export SOURCE_DATE_EPOCH=$EPOCHSECONDS`
+   a. Run `export SOURCE_DATE_EPOCH=$EPOCHSECONDS` (you'll need the zsh/datetime module, if running zsh)
 9. Run `bundle exec rake build`
 10. Run [`bin/checksums`](https://github.com/rubygems/guides/pull/325) to create SHA-256 and SHA-512 checksums
     a. Checksums will be committed automatically by the script, but not pushed

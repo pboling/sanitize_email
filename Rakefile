@@ -1,15 +1,11 @@
-
 # frozen_string_literal: true
 
-# !/usr/bin/env rake
-require 'rubygems'
-require 'bundler/setup'
 require 'bundler/gem_tasks'
-require 'rake'
 
 begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)
+  desc "alias test => spec"
   task :default => :spec
   task :test => :spec
 rescue LoadError
@@ -48,4 +44,11 @@ RDoc::Task.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-Bundler::GemHelper.install_tasks
+begin
+  require "rubocop/lts"
+  Rubocop::Lts.install_tasks
+rescue LoadError
+  puts "Linting not available"
+end
+
+task default: %i[spec rubocop_gradual]
