@@ -49,5 +49,4 @@ DESCRIPTION
   s.add_development_dependency('rake', ['>= 12'])
   s.add_development_dependency('rdoc', ['>= 3.12'])
   s.add_development_dependency('rspec', ['>= 3'])
-  s.add_development_dependency('wwtd', '~> 1')
 end

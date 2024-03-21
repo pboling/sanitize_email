@@ -363,12 +363,6 @@ appraisal install
 appraisal rake test
 ```
 
-Run the whole travis compatibility matrix:
-```
-rake wwtd:bundle
-rake wwtd
-```
-
 Sometimes also:
 ```
 appraisal update
