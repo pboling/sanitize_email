@@ -132,6 +132,8 @@ module SanitizeEmail
         has_address ? address : nil
       when :bad_list then
         has_address ? nil : address
+      else
+        raise ArgumentError, "address_list_filter got unknown list_type: #{list_type}"
       end
     end
 
