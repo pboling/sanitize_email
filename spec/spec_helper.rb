@@ -5,7 +5,7 @@
 require 'mail'
 require 'rails'
 require 'action_mailer'
-if RUBY_ENGINE == 'mri'
+if RUBY_ENGINE == 'ruby'
   require 'byebug'
   require 'pry-byebug'
 end
