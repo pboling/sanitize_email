@@ -16,7 +16,8 @@ module SanitizeEmail
 
     REPLACE_AT = [/@/, ' at '].freeze
     REPLACE_ALLIGATOR = [/[<>]/, '~'].freeze
-    attr_accessor :overridden_to, :overridden_cc, :overridden_bcc,
+    attr_accessor :tempmail,
+                  :overridden_to, :overridden_cc, :overridden_bcc,
                   :overridden_personalizations,
                   :good_list, # White-listed addresses will not be molested as to, cc, or bcc
                   :bad_list, # Black-listed addresses will be removed from to, cc and bcc when sanitization is engaged
@@ -30,13 +31,23 @@ module SanitizeEmail
       @sanitized_bcc = args[:sanitized_bcc]
       @good_list = args[:good_list] || []
       @bad_list = args[:bad_list] || []
-      @overridden_to = to_override(message.to)
-      @overridden_cc = cc_override(message.cc)
-      @overridden_bcc = bcc_override(message.bcc)
+      # Mail will do the username parsing for us.
+      @tempmail = Mail.new
+
+      self.tempmail.to = to_override(message.to)
+      self.tempmail.cc = cc_override(message.cc)
+      self.tempmail.bcc = bcc_override(message.bcc)
+
+      remove_duplicates
+
+      @overridden_to = self.tempmail[:to].decoded
+      @overridden_cc = self.tempmail[:cc].decoded
+      @overridden_bcc = self.tempmail[:bcc].decoded
+
+      # remove addresses from :cc that are in :to
       return if message['personalizations'].nil?
 
-      @overridden_personalizations =
-        personalizations_override(message['personalizations'])
+      @overridden_personalizations = personalizations_override(message['personalizations'])
     end
 
     # Allow good listed email addresses, and then remove the bad listed addresses
@@ -154,6 +165,22 @@ module SanitizeEmail
         Array(sanitized_bcc)
       else
         raise UnknownOverride, 'unknown email override'
+      end
+    end
+
+    private
+
+    def remove_duplicates
+      dedup_addresses = tempmail[:to].addresses
+
+      tempmail[:cc].addrs.reject! do |addr|
+        # If this email address is already in the :to list, then remove
+        dedup_addresses.include?(addr.address)
+      end
+      dedup_addresses += tempmail[:cc].addresses
+      tempmail[:bcc].addrs.reject! do |addr|
+        # If this email address is already in the :to list, then remove
+        dedup_addresses.include?(addr.address)
       end
     end
   end
