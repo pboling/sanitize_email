@@ -38,10 +38,14 @@ module SanitizeEmail
       # Add headers by string concat.
       # Setting hash values on message.headers does nothing, strangely.
       # See: http://goo.gl/v46GY
+      to_addrs = message[:to]&.addrs
+      cc_addrs = message[:cc]&.addrs
+      to_decoded = Array(to_addrs&.map(&:decoded))
+      cc_decoded = Array(cc_addrs&.map(&:decoded))
       {
         # can be an arrays, so casting it as arrays
-        'X-Sanitize-Email-To' => Array(message.to).uniq,
-        'X-Sanitize-Email-Cc' => Array(message.cc).uniq
+        'X-Sanitize-Email-To' => to_decoded,
+        'X-Sanitize-Email-Cc' => cc_decoded
         # Don't write out the BCC, as those addresses should not be visible
         #   in message headers for obvious reasons
       }.each do |header_key, header_value|
