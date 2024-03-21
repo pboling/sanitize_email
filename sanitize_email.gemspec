@@ -14,12 +14,17 @@ Gem::Specification.new do |s|
     In Rails, Sinatra, et al, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses.
 DESCRIPTION
   s.email = ['peter.boling@gmail.com']
-  s.extra_rdoc_files = [
-    'CHANGELOG.md',
-    'LICENSE',
-    'README.md',
+
+  # Specify which files should be added to the gem when it is released.
+  spec.files = Dir[
+    "lib/**/*.rb",
+    "CODE_OF_CONDUCT.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LICENSE.txt",
+    "README.md",
+    "SECURITY.md"
   ]
-  s.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
   s.executables   = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.homepage = 'http://github.com/pboling/sanitize_email'
