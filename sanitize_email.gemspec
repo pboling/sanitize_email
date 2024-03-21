@@ -33,15 +33,14 @@ DESCRIPTION
   # s.add_dependency "railties", ">= 3.2"
   # to replace the cattr_accessor method we lost when removing rails from run time dependencies
   # s.add_runtime_dependency("facets", ["> 0"])
+  s.add_dependency('mail', ['>= 0'])
 
   # Development Dependencies
   s.add_development_dependency('actionmailer', ['>= 3'])
   s.add_development_dependency('appraisal', '~> 2')
-  s.add_development_dependency('bundler', '~> 1')
   s.add_development_dependency('gem-release', '~> 2')
   s.add_development_dependency('coveralls', '~> 0')
-  s.add_development_dependency('mail', ['>= 0'])
-  s.add_development_dependency('rails', ['>= 3.0', '<= 7.1.3'])
+  s.add_development_dependency('rails', ['>= 3.0', '<= 8'])
   s.add_development_dependency('rake', ['>= 12'])
   s.add_development_dependency('rdoc', ['>= 3.12'])
   s.add_development_dependency('rspec', ['>= 3'])
