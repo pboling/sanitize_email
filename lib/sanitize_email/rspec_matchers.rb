@@ -42,25 +42,49 @@ module SanitizeEmail
     end
 
     RSpec::Matchers.define 'have_to_username' do |matcher|
-      def get_to_username(email_message)
-        username_header = email_message.header['X-Sanitize-Email-To']
-        return username_header unless username_header.is_a?(Mail::Field)
-        email_message.header.fields[3].value
+      def get_to_usernames(email_message)
+        to_addrs = email_message[:to].addrs
+        to_addrs.map(&:name)
       end
       match do |actual|
-        @actual = get_to_username(actual)
+        @actual = get_to_usernames(actual)
+        expect(@actual).to include(match(matcher))
+      end
+    end
+
+    RSpec::Matchers.define 'have_sanitized_to_header' do |matcher|
+      def get_sanitized_to_header(email_message)
+        username_header = email_message.header['X-Sanitize-Email-To']
+        return username_header.value if username_header.is_a?(Mail::Field)
+
+        "no username found in header 'X-Sanitize-Email-To'"
+      end
+      match do |actual|
+        @actual = get_sanitized_to_header(actual)
         expect(@actual).to match(matcher)
       end
     end
 
     RSpec::Matchers.define 'have_cc_username' do |matcher|
-      def get_cc_username(email_message)
-        username_header = email_message.header['X-Sanitize-Email-Cc']
-        return username_header unless username_header.is_a?(Mail::Field)
-        email_message.header.fields[3].value
+      def get_cc_usernames(email_message)
+        to_addrs = email_message[:cc].addrs
+        to_addrs.map(&:name)
       end
       match do |actual|
-        @actual = get_cc_username(actual)
+        @actual = get_cc_usernames(actual)
+        expect(@actual).to include(match(matcher))
+      end
+    end
+
+    RSpec::Matchers.define 'have_sanitized_cc_header' do |matcher|
+      def get_sanitized_cc_header(email_message)
+        username_header = email_message.header['X-Sanitize-Email-Cc']
+        return username_header.value if username_header.is_a?(Mail::Field)
+
+        "no username found in header 'X-Sanitize-Email-Cc'"
+      end
+      match do |actual|
+        @actual = get_sanitized_cc_header(actual)
         expect(@actual).to match(matcher)
       end
     end
