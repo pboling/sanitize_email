@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008 - 2018, 2020, 2022, 2024 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 # Note: the RspecMatchers no longer use these methods.  Instead they are composed matchers:
 # See: http://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/composing-matchers

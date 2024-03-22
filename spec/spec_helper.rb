@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
+# Copyright (c) 2008 - 2018, 2020, 2022, 2024 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 require 'mail'
 require 'rails'
