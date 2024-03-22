@@ -1,13 +1,71 @@
-HEAD
+# Changelog
+All notable changes to this project will be documented in this file.
 
-*UNRELEASED*
-* Drop support for MRI Ruby 1.9, 2.0, 2.1, and 2.2 by Peter Boling
-* Drop support for JRuby 1.7 and 9.0, while still supporting 9.1 by Peter Boling
-* Drop support for Rails 3.0, 3.1, 3.2, 4.0, 4.1, while still supporting 4.2 by Peter Boling
-* Add testing for Rails 5.1 and 5.2 by Peter Boling
+Since version 2.0.0, the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Version 1.2.2 - FEB.17.2017
-* Improve handling of frozen strings, which are becoming more common by @milgner
+## [Unreleased]
+### Added
+### Changed
+### Fixed
+### Removed
+
+## [2.0.4] - 2024-03-22 ([tag][2.0.4t])
+### Added
+* mail gem dependency (@pboling)
+* version_gem dependency (@pboling)
+* new RSpec Matchers (@pboling)
+  * `have_sanitized_to_header`
+  * `have_sanitized_cc_header`
+* Contributor [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) (@pboling)
+* Security Policy in [SECURITY.md](SECURITY.md) (@pboling)
+* More documentation (@pboling)
+### Changed
+* Switched from Travis-CI to GitHub Actions
+  * Testing for
+### Fixed
+* [#64](https://github.com/pboling/sanitize_email/issues/64) Automatically dedup recipients in cascading fashion: To > CC > BCC (@pboling)
+* Set sanitized email headers with decoded values from Mail gem
+### Removed
+* Dependency on git in gemspec (@pboling)
+* Coveralls development gem dependecy
+
+## [2.0.3] - 2018-09-08 ([tag][2.0.3t])
+### Changed
+* Nothing
+
+## [2.0.2] - 2018-09-08 ([tag][2.0.2t])
+### Added
+* More and fixed badges (@pboling)
+* Code Coverage reporting (@pboling)
+### Changed
+* begin following SemVer for dependency requirements (@pboling)
+### Fixed
+* [#47](https://github.com/pboling/sanitize_email/pull/47) Don't use #prepend on subject (@mslade-fairfax)
+### Removed
+* Ability to install on Ruby 2.2 (@pboling)
+
+## [2.0.1] - 2018-03-07 ([tag][2.0.1t])
+### Fixed
+* [#32](https://github.com/pboling/sanitize_email/pull/32) A better fix for the frozen subject bug (@pboling)
+### Removed
+* Ruby 2.2 is really no longer supported (@pboling)
+
+## [2.0.0] - 2018-03-07 ([tag][2.0.0t])
+### Added
+* Add testing for Rails 5.1 and 5.2 (@pboling)
+* More and fixed badges (@pboling)
+### Changed
+* Drop support for MRI Ruby 1.9, 2.0, 2.1, and 2.2 (@pboling)
+* Drop support for JRuby 1.7 and 9.0, while still supporting 9.1 (@pboling)
+* Drop support for Rails 3.0, 3.1, 3.2, 4.0, 4.1, while still supporting 4.2 (@pboling)
+### Fixed
+* Frozen subject bug (@pboling)
+### Removed
+* Ruby 2.2 is no longer supported (@pboling)
+
+Version 1.2.2 - FEB.20.2017
+* Improve handling of frozen strings, which are becoming more common (@milgner)
 
 Version 1.2.1 - NOV.03.2016
 * Fix bug where non-array to address would not get prepended to subject when that feature is turned on
@@ -201,3 +259,15 @@ Old version?
 
 * Fixed require paths
 * added about.yml and this CHANGELOG
+
+[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.4...HEAD
+[2.0.4]: https://github.com/pboling/sanitize_email/compare/v2.0.3...v2.0.4
+[2.0.4t]: https://github.com/pboling/sanitize_email/tags/v2.0.4
+[2.0.3]: https://github.com/pboling/sanitize_email/compare/v2.0.2...v2.0.3
+[2.0.3t]: https://github.com/pboling/sanitize_email/tags/v2.0.3
+[2.0.2]: https://github.com/pboling/sanitize_email/compare/v2.0.1...v2.0.2
+[2.0.2t]: https://github.com/pboling/sanitize_email/tags/v2.0.2
+[2.0.1]: https://github.com/pboling/sanitize_email/compare/v2.0.0...v2.0.1
+[2.0.1t]: https://github.com/pboling/sanitize_email/tags/v2.0.1
+[2.0.0]: https://github.com/pboling/sanitize_email/compare/v1.2.2...v2.0.0
+[2.0.0t]: https://github.com/pboling/sanitize_email/tags/v2.0.0
