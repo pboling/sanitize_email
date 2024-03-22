@@ -3,6 +3,9 @@
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
+# External Libraries
+require "mail"
+
 module SanitizeEmail
   # Tools for overriding addresses
   class OverriddenAddresses
