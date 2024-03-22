@@ -39,6 +39,7 @@ DESCRIPTION
   # to replace the cattr_accessor method we lost when removing rails from run time dependencies
   # s.add_runtime_dependency("facets", ["> 0"])
   spec.add_dependency('mail', ['>= 0'])
+  spec.add_dependency('version_gem', ['>= 1.1.4'])
 
   # Development Dependencies
   spec.add_development_dependency('actionmailer', ['>= 3'])

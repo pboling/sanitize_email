@@ -28,10 +28,10 @@ module SanitizeEmail
       #   that go out in "local" environments
       :sanitized_to => nil,
 
-      # a white list
+      # an allow list
       :good_list => nil,
 
-      # a black list
+      # a block list
       :bad_list => nil,
 
       :environment => if defined?(Rails) && Rails.env.present?

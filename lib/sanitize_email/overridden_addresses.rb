@@ -19,9 +19,9 @@ module SanitizeEmail
     attr_accessor :tempmail,
                   :overridden_to, :overridden_cc, :overridden_bcc,
                   :overridden_personalizations,
-                  :good_list, # White-listed addresses will not be molested as to, cc, or bcc
-                  :bad_list, # Black-listed addresses will be removed from to, cc and bcc when sanitization is engaged
-                  :sanitized_to, :sanitized_cc, :sanitized_bcc # Replace non-white-listed addresses with these sanitized addresses.
+                  :good_list, # Allow-listed addresses will not be molested as to, cc, or bcc
+                  :bad_list, # Block-listed addresses will be removed from to, cc and bcc when sanitization is engaged
+                  :sanitized_to, :sanitized_cc, :sanitized_bcc # Replace non-allow-listed addresses with these sanitized addresses.
 
     def initialize(message, **args)
       # Not using extract_options! because non-rails compatibility is a goal

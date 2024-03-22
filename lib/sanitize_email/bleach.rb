@@ -14,7 +14,7 @@ module SanitizeEmail
       deprecation_message unless args.empty?
     end
 
-    # If all recipient addresses are white-listed the field is left alone.
+    # If all recipient addresses are allow-listed the field is left alone.
     def self.delivering_email(message)
       return nil unless sanitize_engaged?(message)
 

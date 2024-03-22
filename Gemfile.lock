@@ -3,6 +3,7 @@ PATH
   specs:
     sanitize_email (2.0.3)
       mail
+      version_gem (>= 1.0.4)
 
 GEM
   remote: https://rubygems.org/
@@ -314,7 +315,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    version_gem (1.1.3)
+    version_gem (1.1.4)
     webrick (1.8.1)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)

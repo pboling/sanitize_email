@@ -162,7 +162,7 @@ Version 1.0.0.rc2 - AUG.08.2012 - botched
 
 Version 1.0.0.rc1
 
-* Added a good_list and a bad_list (whitelist and blacklist)
+* Added a good_list and a bad_list (i.e. allowlist and blocklist)
 * Added Deprecation library
 * Refactored Sanitization module into Hook class
 * Renamed Hook Class to Bleach Class
@@ -178,7 +178,7 @@ Version 1.0.0.alpha2
 * NinthBit namespace is now SanitizeEmail namespace
 * Now has a first class Config class
 
-XXXXXXXXXXXXXXXXXXXXXXX Rail 3.0+ Only Form here on up! XXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXX Rails 3.0+ Only From here on up! XXXXXXXXXXXXXXXXXXXXXXX
 
 Version 0.3.8
 
