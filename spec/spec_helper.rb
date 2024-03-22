@@ -9,7 +9,7 @@ require "logger"
 
 # This does not require "simplecov",
 #   because that has a side-effect of running `.simplecov`
-require "kettle-soup-cover"
+require "kettle-soup-cover" rescue LoadError nil
 
 # RSpec Configs
 require "config/byebug"
@@ -19,6 +19,6 @@ require "config/rspec/version_gem"
 require "support/matchers"
 
 # Last thing before this gem is code coverage:
-require "simplecov" if Kettle::Soup::Cover::DO_COV
+require "simplecov" if defined?(Kettle::Soup::Cover) && Kettle::Soup::Cover::DO_COV
 
 require "sanitize_email"
