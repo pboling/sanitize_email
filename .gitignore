@@ -9,3 +9,6 @@ spec/tmp
 gemfiles/*.lock
 rdoc/*
 .byebug_history
+
+# rspec failure tracking
+.rspec_status
