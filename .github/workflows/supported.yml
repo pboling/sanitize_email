@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - 'main'
-      - '*-maintenance'
+      - '*-stable'
       - '*-dev'
     tags:
       - '!*' # Do not execute on tags
@@ -46,6 +46,7 @@ jobs:
           - '3.2'
           - '3.3'
           - truffleruby
+          - jruby
 
     steps:
       - name: Checkout
