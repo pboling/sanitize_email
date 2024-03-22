@@ -54,10 +54,10 @@ module SanitizeEmail
 
     RSpec::Matchers.define("have_sanitized_to_header") do |matcher|
       def get_sanitized_to_header(email_message)
-        username_header = email_message.header["X-Sanitize-Email-To"]
-        return username_header.value if username_header.is_a?(Mail::Field)
+        sanitized_to_header = email_message.header["X-Sanitize-Email-To"]
+        return sanitized_to_header.value if sanitized_to_header.is_a?(Mail::Field)
 
-        "no username found in header 'X-Sanitize-Email-To'"
+        "no header found at 'X-Sanitize-Email-To'"
       end
       match do |actual|
         @actual = get_sanitized_to_header(actual)
@@ -78,10 +78,10 @@ module SanitizeEmail
 
     RSpec::Matchers.define("have_sanitized_cc_header") do |matcher|
       def get_sanitized_cc_header(email_message)
-        username_header = email_message.header["X-Sanitize-Email-Cc"]
-        return username_header.value if username_header.is_a?(Mail::Field)
+        sanitized_cc_header = email_message.header["X-Sanitize-Email-Cc"]
+        return sanitized_cc_header.value if sanitized_cc_header.is_a?(Mail::Field)
 
-        "no username found in header 'X-Sanitize-Email-Cc'"
+        "no header found at 'X-Sanitize-Email-Cc'"
       end
       match do |actual|
         @actual = get_sanitized_cc_header(actual)
