@@ -5,9 +5,13 @@
 require 'mail'
 require 'rails'
 require 'action_mailer'
-if RUBY_ENGINE == 'ruby'
-  require 'byebug'
-  require 'pry-byebug'
+if RUBY_ENGINE == 'ruby' && ENV['CI']
+  begin
+    require 'byebug'
+    require 'pry-byebug'
+  rescue LoadError
+    # byebug won't be available if testing the Appraisal gemfiles.
+  end
 end
 require 'logger'
 
