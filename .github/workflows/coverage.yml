@@ -105,3 +105,9 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
         continue-on-error: ${{ matrix.experimental != 'false' }}
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: pboling/sanitize_email
