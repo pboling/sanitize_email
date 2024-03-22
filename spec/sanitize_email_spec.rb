@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-
 # Copyright (c) 2008 - 2018, 2020, 2022, 2024 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
-describe SanitizeEmail do
+RSpec.describe SanitizeEmail do
   DEFAULT_TEST_CONFIG = {
     sanitized_cc: "cc@sanitize_email.org",
     sanitized_bcc: "bcc@sanitize_email.org",

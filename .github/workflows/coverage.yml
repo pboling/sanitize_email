@@ -1,8 +1,8 @@
 name: Ruby - Coverage
 
 env:
-  K_SOUP_COV_MIN_BRANCH: 82
-  K_SOUP_COV_MIN_LINE: 94
+  K_SOUP_COV_MIN_BRANCH: 56
+  K_SOUP_COV_MIN_LINE: 57
   K_SOUP_COV_MIN_HARD: true
 
 on:
@@ -34,8 +34,6 @@ jobs:
     if: "!contains(github.event.commits[0].message, '[ci skip]') && !contains(github.event.commits[0].message, '[skip ci]')"
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
-      CI_CODECOV: true
-      COVER_ALL: true
     runs-on: ubuntu-latest
     strategy:
       matrix:

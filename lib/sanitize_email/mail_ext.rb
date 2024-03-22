@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "mail"
+
 # Cribbed from email_spec gem
 module SanitizeEmail::MailExt
   def default_part
