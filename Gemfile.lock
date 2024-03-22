@@ -3,7 +3,7 @@ PATH
   specs:
     sanitize_email (2.0.3)
       mail
-      version_gem (>= 1.0.4)
+      version_gem (>= 1.1.4)
 
 GEM
   remote: https://rubygems.org/

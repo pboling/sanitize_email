@@ -3,6 +3,10 @@
 # Copyright (c) 2008-16 Peter H. Boling of RailsBling.com
 # Released under the MIT license
 
+# External Libraries
+require "version_gem"
+
+# This Library
 require 'sanitize_email/version'
 require 'sanitize_email/deprecation'
 require 'sanitize_email/config'
@@ -127,4 +131,8 @@ module SanitizeEmail
     deprecated_alias :sanitized_recipients, :sanitized_to
     deprecated :local_environments, :activation_proc
   end
+end
+
+SanitizeEmail::Version.class_eval do
+  extend VersionGem::Basic
 end

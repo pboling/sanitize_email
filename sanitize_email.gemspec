@@ -1,11 +1,15 @@
 
 # frozen_string_literal: true
 
-require File.expand_path('lib/sanitize_email/version', __dir__)
+# Get the GEMFILE_VERSION without *require* "my_gem/version", for code coverage accuracy
+# See: https://github.com/simplecov-ruby/simplecov/issues/557#issuecomment-825171399
+load "lib/sanitize_email/version.rb"
+gem_version = SanitizeEmail::Version::VERSION
+SanitizeEmail::Version.send(:remove_const, :VERSION)
 
 Gem::Specification.new do |spec|
   spec.name = 'sanitize_email'
-  spec.version = SanitizeEmail::VERSION
+  spec.version = gem_version
 
   spec.authors = ['Peter Boling', 'John Trupiano', 'George Anderson']
   spec.summary = 'Email Condom for your Ruby Server'

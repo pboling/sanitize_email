@@ -32,12 +32,12 @@ rescue LoadError
   warn("Failed to load roodi")
 end
 
-require "lib/sanitize_email/version"
+require_relative "lib/sanitize_email/version"
 require "rdoc"
 require "rdoc/task"
 RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = "rdoc"
-  rdoc.title = "SanitizeEmail #{SanitizeEmail::VERSION}"
+  rdoc.title = "SanitizeEmail #{SanitizeEmail::Version::VERSION}"
   rdoc.options << "--line-numbers"
   rdoc.rdoc_files.include("README*")
   rdoc.rdoc_files.include("lib/**/*.rb")
