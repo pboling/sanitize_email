@@ -17,7 +17,7 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 | homepage                |  [http://www.railsbling.com/tags/sanitize_email/][homepage]  |
 | documentation           |  [http://rdoc.info/github/pboling/sanitize_email/frames][documentation] |
 | live chat               |  [![Join the chat at https://gitter.im/pboling/sanitize_email](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pboling/sanitize_email?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
-| Spread ~♡ⓛⓞⓥⓔ♡~      |  [🌏](https://about.me/peter.boling), [👼](https://angel.co/peter-boling), [:shipit:](http://coderwall.com/pboling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](http://twitter.com/galtzo), [🌹](https://nationalprogressiveparty.org) |
+| Spread ~♡ⓛⓞⓥⓔ♡~      |  [🌏](https://about.me/peter.boling), [👼](https://angel.co/peter-boling), [:shipit:](http://coderwall.com/pboling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](http://twitter.com/galtzo) |
 
 
 ## Summary
@@ -51,6 +51,10 @@ Another very important use case for me is to transparently re-route email genera
 ## Testing Email from a Hot Production Server
 
 If you install this gem on a production server (which I don't always do), you can load up script/console and override the to/cc/bcc on all emails for the duration of your console session.  This allows you to poke and prod a live production instance, and route all email to your own inbox for inspection.  The best part is that this can all be accomplished without changing a single line of your application code.
+
+## Monitoring all email sent by server to a backup account
+
+You may want to add a BCC automatically (e.g. to account-history@my-company.com) to every email sent by your system, for customer service purposes, and this gem allows that.  Note that this may not be a good idea for all systems, for many reasons, e.g security!
 
 ## Using with a test suite as an alternative to the heavy email_spec
 
