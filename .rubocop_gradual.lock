@@ -1,7 +1,7 @@
 {
-  "README.md:3316657051": [
-    [285, 6, 1, "Lint/Syntax: unexpected token tCOMMA\n(Using Ruby 2.3 parser; configure using `TargetRubyVersion` parameter, under `AllCops`)", 177545],
-    [302, 6, 1, "Lint/Syntax: unexpected token tCOMMA\n(Using Ruby 2.3 parser; configure using `TargetRubyVersion` parameter, under `AllCops`)", 177545]
+  "README.md:2590564699": [
+    [248, 6, 1, "Lint/Syntax: unexpected token tCOMMA\n(Using Ruby 2.3 parser; configure using `TargetRubyVersion` parameter, under `AllCops`)", 177545],
+    [265, 6, 1, "Lint/Syntax: unexpected token tCOMMA\n(Using Ruby 2.3 parser; configure using `TargetRubyVersion` parameter, under `AllCops`)", 177545]
   ],
   "Rakefile:345010916": [
     [8, 3, 30, "Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.", 2786900295],
@@ -99,7 +99,7 @@
     [55, 63, 8, "Style/StringLiterals: Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.", 3687121098],
     [55, 73, 10, "Style/StringLiterals: Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.", 3581454162]
   ],
-  "spec/sanitize_email_spec.rb:4236886472": [
+  "spec/sanitize_email_spec.rb:1535635025": [
     [7, 3, 280, "RSpec/LeakyConstantDeclaration: Stub constant instead of declaring explicitly.", 1223327],
     [112, 15, 19, "RSpec/VariableName: Use snake_case for variable names.", 372347066],
     [130, 15, 19, "RSpec/VariableName: Use snake_case for variable names.", 372347066],
