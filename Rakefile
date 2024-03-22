@@ -4,9 +4,9 @@ require "bundler/gem_tasks"
 
 begin
   require "rspec/core/rake_task"
-  RSpec::Core::RakeTask.new
-  desc("alias spec => test")
-  task(spec: :test)
+  RSpec::Core::RakeTask.new(:spec)
+  desc "alias test task to spec"
+  task test: :spec
 rescue LoadError
   warn("Failed to load rspec")
 end
