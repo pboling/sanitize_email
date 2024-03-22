@@ -15,10 +15,6 @@ if RUBY_ENGINE == 'ruby' && ENV['CI']
 end
 require 'logger'
 
-# For code coverage, must be required before all application / gem / library code.
-require 'coveralls'
-Coveralls.wear!
-
 require 'sanitize_email'
 require 'sanitize_email/rspec_matchers'
 
