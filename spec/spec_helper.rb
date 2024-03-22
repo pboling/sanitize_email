@@ -2,21 +2,21 @@
 
 # Copyright (c) 2008 - 2018, 2020, 2022, 2024 Peter H. Boling of RailsBling.com
 # Released under the MIT license
-require 'mail'
-require 'rails'
-require 'action_mailer'
-if RUBY_ENGINE == 'ruby' && ENV['CI']
+require "mail"
+require "rails"
+require "action_mailer"
+if RUBY_ENGINE == "ruby" && ENV["CI"]
   begin
-    require 'byebug'
-    require 'pry-byebug'
+    require "byebug"
+    require "pry-byebug"
   rescue LoadError
     # byebug won't be available if testing the Appraisal gemfiles.
   end
 end
-require 'logger'
+require "logger"
 
-require 'sanitize_email'
-require 'sanitize_email/rspec_matchers'
+require "sanitize_email"
+require "sanitize_email/rspec_matchers"
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

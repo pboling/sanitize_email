@@ -16,48 +16,48 @@ module SanitizeEmail
     DEFAULTS = {
       # Specify the BCC addresses for the messages
       #   that go out in "local" environments
-      :sanitized_bcc => nil,
+      sanitized_bcc: nil,
 
       # Specify the CC addresses for the messages
       #   that go out in "local" environments
-      :sanitized_cc => nil,
+      sanitized_cc: nil,
 
       # The recipient addresses for the messages,
       #   either as a string (for a single address)
       #   or an array (for multiple addresses)
       #   that go out in "local" environments
-      :sanitized_to => nil,
+      sanitized_to: nil,
 
       # an allow list
-      :good_list => nil,
+      good_list: nil,
 
       # a block list
-      :bad_list => nil,
+      bad_list: nil,
 
-      :environment => if defined?(Rails) && Rails.env.present?
-                        "[#{Rails.env}]"
-                      else
-                        '[UNKNOWN ENVIRONMENT]'
-                      end,
+      environment: if defined?(Rails) && Rails.env.present?
+                     "[#{Rails.env}]"
+                   else
+                     "[UNKNOWN ENVIRONMENT]"
+                   end,
 
       # Use the "real" email address as the username
       #   for the sanitized email address
       # e.g. "real@example.com <sanitized@example.com>"
-      :use_actual_email_as_sanitized_user_name => false,
+      use_actual_email_as_sanitized_user_name: false,
 
       # Prepend the "real" email address onto the Subject line of the message
       # e.g. "real@example.com rest of subject"
-      :use_actual_email_prepended_to_subject => false,
+      use_actual_email_prepended_to_subject: false,
 
       # Prepend the Rails environment onto the Subject line of the message
       # e.g. "[development] rest of subject"
-      :use_actual_environment_prepended_to_subject => false,
+      use_actual_environment_prepended_to_subject: false,
 
       # True / False turns on or off sanitization,
       #   while nil ignores this setting and checks activation_proc
-      :engage => nil,
+      engage: nil,
 
-      :activation_proc => proc { false },
+      activation_proc: proc { false },
     }.freeze
 
     @config ||= DEFAULTS.dup
@@ -83,9 +83,9 @@ module SanitizeEmail
     end
 
     def self.config_force_sanitize_deprecation_warning
-      return nil if @config[:force_sanitize].nil?
+      return if @config[:force_sanitize].nil?
       deprecation_warning_message(
-        <<-DEPRECATION
+        <<-DEPRECATION,
               SanitizeEmail::Config.config[:force_sanitize] is deprecated.
               Please use SanitizeEmail.force_sanitize or SanitizeEmail.sanitary instead.
               Refer to https://github.com/pboling/sanitize_email/wiki for examples.

@@ -19,8 +19,8 @@ module SanitizeEmail
     def deprecated_alias(name, replacement)
       # Create a wrapped version
       define_method(name) do |*args, &block|
-        warn "SanitizeEmail: ##{name} deprecated (please use ##{replacement})" unless SanitizeEmail::Deprecation.deprecate_in_silence
-        send replacement, *args, &block
+        warn("SanitizeEmail: ##{name} deprecated (please use ##{replacement})") unless SanitizeEmail::Deprecation.deprecate_in_silence
+        send(replacement, *args, &block)
       end
     end
 
@@ -30,11 +30,11 @@ module SanitizeEmail
     def deprecated(name, replacement = nil)
       # Replace old method
       old_name = :"#{name}_without_deprecation"
-      alias_method old_name, name
+      alias_method(old_name, name)
       # And replace it with a wrapped version
       define_method(name) do |*args, &block|
         deprecation(name, " (please use ##{replacement})")
-        send old_name, *args, &block
+        send(old_name, *args, &block)
       end
     end
 
@@ -47,7 +47,7 @@ module SanitizeEmail
     end
 
     def deprecation_warning_message(message)
-      warn message unless SanitizeEmail::Deprecation.deprecate_in_silence
+      warn(message) unless SanitizeEmail::Deprecation.deprecate_in_silence
     end
   end
 end

@@ -16,12 +16,12 @@ module SanitizeEmail
 
     # If all recipient addresses are allow-listed the field is left alone.
     def self.delivering_email(message)
-      return nil unless sanitize_engaged?(message)
+      return unless sanitize_engaged?(message)
 
-      SanitizeEmail::MailHeaderTools.
-        add_original_addresses_as_headers(message)
-      SanitizeEmail::MailHeaderTools.
-        prepend_custom_subject(message)
+      SanitizeEmail::MailHeaderTools
+        .add_original_addresses_as_headers(message)
+      SanitizeEmail::MailHeaderTools
+        .prepend_custom_subject(message)
 
       overridden = SanitizeEmail::OverriddenAddresses.new(message)
 
@@ -29,9 +29,9 @@ module SanitizeEmail
       message.cc = overridden.overridden_cc
       message.bcc = overridden.overridden_bcc
 
-      return if message['personalizations'].nil?
+      return if message["personalizations"].nil?
 
-      message['personalizations'].value = overridden.overridden_personalizations
+      message["personalizations"].value = overridden.overridden_personalizations
     end
 
     # Will be called by the Hook to determine if an override should occur
@@ -90,7 +90,7 @@ module SanitizeEmail
       SanitizeEmail.activate?(message)
     end
 
-  private
+    private
 
     def deprecation_message
       deprecation = <<~DEPRECATION

@@ -17,14 +17,18 @@ module SanitizeEmail
     # recognized recipient types are: TO, CC, and BCC
     class UnknownOverride < StandardError; end
 
-    REPLACE_AT = [/@/, ' at '].freeze
-    REPLACE_ALLIGATOR = [/[<>]/, '~'].freeze
+    REPLACE_AT = [/@/, " at "].freeze
+    REPLACE_ALLIGATOR = [/[<>]/, "~"].freeze
     attr_accessor :tempmail,
-                  :overridden_to, :overridden_cc, :overridden_bcc,
-                  :overridden_personalizations,
-                  :good_list, # Allow-listed addresses will not be molested as to, cc, or bcc
-                  :bad_list, # Block-listed addresses will be removed from to, cc and bcc when sanitization is engaged
-                  :sanitized_to, :sanitized_cc, :sanitized_bcc # Replace non-allow-listed addresses with these sanitized addresses.
+      :overridden_to,
+      :overridden_cc,
+      :overridden_bcc,
+      :overridden_personalizations,
+      :good_list, # Allow-listed addresses will not be molested as to, cc, or bcc
+      :bad_list, # Block-listed addresses will be removed from to, cc and bcc when sanitization is engaged
+      :sanitized_to,
+      :sanitized_cc,
+      :sanitized_bcc # Replace non-allow-listed addresses with these sanitized addresses.
 
     def initialize(message, **args)
       # Not using extract_options! because non-rails compatibility is a goal
@@ -37,20 +41,20 @@ module SanitizeEmail
       # Mail will do the username parsing for us.
       @tempmail = Mail.new
 
-      self.tempmail.to = to_override(message.to)
-      self.tempmail.cc = cc_override(message.cc)
-      self.tempmail.bcc = bcc_override(message.bcc)
+      tempmail.to = to_override(message.to)
+      tempmail.cc = cc_override(message.cc)
+      tempmail.bcc = bcc_override(message.bcc)
 
       remove_duplicates
 
-      @overridden_to = self.tempmail[:to].decoded
-      @overridden_cc = self.tempmail[:cc].decoded
-      @overridden_bcc = self.tempmail[:bcc].decoded
+      @overridden_to = tempmail[:to].decoded
+      @overridden_cc = tempmail[:cc].decoded
+      @overridden_bcc = tempmail[:bcc].decoded
 
       # remove addresses from :cc that are in :to
-      return if message['personalizations'].nil?
+      return if message["personalizations"].nil?
 
-      @overridden_personalizations = personalizations_override(message['personalizations'])
+      @overridden_personalizations = personalizations_override(message["personalizations"])
     end
 
     # Allow good listed email addresses, and then remove the bad listed addresses
@@ -64,29 +68,29 @@ module SanitizeEmail
       to = override_email(:to, actual_addresses)
       raise MissingTo, "after overriding :to (#{actual_addresses}) there are no addresses to send in To: header." if to.empty?
 
-      to.join(',')
+      to.join(",")
     end
 
     def cc_override(actual_addresses)
-      override_email(:cc, actual_addresses).join(',')
+      override_email(:cc, actual_addresses).join(",")
     end
 
     def bcc_override(actual_addresses)
-      override_email(:bcc, actual_addresses).join(',')
+      override_email(:bcc, actual_addresses).join(",")
     end
 
     def personalizations_override(actual_personalizations)
       actual_personalizations.unparsed_value.map do |actual_personalization|
         actual_personalization.merge(
-          :to => actual_personalization[:to]&.map do |to|
-            to.merge(:email => override_email(:to, to[:email]).join(','))
+          to: actual_personalization[:to]&.map do |to|
+            to.merge(email: override_email(:to, to[:email]).join(","))
           end,
-          :cc => actual_personalization[:cc]&.map do |cc|
-            cc.merge(:email => override_email(:cc, cc[:email]).join(','))
+          cc: actual_personalization[:cc]&.map do |cc|
+            cc.merge(email: override_email(:cc, cc[:email]).join(","))
           end,
-          :bcc => actual_personalization[:bcc]&.map do |bcc|
-            bcc.merge(:email => override_email(:bcc, bcc[:email]).join(','))
-          end
+          bcc: actual_personalization[:bcc]&.map do |bcc|
+            bcc.merge(email: override_email(:bcc, bcc[:email]).join(","))
+          end,
         )
       end
     end
@@ -143,11 +147,11 @@ module SanitizeEmail
     def inject_user_names(real_addresses, sanitized_addresses)
       real_addresses.each_with_object([]) do |real_recipient, result|
         new_recipient = if real_recipient.nil?
-                          sanitized_addresses
-                        else
-                          # puts "SANITIZED: #{sanitized_addresses}"
-                          sanitized_addresses.map { |sanitized| "#{real_recipient.gsub(REPLACE_AT[0], REPLACE_AT[1]).gsub(/[<>]/, '~')} <#{sanitized}>" }
-                        end
+          sanitized_addresses
+        else
+          # puts "SANITIZED: #{sanitized_addresses}"
+          sanitized_addresses.map { |sanitized| "#{real_recipient.gsub(REPLACE_AT[0], REPLACE_AT[1]).gsub(/[<>]/, "~")} <#{sanitized}>" }
+        end
         result << new_recipient
       end.flatten
     end
@@ -169,7 +173,7 @@ module SanitizeEmail
       when :bcc then
         Array(sanitized_bcc)
       else
-        raise UnknownOverride, 'unknown email override'
+        raise UnknownOverride, "unknown email override"
       end
     end
 
