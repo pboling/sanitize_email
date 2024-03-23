@@ -588,6 +588,24 @@ See [CONTRIBUTING.md][🤝contributing]
 
 [🤝contributing]: CONTRIBUTING.md
 
+### You can help!
+
+Take a look at the `reek` list which is the file called `REEK` and start fixing things.
+
+To refresh the `reek` list:
+
+`bundle exec reek > REEK`
+
+Then follow these instructions:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Make some fixes.
+4. Commit your changes (`git commit -am 'Added some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+7. Create new Pull Request.
+
 ## 🌈 Contributors
 
 [![Contributors][🌈contrib-rocks-img]][🐙hub-contrib]
