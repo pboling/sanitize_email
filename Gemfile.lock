@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sanitize_email (2.0.3)
+    sanitize_email (2.0.4)
       mail
       version_gem (>= 1.1.4)
 
