@@ -40,4 +40,4 @@ rescue LoadError
   puts "Linting not available"
 end
 
-task default: %i[spec reek rubocop_gradual]
+task default: %i[spec rubocop_gradual reek]
