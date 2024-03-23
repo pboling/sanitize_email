@@ -19,17 +19,7 @@ begin
     t.source_files = "lib/**/*.rb"
   end
 rescue LoadError
-  warn("Failed to load reek")
-end
-
-begin
-  require "roodi"
-  require "roodi_task"
-  RoodiTask.new do |t|
-    t.verbose = false
-  end
-rescue LoadError
-  warn("Failed to load roodi")
+  warn("reek is not installed")
 end
 
 require_relative "lib/sanitize_email/version"
@@ -50,4 +40,4 @@ rescue LoadError
   puts "Linting not available"
 end
 
-task default: %i[spec rubocop_gradual]
+task default: %i[spec reek rubocop_gradual]

@@ -19,3 +19,6 @@ gem "kettle-soup-cover", "~> 1.0", ">= 1.0.2"
 gem "rubocop-lts", "~> 10.1", ">= 10.1.1"
 gem "rubocop-packaging", "~> 0.5", ">= 0.5.2"
 gem "rubocop-rspec", "~> 2.10"
+
+# Quality
+gem "reek"
