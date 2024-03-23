@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.4] - 2024-03-22 ([tag][2.0.4t])
 ### Added
+* [#74](https://github.com/pboling/sanitize_email/pull/74) Support sanitizing SendGrid personalization fields (@joeyparis)
 * mail gem dependency (@pboling)
 * version_gem dependency (@pboling)
 * new RSpec Matchers (@pboling)
