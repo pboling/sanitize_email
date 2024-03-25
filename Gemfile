@@ -16,7 +16,7 @@ end
 gem "kettle-soup-cover", "~> 1.0", ">= 1.0.2"
 
 # Linting
-gem "rubocop-lts", "~> 10.1", ">= 10.1.1"
+gem "rubocop-lts", "~> 10.1", ">= 10.1.1" # Linting for Ruby >= 2.3
 gem "rubocop-packaging", "~> 0.5", ">= 0.5.2"
 gem "rubocop-rspec", "~> 2.10"
 

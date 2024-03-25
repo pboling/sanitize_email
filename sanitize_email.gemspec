@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
     In Rails, Sinatra, et al, or simply the mail gem: Aids in development, testing, qa, and production troubleshooting of email issues without worrying that emails will get sent to actual live addresses.
   DESCRIPTION
   spec.email = ["peter.boling@gmail.com"]
+  spec.homepage = "https://github.com/pboling/#{spec.name}"
 
   # Specify which files should be added to the gem when it is released.
   spec.files = Dir[
@@ -33,11 +34,18 @@ Gem::Specification.new do |spec|
     "SECURITY.md"
   ]
   spec.executables = spec.files.grep(%r{^bin/}).map { |f| File.basename(f) }
-  spec.homepage = "http://github.com/pboling/sanitize_email"
   spec.licenses = ["MIT"]
   spec.require_paths = ["lib"]
-  spec.platform = Gem::Platform::RUBY
   spec.required_ruby_version = ">= 2.3.0"
+
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "#{spec.homepage}/tree/v#{spec.version}"
+  spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/v#{spec.version}/CHANGELOG.md"
+  spec.metadata["bug_tracker_uri"] = "#{spec.homepage}/issues"
+  spec.metadata["documentation_uri"] = "https://www.rubydoc.info/gems/#{spec.name}/#{spec.version}"
+  spec.metadata["wiki_uri"] = "#{spec.homepage}/wiki"
+  spec.metadata["funding_uri"] = "https://liberapay.com/pboling"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   # Runtime Dependencies
   # A project wanting to use this gem's engine/railtie will be expected to have already loaded the rails/railtie gem.
