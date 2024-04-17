@@ -21,4 +21,4 @@ gem "rubocop-packaging", "~> 0.5", ">= 0.5.2"
 gem "rubocop-rspec", "~> 2.10"
 
 # Quality
-gem "reek"
+gem "reek", "~> 6.3"
