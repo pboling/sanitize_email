@@ -89,6 +89,17 @@ module SanitizeEmail
       end
     end
 
+    RSpec::Matchers.define("have_bcc_username") do |matcher|
+      def get_bcc_usernames(email_message)
+        to_addrs = email_message[:bcc].addrs
+        to_addrs.map(&:name)
+      end
+      match do |actual|
+        @actual = get_bcc_usernames(actual)
+        expect(@actual).to(include(match(matcher)))
+      end
+    end
+
     # Cribbed from email_spec gem
     RSpec::Matchers.define("have_body_text") do |matcher|
       def get_fuzzy_body(email_message)
