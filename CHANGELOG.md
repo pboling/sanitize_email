@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
+## [2.0.5] - 2024-04-18 ([tag][2.0.5t])
+### Added
+* New RSpec matcher (@pboling)
+  * `have_bcc_username`
+* Feature #21 - environment configuration option can now be set to proc / lambda / #call (@pboling)
+* Documentation of all configuration options in README.md (@pboling)
+* Many more tests
+  * Confirmed compatibility with [`sendgrid-actionmailer`](https://github.com/eddiezane/sendgrid-actionmailer)
+  * Code coverage up to 90%
+### Changed
+* Averted deprecation warnings when using Rails 6 (@pboling)
+
 ## [2.0.4] - 2024-03-22 ([tag][2.0.4t])
 ### Added
 * [#74](https://github.com/pboling/sanitize_email/pull/74) Support sanitizing SendGrid personalization fields (@joeyparis)
