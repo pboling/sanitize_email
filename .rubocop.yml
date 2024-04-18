@@ -1,2 +1,5 @@
 inherit_gem:
   rubocop-lts: config/rubygem_rspec.yml
+
+RSpec/InstanceVariable:
+  Enabled: false

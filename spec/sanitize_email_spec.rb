@@ -156,36 +156,35 @@ RSpec.describe SanitizeEmail do
     end
   end
 
-  # def mail_delivery_multiple_personalizations
-  #   @email_message = Mail.deliver do
-  #     @email_message = Mail.deliver do
-  #       from      'from@example.org'
-  #       to        %w[to1@example.org to2@example.org to3@example.org]
-  #       cc        %w[cc1@example.org cc2@example.org cc3@example.org]
-  #       bcc       %w[bcc1@example.org bcc2@example.org bcc3@example.org]
-  #       reply_to  'reply_to@example.org'
-  #       subject   'original subject'
-  #       body      'funky fresh'
-  #       personalizations [
-  #         {
-  #           to: 'to1@example.org',
-  #           cc: 'cc1@example.org',
-  #           bcc: 'bcc1@example.org'
-  #         },
-  #         {
-  #           to: 'to2@example.org',
-  #           cc: 'cc2@example.org',
-  #           bcc: 'bcc2@example.org'
-  #         },
-  #         {
-  #           to: 'to3@example.org',
-  #           cc: 'cc3@example.org',
-  #           bcc: 'bcc3@example.org'
-  #         },
-  #       ]
-  #     end
-  #   end
-  # end
+  def mail_delivery_multiple_personalizations
+    @email_message = Mail.deliver do
+      from "from@example.org"
+      to %w[to1@example.org to2@example.org to3@example.org]
+      cc %w[cc1@example.org cc2@example.org cc3@example.org]
+      bcc %w[bcc1@example.org bcc2@example.org bcc3@example.org]
+      reply_to "reply_to@example.org"
+      subject :"original subject"
+      body "funky fresh"
+    end
+    @email_message["personalizations"] = [
+      {
+        to: "to1@example.org",
+        cc: "cc1@example.org",
+        bcc: "bcc1@example.org",
+      },
+      {
+        to: "to2@example.org",
+        cc: "cc2@example.org",
+        bcc: "bcc2@example.org",
+      },
+      {
+        to: "to3@example.org",
+        cc: "cc3@example.org",
+        bcc: "bcc3@example.org",
+      },
+    ]
+    @email_message
+  end
 
   before do
     SanitizeEmail::Deprecation.deprecate_in_silence = true
@@ -546,6 +545,149 @@ RSpec.describe SanitizeEmail do
           use_actual_environment_prepended_to_subject: true,
         )
         expect { sanitary_mail_delivery_frozen_strings }.not_to raise_exception
+      end
+    end
+
+    context "with activation_proc denial" do
+      it "is the default" do
+        expect { mail_delivery }.not_to raise_exception
+        expect(@email_message).to have_to("to@example.org")
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).not_to have_subject("## CHEW-GRUEL ##")
+        expect(@email_message).to have_subject("original subject")
+        expect(@email_message).to have_body_text("funky fresh")
+        expect(@email_message).not_to have_header(
+          "X-Sanitize-Email-To",
+          "to@example.org",
+        )
+      end
+
+      it "does not activate" do
+        configure_sanitize_email(
+          activation_proc: proc { false },
+          environment: "## CHEW-GRUEL ##",
+          use_actual_environment_prepended_to_subject: true,
+        )
+        expect { mail_delivery }.not_to raise_exception
+        expect(@email_message).to have_to("to@example.org")
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).not_to have_subject("## CHEW-GRUEL ##")
+        expect(@email_message).to have_subject("original subject")
+        expect(@email_message).to have_body_text("funky fresh")
+        expect(@email_message).not_to have_header(
+          "X-Sanitize-Email-To",
+          "to@example.org",
+        )
+      end
+
+      context "when disabled activation_proc provided to sanitize" do
+        it "does not activate" do
+          options = {
+            activation_proc: proc { false },
+            environment: "## CHEW-GRUEL ##",
+            use_actual_environment_prepended_to_subject: true,
+          }
+          expect { sanitary_mail_delivery(options) }.not_to raise_exception
+          expect(@email_message).to have_to("to@example.org")
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).not_to have_subject("## CHEW-GRUEL ##")
+          expect(@email_message).to have_subject("original subject")
+          expect(@email_message).to have_body_text("funky fresh")
+          expect(@email_message).not_to have_header(
+            "X-Sanitize-Email-To",
+            "to@example.org",
+          )
+        end
+      end
+    end
+
+    context "with multiple personalizations" do
+      it "handles them" do
+        configure_sanitize_email(
+          activation_proc: proc { true },
+          environment: "## CHEW-GRUEL ##",
+          use_actual_environment_prepended_to_subject: true,
+        )
+        expect { mail_delivery_multiple_personalizations }.not_to raise_exception
+        expect(@email_message).to have_to("to@sanitize_email.org")
+        expect(@email_message).to have_cc("cc@sanitize_email.org")
+        expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_subject("## CHEW-GRUEL ## original subject")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
+        expect(@email_message).to have_header(
+          "X-Sanitize-Email-To",
+          "to1@example.org",
+        )
+        expect(@email_message).to have_header(
+          "X-Sanitize-Email-To-2",
+          "to2@example.org",
+        )
+        expect(@email_message).to have_header(
+          "X-Sanitize-Email-To-3",
+          "to3@example.org",
+        )
+        expect(@email_message).to have_header(
+          "X-Sanitize-Email-Cc",
+          "cc1@example.org",
+        )
+        expect(@email_message).to have_header(
+          "X-Sanitize-Email-Cc-2",
+          "cc2@example.org",
+        )
+        expect(@email_message).to have_header(
+          "X-Sanitize-Email-Cc-3",
+          "cc3@example.org",
+        )
+      end
+    end
+
+    context "with activation_proc enabling" do
+      it "activates" do
+        configure_sanitize_email(
+          activation_proc: proc { true },
+          environment: "## CHEW-GRUEL ##",
+          use_actual_environment_prepended_to_subject: true,
+        )
+        expect { mail_delivery }.not_to raise_exception
+        expect(@email_message).to have_to("to@sanitize_email.org")
+        expect(@email_message).to have_cc("cc@sanitize_email.org")
+        expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_subject("## CHEW-GRUEL ## original subject")
+        expect(@email_message).to have_reply_to("reply_to@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
+        expect(@email_message).to have_header(
+          "X-Sanitize-Email-To",
+          "to@example.org",
+        )
+      end
+
+      context "when enabled activation_proc provided to sanitize" do
+        it "activates" do
+          configure_sanitize_email
+          options = {
+            activation_proc: proc { true },
+            environment: "## CHEW-GRUEL ##",
+            use_actual_environment_prepended_to_subject: true,
+          }
+          expect { sanitary_mail_delivery(options) }.not_to raise_exception
+          expect(@email_message).to have_to("to@sanitize_email.org")
+          expect(@email_message).to have_cc("cc@sanitize_email.org")
+          expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_subject("## CHEW-GRUEL ## original subject")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
+          expect(@email_message).to have_header(
+            "X-Sanitize-Email-To",
+            "to@example.org",
+          )
+        end
       end
     end
 

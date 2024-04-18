@@ -18,7 +18,7 @@ require "support/matchers"
 begin
   # This does not require "simplecov", but
   require "kettle-soup-cover"
-  #   has a side-effect of running `.simplecov`
+  #   this next line has a side-effect of running `.simplecov`
   require "simplecov" if defined?(Kettle::Soup::Cover) && Kettle::Soup::Cover::DO_COV
 rescue LoadError
   nil

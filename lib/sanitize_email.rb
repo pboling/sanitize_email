@@ -21,7 +21,13 @@ module SanitizeEmail
   # Allow non-rails implementations to use this gem
   if defined?(::Rails) && defined?(::Rails::VERSION)
     if defined?(::Rails::Engine)
-      require "sanitize_email/engine"
+      if ::Rails::VERSION::MAJOR >= 6
+        # Rails 6.0+
+        require "sanitize_email/engine_v6"
+      else
+        # Rails 3.1 to 5.2
+        require "sanitize_email/engine_v5"
+      end
     elsif ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR.zero?
       require "sanitize_email/railtie"
     else
