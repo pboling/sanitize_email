@@ -1,8 +1,8 @@
 name: Ruby - Coverage
 
 env:
-  K_SOUP_COV_MIN_BRANCH: 56
-  K_SOUP_COV_MIN_LINE: 57
+  K_SOUP_COV_MIN_BRANCH: 73
+  K_SOUP_COV_MIN_LINE: 90
   K_SOUP_COV_MIN_HARD: true
 
 on:
@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: CodeClimate Install
-        uses: amancevice/setup-code-climate@v1
+        uses: amancevice/setup-code-climate@v2
         if: ${{ github.event_name != 'pull_request' }}
         with:
           cc_test_reporter_id: "${{ secrets.CC_TEST_REPORTER_ID }}"
