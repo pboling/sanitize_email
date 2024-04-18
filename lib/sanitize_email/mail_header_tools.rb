@@ -26,7 +26,11 @@ module SanitizeEmail
     end
 
     def self.prepend_environment_to_subject
-      SanitizeEmail::Config.config[:environment]
+      if SanitizeEmail::Config.config[:environment].respond_to?(:call)
+        SanitizeEmail::Config.config[:environment].call.to_s
+      else
+        SanitizeEmail::Config.config[:environment].to_s
+      end
     end
 
     def self.prepend_email_to_subject(actual_addresses)
