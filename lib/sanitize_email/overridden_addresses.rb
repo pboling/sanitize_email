@@ -9,8 +9,11 @@ require "mail"
 module SanitizeEmail
   # Tools for overriding addresses
   class OverriddenAddresses
-    # Raised when after applying all sanitization rules there are no addresses to send the email to.
-    class MissingTo < StandardError; end
+    # Raised when there are no recipients after sanitization
+    class MissingRecipients < StandardError; end
+
+    # MissingTo is Deprecated
+    class MissingTo < MissingRecipients; end
 
     # Raised if there is a recipient type that sanitize_email doesn't recognize.
     # If you get this error please report it.
@@ -45,16 +48,18 @@ module SanitizeEmail
       tempmail.cc = cc_override(message.cc)
       tempmail.bcc = bcc_override(message.bcc)
 
+      # remove addresses from :cc / :bcc that are also in :to
       remove_duplicates
 
       @overridden_to = tempmail[:to].decoded
       @overridden_cc = tempmail[:cc].decoded
       @overridden_bcc = tempmail[:bcc].decoded
 
-      # remove addresses from :cc that are in :to
-      return if message["personalizations"].nil?
-
-      @overridden_personalizations = personalizations_override(message["personalizations"])
+      if message["personalizations"].nil?
+        raise MissingRecipients, "No recipients left post-sanitization" if (tempmail.to + tempmail.cc + tempmail.bcc).empty?
+      else
+        @overridden_personalizations = personalizations_override(message["personalizations"])
+      end
     end
 
     # Allow good listed email addresses, and then remove the bad listed addresses
@@ -66,8 +71,6 @@ module SanitizeEmail
 
     def to_override(actual_addresses)
       to = override_email(:to, actual_addresses)
-      raise MissingTo, "after overriding :to (#{actual_addresses}) there are no addresses to send in To: header." if to.empty?
-
       to.join(",")
     end
 

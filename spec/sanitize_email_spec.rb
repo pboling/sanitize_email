@@ -116,6 +116,15 @@ RSpec.describe SanitizeEmail do
     end
   end
 
+  def mail_delivery_bcc_only
+    @email_message = Mail.deliver do
+      from "from@example.org"
+      bcc "bcc@example.org"
+      subject :"original subject"
+      body "funky fresh"
+    end
+  end
+
   def mail_delivery_hot_mess
     @email_message = Mail.deliver do
       from "same@example.org"
@@ -508,6 +517,51 @@ RSpec.describe SanitizeEmail do
         expect(@email_message).not_to have_subject(
           "(to at example.org) original subject",
         )
+      end
+    end
+
+    context "when sanitary with only bcc, which is overriden to nil" do
+      before do
+        configure_sanitize_email(
+          {
+            sanitized_to: "to@sanitize_email.org",
+            sanitized_cc: nil,
+            sanitized_bcc: nil,
+            engage: true,
+          },
+        )
+      end
+
+      it "raises error on no recipients left after sanitization" do
+        expect { mail_delivery_bcc_only }.to raise_error(SanitizeEmail::OverriddenAddresses::MissingRecipients)
+      end
+    end
+
+    context "when sanitary with only bcc" do
+      before do
+        configure_sanitize_email(
+          {
+            sanitized_to: "to@sanitize_email.org",
+            sanitized_cc: nil,
+            sanitized_bcc: "bcc@sanitize_email.org",
+            engage: true,
+          },
+        )
+        mail_delivery_bcc_only
+      end
+
+      it "does not alter non-sanitized attributes" do
+        expect(@email_message).to have_from("from@example.org")
+        expect(@email_message).to have_body_text("funky fresh")
+      end
+
+      it "overrides where original recipients were not nil" do
+        expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+      end
+
+      it "does not override where original recipients were nil" do
+        expect(@email_message).to have_to(nil)
+        expect(@email_message).to have_cc(nil)
       end
     end
 
