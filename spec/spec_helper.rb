@@ -6,6 +6,7 @@
 require "rails"
 require "action_mailer"
 require "logger"
+require "rspec/pending_for"
 
 # RSpec Configs
 require "config/byebug"

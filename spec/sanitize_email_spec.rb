@@ -560,6 +560,8 @@ RSpec.describe SanitizeEmail do
       end
 
       it "does not override where original recipients were nil" do
+        skip_for(engine: "ruby", versions: "2.3.8", reason: "Can't match(nil)")
+        skip_for(engine: "ruby", versions: "2.4.10", reason: "Can't match(nil)")
         expect(@email_message).to have_to(nil)
         expect(@email_message).to have_cc(nil)
       end
