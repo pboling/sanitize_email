@@ -363,6 +363,8 @@ end
 
 Keep in mind, this is ruby (and possibly rails), so you can add conditionals or utilize different environment.rb files to customize these settings on a per-environment basis.
 
+## Override the override
+
 But wait there's more:
 
 Let's say you have a method in your model that you can call to test the signup email. You want to be able to test sending it to any user at any time... but you don't want the user to ACTUALLY get the email, even in production. A dilemma, yes?  Not anymore!
@@ -373,7 +375,9 @@ To override the environment based switch use `force_sanitize`, which is normally
   SanitizeEmail.force_sanitize = true
 ```
 
-There are also two methods that take a block and turn SanitizeEmail on or off:
+When testing your email in a console, you can manipulate how email will be handled in this way.
+
+There are also two methods that take a block and turn SanitizeEmail on or off (see section on Thread Safety below):
 
 Regardless of the Config settings of SanitizeEmail you can do a local override to force unsanitary email in any environment.
 
@@ -421,6 +425,17 @@ This happens in a few different ways, and two of them are in the config below (`
 | use_actual_environment_prepended_to_subject | [Boolean]                            | (when engaged) Use `environment` prepended to subject (e.g. "{{ STAGING }} Original Subject")                                        |
 | engage                                      | [Boolean, nil]                       | Boolean will turn engage or disengage this gem, while `nil` ignores this setting and instead checks `activation_proc`                |
 | activation_proc                             | [Proc, Lambda, #call]                | When checked, due to `engage: nil`, the result will either engage or disengage this gem                                              |
+
+## Thread Safety
+
+So long as you don't change the config after initializing it at runtime, you'll be fine.
+Like many Ruby tools' config objects, it is a single config object, shared by all threads.
+The helpers like `sanitary`, `unsanitary`, `janitor`, and `force_sanitize`
+are intended to be used in single threaded environments,
+like a test suite, or a console session.
+
+I doubt I'll ever have a need for runtime reconfiguration of the config,
+so I doubt I'll ever have a reason to make it "more" thread safe than it is now, but PRs are welcome!
 
 ## Use sanitize_email in your test suite!
 
