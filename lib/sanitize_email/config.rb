@@ -42,11 +42,11 @@ module SanitizeEmail
 
       # Use the "real" email address as the username
       #   for the sanitized email address
-      # e.g. "real@example.com <sanitized@example.com>"
+      # e.g. "real at example.com <sanitized@example.com>"
       use_actual_email_as_sanitized_user_name: false,
 
       # Prepend the "real" email address onto the Subject line of the message
-      # e.g. "real@example.com rest of subject"
+      # e.g. "real at example.com rest of subject"
       use_actual_email_prepended_to_subject: false,
 
       # Prepend the Rails environment onto the Subject line of the message

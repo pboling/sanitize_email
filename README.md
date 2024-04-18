@@ -61,6 +61,15 @@ testing your email in the aforementioned `mailcatcher` may not be enough.
 If you want to test all the way through Paubox's system, but have the email go to a safe testing account address,
 then this is the gem for you.
 
+## Compatibility
+
+⚙️ Compatible with all versions of Ruby >= 2.3.
+⚙️ Compatible with all Ruby web Frameworks (Hanami, Roda, Sinatra, Rails).
+⚙️ Compatible with all versions of Rails from 3.0 - 7.1+.
+⚙️ Compatible with scripted usage of Mail gem outside a web framework.
+⚙️ Compatible with [`sendgrid-actionmailer`](https://github.com/eddiezane/sendgrid-actionmailer)'s support for personalizations, and will override email addresses there according to the configuration.
+⚙️ If this gem is not compatible with your use case, and you'd like it to be, I'd like to hear about it!
+
 ## 🛞 DVCS
 
 This project does not trust any one version control system,
@@ -393,6 +402,25 @@ You have access to all the same configuration options in the parameter hash as y
     end
   end
 ```
+
+## Configuration Options
+
+As used in the "Description" column below, `engaged` means: `SanitizeEmail.activate?(message) # => true`.
+This happens in a few different ways, and two of them are in the config below (`engage` and `activation_proc`).
+
+| Option                                      | Type (Yard format)                   | Description                                                                                                                          |
+|---------------------------------------------|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| sanitized_to                                | [String, Array[String]]              | (when engaged) Override CC field with these addresses                                                                                |
+| sanitized_cc                                | [String, Array[String]]              | (when engaged) Override CC field with these addresses                                                                                |
+| sanitized_bcc                               | [String, Array[String]]              | (when engaged) Override BCC field with these addresses                                                                               |
+| good_list                                   | [Array[String]]                      | (when engaged) Email addresses to allow to pass-through without overriding                                                           |
+| bad_list                                    | [Array[String]]                      | (when engaged) Email addresses to be removed from message's TO, CC, & BCC                                                            |
+| environment                                 | [String, #to_s, Proc, Lambda, #call] | (when engaged) The environment value to use wherever it is added to message (e.g. in the subject line)                               |
+| use_actual_email_as_sanitized_user_name     | [Boolean]                            | (when engaged) Use "real" email address as username for sanitized email address (e.g. "real at example.com <sanitized@example.com>") |
+| use_actual_email_prepended_to_subject       | [Boolean]                            | (when engaged) Use "real" email address prepended to subject (e.g. "real at example.com Original Subject")                           |
+| use_actual_environment_prepended_to_subject | [Boolean]                            | (when engaged) Use `environment` prepended to subject (e.g. "{{ STAGING }} Original Subject")                                        |
+| engage                                      | [Boolean, nil]                       | Boolean will turn engage or disengage this gem, while `nil` ignores this setting and instead checks `activation_proc`                |
+| activation_proc                             | [Proc, Lambda, #call]                | When checked, due to `engage: nil`, the result will either engage or disengage this gem                                              |
 
 ## Use sanitize_email in your test suite!
 

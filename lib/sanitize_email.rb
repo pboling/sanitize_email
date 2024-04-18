@@ -60,7 +60,7 @@ module SanitizeEmail
   # NOTE: Deprecated method
   # We have to actually define because we can't deprecate methods that are hooked up via method_missing
   def self.sanitized_recipients
-    SanitizeEmail::Config.config[:sanitized_recipients]
+    # NOOP - This method is never actually executed, because the deprecations redirects the call to sanitized_to
   end
 
   # NOTE: Deprecated method

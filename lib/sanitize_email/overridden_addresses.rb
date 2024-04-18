@@ -79,6 +79,7 @@ module SanitizeEmail
       override_email(:bcc, actual_addresses).join(",")
     end
 
+    # Intended to result in compatibility with https://github.com/eddiezane/sendgrid-actionmailer
     def personalizations_override(actual_personalizations)
       actual_personalizations.unparsed_value.map do |actual_personalization|
         actual_personalization.merge(
