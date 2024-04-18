@@ -54,6 +54,8 @@ RSpec.describe SanitizeEmail do
       config[:use_actual_email_prepended_to_subject] = options[:use_actual_email_prepended_to_subject]
       config[:use_actual_environment_prepended_to_subject] = options[:use_actual_environment_prepended_to_subject]
       config[:use_actual_email_as_sanitized_user_name] = options[:use_actual_email_as_sanitized_user_name]
+      config[:good_list] = options[:good_list]
+      config[:bad_list] = options[:bad_list]
 
       # For testing *deprecated* configuration options:
       config[:local_environments] = options[:local_environments] if options[:local_environments]
@@ -157,7 +159,7 @@ RSpec.describe SanitizeEmail do
   end
 
   def mail_delivery_multiple_personalizations
-    @email_message = Mail.deliver do
+    @email_message = Mail.new do
       from "from@example.org"
       to %w[to1@example.org to2@example.org to3@example.org]
       cc %w[cc1@example.org cc2@example.org cc3@example.org]
@@ -168,22 +170,19 @@ RSpec.describe SanitizeEmail do
     end
     @email_message["personalizations"] = [
       {
-        to: "to1@example.org",
-        cc: "cc1@example.org",
-        bcc: "bcc1@example.org",
+        to: [{email: "to1@example.org"}],
+        cc: [{email: "cc1@example.org"}],
       },
       {
-        to: "to2@example.org",
-        cc: "cc2@example.org",
-        bcc: "bcc2@example.org",
+        to: [{email: "to2@example.org"}],
+        bcc: [{email: "bcc2@example.org"}],
       },
       {
-        to: "to3@example.org",
-        cc: "cc3@example.org",
-        bcc: "bcc3@example.org",
+        cc: [{email: "cc3@example.org"}],
+        bcc: [{email: "bcc3@example.org"}],
       },
     ]
-    @email_message
+    @email_message.deliver
   end
 
   before do
@@ -192,6 +191,46 @@ RSpec.describe SanitizeEmail do
   end
 
   context "module methods" do
+    describe ":[]" do
+      it "accesses config" do
+        expect(SanitizeEmail[:environment]).to eq("[development]")
+      end
+
+      it "does not raise on non-responsive to :to_sym" do
+        expect { SanitizeEmail[1234] }.not_to raise_error
+      end
+
+      it "returns nil on non-responsive to :to_sym" do
+        expect(SanitizeEmail[1234]).to eq(nil)
+      end
+    end
+
+    describe ":method_missing" do
+      it "accesses config" do
+        expect(SanitizeEmail.environment).to eq("[development]")
+      end
+
+      it "does not raise on unknown method" do
+        expect { SanitizeEmail.deep_space }.not_to raise_error
+      end
+
+      it "returns nil on unknown method" do
+        expect(SanitizeEmail.deep_space).to eq(nil)
+      end
+    end
+
+    context "when janitor called without block" do
+      it "raises error" do
+        expect { SanitizeEmail.janitor({}) }.to raise_error(described_class::MissingBlockParameter)
+      end
+    end
+
+    context "when unsanitary called without block" do
+      it "raises error" do
+        expect { SanitizeEmail.unsanitary }.to raise_error(described_class::MissingBlockParameter)
+      end
+    end
+
     context "unsanitary" do
       before do
         configure_sanitize_email
@@ -223,6 +262,12 @@ RSpec.describe SanitizeEmail do
         expect(@email_message).to have_bcc("bcc@example.org")
         expect(@email_message).to have_subject("original subject")
         expect(@email_message).to have_body_text("funky fresh")
+      end
+    end
+
+    context "when sanitary called without block" do
+      it "raises error" do
+        expect { SanitizeEmail.sanitary }.to raise_error(described_class::MissingBlockParameter)
       end
     end
 
@@ -1061,7 +1106,7 @@ RSpec.describe SanitizeEmail do
           # Should turn off sanitization using the force_sanitize
           configure_sanitize_email(
             engage: true,
-            sanitized_recipients: "marv@example.org",
+            sanitized_to: "marv@example.org",
             use_actual_email_prepended_to_subject: true,
             use_actual_email_as_sanitized_user_name: true,
           )
@@ -1083,6 +1128,78 @@ RSpec.describe SanitizeEmail do
           expect(@email_message).not_to have_to("to@example.org")
           expect(@email_message).to have_to("marv@example.org")
         end
+
+        context "when good list" do
+          before do
+            configure_sanitize_email(
+              engage: true,
+              sanitized_to: "marv@example.org",
+              sanitized_cc: "blargh@example.org",
+              good_list: ["cc@example.org"],
+              use_actual_email_prepended_to_subject: true,
+              use_actual_email_as_sanitized_user_name: true,
+            )
+            mail_delivery
+          end
+
+          it "allows Array[String]" do
+            expect(@email_message).to have_to_username("to at example.org")
+            expect(@email_message).not_to have_to("to@example.org")
+            expect(@email_message).to have_to("marv@example.org")
+            # NOTE: The good list addresses take precedence over the sanitized addresses
+            expect(@email_message).not_to have_cc("blargh@example.org")
+            expect(@email_message).to have_cc("cc@example.org")
+            expect(@email_message).to have_bcc_username("bcc at example.org")
+            expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+            expect(@email_message).to have_header(
+              "X-Sanitize-Email-To",
+              "to@example.org",
+            )
+            # NOTE: Even though the CC hasn't been sanitized, since the email is on the good list,
+            #       we still add the CC to the Sanitize header.  Unclear if this is desirable,
+            #       but it is the long-standing behavior for many years, so, meh.
+            expect(@email_message).to have_header(
+              "X-Sanitize-Email-Cc",
+              "cc@example.org",
+            )
+          end
+        end
+
+        context "when bad list" do
+          before do
+            configure_sanitize_email(
+              engage: true,
+              sanitized_to: "marv@example.org",
+              sanitized_cc: "cc@example.org",
+              good_list: ["to@example.org"],
+              bad_list: ["cc@example.org"],
+              use_actual_email_prepended_to_subject: true,
+              use_actual_email_as_sanitized_user_name: true,
+            )
+            mail_delivery
+          end
+
+          it "allows Array[String]" do
+            expect(@email_message).not_to have_to_username("to at example.org")
+            expect(@email_message).to have_to("to@example.org")
+            expect(@email_message).not_to have_to("marv@example.org")
+            expect(@email_message).not_to have_cc("cc@example.org")
+            expect(@email_message).not_to have_cc("blargh@example.org")
+            expect(@email_message).to have_bcc_username("bcc at example.org")
+            expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+            expect(@email_message).to have_header(
+              "X-Sanitize-Email-To",
+              "to@example.org",
+            )
+            # NOTE: Even though the CC hasn't been sanitized, since the email is on the bad list,
+            #       we still add the CC to the Sanitize header.  Unclear if this is desirable,
+            #       but it is the long-standing behavior for many years, so, meh.
+            expect(@email_message).to have_header(
+              "X-Sanitize-Email-Cc",
+              "cc@example.org",
+            )
+          end
+        end
       end
 
       context "is false" do
@@ -1090,7 +1207,7 @@ RSpec.describe SanitizeEmail do
           # Should turn off sanitization using the force_sanitize
           configure_sanitize_email(
             engage: false,
-            sanitized_recipients: "marv@example.org",
+            sanitized_to: "marv@example.org",
             use_actual_email_prepended_to_subject: true,
             use_actual_email_as_sanitized_user_name: true,
           )
@@ -1173,6 +1290,14 @@ RSpec.describe SanitizeEmail do
           sanitary_mail_delivery
         end
 
+        it "is set" do
+          expect(SanitizeEmail.sanitized_recipients).to eq("barney@sanitize_email.org")
+        end
+
+        it "results in config set on sanitized_to" do
+          expect(SanitizeEmail.sanitized_to).to eq(SanitizeEmail.sanitized_recipients)
+        end
+
         it "does not alter non-sanitized attributes" do
           expect(@email_message).to have_from("from@example.org")
           expect(@email_message).to have_reply_to("reply_to@example.org")
@@ -1207,5 +1332,3 @@ RSpec.describe SanitizeEmail do
     end
   end
 end
-
-# TODO: test good_list
