@@ -275,7 +275,9 @@ Old version?
 * Fixed require paths
 * added about.yml and this CHANGELOG
 
-[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.4...HEAD
+[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.5...HEAD
+[2.0.5]: https://github.com/pboling/sanitize_email/compare/v2.0.4...v2.0.5
+[2.0.5t]: https://github.com/pboling/sanitize_email/tags/v2.0.5
 [2.0.4]: https://github.com/pboling/sanitize_email/compare/v2.0.3...v2.0.4
 [2.0.4t]: https://github.com/pboling/sanitize_email/tags/v2.0.4
 [2.0.3]: https://github.com/pboling/sanitize_email/compare/v2.0.2...v2.0.3
