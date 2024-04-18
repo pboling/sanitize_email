@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Code coverage up to 90%
 ### Changed
 * Averted deprecation warnings when using Rails 6 (@pboling)
+## Fixed
+* Bug #37 - Unable to send email when only CC or BCC present
 
 ## [2.0.4] - 2024-03-22 ([tag][2.0.4t])
 ### Added
