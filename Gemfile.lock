@@ -313,7 +313,7 @@ GEM
     rubocop-thread_safety (0.5.1)
       rubocop (>= 0.90.0)
     ruby-progressbar (1.13.0)
-    ruby_engine (2.0.1)
+    ruby_engine (2.0.2)
     ruby_version (1.0.3)
     simplecov (0.22.0)
       docile (~> 1.1)
