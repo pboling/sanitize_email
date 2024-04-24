@@ -127,7 +127,6 @@ jobs:
             gemfile: vanilla
           - ruby: "2.4"
             appraisal: "rails-4-2"
-            rubygems:  none
             bundler: none
             gemfile: vanilla
           - ruby: "2.3"
@@ -147,17 +146,14 @@ jobs:
             gemfile: vanilla
           - ruby: "2.3"
             appraisal: "rails-4-2"
-            rubygems:  none
             bundler: none
             gemfile: vanilla
           - ruby: "2.3"
             appraisal: "rails-4-1"
-            rubygems:  none
             bundler: none
             gemfile: vanilla
           - ruby: "2.3"
             appraisal: "rails-4-0"
-            rubygems:  none
             bundler: none
             gemfile: vanilla
     runs-on: ubuntu-20.04
