@@ -65,7 +65,7 @@ then this is the gem for you.
 
 ⚙️ Compatible with all versions of Ruby >= 2.3.
 ⚙️ Compatible with all Ruby web Frameworks (Hanami, Roda, Sinatra, Rails).
-⚙️ Compatible with all versions of Rails from 3.0 - 7.1+.
+⚙️ Compatible with all versions of Rails from 4.0 - 7.1+.
 ⚙️ Compatible with scripted usage of Mail gem outside a web framework.
 ⚙️ Compatible with [`sendgrid-actionmailer`](https://github.com/eddiezane/sendgrid-actionmailer)'s support for personalizations, and will override email addresses there according to the configuration.
 ⚙️ If this gem is not compatible with your use case, and you'd like it to be, I'd like to hear about it!

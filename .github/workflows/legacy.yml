@@ -126,6 +126,7 @@ jobs:
             bundler: none
             gemfile: vanilla
           - ruby: "2.4"
+            experimental: true
             appraisal: "rails-4-2"
             rubygems:  "3.3.27"
             bundler: '1.17.3'
@@ -146,11 +147,13 @@ jobs:
             bundler: none
             gemfile: vanilla
           - ruby: "2.3"
+            experimental: true
             appraisal: "rails-4-2"
             rubygems:  "3.3.27"
             bundler: '1.17.3'
             gemfile: vanilla
           - ruby: "2.3"
+            experimental: true
             appraisal: "rails-4-1"
             bundler: '1.17.3'
             gemfile: vanilla
