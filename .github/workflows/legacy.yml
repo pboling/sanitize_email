@@ -127,7 +127,8 @@ jobs:
             gemfile: vanilla
           - ruby: "2.4"
             appraisal: "rails-4-2"
-            bundler: none
+            rubygems:  "3.3.27"
+            bundler: '1.17.3'
             gemfile: vanilla
           - ruby: "2.3"
             appraisal: "rails-5-2"
@@ -146,15 +147,16 @@ jobs:
             gemfile: vanilla
           - ruby: "2.3"
             appraisal: "rails-4-2"
-            bundler: none
+            rubygems:  "3.3.27"
+            bundler: '1.17.3'
             gemfile: vanilla
           - ruby: "2.3"
             appraisal: "rails-4-1"
-            bundler: none
+            bundler: '1.17.3'
             gemfile: vanilla
           - ruby: "2.3"
             appraisal: "rails-4-0"
-            bundler: none
+            bundler: '1.17.3'
             gemfile: vanilla
     runs-on: ubuntu-20.04
     continue-on-error: ${{ matrix.experimental || endsWith(matrix.ruby, 'head') }}
