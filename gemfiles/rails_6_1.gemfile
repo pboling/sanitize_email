@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "actionmailer", "~> 5.1.7"
-gem "railties", "~> 5.1.7"
+gem "actionmailer", "~> 6.1.7.7"
+gem "railties", "~> 6.1.7.7"
 
 gemspec path: "../"

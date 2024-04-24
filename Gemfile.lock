@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/thoughtbot/appraisal
+  revision: f5e31c48a1dda036a2c13663fad1b657a0953f5d
+  specs:
+    appraisal (2.5.0)
+      bundler
+      rake
+      thor (>= 0.14.0)
+
 PATH
   remote: .
   specs:
@@ -83,10 +92,6 @@ GEM
       mutex_m
       tzinfo (~> 2.0)
     ansi (1.5.0)
-    appraisal (2.5.0)
-      bundler
-      rake
-      thor (>= 0.14.0)
     ast (2.4.2)
     base64 (0.2.0)
     bigdecimal (3.1.7)
@@ -158,6 +163,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.6)
     minitest (5.22.3)
     mutex_m (0.2.0)
     net-imap (0.4.10)
@@ -170,17 +176,10 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
-    nokogiri (1.16.4-aarch64-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.4-arm-linux)
+    nokogiri (1.16.4)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     nokogiri (1.16.4-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.4-x86-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     parallel (1.24.0)
     parser (3.3.0.5)
@@ -236,7 +235,7 @@ GEM
       rainbow (>= 2.0, < 4.0)
       rexml (~> 3.1)
     regexp_parser (2.9.0)
-    reline (0.5.2)
+    reline (0.5.3)
       io-console (~> 0.5)
     rexml (3.2.6)
     rspec (3.13.0)
@@ -365,17 +364,14 @@ GEM
     zeitwerk (2.6.13)
 
 PLATFORMS
-  aarch64-linux
-  arm-linux
-  arm64-darwin
-  x86-linux
-  x86_64-darwin
-  x86_64-linux
+  arm64-darwin-23
+  ruby
 
 DEPENDENCIES
   actionmailer (>= 3)
-  appraisal (~> 2)
+  appraisal (~> 2)!
   byebug (>= 11)
+  json (~> 2.7)
   kettle-soup-cover (~> 1.0, >= 1.0.2)
   rails (>= 3.0, <= 8)
   rake (>= 12)
