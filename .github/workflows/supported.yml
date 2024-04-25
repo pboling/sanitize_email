@@ -1,4 +1,4 @@
-name: Ruby Current Matrix
+name: Ruby & Rails Current Matrix
 
 env:
   K_SOUP_COV_DO: false
@@ -28,14 +28,14 @@ concurrency:
 
 jobs:
   test:
-    name: Specs - Ruby ${{ matrix.ruby }} ${{ matrix.name_extra || '' }}
+    name: Specs - Ruby ${{ matrix.ruby }} & Rails ${{ matrix.rails }} ${{ matrix.name_extra || '' }}
     if: "!contains(github.event.commits[0].message, '[ci skip]') && !contains(github.event.commits[0].message, '[skip ci]')"
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
       # rspec-rails uses RAILS_VERSION internally
-      RAILS_VERSION: "~> ${{ secrets[matrix.rails] }}"
+      RAILS_VERSION: "~> ${{ matrix.rails }}"
       # Our spec suite (not runtime code) uses RAILS_MAJOR_MINOR internally
-      RAILS_MAJOR_MINOR: ${{ secrets[matrix.rails] }}
+      RAILS_MAJOR_MINOR: ${{ matrix.env.RAILS_MAJOR_MINOR }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -46,24 +46,32 @@ jobs:
             bundler: latest
             gemfile: vanilla
             rails: 7.1
+            env:
+              RAILS_MAJOR_MINOR: 7.1
           - ruby: "3.3"
             appraisal: "rails-7-0"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
             rails: 7.0
+            env:
+              RAILS_MAJOR_MINOR: 7.0
           - ruby: "3.2"
             appraisal: "rails-7-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
             rails: 7.1
+            env:
+              RAILS_MAJOR_MINOR: 7.1
           - ruby: "3.2"
             appraisal: "rails-7-0"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
             rails: 7.0
+            env:
+              RAILS_MAJOR_MINOR: 7.0
           #- '3.1' - Rails 7.1 on Ruby 3.1 tests are run by coverage.yml
           - ruby: "3.1"
             appraisal: "rails-7-0"
@@ -71,24 +79,32 @@ jobs:
             bundler: latest
             gemfile: vanilla
             rails: 7.0
+            env:
+              RAILS_MAJOR_MINOR: 7.0
           - ruby: "3.1"
             appraisal: "rails-6-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
             rails: 6.1
+            env:
+              RAILS_MAJOR_MINOR: 6.1
           - ruby: "truffleruby"
             appraisal: "rails-7-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
             rails: 7.1
+            env:
+              RAILS_MAJOR_MINOR: 7.1
           - ruby: "jruby"
             appraisal: "rails-7-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
             rails: 7.1
+            env:
+              RAILS_MAJOR_MINOR: 7.1
     steps:
       - name: Checkout
         uses: actions/checkout@v4

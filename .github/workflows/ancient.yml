@@ -17,19 +17,19 @@ on:
 # Cancels all previous workflow runs for the same branch that have not yet completed.
 concurrency:
   # The concurrency group contains the workflow name and the branch name.
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: "${{ github.workflow }}-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
   test:
-    name: Ruby ${{ matrix.ruby }} and ${{ matrix.appraisal }} ${{ matrix.name_extra || '' }}
+    name: Specs - Ruby ${{ matrix.ruby }} & Rails ${{ matrix.rails }} ${{ matrix.name_extra || '' }}
     if: "!contains(github.event.commits[0].message, '[ci skip]') && !contains(github.event.commits[0].message, '[skip ci]')"
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
       # rspec-rails uses RAILS_VERSION internally
-      RAILS_VERSION: "~> ${{ secrets[matrix.rails] }}"
+      RAILS_VERSION: "~> ${{ matrix.rails }}"
       # Our spec suite (not runtime code) uses RAILS_MAJOR_MINOR internally
-      RAILS_MAJOR_MINOR: ${{ secrets[matrix.rails] }}
+      RAILS_MAJOR_MINOR: ${{ matrix.env.RAILS_MAJOR_MINOR }}
     strategy:
       fail-fast: false
       matrix:
@@ -41,6 +41,8 @@ jobs:
             bundler: '1.17.3'
             gemfile: vanilla
             rails: 4.2
+            env:
+              RAILS_MAJOR_MINOR: 4.2
           - ruby: "2.3"
             experimental: true
             appraisal: "rails-4-2"
@@ -48,17 +50,23 @@ jobs:
             bundler: '1.17.3'
             gemfile: vanilla
             rails: 4.2
+            env:
+              RAILS_MAJOR_MINOR: 4.2
           - ruby: "2.3"
             experimental: true
             appraisal: "rails-4-1"
             bundler: '1.17.3'
             gemfile: vanilla
             rails: 4.1
+            env:
+              RAILS_MAJOR_MINOR: 4.1
           - ruby: "2.3"
             appraisal: "rails-4-0"
             bundler: '1.17.3'
             gemfile: vanilla
             rails: 4.0
+            env:
+              RAILS_MAJOR_MINOR: 4.0
     runs-on: ubuntu-20.04
     continue-on-error: ${{ matrix.experimental || endsWith(matrix.ruby, 'head') }}
     steps:
