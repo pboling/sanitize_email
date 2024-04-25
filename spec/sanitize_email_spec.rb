@@ -761,13 +761,16 @@ RSpec.describe SanitizeEmail do
     end
 
     context "with activation_proc enabling" do
-      it "activates" do
+      subject(:with_activation_proc) {
         configure_sanitize_email(
           activation_proc: proc { true },
           environment: "## CHEW-GRUEL ##",
           use_actual_environment_prepended_to_subject: true,
         )
-        expect { mail_delivery }.not_to raise_exception
+        mail_delivery
+      }
+      it "activates" do
+        block_is_expected.not_to raise_exception
         expect(@email_message).to have_to("to@sanitize_email.org")
         expect(@email_message).to have_cc("cc@sanitize_email.org")
         expect(@email_message).to have_bcc("bcc@sanitize_email.org")
