@@ -10,6 +10,7 @@ require "rspec/pending_for"
 
 puts "Rails version is #{Rails.version}"
 puts "BUNDLE_GEMFILE: #{ENV["BUNDLE_GEMFILE"]}"
+puts "RAILS_VERSION: #{ENV["RAILS_VERSION"]}"
 puts "RAILS_MAJOR_MINOR: #{ENV["RAILS_MAJOR_MINOR"]}"
 
 # RSpec Configs

@@ -45,66 +45,66 @@ jobs:
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 7.1
+            rails: "7.1"
             env:
-              RAILS_MAJOR_MINOR: 7.1
+              RAILS_MAJOR_MINOR: "7.1"
           - ruby: "3.3"
             appraisal: "rails-7-0"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 7.0
+            rails: "7.0"
             env:
-              RAILS_MAJOR_MINOR: 7.0
+              RAILS_MAJOR_MINOR: "7.0"
           - ruby: "3.2"
             appraisal: "rails-7-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 7.1
+            rails: "7.1"
             env:
-              RAILS_MAJOR_MINOR: 7.1
+              RAILS_MAJOR_MINOR: "7.1"
           - ruby: "3.2"
             appraisal: "rails-7-0"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 7.0
+            rails: "7.0"
             env:
-              RAILS_MAJOR_MINOR: 7.0
+              RAILS_MAJOR_MINOR: "7.0"
           #- '3.1' - Rails 7.1 on Ruby 3.1 tests are run by coverage.yml
           - ruby: "3.1"
             appraisal: "rails-7-0"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 7.0
+            rails: "7.0"
             env:
-              RAILS_MAJOR_MINOR: 7.0
+              RAILS_MAJOR_MINOR: "7.0"
           - ruby: "3.1"
             appraisal: "rails-6-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 6.1
+            rails: "6.1"
             env:
-              RAILS_MAJOR_MINOR: 6.1
+              RAILS_MAJOR_MINOR: "6.1"
           - ruby: "truffleruby"
             appraisal: "rails-7-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 7.1
+            rails: "7.1"
             env:
-              RAILS_MAJOR_MINOR: 7.1
+              RAILS_MAJOR_MINOR: "7.1"
           - ruby: "jruby"
             appraisal: "rails-7-1"
             rubygems: latest
             bundler: latest
             gemfile: vanilla
-            rails: 7.1
+            rails: "7.1"
             env:
-              RAILS_MAJOR_MINOR: 7.1
+              RAILS_MAJOR_MINOR: "7.1"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
