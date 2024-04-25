@@ -58,8 +58,8 @@ Gem::Specification.new do |spec|
   # Development Dependencies
   spec.add_development_dependency("appraisal", "~> 2.5")
   spec.add_development_dependency("json", ">= 1.7.7") # Support Rails 4.x
-  spec.add_development_dependency("rake", ">= 12")
-  spec.add_development_dependency("rdoc", ">= 6.1.2.1") # Ruby >= 2.2.2
+  spec.add_development_dependency("rake", ">= 0.8.7")
+  spec.add_development_dependency("rdoc", ">= 3")
   spec.add_development_dependency("rspec", ">= 3")
   spec.add_development_dependency("rspec-block_is_expected", "~> 1.0", ">= 1.0.5")
   spec.add_development_dependency("rspec-pending_for", "~> 0.1", ">= 0.1.16")

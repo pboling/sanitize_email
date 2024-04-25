@@ -8,7 +8,7 @@ appraise "rails-3-0" do
   gem "reek", "~> 2.0" # for Ruby < 2.0
   gem "tins", "~> 1.6.0" # for Ruby < 2.0
   gem "json", "~> 1.8.3"
-  gem "rake", "~> 11.2.2"
+  gem "rake", "~> 10.0"
   gem "rest-client", "~> 1.8.0"
 end
 appraise "rails-3-1" do
@@ -17,7 +17,7 @@ appraise "rails-3-1" do
   gem "reek", "~> 2.0" # for Ruby < 2.0
   gem "tins", "~> 1.6.0" # for Ruby < 2.0
   gem "json", "~> 1.8.3"
-  gem "rake", "~> 11.2.2"
+  gem "rake", "~> 10.0"
   gem "rest-client", "~> 1.8.0"
 end
 appraise "rails-3-2" do
@@ -26,7 +26,7 @@ appraise "rails-3-2" do
   # reek >= 4.0 requires Ruby 2.1 minimum
   gem "reek", "~>3.11.0"
   gem "json", "~> 1.8.3"
-  gem "rake", "~> 11.2.2"
+  gem "rake", "~> 10.0"
 end
 
 # Compat: Ruby >= 1.9.3
