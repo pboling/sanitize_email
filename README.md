@@ -670,7 +670,7 @@ Learn more about, or become one of, our 🎖 contributors on:
 
 [🧊berg-contrib]: https://codeberg.org/pboling/sanitize_email/activity
 [🐙hub-contrib]: https://github.com/pboling/sanitize_email/graphs/contributors
-[🛖hut-contrib]: https://git.sr.ht/~galtzo/pboling-sanitize_email/log/
+[🛖hut-contrib]: https://git.sr.ht/~galtzo/sanitize_email/log/
 [🧪lab-contrib]: https://gitlab.com/pboling/sanitize_email/-/graphs/main?ref_type=heads
 
 ## Running Specs
