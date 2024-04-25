@@ -25,7 +25,11 @@ RSpec.describe SanitizeEmail do
     end
 
     Mail.defaults do
-      delivery_method :logger, logger: logger, severity: :info
+      if Rails::VERSION::MAJOR == 3
+        delivery_method :test
+      else
+        delivery_method :logger, logger: logger, severity: :info
+      end
     end
     SanitizeEmail::Config.instance_variable_set(
       :@config,
