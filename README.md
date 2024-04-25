@@ -681,7 +681,7 @@ appraisal rake test
 
 Sometimes also:
 ```sh
-appraisal update
+BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal update
 ```
 
 Except, is unlikely to be possible to install all of the supported Rubies & Railsies in a single container...
