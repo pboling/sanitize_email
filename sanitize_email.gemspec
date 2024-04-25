@@ -58,7 +58,7 @@ Gem::Specification.new do |spec|
   # Development Dependencies
   spec.add_development_dependency("actionmailer", ">= 3")
   spec.add_development_dependency("appraisal", "~> 2")
-  spec.add_development_dependency("json", "~> 2.7")
+  spec.add_development_dependency("json", ">= 1.7.7") # Support Rails 4.x
   spec.add_development_dependency("rails", ">= 3.0", "<= 8")
   spec.add_development_dependency("rake", ">= 12")
   spec.add_development_dependency("rdoc", ">= 6.1.2.1") # Ruby >= 2.2.2

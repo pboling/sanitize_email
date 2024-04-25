@@ -371,7 +371,7 @@ DEPENDENCIES
   actionmailer (>= 3)
   appraisal (~> 2)!
   byebug (>= 11)
-  json (~> 2.7)
+  json (>= 1.7.7)
   kettle-soup-cover (~> 1.0, >= 1.0.2)
   rails (>= 3.0, <= 8)
   rake (>= 12)
