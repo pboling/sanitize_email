@@ -40,7 +40,7 @@
     [65, 5, 233, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 2880787383],
     [73, 5, 386, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 1085137330]
   ],
-  "spec/sanitize_email_spec.rb:1405767146": [
+  "spec/sanitize_email_spec.rb:103731108": [
     [7, 3, 280, "RSpec/LeakyConstantDeclaration: Stub constant instead of declaring explicitly.", 1223327],
     [118, 15, 19, "RSpec/VariableName: Use snake_case for variable names.", 372347066],
     [127, 15, 19, "RSpec/VariableName: Use snake_case for variable names.", 372347066],
@@ -116,7 +116,7 @@
     [691, 9, 22, "RSpec/MultipleExpectations: Example has too many expectations [8/1].", 3267814569],
     [691, 9, 840, "RSpec/ExampleLength: Example has too many lines. [16/5]", 1898577487],
     [713, 7, 17, "RSpec/MultipleExpectations: Example has too many expectations [15/1].", 2729217909],
-    [713, 7, 1884, "RSpec/ExampleLength: Example has too many lines. [46/5]", 293536431],
+    [713, 7, 1883, "RSpec/ExampleLength: Example has too many lines. [46/5]", 1587327521],
     [764, 7, 14, "RSpec/MultipleExpectations: Example has too many expectations [9/1].", 3862108402],
     [764, 7, 878, "RSpec/ExampleLength: Example has too many lines. [17/5]", 1532494883],
     [784, 7, 59, "RSpec/NestedGroups: Maximum example group nesting exceeded [4/3].", 2662855125],
