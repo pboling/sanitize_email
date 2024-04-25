@@ -8,6 +8,8 @@ require "action_mailer"
 require "logger"
 require "rspec/pending_for"
 
+puts "Rails version is #{Rails.version}"
+
 # RSpec Configs
 require "config/byebug"
 require "config/rspec/rspec_block_is_expected"
