@@ -769,6 +769,7 @@ RSpec.describe SanitizeEmail do
         )
         mail_delivery
       }
+
       it "activates" do
         block_is_expected.not_to raise_exception
         expect(@email_message).to have_to("to@sanitize_email.org")
