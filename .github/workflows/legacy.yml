@@ -1,4 +1,4 @@
-name: Rails 5, 6, 7 on EOL Ruby 2.3 - 3.0
+name: Rails 4.2, 5, 6, 7 on EOL Ruby 2.5 - 3.0
 
 on:
   push:
@@ -124,42 +124,12 @@ jobs:
             bundler: none
             gemfile: vanilla
             rails: "5.1"
-          - ruby: "2.4"
-            appraisal: "rails-5-2"
+          - ruby: "2.5"
+            appraisal: "rails-4-2"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
-            rails: "5.2"
-          - ruby: "2.4"
-            appraisal: "rails-5-1"
-            rubygems:  "3.3.27"
-            bundler: none
-            gemfile: vanilla
-            rails: "5.1"
-          - ruby: "2.4"
-            appraisal: "rails-5-0"
-            rubygems:  "3.3.27"
-            bundler: none
-            gemfile: vanilla
-            rails: "5.0"
-          - ruby: "2.3"
-            appraisal: "rails-5-2"
-            rubygems:  "3.3.27"
-            bundler: none
-            gemfile: vanilla
-            rails: "5.2"
-          - ruby: "2.3"
-            appraisal: "rails-5-1"
-            rubygems:  "3.3.27"
-            bundler: none
-            gemfile: vanilla
-            rails: "5.1"
-          - ruby: "2.3"
-            appraisal: "rails-5-0"
-            rubygems:  "3.3.27"
-            bundler: none
-            gemfile: vanilla
-            rails: "5.0"
+            rails: "4.2"
     runs-on: ubuntu-20.04
     continue-on-error: ${{ matrix.experimental || endsWith(matrix.ruby, 'head') }}
     steps:
