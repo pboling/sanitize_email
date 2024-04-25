@@ -716,38 +716,47 @@ RSpec.describe SanitizeEmail do
           environment: "## CHEW-GRUEL ##",
           use_actual_environment_prepended_to_subject: true,
         )
-        expect { mail_delivery_multiple_personalizations }.not_to raise_exception
-        expect(@email_message).to have_to("to@sanitize_email.org")
-        expect(@email_message).to have_cc("cc@sanitize_email.org")
-        expect(@email_message).to have_bcc("bcc@sanitize_email.org")
-        expect(@email_message).to have_from("from@example.org")
-        expect(@email_message).to have_subject("## CHEW-GRUEL ## original subject")
-        expect(@email_message).to have_reply_to("reply_to@example.org")
-        expect(@email_message).to have_body_text("funky fresh")
-        expect(@email_message).to have_header(
-          "X-Sanitize-Email-To",
-          "to1@example.org",
-        )
-        expect(@email_message).to have_header(
-          "X-Sanitize-Email-To-2",
-          "to2@example.org",
-        )
-        expect(@email_message).to have_header(
-          "X-Sanitize-Email-To-3",
-          "to3@example.org",
-        )
-        expect(@email_message).to have_header(
-          "X-Sanitize-Email-Cc",
-          "cc1@example.org",
-        )
-        expect(@email_message).to have_header(
-          "X-Sanitize-Email-Cc-2",
-          "cc2@example.org",
-        )
-        expect(@email_message).to have_header(
-          "X-Sanitize-Email-Cc-3",
-          "cc3@example.org",
-        )
+        if Rails::VERSION::MAJOR == 3
+          expect {
+            mail_delivery_multiple_personalizations
+          }.not raise_exception(
+            SanitizeEmail::OverriddenAddresses::MissingRecipients,
+            "Mail version is too old to use personalizations",
+          )
+        else
+          expect { mail_delivery_multiple_personalizations }.not_to raise_exception
+          expect(@email_message).to have_to("to@sanitize_email.org")
+          expect(@email_message).to have_cc("cc@sanitize_email.org")
+          expect(@email_message).to have_bcc("bcc@sanitize_email.org")
+          expect(@email_message).to have_from("from@example.org")
+          expect(@email_message).to have_subject("## CHEW-GRUEL ## original subject")
+          expect(@email_message).to have_reply_to("reply_to@example.org")
+          expect(@email_message).to have_body_text("funky fresh")
+          expect(@email_message).to have_header(
+            "X-Sanitize-Email-To",
+            "to1@example.org",
+          )
+          expect(@email_message).to have_header(
+            "X-Sanitize-Email-To-2",
+            "to2@example.org",
+          )
+          expect(@email_message).to have_header(
+            "X-Sanitize-Email-To-3",
+            "to3@example.org",
+          )
+          expect(@email_message).to have_header(
+            "X-Sanitize-Email-Cc",
+            "cc1@example.org",
+          )
+          expect(@email_message).to have_header(
+            "X-Sanitize-Email-Cc-2",
+            "cc2@example.org",
+          )
+          expect(@email_message).to have_header(
+            "X-Sanitize-Email-Cc-3",
+            "cc3@example.org",
+          )
+        end
       end
     end
 
