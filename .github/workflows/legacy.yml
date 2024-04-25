@@ -29,7 +29,7 @@ jobs:
       # rspec-rails uses RAILS_VERSION internally
       RAILS_VERSION: "~> ${{ matrix.rails }}"
       # Our spec suite (not runtime code) uses RAILS_MAJOR_MINOR internally
-      RAILS_MAJOR_MINOR: ${{ matrix.env.RAILS_MAJOR_MINOR }}
+      RAILS_MAJOR_MINOR: ${{ matrix.rails }}
     strategy:
       fail-fast: false
       matrix:
@@ -40,168 +40,126 @@ jobs:
             bundler: none
             gemfile: vanilla
             rails: "7.1"
-            env:
-              RAILS_MAJOR_MINOR: "7.1"
           - ruby: "3.0"
             appraisal: "rails-7-0"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "7.0"
-            env:
-              RAILS_MAJOR_MINOR: "7.0"
           - ruby: "3.0"
             appraisal: "rails-6-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "6.1"
-            env:
-              RAILS_MAJOR_MINOR: "6.1"
           - ruby: "2.7"
             appraisal: "rails-7-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "7.1"
-            env:
-              RAILS_MAJOR_MINOR: "7.1"
           - ruby: "2.7"
             appraisal: "rails-7-0"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "7.0"
-            env:
-              RAILS_MAJOR_MINOR: "7.0"
           - ruby: "2.7"
             appraisal: "rails-6-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "6.1"
-            env:
-              RAILS_MAJOR_MINOR: "6.1"
           - ruby: "2.7"
             appraisal: "rails-6-0"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "6.0"
-            env:
-              RAILS_MAJOR_MINOR: "6.0"
           - ruby: "2.7"
             appraisal: "rails-5-2"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.2"
-            env:
-              RAILS_MAJOR_MINOR: "5.2"
           - ruby: "2.6"
             appraisal: "rails-6-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "6.1"
-            env:
-              RAILS_MAJOR_MINOR: "6.1"
           - ruby: "2.6"
             appraisal: "rails-6-0"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "6.0"
-            env:
-              RAILS_MAJOR_MINOR: "6.0"
           - ruby: "2.6"
             appraisal: "rails-5-2"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.2"
-            env:
-              RAILS_MAJOR_MINOR: "5.2"
           - ruby: "2.5"
             appraisal: "rails-6-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "6.1"
-            env:
-              RAILS_MAJOR_MINOR: "6.1"
           - ruby: "2.5"
             appraisal: "rails-6-0"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "6.0"
-            env:
-              RAILS_MAJOR_MINOR: "6.0"
           - ruby: "2.5"
             appraisal: "rails-5-2"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.2"
-            env:
-              RAILS_MAJOR_MINOR: "5.2"
           - ruby: "2.5"
             appraisal: "rails-5-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.1"
-            env:
-              RAILS_MAJOR_MINOR: "5.1"
           - ruby: "2.4"
             appraisal: "rails-5-2"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.2"
-            env:
-              RAILS_MAJOR_MINOR: "5.2"
           - ruby: "2.4"
             appraisal: "rails-5-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.1"
-            env:
-              RAILS_MAJOR_MINOR: "5.1"
           - ruby: "2.4"
             appraisal: "rails-5-0"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.0"
-            env:
-              RAILS_MAJOR_MINOR: "5.0"
           - ruby: "2.3"
             appraisal: "rails-5-2"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.2"
-            env:
-              RAILS_MAJOR_MINOR: "5.2"
           - ruby: "2.3"
             appraisal: "rails-5-1"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.1"
-            env:
-              RAILS_MAJOR_MINOR: "5.1"
           - ruby: "2.3"
             appraisal: "rails-5-0"
             rubygems:  "3.3.27"
             bundler: none
             gemfile: vanilla
             rails: "5.0"
-            env:
-              RAILS_MAJOR_MINOR: "5.0"
     runs-on: ubuntu-20.04
     continue-on-error: ${{ matrix.experimental || endsWith(matrix.ruby, 'head') }}
     steps:

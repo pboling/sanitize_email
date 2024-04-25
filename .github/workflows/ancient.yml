@@ -29,7 +29,7 @@ jobs:
       # rspec-rails uses RAILS_VERSION internally
       RAILS_VERSION: "~> ${{ matrix.rails }}"
       # Our spec suite (not runtime code) uses RAILS_MAJOR_MINOR internally
-      RAILS_MAJOR_MINOR: ${{ matrix.env.RAILS_MAJOR_MINOR }}
+      RAILS_MAJOR_MINOR: ${{ matrix.rails }}
     strategy:
       fail-fast: false
       matrix:
@@ -41,8 +41,6 @@ jobs:
             bundler: '1.17.3'
             gemfile: vanilla
             rails: "4.2"
-            env:
-              RAILS_MAJOR_MINOR: "4.2"
           - ruby: "2.3"
             experimental: true
             appraisal: "rails-4-2"
@@ -50,23 +48,17 @@ jobs:
             bundler: '1.17.3'
             gemfile: vanilla
             rails: "4.2"
-            env:
-              RAILS_MAJOR_MINOR: "4.2"
           - ruby: "2.3"
             experimental: true
             appraisal: "rails-4-1"
             bundler: '1.17.3'
             gemfile: vanilla
             rails: "4.1"
-            env:
-              RAILS_MAJOR_MINOR: "4.1"
           - ruby: "2.3"
             appraisal: "rails-4-0"
             bundler: '1.17.3'
             gemfile: vanilla
             rails: "4.0"
-            env:
-              RAILS_MAJOR_MINOR: "4.0"
     runs-on: ubuntu-20.04
     continue-on-error: ${{ matrix.experimental || endsWith(matrix.ruby, 'head') }}
     steps:
