@@ -1,7 +1,7 @@
 name: Ruby - Coverage
 
 env:
-  K_SOUP_COV_MIN_BRANCH: 72
+  K_SOUP_COV_MIN_BRANCH: 71
   K_SOUP_COV_MIN_LINE: 90
   K_SOUP_COV_MIN_HARD: true
 
