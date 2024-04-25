@@ -10,6 +10,5 @@ gem "combustion", "~> 1.4"
 
 gem "actionmailer"
 gem "railties"
-gem "actionpack"
 
 gemspec path: "../"

@@ -12,10 +12,10 @@ appraise "rails-4-0" do
 
   gem "actionmailer", "~> 4.0.13"
   gem "railties", "~> 4.0.13"
-  gem "actionpack", "~> 4.0.13"
+  #   gem "actionpack", "~> 4.0.13"
   gem "rdoc", "6.1.2.1"
   gem "json", ">= 1.7.7", "~> 1.7"
-#   gem "rspec-rails", "~> 3.0" # For Rails 4
+  #   gem "rspec-rails", "~> 3.0" # For Rails 4
 end
 
 # Compat: Ruby >= 1.9.3
@@ -27,10 +27,10 @@ appraise "rails-4-1" do
 
   gem "actionmailer", "~> 4.1.16"
   gem "railties", "~> 4.1.16"
-  gem "actionpack", "~> 4.1.16"
+  #   gem "actionpack", "~> 4.1.16"
   gem "rdoc", "6.1.2.1"
   gem "json", ">= 1.7.7", "~> 1.7"
-#   gem "rspec-rails", "~> 3.0" # For Rails 4
+  #   gem "rspec-rails", "~> 3.0" # For Rails 4
 end
 
 # Compat: Ruby >= 1.9.3
@@ -43,9 +43,10 @@ appraise "rails-4-2" do
 
   gem "actionmailer", "~> 4.2.11.3"
   gem "railties", "~> 4.2.11.3"
-  gem "actionpack", "~> 4.2.11.3"
+  #   gem "actionpack", "~> 4.2.11.3"
   gem "rdoc", "6.1.2.1"
-#   gem "rspec-rails", "~> 3.0" # For Rails 4
+  gem "nokogiri"
+  #   gem "rspec-rails", "~> 3.0" # For Rails 4
 end
 
 # Compat: Ruby >= 2.2.2
@@ -58,8 +59,9 @@ appraise "rails-5-0" do
 
   gem "actionmailer", "~> 5.0.7.2"
   gem "railties", "~> 5.0.7.2"
-  gem "actionpack", "~> 5.0.7.2"
-#   gem "rspec-rails", "~> 4.0" # For Rails 5.0 & 5.1
+  #   gem "actionpack", "~> 5.0.7.2"
+  gem "nokogiri"
+  #   gem "rspec-rails", "~> 4.0" # For Rails 5.0 & 5.1
 end
 
 # Compat: Ruby >= 2.2.2
@@ -73,8 +75,9 @@ appraise "rails-5-1" do
 
   gem "actionmailer", "~> 5.1.7"
   gem "railties", "~> 5.1.7"
-  gem "actionpack", "~> 5.1.7"
-#   gem "rspec-rails", "~> 4.0" # For Rails 5.0 & 5.1
+  #   gem "actionpack", "~> 5.1.7"
+  gem "nokogiri"
+  #   gem "rspec-rails", "~> 4.0" # For Rails 5.0 & 5.1
 end
 
 # Compat: Ruby >= 2.2.2
@@ -90,8 +93,9 @@ appraise "rails-5-2" do
 
   gem "actionmailer", "~> 5.2.8.1"
   gem "railties", "~> 5.2.8.1"
-  gem "actionpack", "~> 5.2.8.1"
-#   gem "rspec-rails", "~> 5.0" # For Rails 5.2 & Rails 6.0
+  #   gem "actionpack", "~> 5.2.8.1"
+  gem "nokogiri"
+  #   gem "rspec-rails", "~> 5.0" # For Rails 5.2 & Rails 6.0
 end
 
 # Compat: Ruby >= 2.5
@@ -105,8 +109,8 @@ appraise "rails-6-0" do
 
   gem "actionmailer", "~> 6.0.6.1"
   gem "railties", "~> 6.0.6.1"
-  gem "actionpack", "~> 6.0.6.1"
-#   gem "rspec-rails", "~> 5.0" # For Rails 5.2 & Rails 6.0
+  #   gem "actionpack", "~> 6.0.6.1"
+  #   gem "rspec-rails", "~> 5.0" # For Rails 5.2 & Rails 6.0
 end
 
 # Compat: Ruby >= 2.5
@@ -121,8 +125,8 @@ appraise "rails-6-1" do
 
   gem "actionmailer", "~> 6.1.7.7"
   gem "railties", "~> 6.1.7.7"
-  gem "actionpack", "~> 6.1.7.7"
-#   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
+  #   gem "actionpack", "~> 6.1.7.7"
+  #   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
 end
 
 # Compat: Ruby >= 2.7
@@ -136,8 +140,8 @@ appraise "rails-7-0" do
 
   gem "actionmailer", "~> 7.0.8.1"
   gem "railties", "~> 7.0.8.1"
-  gem "actionpack", "~> 7.0.8.1"
-#   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
+  #   gem "actionpack", "~> 7.0.8.1"
+  #   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
 end
 
 # Compat: Ruby >= 2.7
@@ -152,6 +156,6 @@ appraise "rails-7-1" do
 
   gem "actionmailer", "~> 7.1.3.2"
   gem "railties", "~> 7.1.3.2"
-  gem "actionpack", "~> 7.1.3.2"
-#   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
+  #   gem "actionpack", "~> 7.1.3.2"
+  #   gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
 end

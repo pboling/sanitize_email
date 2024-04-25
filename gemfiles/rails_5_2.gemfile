@@ -5,6 +5,6 @@ source "https://rubygems.org"
 gem "combustion", "~> 1.4"
 gem "actionmailer", "~> 5.2.8.1"
 gem "railties", "~> 5.2.8.1"
-gem "actionpack", "~> 5.2.8.1"
+gem "nokogiri"
 
 gemspec path: "../"
