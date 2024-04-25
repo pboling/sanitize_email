@@ -56,7 +56,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency("version_gem", "~> 1.1", ">= 1.1.4")
 
   # Development Dependencies
-  spec.add_development_dependency("appraisal", "~> 2")
+  spec.add_development_dependency("appraisal", "~> 2.5")
   spec.add_development_dependency("json", ">= 1.7.7") # Support Rails 4.x
   spec.add_development_dependency("rails", ">= 3.0", "<= 8")
   spec.add_development_dependency("rake", ">= 12")

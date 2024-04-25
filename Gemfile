@@ -14,7 +14,7 @@ gemspec
 # as some of the issues are fixed there.
 # See - https://github.com/thoughtbot/appraisal/issues/214
 # See - https://github.com/thoughtbot/appraisal/issues/218
-gem "appraisal", "~> 2", github: "thoughtbot/appraisal"
+# gem "appraisal", "~> 2", github: "thoughtbot/appraisal"
 
 platform :mri do
   # Debugging
@@ -24,7 +24,6 @@ end
 gem "actionmailer", "~> 7.1.3.2"
 gem "railties", "~> 7.1.3.2"
 gem "actionpack", "~> 7.1.3.2"
-gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
 
 # Coverage
 gem "kettle-soup-cover", "~> 1.0", ">= 1.0.2"

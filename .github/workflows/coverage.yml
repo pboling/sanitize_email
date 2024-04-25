@@ -56,7 +56,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Ruby & Bundle
+      - name: Setup Ruby & RubyGems
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"

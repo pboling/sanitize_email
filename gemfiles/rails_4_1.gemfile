@@ -6,7 +6,6 @@ gem "combustion", "~> 1.4"
 gem "actionmailer", "~> 4.1.16"
 gem "railties", "~> 4.1.16"
 gem "actionpack", "~> 4.1.16"
-gem "rspec-rails", "~> 3.0"
 gem "rdoc", "6.1.2.1"
 gem "json", ">= 1.7.7", "~> 1.7"
 
