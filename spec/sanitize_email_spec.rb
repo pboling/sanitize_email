@@ -719,7 +719,7 @@ RSpec.describe SanitizeEmail do
         if Rails::VERSION::MAJOR == 3
           expect {
             mail_delivery_multiple_personalizations
-          }.not raise_exception(
+          }.to raise_exception(
             SanitizeEmail::OverriddenAddresses::MissingRecipients,
             "Mail version is too old to use personalizations",
           )
