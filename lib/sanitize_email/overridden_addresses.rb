@@ -84,7 +84,12 @@ module SanitizeEmail
 
     # Intended to result in compatibility with https://github.com/eddiezane/sendgrid-actionmailer
     def personalizations_override(actual_personalizations)
-      actual_personalizations.unparsed_value.map do |actual_personalization|
+      # TODO: Remove check when dropping Rails 3.x
+      #       undefined method `unparsed_value' for #<Mail::OptionalField>
+      value = actual_personalizations.respond_to?(:unparsed_value) ?
+                actual_personalizations.unparsed_value :
+                actual_personalizations.value
+      value.map do |actual_personalization|
         actual_personalization.merge(
           to: actual_personalization[:to]&.map do |to|
             to.merge(email: override_email(:to, to[:email]).join(","))

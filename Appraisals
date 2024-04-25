@@ -10,7 +10,7 @@ appraise "rails-3-0" do
   gem "json", "~> 1.8.3"
   gem "rake", "~> 10.0"
   gem "rest-client", "~> 1.8.0"
-  gem "tzinfo", "~> 1.0"
+  gem "tzinfo", "~> 0.3.23"
 end
 appraise "rails-3-1" do
   gem "actionmailer", "~> 3.1.0"
