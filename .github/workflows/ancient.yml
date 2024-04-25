@@ -1,4 +1,4 @@
-name: Ancient Ruby Support
+name: Rails 4 on EOL Ruby 2.3 - 2.4
 
 on:
   push:
