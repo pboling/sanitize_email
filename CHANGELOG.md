@@ -10,6 +10,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
+## [2.0.6] - 2024-04-25 ([tag][2.0.6t])
+### Added
+* Appraisals & Combustion for comprehensive testing across versions of Rails (@pboling)
+* Rails 3.0 to Test Matrix (@pboling)
+* Rails 3.1 to Test Matrix (@pboling)
+* Rails 3.2 to Test Matrix (@pboling)
+* Rails 4.0 to Test Matrix (@pboling)
+* Rails 4.1 to Test Matrix (@pboling)
+* Rails 4.2 to Test Matrix (@pboling)
+* Rails 5.0 to Test Matrix (@pboling)
+* Rails 5.1 to Test Matrix (@pboling)
+* More Documentation (@pboling)
+### Fixed
+* Compatibility with Rails 3.0, 3.1, 3.2 (@pboling)
+* Compatibility with Rails 6.0, 6.1, 7.0, 7.1 (@pboling)
+
 ## [2.0.5] - 2024-04-18 ([tag][2.0.5t])
 ### Added
 * New RSpec matcher (@pboling)
@@ -275,7 +291,9 @@ Old version?
 * Fixed require paths
 * added about.yml and this CHANGELOG
 
-[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.5...HEAD
+[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.6...HEAD
+[2.0.6]: https://github.com/pboling/sanitize_email/compare/v2.0.5...v2.0.6
+[2.0.6t]: https://github.com/pboling/sanitize_email/tags/v2.0.6
 [2.0.5]: https://github.com/pboling/sanitize_email/compare/v2.0.4...v2.0.5
 [2.0.5t]: https://github.com/pboling/sanitize_email/tags/v2.0.5
 [2.0.4]: https://github.com/pboling/sanitize_email/compare/v2.0.3...v2.0.4
