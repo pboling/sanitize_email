@@ -375,7 +375,7 @@ DEPENDENCIES
   kettle-soup-cover (~> 1.0, >= 1.0.2)
   rails (>= 3.0, <= 8)
   rake (>= 12)
-  rdoc (>= 3.12)
+  rdoc (>= 6.1.2.1)
   reek (~> 6.3)
   rspec (>= 3)
   rspec-block_is_expected (~> 1.0, >= 1.0.5)
