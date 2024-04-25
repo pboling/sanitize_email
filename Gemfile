@@ -4,6 +4,8 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
+gem "combustion", "~> 1.4"
+
 # Specify your gem's dependencies in sanitize_email.gemspec
 gemspec
 
@@ -18,6 +20,8 @@ platform :mri do
   # Debugging
   gem "byebug", ">= 11"
 end
+
+gem "actionpack"
 
 # Coverage
 gem "kettle-soup-cover", "~> 1.0", ">= 1.0.2"

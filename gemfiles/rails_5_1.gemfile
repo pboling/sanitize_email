@@ -2,7 +2,12 @@
 
 source "https://rubygems.org"
 
+# Load order is very important with combustion!
+gem "combustion", "~> 1.4"
+
 gem "actionmailer", "~> 5.1.7"
 gem "railties", "~> 5.1.7"
+gem "actionpack", "~> 5.1.7"
+gem "rspec_rails", "~> 4.0" # For Rails 5.0 & 5.1
 
 gemspec path: "../"

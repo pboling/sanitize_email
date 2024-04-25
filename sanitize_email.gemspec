@@ -58,6 +58,7 @@ Gem::Specification.new do |spec|
   # Development Dependencies
   spec.add_development_dependency("actionmailer", ">= 3")
   spec.add_development_dependency("appraisal", "~> 2")
+  spec.add_development_dependency("combustion", "~> 1.4")
   spec.add_development_dependency("json", ">= 1.7.7") # Support Rails 4.x
   spec.add_development_dependency("rails", ">= 3.0", "<= 8")
   spec.add_development_dependency("rake", ">= 12")
@@ -65,4 +66,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("rspec", ">= 3")
   spec.add_development_dependency("rspec-block_is_expected", "~> 1.0", ">= 1.0.5")
   spec.add_development_dependency("rspec-pending_for", "~> 0.1", ">= 0.1.16")
+  spec.add_development_dependency("rspec-rails", ">= 3") # Support Rails 4.x
 end

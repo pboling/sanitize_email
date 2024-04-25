@@ -202,7 +202,7 @@ RSpec.describe SanitizeEmail do
   context "module methods" do
     describe ":[]" do
       it "accesses config" do
-        expect(SanitizeEmail[:environment]).to eq("[development]")
+        expect(SanitizeEmail[:environment]).to eq("[test]")
       end
 
       it "does not raise on non-responsive to :to_sym" do
@@ -216,7 +216,7 @@ RSpec.describe SanitizeEmail do
 
     describe ":method_missing" do
       it "accesses config" do
-        expect(SanitizeEmail.environment).to eq("[development]")
+        expect(SanitizeEmail.environment).to eq("[test]")
       end
 
       it "does not raise on unknown method" do
