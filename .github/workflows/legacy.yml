@@ -1,4 +1,4 @@
-name: Legacy Ruby Support
+name: Ancient Rails Support
 
 on:
   push:
@@ -203,6 +203,6 @@ jobs:
       - name: Bundle for Appraisal ${{ matrix.appraisal }} (Rails v${{ matrix.rails}})
         run: bundle
       - name: Install Appraisal ${{ matrix.appraisal }} (Rails v${{ matrix.rails}}) dependencies
-        run: bundle _1.17.3_ exec appraisal ${{ matrix.appraisal }} bundle
+        run: bundle exec appraisal ${{ matrix.appraisal }} bundle
       - name: Run tests ${{ matrix.appraisal }} (Rails v${{ matrix.rails}})
         run: bundle exec appraisal ${{ matrix.appraisal }} bundle exec rake test
