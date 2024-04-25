@@ -1,5 +1,5 @@
 {
-  "README.md:2858832830": [
+  "README.md:995620162": [
     [504, 6, 1, "Lint/Syntax: unexpected token tCOMMA\n(Using Ruby 2.3 parser; configure using `TargetRubyVersion` parameter, under `AllCops`)", 177545]
   ],
   "Rakefile:687725157": [
