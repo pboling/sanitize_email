@@ -62,7 +62,15 @@ module SanitizeEmail
     end
 
     def method_missing(name, *_args)
-      SanitizeEmail[name]
+      if name
+        SanitizeEmail[name]
+      else
+        super
+      end
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      method_name ? method_name : super
     end
 
     # NOTE: Deprecated method

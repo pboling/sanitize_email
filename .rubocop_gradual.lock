@@ -10,17 +10,8 @@
   "init.rb:3429808413": [
     [3, 9, 16, "Style/StringLiterals: Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.", 29970817]
   ],
-  "lib/sanitize_email.rb:1771666431": [
-    [51, 3, 110, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 244581949],
-    [56, 3, 67, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 4112587574],
-    [56, 3, 67, "Style/MissingRespondToMissing: When using `method_missing`, define `respond_to_missing?`.", 4112587574],
-    [62, 3, 148, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 1610211115],
-    [68, 3, 87, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 1634519225],
-    [72, 3, 141, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 1031065844],
-    [78, 5, 29, "ThreadSafety/ClassAndModuleAttributes: Avoid mutating class and module attributes.", 1399760671],
-    [97, 3, 354, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 2628092758],
-    [119, 3, 184, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 2216955970],
-    [126, 3, 287, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 1344355207]
+  "lib/sanitize_email.rb:3334182494": [
+    [57, 5, 29, "ThreadSafety/ClassAndModuleAttributes: Avoid mutating class and module attributes.", 1399760671]
   ],
   "lib/sanitize_email/config.rb:393256477": [
     [13, 7, 21, "ThreadSafety/ClassAndModuleAttributes: Avoid mutating class and module attributes.", 622027168],
@@ -49,7 +40,7 @@
     [65, 5, 233, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 2880787383],
     [73, 5, 386, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 1085137330]
   ],
-  "spec/sanitize_email_spec.rb:3508591302": [
+  "spec/sanitize_email_spec.rb:3223811398": [
     [7, 3, 280, "RSpec/LeakyConstantDeclaration: Stub constant instead of declaring explicitly.", 1223327],
     [114, 15, 19, "RSpec/VariableName: Use snake_case for variable names.", 372347066],
     [123, 15, 19, "RSpec/VariableName: Use snake_case for variable names.", 372347066],
