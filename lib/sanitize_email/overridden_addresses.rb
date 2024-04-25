@@ -55,10 +55,15 @@ module SanitizeEmail
       @overridden_cc = tempmail[:cc].decoded
       @overridden_bcc = tempmail[:bcc].decoded
 
-      if message["personalizations"].nil?
+      actual_personalizations = message["personalizations"]
+      if actual_personalizations.nil?
         raise MissingRecipients, "No recipients left post-sanitization" if (tempmail.to + tempmail.cc + tempmail.bcc).empty?
+      elsif actual_personalizations.respond_to?(:unparsed_value)
+        @overridden_personalizations = personalizations_override(actual_personalizations)
       else
-        @overridden_personalizations = personalizations_override(message["personalizations"])
+        # TODO: Remove check when dropping Rails 3.x
+        #       undefined method `unparsed_value' for #<Mail::OptionalField>
+        raise MissingRecipients, "Mail version is too old to use personalizations"
       end
     end
 

@@ -5,5 +5,10 @@ source "https://rubygems.org"
 # Root Gemfile is only for local development only. It is not loaded on CI.
 # On CI we only need the gemspecs' dependencies (including development dependencies).
 # Exceptions, if any, will be found in gemfiles/*.gemfile
+# Load order is very important with combustion!
+gem "combustion", "~> 1.4"
+
+gem "actionmailer"
+gem "railties"
 
 gemspec path: "../"

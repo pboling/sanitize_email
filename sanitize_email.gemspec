@@ -56,11 +56,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency("version_gem", "~> 1.1", ">= 1.1.4")
 
   # Development Dependencies
-  spec.add_development_dependency("actionmailer", ">= 3")
-  spec.add_development_dependency("appraisal", "~> 2")
-  spec.add_development_dependency("rails", ">= 3.0", "<= 8")
-  spec.add_development_dependency("rake", ">= 12")
-  spec.add_development_dependency("rdoc", ">= 3.12")
+  spec.add_development_dependency("appraisal", "~> 2.5")
+  spec.add_development_dependency("json", ">= 1.7.7")
+  spec.add_development_dependency("rake", ">= 0.8.7")
+  spec.add_development_dependency("rdoc", ">= 3")
   spec.add_development_dependency("rspec", ">= 3")
   spec.add_development_dependency("rspec-block_is_expected", "~> 1.0", ">= 1.0.5")
   spec.add_development_dependency("rspec-pending_for", "~> 0.1", ">= 0.1.16")

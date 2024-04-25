@@ -3,3 +3,6 @@ inherit_gem:
 
 RSpec/InstanceVariable:
   Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false

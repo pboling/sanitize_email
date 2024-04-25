@@ -3,8 +3,7 @@
 source "https://rubygems.org"
 
 gem "combustion", "~> 1.4"
-gem "actionmailer", "~> 5.0.7.2"
-gem "railties", "~> 5.0.7.2"
-gem "nokogiri"
+gem "actionmailer", "~> 7.0.8.1"
+gem "railties", "~> 7.0.8.1"
 
 gemspec path: "../"

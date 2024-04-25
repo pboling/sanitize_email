@@ -2,16 +2,9 @@
 
 source "https://rubygems.org"
 
-gem "actionmailer", "~> 5.2.0"
-gem "railties", "~> 5.2.0"
-gem "json", "~> 2.0"
-gem "rake", "~> 12.0"
-
-group :test do
-  # Travis-CI does not support C-extensions on JRuby
-  gem "rubocop", "~> 0.58.0", platforms: :mri
-  gem "rubocop-rspec", "~> 1.29.0", platforms: :mri
-  gem "byebug", platforms: :mri
-end
+gem "combustion", "~> 1.4"
+gem "actionmailer", "~> 5.2.8.1"
+gem "railties", "~> 5.2.8.1"
+gem "nokogiri"
 
 gemspec path: "../"

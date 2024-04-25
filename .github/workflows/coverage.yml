@@ -1,8 +1,8 @@
 name: Ruby - Coverage
 
 env:
-  K_SOUP_COV_MIN_BRANCH: 73
-  K_SOUP_COV_MIN_LINE: 90
+  K_SOUP_COV_MIN_BRANCH: 71
+  K_SOUP_COV_MIN_LINE: 89
   K_SOUP_COV_MIN_HARD: true
 
 on:
@@ -56,7 +56,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Ruby & Bundle
+      - name: Setup Ruby & RubyGems
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"

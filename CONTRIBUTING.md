@@ -7,6 +7,14 @@ the [code of conduct][🤝conduct].
 To submit a patch, please fork the project and create a patch with tests. Once you're happy with it send a pull request
 and post a message to the [gitter chat][🏘chat].
 
+## Appraisal & Combustion
+
+### Generate a new set of Appraisal gemfiles:
+
+```sh
+BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal generate
+```
+
 ## Release
 
 To release a new version:
