@@ -8,6 +8,6 @@ gem "combustion", "~> 1.4"
 gem "actionmailer", "~> 6.1.7.7"
 gem "railties", "~> 6.1.7.7"
 gem "actionpack", "~> 6.1.7.7"
-gem "rspec_rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
+gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
 
 gemspec path: "../"

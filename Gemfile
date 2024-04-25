@@ -21,7 +21,10 @@ platform :mri do
   gem "byebug", ">= 11"
 end
 
-gem "actionpack"
+gem "actionmailer", "~> 7.1.3.2"
+gem "railties", "~> 7.1.3.2"
+gem "actionpack", "~> 7.1.3.2"
+gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
 
 # Coverage
 gem "kettle-soup-cover", "~> 1.0", ">= 1.0.2"

@@ -2,6 +2,14 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 source "https://rubygems.org"
 
+# Load order is very important with combustion!
+gem "combustion", "~> 1.4"
+
+gem "actionmailer", "~> 7.1.3.2"
+gem "railties", "~> 7.1.3.2"
+gem "actionpack", "~> 7.1.3.2"
+gem "rspec-rails", "~> 6.0" # For Rails 6.1 & Rails 7.0 - 7.1
+
 # Root Gemfile is only for local development only. It is not loaded on CI.
 # On CI we only need the gemspecs' dependencies (including development dependencies).
 # Exceptions, if any, will be found in gemfiles/*.gemfile

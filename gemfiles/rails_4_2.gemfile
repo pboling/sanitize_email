@@ -9,6 +9,6 @@ gem "actionmailer", "~> 4.2.11.3"
 gem "railties", "~> 4.2.11.3"
 gem "actionpack", "~> 4.2.11.3"
 gem "rdoc", "6.1.2.1"
-gem "rspec_rails", "~> 3.0" # For Rails 4
+gem "rspec-rails", "~> 3.0" # For Rails 4
 
 gemspec path: "../"
