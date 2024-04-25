@@ -65,7 +65,7 @@ then this is the gem for you.
 
 ⚙️ Compatible with all versions of Ruby >= 2.3.
 ⚙️ Compatible with all Ruby web Frameworks (Hanami, Roda, Sinatra, Rails).
-⚙️ Compatible with all versions of Rails from 4.0 - 7.1+.
+⚙️ Compatible with all versions of Rails from 3.0 - 7.1+.
 ⚙️ Compatible with scripted usage of Mail gem outside a web framework.
 ⚙️ Compatible with [`sendgrid-actionmailer`](https://github.com/eddiezane/sendgrid-actionmailer)'s support for personalizations, and will override email addresses there according to the configuration.
 ⚙️ If this gem is not compatible with your use case, and you'd like it to be, I'd like to hear about it!
@@ -228,7 +228,7 @@ The link tokens in the following sections should be kept ordered by the row and 
 It's particularly helpful when you want to prevent the delivery of email (e.g. in development/test environments) or alter the to/cc/bcc (e.g. in staging or demo environments) of all email generated from your application.
 
 * compatible without Rails!  Can work with just the `mail` gem.
-* compatible with Rails >= 4.2.  See gem versions 1.x for older versions of Rails.
+* compatible with Rails >= 3.0.  See gem versions 1.x for older versions of Rails.
 * compatible with Ruby >= 2.3.  See gem versions 1.x for older versions of Ruby.
 * compatible with any Ruby app with a mail handler that uses the `register_interceptor` API (a la ActionMailer and `mail` gems)
 * configure it and forget it
@@ -674,15 +674,18 @@ Learn more about, or become one of, our 🎖 contributors on:
 ## Running Specs
 
 The basic compatibility matrix:
-```
+```sh
 appraisal install
 appraisal rake test
 ```
 
 Sometimes also:
-```
+```sh
 appraisal update
 ```
+
+Except, is unlikely to be possible to install all of the supported Rubies & Railsies in a single container...
+See the various github action workflows for more inspiration on running certain oldies.
 
 ### Code Coverage
 
