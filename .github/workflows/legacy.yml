@@ -1,4 +1,4 @@
-name: Ancient Rails Support
+name: Legacy Rails Support
 
 on:
   push:
