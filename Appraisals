@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# NOTE(2024-04-24): Current release of rake v13 supports Ruby >= 2.3
-# NOTE(2024-04-24): Current release of json v2 supports Ruby >= 2.3
-
 appraise "rails-3-0" do
   gem "rails", "~> 3.0.0"
   gem "reek", "~> 2.0" # for Ruby < 2.0
