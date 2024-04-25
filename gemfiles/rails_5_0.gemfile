@@ -8,4 +8,4 @@ gem "railties", "~> 5.0.7.2"
 gem "actionpack", "~> 5.0.7.2"
 gem "rspec-rails", "~> 4.0"
 
-gemspec path: "../../"
+gemspec path: "../"

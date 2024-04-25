@@ -10,4 +10,4 @@ gem "rspec-rails", "~> 3.0"
 gem "rdoc", "6.1.2.1"
 gem "json", ">= 1.7.7", "~> 1.7"
 
-gemspec path: "../../"
+gemspec path: "../"

@@ -9,4 +9,4 @@ gem "actionpack", "~> 4.2.11.3"
 gem "rspec-rails", "~> 3.0"
 gem "rdoc", "6.1.2.1"
 
-gemspec path: "../../"
+gemspec path: "../"
