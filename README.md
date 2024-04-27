@@ -673,6 +673,16 @@ Learn more about, or become one of, our 🎖 contributors on:
 [🛖hut-contrib]: https://git.sr.ht/~galtzo/sanitize_email/log/
 [🧪lab-contrib]: https://gitlab.com/pboling/sanitize_email/-/graphs/main?ref_type=heads
 
+## Star History
+
+<a href="https://star-history.com/#pboling/sanitize_email&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=pboling/sanitize_email&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=pboling/sanitize_email&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=pboling/sanitize_email&type=Date" />
+ </picture>
+</a>
+
 ## Running Specs
 
 The basic compatibility matrix:
