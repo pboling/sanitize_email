@@ -45,7 +45,9 @@ jobs:
         ruby:
           - head
           - truffleruby-head
-          - jruby-head
+          # jruby is not working right now.
+          # see: https://github.com/pboling/sanitize_email/actions/runs/9554127118/job/26334508122
+          # - jruby-head
 
     steps:
       - name: Checkout

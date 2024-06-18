@@ -83,12 +83,14 @@ jobs:
             bundler: latest
             gemfile: vanilla
             rails: "7.1"
-          - ruby: "jruby"
-            appraisal: "rails-7-1"
-            rubygems: latest
-            bundler: latest
-            gemfile: vanilla
-            rails: "7.1"
+# jruby is not working right now.
+# see: https://github.com/pboling/sanitize_email/actions/runs/9554127118/job/26334508122
+#          - ruby: "jruby"
+#            appraisal: "rails-7-1"
+#            rubygems: latest
+#            bundler: latest
+#            gemfile: vanilla
+#            rails: "7.1"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
