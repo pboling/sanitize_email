@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
+## [2.0.7] - 2024-04-25 ([tag][2.0.7t])
+### Added
+* More documentation
+### Changed
+* Documentation is now via yard instead of rdoc
+### Fixed
+# [#110](https://github.com/pboling/sanitize_email/issues/110) - interceptor not working via Rails 6+ engine
+
 ## [2.0.6] - 2024-04-25 ([tag][2.0.6t])
 ### Added
 * Appraisals & Combustion for comprehensive testing across versions of Rails (@pboling)
@@ -291,7 +299,9 @@ Old version?
 * Fixed require paths
 * added about.yml and this CHANGELOG
 
-[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.6...HEAD
+[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.7...HEAD
+[2.0.7]: https://github.com/pboling/sanitize_email/compare/v2.0.5...v2.0.7
+[2.0.7t]: https://github.com/pboling/sanitize_email/tags/v2.0.7
 [2.0.6]: https://github.com/pboling/sanitize_email/compare/v2.0.5...v2.0.6
 [2.0.6t]: https://github.com/pboling/sanitize_email/tags/v2.0.6
 [2.0.5]: https://github.com/pboling/sanitize_email/compare/v2.0.4...v2.0.5
