@@ -32,3 +32,7 @@ gem "rubocop-rspec", "~> 2.10"
 
 # Quality
 gem "reek", "~> 6.3"
+
+# Documentation
+gem "yard", "~> 0.9", ">= 0.9.34"
+gem "yard-junk", "~> 0.0"

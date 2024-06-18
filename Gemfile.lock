@@ -53,6 +53,7 @@ GEM
       rake
       thor (>= 0.14.0)
     ast (2.4.2)
+    backports (3.25.0)
     base64 (0.2.0)
     bigdecimal (3.1.8)
     builder (3.3.0)
@@ -308,6 +309,11 @@ GEM
     unicode-display_width (2.5.0)
     version_gem (1.1.4)
     webrick (1.8.1)
+    yard (0.9.36)
+    yard-junk (0.0.9)
+      backports (>= 3.18)
+      rainbow
+      yard
     zeitwerk (2.6.16)
 
 PLATFORMS
@@ -332,6 +338,8 @@ DEPENDENCIES
   rubocop-packaging (~> 0.5, >= 0.5.2)
   rubocop-rspec (~> 2.10)
   sanitize_email!
+  yard (~> 0.9, >= 0.9.34)
+  yard-junk (~> 0.0)
 
 BUNDLED WITH
    2.5.13

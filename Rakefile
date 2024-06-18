@@ -8,7 +8,9 @@ begin
   desc "alias test task to spec"
   task test: :spec
 rescue LoadError
-  warn("Failed to load rspec")
+  task(:spec) do
+    warn("rspec is disabled")
+  end
 end
 
 begin
@@ -19,25 +21,38 @@ begin
     t.source_files = "lib/**/*.rb"
   end
 rescue LoadError
-  warn("reek is not installed")
+  task(:reek) do
+    warn("reek is disabled")
+  end
 end
 
-require_relative "lib/sanitize_email/version"
-require "rdoc"
-require "rdoc/task"
-RDoc::Task.new do |rdoc|
-  rdoc.rdoc_dir = "rdoc"
-  rdoc.title = "SanitizeEmail #{SanitizeEmail::Version::VERSION}"
-  rdoc.options << "--line-numbers"
-  rdoc.rdoc_files.include("README*")
-  rdoc.rdoc_files.include("lib/**/*.rb")
+begin
+  require "yard-junk/rake"
+
+  YardJunk::Rake.define_task
+rescue LoadError
+  task("yard:junk") do
+    warn("yard:junk is disabled")
+  end
+end
+
+begin
+  require "yard"
+
+  YARD::Rake::YardocTask.new(:yard)
+rescue LoadError
+  task(:yard) do
+    warn("yard is disabled")
+  end
 end
 
 begin
   require "rubocop/lts"
   Rubocop::Lts.install_tasks
 rescue LoadError
-  puts "Linting not available"
+  task(:rubocop_gradual) do
+    warn("RuboCop (Gradual) is disabled")
+  end
 end
 
-task default: %i[spec rubocop_gradual reek]
+task default: %i[spec rubocop_gradual reek yard yard:junk]
