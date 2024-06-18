@@ -9,8 +9,8 @@ module SanitizeEmail
   class EngineV6 < ::Rails::Engine
     config.to_prepare do
       # For the reasoning behind the difference between v5 and v6 engines,
-      #   - see: https://github.com/rails/rails/issues/36546#issuecomment-850888284
-      Rails.application.config.action_mailer.register_interceptor(SanitizeEmail::Bleach)
+      #   - see: https://github.com/rails/rails/issues/42170#issuecomment-835177539
+      Rails.application.config.action_mailer.interceptors = ["SanitizeEmail::Bleach"]
     end
   end
 end
