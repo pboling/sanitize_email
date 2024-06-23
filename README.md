@@ -696,6 +696,9 @@ Sometimes also:
 BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal update
 ```
 
+NOTE: This results in bad paths to the gemspec.
+`gemspec path: "../../"` needs to be replaced with `gemspec path: "../"` in each Appraisal gemfile.
+
 Except, is unlikely to be possible to install all of the supported Rubies & Railsies in a single container...
 See the various github action workflows for more inspiration on running certain oldies.
 
