@@ -135,7 +135,7 @@ The link tokens in the following sections should be kept ordered by the row and 
 
 <!-- 1️⃣ name, license, docs -->
 [⛳️gem]: https://rubygems.org/gems/sanitize_email
-[⛳️name-img]: https://img.shields.io/badge/name-sanitize_email-brightgreen.svg?style=flat
+[⛳️name-img]: https://img.shields.io/badge/name-sanitize__email-brightgreen.svg?style=flat
 [🖇src-license]: https://opensource.org/licenses/MIT
 [🖇src-license-img]: https://img.shields.io/badge/License-MIT-green.svg
 [🚎yard]: https://www.rubydoc.info/gems/sanitize_email
