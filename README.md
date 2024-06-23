@@ -23,6 +23,7 @@
 
 [![Liberapay Patrons][⛳liberapay-img]][⛳liberapay]
 [![Sponsor Me on Github][🖇sponsor-img]][🖇sponsor]
+
 <span class="badge-buymeacoffee">
 <a href="https://ko-fi.com/O5O86SNP4" target='_blank' title="Donate to my FLOSS or refugee efforts at ko-fi.com"><img src="https://img.shields.io/badge/buy%20me%20coffee-donate-yellow.svg" alt="Buy me coffee donation button" /></a>
 </span>
