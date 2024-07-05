@@ -210,7 +210,7 @@ The link tokens in the following sections should be kept ordered by the row and 
 [🖇linkedin]: http://www.linkedin.com/in/peterboling
 [🖇linkedin-img]: https://img.shields.io/badge/PeterBoling-blue?style=plastic&logo=linkedin
 [✌️wellfound]: https://angel.co/u/peter-boling
-[✌️wellfound-img]: https://img.shields.io/badge/peter--boling-orange?style=plastic&logo=angellist
+[✌️wellfound-img]: https://img.shields.io/badge/peter--boling-orange?style=plastic&logo=wellfound
 [💲crunchbase]: https://www.crunchbase.com/person/peter-boling
 [💲crunchbase-img]: https://img.shields.io/badge/peter--boling-purple?style=plastic&logo=crunchbase
 [🐘ruby-mast]: https://ruby.social/@galtzo
