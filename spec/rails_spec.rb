@@ -17,7 +17,7 @@ RSpec.describe Rails do
     end
 
     context "with mailer" do
-      subject(:mail_delivery) { HelloMailer.bonjour.deliver_now }
+      subject(:mail_delivery) { HelloMailer.bonjour.deliver }
 
       it "does not raise error" do
         block_is_expected.to not_raise_error
