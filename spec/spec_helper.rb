@@ -7,6 +7,7 @@ require "rspec/pending_for"
 
 # RSpec Configs
 require "config/byebug"
+require "config/rspec/helpers"
 require "config/rspec/rspec_block_is_expected"
 require "config/rspec/rspec_core"
 require "config/rspec/version_gem"

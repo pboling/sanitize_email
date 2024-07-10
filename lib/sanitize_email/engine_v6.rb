@@ -7,10 +7,12 @@ require "rails/engine"
 module SanitizeEmail
   # For Rails >= 6.0
   class EngineV6 < ::Rails::Engine
-    config.to_prepare do
-      # For the reasoning behind the difference between v5 and v6 engines,
-      #   - see: https://github.com/rails/rails/issues/42170#issuecomment-835177539
-      Rails.application.config.action_mailer.interceptors = ["SanitizeEmail::Bleach"]
+    # Runs before frameworks, like ActionMailer, are initialized
+    config.before_initialize do
+      ActiveSupport.on_load(:action_mailer) do
+        # Within :action_mailer hook, self is ActionMailer::Base
+        register_interceptor(SanitizeEmail::Bleach)
+      end
     end
   end
 end
