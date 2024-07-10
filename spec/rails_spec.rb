@@ -13,7 +13,7 @@ RSpec.describe Rails do
   end
   describe "in App" do
     it "has a mailer configured" do
-      expect(HelloMailer < ActionMailer::Base).to eq(true)
+      expect(HelloMailer < ActionMailer::Base).to be(true)
     end
 
     context "with mailer" do
