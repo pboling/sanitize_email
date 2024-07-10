@@ -39,7 +39,7 @@
     [65, 5, 233, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 2880787383],
     [73, 5, 386, "Style/ClassMethodsDefinitions: Use `class << self` to define a class method.", 1085137330]
   ],
-  "spec/rails_spec.rb:711263592": [
+  "spec/rails_spec.rb:4154426561": [
     [26, 7, 16, "RSpec/MultipleExpectations: Example has too many expectations [8/1].", 3524538235],
     [37, 7, 23, "RSpec/NestedGroups: Maximum example group nesting exceeded [4/3].", 1651527717],
     [57, 9, 16, "RSpec/MultipleExpectations: Example has too many expectations [8/1].", 3524538235]
