@@ -31,6 +31,7 @@ To release a new version:
    a. Run `export SOURCE_DATE_EPOCH=$EPOCHSECONDS && echo $SOURCE_DATE_EPOCH`
    b. If the echo above has no output, then it didn't work.
    c. Note that you'll need the `zsh/datetime` module, if running `zsh`.
+   d. In `bash` you can use `date +%s` instead, i.e. `export SOURCE_DATE_EPOCH=$(date +%s) && echo $SOURCE_DATE_EPOCH`
 9. Run `bundle exec rake build`
 10. Run [`bin/checksums`][🔒️rubygems-checksums-pr] to create SHA-256 and SHA-512 checksums
     a. Checksums will be committed automatically by the script, but not pushed
