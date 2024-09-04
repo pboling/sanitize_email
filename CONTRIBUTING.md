@@ -24,17 +24,17 @@ To release a new version:
 3. Run `bin/setup && bin/rake` again as a secondary check, and to update `Gemfile.lock`
 4. Run `git commit -am "🔖 Prepare release v<VERSION>"` to commit the changes
 5. Run `git push` to trigger the final CI pipeline before release, & merge PRs
-   a. NOTE: Remember to [check the build][🧪build]!
+   - NOTE: Remember to [check the build][🧪build]!
 6. Run `git checkout main`
 7. Run `git pull origin main` to ensure you will release the latest trunk code.
 8. Set `SOURCE_DATE_EPOCH` so `rake build` and `rake release` use same timestamp, and generate same checksums
-   a. Run `export SOURCE_DATE_EPOCH=$EPOCHSECONDS && echo $SOURCE_DATE_EPOCH`
-   b. If the echo above has no output, then it didn't work.
-   c. Note that you'll need the `zsh/datetime` module, if running `zsh`.
-   d. In `bash` you can use `date +%s` instead, i.e. `export SOURCE_DATE_EPOCH=$(date +%s) && echo $SOURCE_DATE_EPOCH`
+   - Run `export SOURCE_DATE_EPOCH=$EPOCHSECONDS && echo $SOURCE_DATE_EPOCH`
+   - If the echo above has no output, then it didn't work.
+   - Note that you'll need the `zsh/datetime` module, if running `zsh`.
+   - In `bash` you can use `date +%s` instead, i.e. `export SOURCE_DATE_EPOCH=$(date +%s) && echo $SOURCE_DATE_EPOCH`
 9. Run `bundle exec rake build`
 10. Run [`bin/checksums`][🔒️rubygems-checksums-pr] to create SHA-256 and SHA-512 checksums
-    a. Checksums will be committed automatically by the script, but not pushed
+    - Checksums will be committed automatically by the script, but not pushed
 11. Run `bundle exec rake release` which will create a git tag for the version,
     push git commits and tags, and push the `.gem` file to [rubygems.org][💎rubygems]
 
