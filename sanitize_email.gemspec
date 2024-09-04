@@ -25,9 +25,11 @@ Gem::Specification.new do |spec|
 
   # Specify which files should be added to the gem when it is released.
   spec.files = Dir[
+    # Splats (alphabetical)
     "lib/**/*.rb",
-    "CODE_OF_CONDUCT.md",
+    # Files (alphabetical)
     "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
     "LICENSE.txt",
     "README.md",
