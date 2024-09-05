@@ -25,17 +25,18 @@ To release a new version:
 4. Run `git commit -am "🔖 Prepare release v<VERSION>"` to commit the changes
 5. Run `git push` to trigger the final CI pipeline before release, & merge PRs
    - NOTE: Remember to [check the build][🧪build]!
-6. Run `git checkout main`
-7. Run `git pull origin main` to ensure you will release the latest trunk code.
-8. Set `SOURCE_DATE_EPOCH` so `rake build` and `rake release` use same timestamp, and generate same checksums
+6. Run `export GIT_TRUNK_BRANCH_NAME="$(git remote show origin | grep 'HEAD branch' | cut -d ' ' -f5)" && echo $GIT_TRUNK_BRANCH_NAME`
+7. Run `git checkout $GIT_TRUNK_BRANCH_NAME`
+8. Run `git pull origin $GIT_TRUNK_BRANCH_NAME` to ensure you will release the latest trunk code
+9. Set `SOURCE_DATE_EPOCH` so `rake build` and `rake release` use same timestamp, and generate same checksums
    - Run `export SOURCE_DATE_EPOCH=$EPOCHSECONDS && echo $SOURCE_DATE_EPOCH`
    - If the echo above has no output, then it didn't work.
    - Note that you'll need the `zsh/datetime` module, if running `zsh`.
    - In `bash` you can use `date +%s` instead, i.e. `export SOURCE_DATE_EPOCH=$(date +%s) && echo $SOURCE_DATE_EPOCH`
-9. Run `bundle exec rake build`
-10. Run [`bin/checksums`][🔒️rubygems-checksums-pr] to create SHA-256 and SHA-512 checksums
+10. Run `bundle exec rake build`
+11. Run [`bin/checksums`][🔒️rubygems-checksums-pr] to create SHA-256 and SHA-512 checksums
     - Checksums will be committed automatically by the script, but not pushed
-11. Run `bundle exec rake release` which will create a git tag for the version,
+12. Run `bundle exec rake release` which will create a git tag for the version,
     push git commits and tags, and push the `.gem` file to [rubygems.org][💎rubygems]
 
 NOTE: You will need to have a public key in `certs/`, and list your cert in the
