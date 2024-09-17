@@ -201,7 +201,7 @@ The link tokens in the following sections should be kept ordered by the row and 
 <!-- 7️⃣ spread 💖 -->
 [🐦tweet-img]: https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow%20%40galtzo
 [🐦tweet]: http://twitter.com/galtzo
-[🚎blog]: http://www.railsbling.com/tags/debug_logging/
+[🚎blog]: http://www.railsbling.com/tags/sanitize_email/
 [🚎blog-img]: https://img.shields.io/badge/blog-railsbling-brightgreen.svg?style=flat
 [🖇linkedin]: http://www.linkedin.com/in/peterboling
 [🖇linkedin-img]: https://img.shields.io/badge/PeterBoling-blue?style=plastic&logo=linkedin
