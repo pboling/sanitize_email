@@ -308,7 +308,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     version_gem (1.1.4)
-    webrick (1.8.1)
+    webrick (1.8.2)
     yard (0.9.36)
     yard-junk (0.0.9)
       backports (>= 3.18)
