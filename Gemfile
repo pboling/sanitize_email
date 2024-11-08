@@ -20,7 +20,6 @@ end
 
 gem "actionmailer", "~> 7.2.1.1"
 gem "railties", "~> 7.2.1.1"
-# gem "actionpack", "~> 7.1.3.2"
 
 # Coverage
 gem "kettle-soup-cover", "~> 1.0", ">= 1.0.4"

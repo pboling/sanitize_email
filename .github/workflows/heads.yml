@@ -44,7 +44,9 @@ jobs:
           - vanilla
         ruby:
           - head
-          - truffleruby-head
+          # TruffleRuby is incompatible with Rails 8 currently
+          # see: https://github.com/rails/rails/pull/53490#issuecomment-2465235043
+          # - truffleruby-head
           # jruby is not working right now.
           # see: https://github.com/pboling/sanitize_email/actions/runs/9554127118/job/26334508122
           # - jruby-head

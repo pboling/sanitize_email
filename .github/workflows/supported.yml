@@ -41,6 +41,18 @@ jobs:
       matrix:
         include:
           - ruby: "3.3"
+            appraisal: "rails-8-0"
+            rubygems: latest
+            bundler: latest
+            gemfile: vanilla
+            rails: "8.0"
+          - ruby: "3.3"
+            appraisal: "rails-7-2"
+            rubygems: latest
+            bundler: latest
+            gemfile: vanilla
+            rails: "7.2"
+          - ruby: "3.3"
             appraisal: "rails-7-1"
             rubygems: latest
             bundler: latest
