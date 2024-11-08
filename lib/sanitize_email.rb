@@ -22,7 +22,7 @@ module SanitizeEmail
   # This gem must be loaded **after** Rails in order for the Engine/Railtie to register itself automatically.
   # Otherwise, you'd have to manually require what you need from below.
   # Allow non-rails implementations to use this gem
-  if defined?(::Rails) && defined?(::Rails::VERSION)
+  if defined?(::Rails::VERSION)
     if defined?(::Rails::Engine)
       if ::Rails::VERSION::MAJOR >= 6
         # Rails 6.0+
