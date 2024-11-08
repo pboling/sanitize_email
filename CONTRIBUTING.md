@@ -17,7 +17,14 @@ BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal generate
 
 ## Release
 
-To release a new version:
+### One-time, Per-developer, Setup
+
+**IMPORTANT**: Your public key for signing gems will need to be picked up by the line in the
+`gemspec` defining the `spec.cert_chain` (check the relevant ENV variables there),
+in order to sign the new release.
+See: [RubyGems Security Guide][🔒️rubygems-security-guide]
+
+### To release a new version:
 
 1. Run `bin/setup && bin/rake` as a tests, coverage, & linting sanity check
 2. Update the version number in `version.rb`
@@ -34,14 +41,10 @@ To release a new version:
    - Note that you'll need the `zsh/datetime` module, if running `zsh`.
    - In `bash` you can use `date +%s` instead, i.e. `export SOURCE_DATE_EPOCH=$(date +%s) && echo $SOURCE_DATE_EPOCH`
 10. Run `bundle exec rake build`
-11. Run [`bin/checksums`][🔒️rubygems-checksums-pr] to create SHA-256 and SHA-512 checksums
+11. Run `bin/checksums` (more [context][🔒️rubygems-checksums-pr]) to create SHA-256 and SHA-512 checksums
     - Checksums will be committed automatically by the script, but not pushed
 12. Run `bundle exec rake release` which will create a git tag for the version,
     push git commits and tags, and push the `.gem` file to [rubygems.org][💎rubygems]
-
-NOTE: You will need to have a public key in `certs/`, and list your cert in the
-`gemspec`, in order to sign the new release.
-See: [RubyGems Security Guide][🔒️rubygems-security-guide]
 
 ## Contributors
 
