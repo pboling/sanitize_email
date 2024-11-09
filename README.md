@@ -61,14 +61,14 @@ This gem allows you to override your mail delivery settings, globally or in a lo
 It is like a Ruby encrusted condom for your email server,
 just in case it decides to have intercourse with other servers via sundry mail protocols.
 
-Seriously though, this gem solves similar problems as the excellent [`mailcatcher`](https://mailcatcher.me/) gem,
-and mailcatcher solves those problems far more easily.
+Seriously though, this gem solves similar problems as the excellent [mailcatcher](https://mailcatcher.me/) gem,
+and `mailcatcher` solves those problems far more easily.
 
-In addition, this gem solves problems that mailcatcher does not solve.  I recommend using both!
+In addition, this gem solves problems that `mailcatcher` does not solve.  I recommend using both!
 
 To make an analogy, `mailcatcher` is akin to `webmock`, entirely preventing interaction with your real live mail server,
 while this gem allows you to effectively use your real live (production!) mail server, while 
-intercepting and modifying recipeients on the way out, so that testing emails go to safe locations.
+intercepting and modifying recipients on the way out, so that testing emails go to safe locations.
 
 It is a bit like using the "test" Visa credit card number `4701322211111234` with a real payment gateway.
 
@@ -90,7 +90,7 @@ then this is the gem for you.
 - ⚙️ Compatible with [`sendgrid-actionmailer`](https://github.com/eddiezane/sendgrid-actionmailer)'s support for personalizations, and will override email addresses there according to the configuration.
 - ⚙️ If this gem is not compatible with your use case, and you'd like it to be, I'd like to hear about it!
 
-It was a slog getting (very nearly) the entire compatibility matrix working with Github Actions, [`appraisal`](https://github.com/thoughtbot/appraisal), and [`combustion`](https://github.com/pat/combustion), and I'm very interested in hearing about ways to improve it!
+It was a slog getting (very nearly) the entire compatibility matrix working with Github Actions, [appraisal](https://github.com/thoughtbot/appraisal), and [combustion](https://github.com/pat/combustion), and I'm very interested in hearing about ways to improve it!
 
 ## 🛞 DVCS
 
@@ -494,10 +494,10 @@ end
 
 #### be_* matchers
 
-These will look for a matching string in any of the following
+These will look for a matching string in any of the following attributes:
 
 ```ruby
-:from, :to, :cc, :bcc, :subject, :reply_to
+[ :from, :to, :cc, :bcc, :subject, :reply_to ]
 ```
 
 Example:

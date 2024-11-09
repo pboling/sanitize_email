@@ -95,7 +95,7 @@ module SanitizeEmail
     # You have access to all the same configuration options in the parameter hash
     # as you can set in the actual SanitizeEmail.configure block.
     #
-    # SanitizeEmail.sanitary({:sanitized_to => "boo@example.com"}) do
+    # SanitizeEmail.sanitary(sanitized_to: "boo@example.com") do
     #   Mail.deliver do
     #     from      "from@example.org"
     #     # Will actually be sent to the override addresses, not this one:
