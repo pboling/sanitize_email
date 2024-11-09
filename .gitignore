@@ -12,3 +12,5 @@ rdoc/*
 
 # rspec failure tracking
 .rspec_status
+
+/doc
