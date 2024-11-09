@@ -1,6 +1,6 @@
 {
-  "README.md:728112920": [
-    [497, 6, 1, "Lint/Syntax: unexpected token tCOMMA\n(Using Ruby 2.3 parser; configure using `TargetRubyVersion` parameter, under `AllCops`)", 177545]
+  "README.md:2636929080": [
+    [500, 6, 1, "Lint/Syntax: unexpected token tCOMMA\n(Using Ruby 2.3 parser; configure using `TargetRubyVersion` parameter, under `AllCops`)", 177545]
   ],
   "Rakefile:1232999741": [
     [8, 3, 30, "Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.", 2786900295],

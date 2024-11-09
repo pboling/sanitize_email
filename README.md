@@ -1,14 +1,52 @@
 # sanitize_email
 
-<div id="badges">
-
-[![CI Build][🚎dl-cwfi]][🚎dl-cwf]
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/gem/v/sanitize_email.svg)](https://rubygems.org/gems/sanitize_email)
+[![Downloads Today](https://img.shields.io/gem/rd/sanitize_email.svg)](https://github.com/pboling/sanitize_email)
+[![Depfu][🔑depfui]][🔑depfu]
+[![CodeCov][🖇codecov-img♻️]][🖇codecov]
 [![Test Coverage][🔑cc-covi]][🔑cc-cov]
 [![Maintainability][🔑cc-mnti]][🔑cc-mnt]
-[![Depfu][🔑depfui]][🔑depfu]
+[![CI Supported Build][🚎s-wfi]][🚎s-wf]
+[![CI Unsupported Build][🚎us-wfi]][🚎us-wf]
+[![CI Style Build][🚎st-wfi]][🚎st-wf]
+[![CI Coverage Build][🚎cov-wfi]][🚎cov-wf]
+[![CI Heads Build][🚎hd-wfi]][🚎hd-wf]
+[![CI Ancient Build][🚎an-wfi]][🚎an-wf]
 
-[🚎dl-cwf]: https://github.com/pboling/sanitize_email/actions/workflows/supported.yml
-[🚎dl-cwfi]: https://github.com/pboling/sanitize_email/actions/workflows/supported.yml/badge.svg
+[🖇codecov-img♻️]: https://codecov.io/gh/pboling/sanitize_email/graph/badge.svg?token=selEoMrZzA
+[🖇codecov]: https://codecov.io/gh/pboling/sanitize_email
+[🚎s-wf]: https://github.com/pboling/sanitize_email/actions/workflows/supported.yml
+[🚎s-wfi]: https://github.com/pboling/sanitize_email/actions/workflows/supported.yml/badge.svg
+[🚎us-wf]: https://github.com/pboling/sanitize_email/actions/workflows/unsupported.yml
+[🚎us-wfi]: https://github.com/pboling/sanitize_email/actions/workflows/unsupported.yml/badge.svg
+[🚎st-wf]: https://github.com/pboling/sanitize_email/actions/workflows/style.yml
+[🚎st-wfi]: https://github.com/pboling/sanitize_email/actions/workflows/style.yml/badge.svg
+[🚎cov-wf]: https://github.com/pboling/sanitize_email/actions/workflows/coverage.yml
+[🚎cov-wfi]: https://github.com/pboling/sanitize_email/actions/workflows/coverage.yml/badge.svg
+[🚎hd-wf]: https://github.com/pboling/sanitize_email/actions/workflows/heads.yml
+[🚎hd-wfi]: https://github.com/pboling/sanitize_email/actions/workflows/heads.yml/badge.svg
+[🚎an-wf]: https://github.com/pboling/sanitize_email/actions/workflows/ancient.yml
+[🚎an-wfi]: https://github.com/pboling/sanitize_email/actions/workflows/ancient.yml/badge.svg
+
+-----
+
+[![Liberapay Patrons][⛳liberapay-img]][⛳liberapay]
+[![Sponsor Me on Github][🖇sponsor-img]][🖇sponsor]
+[![Polar Shield][🖇polar-img]][🖇polar]
+[![Donate to my FLOSS or refugee efforts at ko-fi.com][🖇kofi-img]][🖇kofi]
+[![Donate to my FLOSS or refugee efforts using Patreon][🖇patreon-img]][🖇patreon]
+
+[⛳liberapay-img]: https://img.shields.io/liberapay/patrons/pboling.svg?logo=liberapay
+[⛳liberapay]: https://liberapay.com/pboling/donate
+[🖇sponsor-img]: https://img.shields.io/badge/Sponsor_Me!-pboling.svg?style=social&logo=github
+[🖇sponsor]: https://github.com/sponsors/pboling
+[🖇polar-img]: https://polar.sh/embed/seeks-funding-shield.svg?org=pboling
+[🖇polar]: https://polar.sh/pboling
+[🖇kofi-img]: https://img.shields.io/badge/buy%20me%20coffee-donate-yellow.svg
+[🖇kofi]: https://ko-fi.com/O5O86SNP4
+[🖇patreon-img]: https://img.shields.io/badge/patreon-donate-yellow.svg
+[🖇patreon]: https://patreon.com/galtzo
 
 [comment]: <> ( 🔑 KEYED LINKS )
 
@@ -18,25 +56,6 @@
 [🔑cc-covi]: https://api.codeclimate.com/v1/badges/65af4948d859903a0372/test_coverage
 [🔑depfu]: https://depfu.com/github/pboling/sanitize_email
 [🔑depfui]: https://badges.depfu.com/badges/bba430e8f19a2ba3273fb20d5e8c82d6/count.svg
-
------
-
-[![Liberapay Patrons][⛳liberapay-img]][⛳liberapay]
-[![Sponsor Me on Github][🖇sponsor-img]][🖇sponsor]
-
-<span class="badge-buymeacoffee">
-<a href="https://ko-fi.com/O5O86SNP4" target='_blank' title="Donate to my FLOSS or refugee efforts at ko-fi.com"><img src="https://img.shields.io/badge/buy%20me%20coffee-donate-yellow.svg" alt="Buy me coffee donation button" /></a>
-</span>
-<span class="badge-patreon">
-<a href="https://patreon.com/galtzo" title="Donate to my FLOSS or refugee efforts using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a>
-</span>
-
-</div>
-
-[⛳liberapay-img]: https://img.shields.io/liberapay/patrons/pboling.svg?logo=liberapay
-[⛳liberapay]: https://liberapay.com/pboling/donate
-[🖇sponsor-img]: https://img.shields.io/badge/Sponsor_Me!-pboling.svg?style=social&logo=github
-[🖇sponsor]: https://github.com/sponsors/pboling
 
 This gem allows you to override your mail delivery settings, globally or in a local context.
 It is like a Ruby encrusted condom for your email server,
@@ -120,15 +139,14 @@ appended indicators:
 ♻️ / 🔑 - Tagged URLs need to be updated from SAAS integration. Find / Replace is insufficient.
 -->
 
-|     | Project                        | bundle add sanitize_email                                                                                                                                                                                                                                                                                                                                                                                                                             |
-|:----|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1️⃣ | name, license, docs, standards | [![RubyGems.org][⛳️name-img]][⛳️gem] [![License: MIT][🖇src-license-img]][🖇src-license] [![RubyDoc.info][🚎yard-img]][🚎yard] [![YARD Documentation](http://inch-ci.org/github/pboling/sanitize_email.svg)][🚎yard] [![SemVer 2.0.0][🧮semver-img]][🧮semver] [![Keep-A-Changelog 1.0.0][📗keep-changelog-img]][📗keep-changelog]                                                                                                                    |
-| 2️⃣ | version & activity             | [![Gem Version][⛳️version-img]][⛳️gem] [![Total Downloads][🖇DL-total-img]][⛳️gem] [![Download Rank][🏘DL-rank-img]][⛳️gem] [![Source Code][🚎src-main-img]][🚎src-main] [![Open PRs][🖐prs-o-img]][🖐prs-o] [![Closed PRs][🧮prs-c-img]][🧮prs-c]                                                                                                                                                                                                    |
-| 3️⃣ | maintenance & linting          | [![Maintainability][🔑cc-mnti]][🔑cc-mnt] [![Helpers][🖇triage-help-img]][🖇triage-help] [![Depfu][🔑depfui]][🔑depfu] [![Contributors][🚎contributors-img]][🚎contributors] [![Style][🖐style-wf-img]][🖐style-wf]                                                                                                                                                                                                                                   |
-| 4️⃣ | testing                        | [![Supported][🏘sup-wf-img]][🏘sup-wf] [![Heads][🚎heads-wf-img]][🚎heads-wf] [![Heads][🖐uns-wf-img]][🖐uns-wf]                                                                                                                                                                                                                                                                                                                                    |
-| 5️⃣ | coverage & security            | [![CodeClimate][🔑cc-covi]][🔑cc-cov] [![CodeCov][🖇codecov-img♻️]][🖇codecov] [![Coveralls][🏘coveralls-img]][🏘coveralls] [![Security Policy][🚎sec-pol-img]][🚎sec-pol] [![CodeQL][🖐codeQL-img]][🖐codeQL] [![Code Coverage][🧮cov-wf-img]][🧮cov-wf]                                                                                                                                                                                             |
-| 6️⃣ | resources                      | [![Get help on Codementor][🖇codementor-img]][🖇codementor] [![Chat][🏘chat-img]][🏘chat] [![Blog][🚎blog-img]][🚎blog] [![Wiki][🖐wiki-img]][🖐wiki]                                                                                                                                                                                                                                                                                                 |
-| 7️⃣ | `...` 💖                       | [![Liberapay Patrons][⛳liberapay-img]][⛳liberapay] [![Sponsor Me][🖇sponsor-img]][🖇sponsor] [![Follow Me on LinkedIn][🖇linkedin-img]][🖇linkedin] [![Find Me on WellFound:][✌️wellfound-img]][✌️wellfound] [![Find Me on CrunchBase][💲crunchbase-img]][💲crunchbase] [![My LinkTree][🌳linktree-img]][🌳linktree] [![Follow Me on Ruby.Social][🐘ruby-mast-img]][🐘ruby-mast] [![Tweet @ Peter][🐦tweet-img]][🐦tweet] [💻][coderme] [🌏][aboutme] |
+|     | Project                        | bundle add sanitize_email                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|:----|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1️⃣ | name, license, docs, standards | [![RubyGems.org][⛳️name-img]][⛳️gem] [![License: MIT][🖇src-license-img]][🖇src-license] [![RubyDoc.info][🚎yard-img]][🚎yard] [![YARD Documentation](http://inch-ci.org/github/pboling/sanitize_email.svg)][🚎yard] [![SemVer 2.0.0][🧮semver-img]][🧮semver] [![Keep-A-Changelog 1.0.0][📗keep-changelog-img]][📗keep-changelog]                                                                                                                  |
+| 2️⃣ | version & activity             | [![Gem Version][⛳️version-img]][⛳️gem] [![Total Downloads][🖇DL-total-img]][⛳️gem] [![Download Rank][🏘DL-rank-img]][⛳️gem] [![Source Code][🚎src-main-img]][🚎src-main] [![Open PRs][🖐prs-o-img]][🖐prs-o] [![Closed PRs][🧮prs-c-img]][🧮prs-c]                                                                                                                                                                                                  |
+| 3️⃣ | maintenance & linting          | [![Helpers][🖇triage-help-img]][🖇triage-help] [![Depfu][🔑depfui]][🔑depfu] [![Contributors][🚎contributors-img]][🚎contributors]                                                                                                                                                                                                                                                                            |
+| 4️⃣ | coverage & security            | [![CodeCov][🖇codecov-img♻️]][🖇codecov] [![Coveralls][🏘coveralls-img]][🏘coveralls] [![Security Policy][🚎sec-pol-img]][🚎sec-pol] [![CodeQL][🖐codeQL-img]][🖐codeQL]                                                                                                                                                                                                                                |
+| 5️⃣ | resources                      | [![Get help on Codementor][🖇codementor-img]][🖇codementor] [![Chat][🏘chat-img]][🏘chat] [![Blog][🚎blog-img]][🚎blog] [![Wiki][🖐wiki-img]][🖐wiki]                                                                                                                                                                                                                                                                                               |
+| 6️⃣ | `...` 💖                       | [![Liberapay Patrons][⛳liberapay-img]][⛳liberapay] [![Sponsor Me][🖇sponsor-img]][🖇sponsor] [![Follow Me on LinkedIn][🖇linkedin-img]][🖇linkedin] [![Find Me on WellFound:][✌️wellfound-img]][✌️wellfound] [![Find Me on CrunchBase][💲crunchbase-img]][💲crunchbase] [![My LinkTree][🌳linktree-img]][🌳linktree] [![Follow Me on Ruby.Social][🐘ruby-mast-img]][🐘ruby-mast] [![Tweet @ Peter][🐦tweet-img]][🐦tweet] [💻][coderme] [🌏][aboutme] |
 
 <!--
 The link tokens in the following sections should be kept ordered by the row and badge numbering scheme
@@ -162,21 +180,8 @@ The link tokens in the following sections should be kept ordered by the row and 
 [🖇triage-help-img]: https://www.codetriage.com/pboling/sanitize_email/badges/users.svg
 [🚎contributors]: https://gitlab.com/pboling/sanitize_email/-/graphs/main
 [🚎contributors-img]: https://img.shields.io/github/contributors-anon/pboling/sanitize_email
-[🖐style-wf]: https://github.com/pboling/sanitize_email/actions/workflows/style.yml
-[🖐style-wf-img]: https://github.com/pboling/sanitize_email/actions/workflows/style.yml/badge.svg
-<!-- TODO: tokei/lines shields badge is broken -->
-[🧮kloc]: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-[🧮kloc-img]: https://img.shields.io/tokei/lines/github.com/pboling/sanitize_email
 
-<!-- 4️⃣ testing -->
-[🏘sup-wf]: https://github.com/pboling/sanitize_email/actions/workflows/supported.yml
-[🏘sup-wf-img]: https://github.com/pboling/sanitize_email/actions/workflows/supported.yml/badge.svg
-[🚎heads-wf]: https://github.com/pboling/sanitize_email/actions/workflows/heads.yml
-[🚎heads-wf-img]: https://github.com/pboling/sanitize_email/actions/workflows/heads.yml/badge.svg
-[🖐uns-wf]: https://github.com/pboling/sanitize_email/actions/workflows/unsupported.yml
-[🖐uns-wf-img]: https://github.com/pboling/sanitize_email/actions/workflows/unsupported.yml/badge.svg
-
-<!-- 5️⃣ coverage & security -->
+<!-- 4️⃣ coverage & security -->
 [🖇codecov-img♻️]: https://codecov.io/gh/pboling/sanitize_email/graph/badge.svg?token=Joire8DbSW
 [🖇codecov]: https://codecov.io/gh/pboling/sanitize_email
 [🏘coveralls]: https://coveralls.io/github/pboling/sanitize_email?branch=main
@@ -185,10 +190,8 @@ The link tokens in the following sections should be kept ordered by the row and 
 [🚎sec-pol-img]: https://img.shields.io/badge/security-policy-brightgreen.svg?style=flat
 [🖐codeQL]: https://github.com/pboling/sanitize_email/security/code-scanning
 [🖐codeQL-img]: https://github.com/pboling/sanitize_email/actions/workflows/codeql-analysis.yml/badge.svg
-[🧮cov-wf]: https://github.com/pboling/sanitize_email/actions/workflows/coverage.yml
-[🧮cov-wf-img]: https://github.com/pboling/sanitize_email/actions/workflows/coverage.yml/badge.svg
 
-<!-- 6️⃣ resources -->
+<!-- 5️⃣ resources -->
 [🖇codementor]: https://www.codementor.io/peterboling?utm_source=github&utm_medium=button&utm_term=peterboling&utm_campaign=github
 [🖇codementor-img]: https://cdn.codementor.io/badges/get_help_github.svg
 [🏘chat]: https://gitter.im/pboling/sanitize_email
@@ -198,7 +201,7 @@ The link tokens in the following sections should be kept ordered by the row and 
 [🖐wiki]: https://gitlab.com/pboling/sanitize_email/-/wikis/home
 [🖐wiki-img]: https://img.shields.io/badge/wiki-examples-brightgreen.svg?style=flat
 
-<!-- 7️⃣ spread 💖 -->
+<!-- 6️⃣ spread 💖 -->
 [🐦tweet-img]: https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow%20%40galtzo
 [🐦tweet]: http://twitter.com/galtzo
 [🚎blog]: http://www.railsbling.com/tags/sanitize_email/
@@ -767,3 +770,17 @@ See [LICENSE.txt][📄license] for the official [Copyright Notice][📄copyright
 
 [railsbling]: http://www.railsbling.com
 [peterboling]: http://www.peterboling.com
+
+## 🤑 One more thing
+
+You made it to the bottom of the page,
+so perhaps you'll indulge me for another 20 seconds.
+I maintain many dozens of gems, including this one,
+because I want Ruby to be a great place for people to solve problems, big and small.
+Please consider supporting my efforts via the giant yellow link below,
+or one of the others at the head of this README.
+
+[![Buy me a latte][🖇buyme-img]][🖇buyme]
+
+[🖇buyme-img]: https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20latte&emoji=&slug=pboling&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff
+[🖇buyme]: https://www.buymeacoffee.com/pboling
