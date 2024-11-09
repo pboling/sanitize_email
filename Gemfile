@@ -27,7 +27,10 @@ gem "kettle-soup-cover", "~> 1.0", ">= 1.0.4"
 # Linting
 gem "rubocop-lts", "~> 10.1", ">= 10.1.1" # Linting for Ruby >= 2.3
 gem "rubocop-packaging", "~> 0.5", ">= 0.5.2"
-gem "rubocop-rspec", "~> 2.31"
+gem "rubocop-rspec", "~> 3.2"
+gem "stringio", "~> 3.1", ">= 3.1.2"
+gem "rubocop", "~> 1.66", ">= 1.66.1"
+gem "standard", "~> 1.41", ">= 1.41.1"
 
 # Quality
 gem "reek", "~> 6.3"

@@ -9,17 +9,13 @@ and post a message to the [gitter chat][🏘chat].
 
 ### Find a smell to fix
 
-```ruby
-bundle exec rake reek
-```
+        bundle exec rake reek
 
 ## Appraisal & Combustion
 
 ### Generate a new set of Appraisal gemfiles:
 
-```sh
-BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal generate
-```
+        BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal generate
 
 NOTE: This results in bad paths to the gemspec from each of the appraisal `gemfiles/rails_*_*.gemfile` files.
 `gemspec path: "../../"` needs to be replaced with `gemspec path: "../"` in each Appraisal gemfile.
