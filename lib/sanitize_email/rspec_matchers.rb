@@ -5,7 +5,7 @@
 # Note: the RspecMatchers are composed matchers:
 # See: http://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/composing-matchers
 
-require "sanitize_email/mail_ext"
+require_relative "mail_ext"
 
 module SanitizeEmail
   # Provides matchers that can be used in

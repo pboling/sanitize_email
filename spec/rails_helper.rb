@@ -1,4 +1,4 @@
-require "spec_helper"
+require_relative "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
 
 # Last thing before loading this gem is to setup code coverage

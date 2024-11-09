@@ -7,12 +7,12 @@
 require "version_gem"
 
 # This Library
-require "sanitize_email/version"
-require "sanitize_email/deprecation"
-require "sanitize_email/config"
-require "sanitize_email/mail_header_tools"
-require "sanitize_email/overridden_addresses"
-require "sanitize_email/bleach"
+require_relative "sanitize_email/version"
+require_relative "sanitize_email/deprecation"
+require_relative "sanitize_email/config"
+require_relative "sanitize_email/mail_header_tools"
+require_relative "sanitize_email/overridden_addresses"
+require_relative "sanitize_email/bleach"
 
 module SanitizeEmail
   # Error is raised when a block parameter is required and not provided to a method
@@ -26,13 +26,13 @@ module SanitizeEmail
     if defined?(::Rails::Engine)
       if ::Rails::VERSION::MAJOR >= 6
         # Rails 6.0+
-        require "sanitize_email/engine_v6"
+        require_relative "sanitize_email/engine_v6"
       else
         # Rails 3.1 to 5.2
-        require "sanitize_email/engine_v5"
+        require_relative "sanitize_email/engine_v5"
       end
     elsif ::Rails::VERSION::MAJOR == 3 && ::Rails::VERSION::MINOR.zero?
-      require "sanitize_email/railtie"
+      require_relative "sanitize_email/railtie"
     else
       raise "Please use the 0.X.X versions of sanitize_email for Rails 2.X and below."
     end

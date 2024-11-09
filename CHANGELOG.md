@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
+## [2.0.10] - 2024-11-09 ([tag][2.0.10t])
+- COVERAGE:  90.15% -- 247/274 lines in 8 files
+- BRANCH COVERAGE:  71.68% -- 81/113 branches in 8 files
+- 61.73% documented
+### Fixed
+* Prefer `require_relative` > `require` internally
+  * Better performance, portability, and consistency
+  * See: https://github.com/rubocop/rubocop/issues/8748
+
 ## [2.0.9] - 2024-11-09 ([tag][2.0.9t])
 - COVERAGE:  90.15% -- 247/274 lines in 8 files
 - BRANCH COVERAGE:  71.68% -- 81/113 branches in 8 files
@@ -311,7 +320,9 @@ Old version?
 * Fixed require paths
 * added about.yml and this CHANGELOG
 
-[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.9...HEAD
+[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.10...HEAD
+[2.0.10]: https://github.com/pboling/sanitize_email/compare/v2.0.9...v2.0.10
+[2.0.10t]: https://github.com/pboling/sanitize_email/tags/v2.0.10
 [2.0.9]: https://github.com/pboling/sanitize_email/compare/v2.0.8...v2.0.9
 [2.0.9t]: https://github.com/pboling/sanitize_email/tags/v2.0.9
 [2.0.8]: https://github.com/pboling/sanitize_email/compare/v2.0.7...v2.0.8

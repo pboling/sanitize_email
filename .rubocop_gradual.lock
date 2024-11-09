@@ -2,7 +2,7 @@
   "init.rb:3429808413": [
     [3, 9, 16, "Style/StringLiterals: Prefer double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.", 29970817]
   ],
-  "lib/sanitize_email.rb:1609191393": [
+  "lib/sanitize_email.rb:1050465130": [
     [57, 5, 29, "ThreadSafety/ClassAndModuleAttributes: Avoid mutating class and module attributes.", 1399760671]
   ],
   "lib/sanitize_email/config.rb:393256477": [
