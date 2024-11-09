@@ -55,4 +55,4 @@ rescue LoadError
   end
 end
 
-task default: %i[spec rubocop_gradual reek yard yard:junk]
+task default: %i[spec rubocop_gradual yard yard:junk]
