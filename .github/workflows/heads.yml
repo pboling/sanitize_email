@@ -32,6 +32,10 @@ jobs:
     if: "!contains(github.event.commits[0].message, '[ci skip]') && !contains(github.event.commits[0].message, '[skip ci]')"
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
+      # rspec-rails uses RAILS_VERSION internally
+      RAILS_VERSION: "~> ${{ matrix.rails }}"
+      # Our spec suite (not runtime code) uses RAILS_MAJOR_MINOR internally
+      RAILS_MAJOR_MINOR: ${{ matrix.rails }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -41,7 +45,8 @@ jobs:
         bundler:
           - latest
         gemfile:
-          - vanilla
+          - rails_8_0
+        rails: "8.0"
         ruby:
           - head
           # TruffleRuby is incompatible with Rails 8 currently
