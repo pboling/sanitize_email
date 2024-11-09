@@ -15,6 +15,9 @@ and post a message to the [gitter chat][🏘chat].
 BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal generate
 ```
 
+NOTE: This results in bad paths to the gemspec from each of the appraisal `gemfiles/rails_*_*.gemfile` files.
+`gemspec path: "../../"` needs to be replaced with `gemspec path: "../"` in each Appraisal gemfile.
+
 ## Release
 
 ### One-time, Per-developer, Setup

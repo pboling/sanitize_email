@@ -684,15 +684,19 @@ appraisal install
 appraisal rake test
 ```
 
-Sometimes also:
+NOTE: `appraisal install` uses the standard Gemfile, and thus adds a bunch of gems 
+we do not need in each of our appraisal gemfiles.
+
+Instead we can do one of:
 ```sh
+BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal generate
 BUNDLE_GEMFILE=gemfiles/vanilla.gemfile appraisal update
 ```
 
-NOTE: This results in bad paths to the gemspec.
+NOTE: This results in bad paths to the gemspec from each of the appraisal `gemfiles/rails_*_*.gemfile` files.
 `gemspec path: "../../"` needs to be replaced with `gemspec path: "../"` in each Appraisal gemfile.
 
-Except, is unlikely to be possible to install all of the supported Rubies & Railsies in a single container...
+It is unlikely to be possible to install all of the supported Rubies & Railsies in a single container...
 See the various github action workflows for more inspiration on running certain oldies.
 
 ### Code Coverage
