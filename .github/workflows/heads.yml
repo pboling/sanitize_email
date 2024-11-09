@@ -46,7 +46,8 @@ jobs:
           - latest
         gemfile:
           - rails_8_0
-        rails: "8.0"
+        rails:
+          - "8.0"
         ruby:
           - head
           # TruffleRuby is incompatible with Rails 8 currently
