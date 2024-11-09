@@ -247,7 +247,7 @@ It's particularly helpful when you want to prevent the delivery of email (e.g. i
 
 ## Re-routing Email on a Staging or QA Server
 
-Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  Similarly, we set up QA instances for our own QA team and we use [rails-caddy](http://github.com/jtrupiano/rails-caddy) to allow each QA person to configure it specifically for them.
+Another very important use case for me is to transparently re-route email generated from a staging or QA server to an appropriate person.  For example, it's common for us to set up a staging server for a client to use to view our progress and test out new features.  It's important for any email that is generated from our web application be delivered to the client's inbox so that they can review the content and ensure that it's acceptable.  `dotenv` or `direnv` allows each developer to configure the local behavior specifically for them via ENV vars.
 
 ## Testing Email from a Hot Production Server
 
