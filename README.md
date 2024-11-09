@@ -375,8 +375,7 @@ Regardless of the Config settings of SanitizeEmail you can do a local override t
 You have access to all the same configuration options in the parameter hash as you can set in the actual
 `SanitizeEmail.configure` block.
 
-
-        SanitizeEmail.sanitary({sanitized_to: "boo@example.com"}) do # these config options are merged with the globals
+        SanitizeEmail.sanitary(sanitized_to: "boo@example.com") do # these config options are merged with the globals
           Mail.deliver do
             from "from@example.org"
             to "to@example.org" # Will actually be sent to the override addresses, in this case: boo@example.com
@@ -390,19 +389,19 @@ You have access to all the same configuration options in the parameter hash as y
 As used in the "Description" column below, `engaged` means: `SanitizeEmail.activate?(message) # => true`.
 This happens in a few different ways, and two of them are in the config below (`engage` and `activation_proc`).
 
-| Option                                      | Type (Yard format)                   | Description                                                                                                                          |
-|---------------------------------------------|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| sanitized_to                                | [String, Array[String]]              | (when engaged) Override CC field with these addresses                                                                                |
-| sanitized_cc                                | [String, Array[String]]              | (when engaged) Override CC field with these addresses                                                                                |
-| sanitized_bcc                               | [String, Array[String]]              | (when engaged) Override BCC field with these addresses                                                                               |
-| good_list                                   | [Array[String]]                      | (when engaged) Email addresses to allow to pass-through without overriding                                                           |
-| bad_list                                    | [Array[String]]                      | (when engaged) Email addresses to be removed from message's TO, CC, & BCC                                                            |
-| environment                                 | [String, #to_s, Proc, Lambda, #call] | (when engaged) The environment value to use wherever it is added to message (e.g. in the subject line)                               |
-| use_actual_email_as_sanitized_user_name     | [Boolean]                            | (when engaged) Use "real" email address as username for sanitized email address (e.g. "real at example.com <sanitized@example.com>") |
-| use_actual_email_prepended_to_subject       | [Boolean]                            | (when engaged) Use "real" email address prepended to subject (e.g. "real at example.com Original Subject")                           |
-| use_actual_environment_prepended_to_subject | [Boolean]                            | (when engaged) Use `environment` prepended to subject (e.g. "{{ STAGING }} Original Subject")                                        |
-| engage                                      | [Boolean, nil]                       | Boolean will turn engage or disengage this gem, while `nil` ignores this setting and instead checks `activation_proc`                |
-| activation_proc                             | [Proc, Lambda, #call]                | When checked, due to `engage: nil`, the result will either engage or disengage this gem                                              |
+| Option                                      | Type (Yard format)                   | Description                                                                                                                            |
+|---------------------------------------------|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| sanitized_to                                | [String, Array[String]]              | (when engaged) Override CC field with these addresses                                                                                  |
+| sanitized_cc                                | [String, Array[String]]              | (when engaged) Override CC field with these addresses                                                                                  |
+| sanitized_bcc                               | [String, Array[String]]              | (when engaged) Override BCC field with these addresses                                                                                 |
+| good_list                                   | [Array[String]]                      | (when engaged) Email addresses to allow to pass-through without overriding                                                             |
+| bad_list                                    | [Array[String]]                      | (when engaged) Email addresses to be removed from message's TO, CC, & BCC                                                              |
+| environment                                 | [String, #to_s, Proc, Lambda, #call] | (when engaged) The environment value to use wherever it is added to message (e.g. in the subject line)                                 |
+| use_actual_email_as_sanitized_user_name     | [Boolean]                            | (when engaged) Use "real" email address as username for sanitized email address (e.g. `"real at example.com <sanitized@example.com>"`) |
+| use_actual_email_prepended_to_subject       | [Boolean]                            | (when engaged) Use "real" email address prepended to subject (e.g. `"real at example.com Original Subject"`)                           |
+| use_actual_environment_prepended_to_subject | [Boolean]                            | (when engaged) Use `environment` prepended to subject (e.g. `"[[ STAGING ]] Original Subject"`)                                        |
+| engage                                      | [Boolean, nil]                       | Boolean will turn engage or disengage this gem, while `nil` ignores this setting and instead checks `activation_proc`                  |
+| activation_proc                             | [Proc, Lambda, #call]                | When checked, due to `engage: nil`, the result will either engage or disengage this gem                                                |
 
 ## Thread Safety
 
