@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
+## [2.0.10] - 2024-11-09 ([tag][2.0.10t])
+- COVERAGE:  90.15% -- 247/274 lines in 8 files
+- BRANCH COVERAGE:  71.68% -- 81/113 branches in 8 files
+- 61.73% documented
+### Fixed
+* Prefer `require_relative` > `require`
+  * See: https://github.com/rubocop/rubocop/issues/8748
+
 ## [2.0.9] - 2024-11-09 ([tag][2.0.9t])
 - COVERAGE:  90.15% -- 247/274 lines in 8 files
 - BRANCH COVERAGE:  71.68% -- 81/113 branches in 8 files

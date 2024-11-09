@@ -6,9 +6,9 @@
 require "rspec/pending_for"
 
 # RSpec Configs
-require "config/byebug"
-require "config/rspec/helpers"
-require "config/rspec/rspec_block_is_expected"
-require "config/rspec/rspec_core"
-require "config/rspec/version_gem"
-require "support/matchers"
+require_relative "config/byebug"
+require_relative "config/rspec/helpers"
+require_relative "config/rspec/rspec_block_is_expected"
+require_relative "config/rspec/rspec_core"
+require_relative "config/rspec/version_gem"
+require_relative "support/matchers"
