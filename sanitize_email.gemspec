@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.version = gem_version
 
   # See CONTRIBUTING.md
-  spec.cert_chain = ["certs/pboling.pem"]
+  spec.cert_chain = [ENV.fetch("GEM_CERT_PATH", "certs/#{ENV.fetch("GEM_CERT_USER", ENV["USER"])}.pem")]
   spec.signing_key = File.expand_path("~/.ssh/gem-private_key.pem") if $PROGRAM_NAME.end_with?("gem")
 
   spec.authors = ["Peter Boling", "John Trupiano", "George Anderson"]
