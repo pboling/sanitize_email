@@ -10,9 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
+## [2.0.9] - 2024-11-09 ([tag][2.0.9t])
+- COVERAGE:  90.15% -- 247/274 lines in 8 files
+- BRANCH COVERAGE:  71.68% -- 81/113 branches in 8 files
+- 61.73% documented
+### Added
+* More & better documentation
+* Rails 8.0 to CI
+
 ## [2.0.8] - 2024-06-11 ([tag][2.0.8t])
 ### Fixed
-# [#110](https://github.com/pboling/sanitize_email/issues/110) - interceptor not working via Rails 6+ engine (actual fix!)
+* [#110](https://github.com/pboling/sanitize_email/issues/110) - interceptor not working via Rails 6+ engine (actual fix!)
 
 ## [2.0.7] - 2024-04-25 ([tag][2.0.7t])
 ### Added
@@ -20,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Documentation is now via yard instead of rdoc
 ### Fixed
-# [#110](https://github.com/pboling/sanitize_email/issues/110) - interceptor not working via Rails 6+ engine
+* [#110](https://github.com/pboling/sanitize_email/issues/110) - interceptor not working via Rails 6+ engine
 
 ## [2.0.6] - 2024-04-25 ([tag][2.0.6t])
 ### Added
@@ -303,7 +311,9 @@ Old version?
 * Fixed require paths
 * added about.yml and this CHANGELOG
 
-[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.8...HEAD
+[Unreleased]: https://github.com/pboling/sanitize_email/compare/v2.0.9...HEAD
+[2.0.9]: https://github.com/pboling/sanitize_email/compare/v2.0.8...v2.0.9
+[2.0.9t]: https://github.com/pboling/sanitize_email/tags/v2.0.9
 [2.0.8]: https://github.com/pboling/sanitize_email/compare/v2.0.7...v2.0.8
 [2.0.8t]: https://github.com/pboling/sanitize_email/tags/v2.0.8
 [2.0.7]: https://github.com/pboling/sanitize_email/compare/v2.0.6...v2.0.7
