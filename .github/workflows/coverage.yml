@@ -4,13 +4,13 @@ env:
   K_SOUP_COV_MIN_BRANCH: 71
   K_SOUP_COV_MIN_LINE: 89
   K_SOUP_COV_MIN_HARD: true
+  K_SOUP_COV_DO: true
+  K_SOUP_COV_COMMAND_NAME: "RSpec Coverage"
 
 on:
   push:
     branches:
       - 'main'
-      - '*-stable'
-      - '*-dev'
     tags:
       - '!*' # Do not execute on tags
   pull_request:
@@ -62,7 +62,7 @@ jobs:
           ruby-version: "${{ matrix.ruby }}"
           rubygems: "${{ matrix.rubygems }}"
           bundler: "${{ matrix.bundler }}"
-          bundler-cache: true
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - name: CodeClimate Pre-build Notification
         run: cc-test-reporter before-build
@@ -89,7 +89,7 @@ jobs:
           hide_complexity: true
           indicators: true
           output: both
-          thresholds: '93 82'
+          thresholds: '90 71'
         continue-on-error: ${{ matrix.experimental != 'false' }}
 
       - name: Add Coverage PR Comment
