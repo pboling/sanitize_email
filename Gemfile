@@ -18,8 +18,8 @@ platform :mri do
   gem "byebug", ">= 11"
 end
 
-gem "actionmailer", "~> 7.2.1.1"
-gem "railties", "~> 7.2.1.1"
+gem "actionmailer", "~> 7.2.2"
+gem "railties", "~> 7.2.2"
 
 # Coverage
 gem "kettle-soup-cover", "~> 1.0", ">= 1.0.4"
