@@ -28,7 +28,8 @@ module SanitizeEmail
 
         return if message["personalizations"].nil?
 
-        message["personalizations"].value = overridden.overridden_personalizations
+        message["personalizations"] = nil
+        message["personalizations"] = overridden.overridden_personalizations
       end
 
       # Will be called by the Hook to determine if an override should occur
